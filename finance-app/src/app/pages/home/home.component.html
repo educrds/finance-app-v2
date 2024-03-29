@@ -1,2 +1,10 @@
-<fin-navbar />
-<fin-sidebar />
+<fin-column>
+  <fin-navbar />
+
+  <fin-row>
+    <fin-sidebar />
+    <fin-wrap-container [class]="'ml-3 w-100'">
+      <router-outlet></router-outlet>
+    </fin-wrap-container>
+  </fin-row>
+</fin-column>

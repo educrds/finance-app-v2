@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
@@ -11,6 +12,8 @@ export class SidebarComponent implements OnInit {
   items_menu: MenuItem[] | undefined;
   items_transacao: MenuItem[] | undefined;
 
+  constructor(private router: Router){}
+
   ngOnInit(): void {
     this.items_menu = [
       {
@@ -19,17 +22,23 @@ export class SidebarComponent implements OnInit {
           {
             label: 'Ver todas',
             icon: 'pi pi-book',
-            command: () => {},
+            command: () => {
+              this.router.navigate(['all'])
+            },
           },
           {
             label: 'Receitas',
             icon: 'pi pi-plus-circle',
-            command: () => {},
+            command: () => {
+              this.router.navigate(['receitas'])
+            },
           },
           {
             label: 'Despesas',
             icon: 'pi pi-minus-circle',
-            command: () => {},
+            command: () => {
+              this.router.navigate(['despesas'])
+            },
           },
         ],
       },

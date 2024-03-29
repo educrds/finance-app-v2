@@ -19,6 +19,9 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
 import { CalendarModule } from 'primeng/calendar';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LogoComponent } from './shared/components/logo/logo.component';
+import { MainComponent } from './components/main/main.component';
+import { ColumnComponent } from './shared/components/column/column.component';
+import { RowComponent } from './shared/components/row/row.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { LogoComponent } from './shared/components/logo/logo.component';
     NavbarComponent,
     SidebarComponent,
     WrapContainerComponent,
-    LogoComponent
+    LogoComponent,
+    MainComponent,
+    ColumnComponent,
+    RowComponent
   ],
   imports: [
     BrowserModule,
