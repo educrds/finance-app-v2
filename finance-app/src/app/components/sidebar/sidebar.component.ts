@@ -12,7 +12,7 @@ export class SidebarComponent implements OnInit {
   items_menu: MenuItem[] | undefined;
   items_transacao: MenuItem[] | undefined;
 
-  constructor(private router: Router){}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.items_menu = [
@@ -22,28 +22,22 @@ export class SidebarComponent implements OnInit {
           {
             label: 'Ver todas',
             icon: 'pi pi-book',
-            command: () => {
-              this.router.navigate(['all'])
-            },
+            routerLink: ['/all'],
           },
           {
             label: 'Receitas',
             icon: 'pi pi-plus-circle',
-            command: () => {
-              this.router.navigate(['receitas'])
-            },
+            routerLink: ['/receitas'],
           },
           {
             label: 'Despesas',
             icon: 'pi pi-minus-circle',
-            command: () => {
-              this.router.navigate(['despesas'])
-            },
+            routerLink: ['/despesas'],
           },
         ],
       },
       {
-        separator: true
+        separator: true,
       },
       {
         label: 'Categorias',
@@ -51,9 +45,8 @@ export class SidebarComponent implements OnInit {
           {
             label: 'Ver todas',
             icon: 'pi pi-book',
-            command: () => {},
-          }
-        ]     
+          },
+        ],
       },
     ];
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TransacoesService } from '../../services/transacoes.service';
-import { take, tap } from 'rxjs';
+import { take } from 'rxjs';
 import { ITransacao } from '../../interfaces/ITransacao';
 
 @Component({
