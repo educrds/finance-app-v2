@@ -1,5 +1,7 @@
 <fin-wrap-container [className]="'w-100 d-flex justify-between'">
-  <div>&nbsp;</div>
-  <p-calendar view="month" dateFormat="MM" formControlName="date"></p-calendar>
+  <fin-logo />
+  <form [formGroup]="monthInputForm">
+    <p-calendar view="month" dateFormat="MM" formControlName="month_selected"></p-calendar>
+  </form>
   <p-avatar label="EC" styleClass="mr-2" size="normal" shape="circle"></p-avatar>
 </fin-wrap-container>
