@@ -17,7 +17,7 @@ export class SidebarComponent implements OnInit {
         label: 'Transações',
         items: [
           {
-            label: 'Todas',
+            label: 'Ver todas',
             icon: 'pi pi-book',
             command: () => {},
           },
@@ -32,6 +32,19 @@ export class SidebarComponent implements OnInit {
             command: () => {},
           },
         ],
+      },
+      {
+        separator: true
+      },
+      {
+        label: 'Categorias',
+        items: [
+          {
+            label: 'Ver todas',
+            icon: 'pi pi-book',
+            command: () => {},
+          }
+        ]     
       },
     ];
 
