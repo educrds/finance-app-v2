@@ -8,8 +8,6 @@ import { take } from 'rxjs';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
-  title = 'finance-app';
-
   constructor(private _transacoesService: TransacoesService) {}
 
   ngOnInit(): void {
