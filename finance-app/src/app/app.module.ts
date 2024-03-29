@@ -24,6 +24,8 @@ import { ColumnComponent } from './shared/components/column/column.component';
 import { RowComponent } from './shared/components/row/row.component';
 import { TableModule } from 'primeng/table';
 import { ChipModule } from 'primeng/chip';
+import { ReceitasComponent } from './components/receitas/receitas.component';
+import { DespesasComponent } from './components/despesas/despesas.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +36,9 @@ import { ChipModule } from 'primeng/chip';
     LogoComponent,
     MainComponent,
     ColumnComponent,
-    RowComponent
+    RowComponent,
+    ReceitasComponent,
+    DespesasComponent
   ],
   imports: [
     BrowserModule,

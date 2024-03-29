@@ -14,9 +14,19 @@ export class TransacoesService {
 
   getTransacoes(): Observable<ITransacao[]> {
     return this._http
-      .post<ITransacao[]>(`${this._api_url}transacoes/listar`, {
-        teste: 'teste',
-      })
+      .post<ITransacao[]>(`${this._api_url}transacoes/listar`, {})
+      .pipe(retry(1));
+  }
+
+  getReceitas(): Observable<ITransacao[]> {
+    return this._http
+      .post<ITransacao[]>(`${this._api_url}transacoes/listar/receitas`, {})
+      .pipe(retry(1));
+  }
+
+  getDespesas(): Observable<ITransacao[]> {
+    return this._http
+      .post<ITransacao[]>(`${this._api_url}transacoes/listar/despesas`, {})
       .pipe(retry(1));
   }
 }

@@ -1,0 +1,28 @@
+<h2>Transações</h2>
+<hr>
+<p-table [value]="transacoes" [tableStyle]="{ 'min-width': '50rem' }">
+  <ng-template pTemplate="header">
+      <tr>
+          <th>Tipo de Transação</th>
+          <th>Título</th>
+          <th>Valor</th>
+          <th>Categoria</th>
+          <th>Data Transação</th>
+          <th>Metódo</th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-transacao>
+      <tr>
+          <td>
+            <p-chip>{{ transacao.tipo_transacao }}</p-chip>
+          </td>
+          <td>{{ transacao.trs_titulo }}</td>
+          <td>{{ transacao.trs_valor | currency: 'R$ ' }}</td>
+          <td>
+            <p-chip>{{ transacao.categoria_nome }}</p-chip>
+          </td>
+          <td>{{ transacao.trs_data_ocorrido | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ transacao.metodo }}</td>
+      </tr>
+  </ng-template>
+</p-table>
