@@ -1,20 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { retry } from 'rxjs';
+import { Observable, retry } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { ITransacao } from '../interfaces/ITransacao';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class TransacoesService {
   private _api_url = environment.api_url;
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient) {}
 
-  getTransacoes(){
-    return this._http.post(`${this._api_url}transacoes/listar`, {
-      teste: 'teste'
-    }).pipe(retry(1));
+  getTransacoes(): Observable<ITransacao[]> {
+    return this._http
+      .post<ITransacao[]>(`${this._api_url}transacoes/listar`, {
+        teste: 'teste',
+      })
+      .pipe(retry(1));
   }
 }

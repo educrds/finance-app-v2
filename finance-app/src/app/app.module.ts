@@ -22,7 +22,8 @@ import { LogoComponent } from './shared/components/logo/logo.component';
 import { MainComponent } from './components/main/main.component';
 import { ColumnComponent } from './shared/components/column/column.component';
 import { RowComponent } from './shared/components/row/row.component';
-
+import { TableModule } from 'primeng/table';
+import { ChipModule } from 'primeng/chip';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +47,8 @@ import { RowComponent } from './shared/components/row/row.component';
     BrowserAnimationsModule,
     AvatarModule,
     AvatarGroupModule,
+    TableModule,
+    ChipModule,
     CalendarModule,
   ],
   providers: [],
