@@ -1,22 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { TransacoesService } from './services/transacoes.service';
-import { take } from 'rxjs';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'fin-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit {
-  constructor(private _transacoesService: TransacoesService) {}
+export class AppComponent {
 
-  ngOnInit(): void {
-    this._transacoesService
-      .getTransacoes()
-      .pipe(take(1))
-      .subscribe({
-        next: (res) => console.log(res),
-        error: (err) => console.log(err),
-      });
-  }
 }
