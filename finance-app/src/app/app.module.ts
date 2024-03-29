@@ -13,13 +13,18 @@ import { MenuModule } from 'primeng/menu';
 import { ToastModule } from 'primeng/toast';
 import { BrowserModule } from '@angular/platform-browser';
 import { SplitButtonModule } from 'primeng/splitbutton';
+import { WrapContainerComponent } from './shared/components/wrap-container/wrap-container.component';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    WrapContainerComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +33,10 @@ import { SplitButtonModule } from 'primeng/splitbutton';
     MenuModule,
     ToastModule,
     SplitButtonModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AvatarModule,
+    AvatarGroupModule,
+    CalendarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
