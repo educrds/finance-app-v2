@@ -17,6 +17,8 @@ import { WrapContainerComponent } from './shared/components/wrap-container/wrap-
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { CalendarModule } from 'primeng/calendar';
+import { ReactiveFormsModule } from '@angular/forms';
+import { LogoComponent } from './shared/components/logo/logo.component';
 
 @NgModule({
   declarations: [
@@ -24,13 +26,15 @@ import { CalendarModule } from 'primeng/calendar';
     HomeComponent,
     NavbarComponent,
     SidebarComponent,
-    WrapContainerComponent
+    WrapContainerComponent,
+    LogoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     MenuModule,
+    ReactiveFormsModule,
     ToastModule,
     SplitButtonModule,
     BrowserAnimationsModule,
