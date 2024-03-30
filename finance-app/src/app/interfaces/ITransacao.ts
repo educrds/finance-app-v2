@@ -10,4 +10,5 @@ export interface ITransacao {
   tipo_transacao: string;
   id_tipo_transacao: number;
   trs_parcelado: number;
+  categoria_cor: string;
 }
