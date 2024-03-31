@@ -29,4 +29,12 @@ export class TransacoesService {
       .post<ITransacao[]>(`${this._api_url}transacoes/listar/despesas`, {})
       .pipe(retry(1));
   }
+
+
+  addTransacao(dadosTransacao: ITransacao) {
+    return this._http
+      .post<ITransacao[]>(`${this._api_url}transacao/adicionar`, {
+        data: dadosTransacao,
+      });
+  }
 }
