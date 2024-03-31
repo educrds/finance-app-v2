@@ -23,9 +23,16 @@ import { MainComponent } from './components/main/main.component';
 import { ColumnComponent } from './shared/components/column/column.component';
 import { RowComponent } from './shared/components/row/row.component';
 import { TableModule } from 'primeng/table';
-import { ChipModule } from 'primeng/chip';
 import { ReceitasComponent } from './components/receitas/receitas.component';
 import { DespesasComponent } from './components/despesas/despesas.component';
+import { DialogModule } from 'primeng/dialog';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { ModalTransacaoComponent } from './components/modal-transacao/modal-transacao.component';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { MessageService } from 'primeng/api';
+import { DropdownModule } from 'primeng/dropdown';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +45,8 @@ import { DespesasComponent } from './components/despesas/despesas.component';
     ColumnComponent,
     RowComponent,
     ReceitasComponent,
-    DespesasComponent
+    DespesasComponent,
+    ModalTransacaoComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,13 +57,17 @@ import { DespesasComponent } from './components/despesas/despesas.component';
     ToastModule,
     SplitButtonModule,
     BrowserAnimationsModule,
+    DialogModule,
+    DynamicDialogModule,
     AvatarModule,
     AvatarGroupModule,
     TableModule,
-    ChipModule,
+    InputTextModule,
+    InputNumberModule,
     CalendarModule,
+    DropdownModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [MessageService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

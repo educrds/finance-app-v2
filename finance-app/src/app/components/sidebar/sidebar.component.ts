@@ -1,18 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem } from 'primeng/api';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ModalTransacaoComponent } from '../modal-transacao/modal-transacao.component';
 
 @Component({
   selector: 'fin-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
-  providers: [MessageService],
+  providers: [DialogService],
 })
 export class SidebarComponent implements OnInit {
   items_menu: MenuItem[] | undefined;
   items_transacao: MenuItem[] | undefined;
 
-  constructor(private router: Router) {}
+  ref: DynamicDialogRef | undefined;
+
+  constructor(private dialogService: DialogService) {}
 
   ngOnInit(): void {
     this.items_menu = [
@@ -54,13 +57,34 @@ export class SidebarComponent implements OnInit {
       {
         label: 'Receitas',
         icon: 'pi pi-plus-circle',
-        command: () => {},
+        command: () => {
+          this.ref = this.dialogService.open(ModalTransacaoComponent, {
+            modal: true,
+            header: 'Nova Receita',
+            width: '35vw',
+            contentStyle: { overflow: 'auto' },
+            data: {
+              trs_tipo: 1
+            }
+          });
+        },
       },
       {
         label: 'Despesas',
         icon: 'pi pi-minus-circle',
-        command: () => {},
+        command: () => {
+          this.ref = this.dialogService.open(ModalTransacaoComponent, {
+            modal: true,
+            header: 'Nova Despesa',
+            width: '35vw',
+            contentStyle: { overflow: 'auto' },
+            data: {
+              trs_tipo: 2
+            }
+          });
+        },
       },
     ];
   }
+
 }
