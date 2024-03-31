@@ -13,6 +13,7 @@ const routes: Routes = [
       { path: 'all', component:  MainComponent},
       { path: 'receitas', component:  ReceitasComponent},
       { path: 'despesas', component:  DespesasComponent},
+      { path: '',   redirectTo: '/all', pathMatch: 'full' },
     ]
   },
 ];
