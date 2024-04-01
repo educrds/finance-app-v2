@@ -4,11 +4,7 @@ import { TransacoesService } from '../../services/transacoes.service';
 import { NotificationService } from '../../services/notification.service';
 import { CategoriasService } from '../../services/categorias.service';
 import { IDropdown } from '../../interfaces/IDropdown';
-import {
-  DialogService,
-  DynamicDialogConfig,
-  DynamicDialogRef,
-} from 'primeng/dynamicdialog';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ITransacao } from '../../interfaces/ITransacao';
 
 @Component({
@@ -78,24 +74,34 @@ export class ModalTransacaoComponent implements OnInit {
     this.inserirTransacao(form);
   }
 
-  protected inserirTransacao(form: ITransacao) {
+  private inserirTransacao(form: ITransacao) {
     this.transacoesService.addTransacao(form).subscribe({
       next: () => {
-        this.notificationService.showSuccess('Transação adicionada com successo!');
+        this.notificationService.showSuccess(
+          'Transação adicionada com successo!'
+        );
         this.ref.close();
       },
-      error: () => this.notificationService.showError('Ocorreu um erro ao adicionar transação.'),
+      error: () =>
+        this.notificationService.showError(
+          'Ocorreu um erro ao adicionar transação.'
+        ),
       complete: () => (this.loading = false),
     });
   }
 
-  protected atualizarTransacao(form: ITransacao) {
+  private atualizarTransacao(form: ITransacao) {
     this.transacoesService.atualizarTransacao(form).subscribe({
       next: () => {
-        this.notificationService.showSuccess('Transação atualizada com successo!');
+        this.notificationService.showSuccess(
+          'Transação atualizada com successo!'
+        );
         this.ref.close();
       },
-      error: () => this.notificationService.showError('Ocorreu um erro ao atualizar transação.'),
+      error: () =>
+        this.notificationService.showError(
+          'Ocorreu um erro ao atualizar transação.'
+        ),
       complete: () => (this.loading = false),
     });
   }

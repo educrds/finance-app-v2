@@ -4,7 +4,7 @@ import { take } from 'rxjs';
 import { ITransacao } from '../../interfaces/ITransacao';
 import { NotificationService } from '../../services/notification.service';
 import { ConfirmationService } from 'primeng/api';
-import { ModalTransacaoComponent } from '../modal-transacao/modal-transacao.component';
+import { ModalTransacaoComponent } from '../../templates/modal-transacao/modal-transacao.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
