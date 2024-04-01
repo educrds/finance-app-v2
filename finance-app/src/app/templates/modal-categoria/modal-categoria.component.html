@@ -1,0 +1,17 @@
+<form action="" [formGroup]="formAddCategoria">
+  <fin-column
+    ><div class="d-flex flex-column g-4">
+      <label for="input_nome">Nome:</label>
+      <input id="input_nome" pInputText formControlName="cat_nome" />
+    </div>
+    
+    <div class="d-flex flex-column g-4">
+      <label for="input_cor">Cor:</label>
+      <fin-row>
+        <p-colorPicker id="input_cor" appendTo="body" formControlName="cat_cor"></p-colorPicker>
+      </fin-row>
+    </div>
+    
+    <p-button label="Salvar" [loading]="loading" (onClick)="inserirOuAtualizarCategoria()"></p-button>
+  </fin-column>
+</form>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ModalTransacaoComponent } from '../modal-transacao/modal-transacao.component';
+import { ModalTransacaoComponent } from '../../templates/modal-transacao/modal-transacao.component';
 
 @Component({
   selector: 'fin-sidebar',
@@ -48,6 +48,7 @@ export class SidebarComponent implements OnInit {
           {
             label: 'Ver todas',
             icon: 'pi pi-book',
+            routerLink: ['/categorias']
           },
         ],
       },
