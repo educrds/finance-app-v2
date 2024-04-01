@@ -64,7 +64,7 @@ export class SidebarComponent implements OnInit {
             width: '35vw',
             contentStyle: { overflow: 'auto' },
             data: {
-              trs_tipo: 1
+              id_tipo_transacao: 1
             }
           });
         },
@@ -79,7 +79,7 @@ export class SidebarComponent implements OnInit {
             width: '35vw',
             contentStyle: { overflow: 'auto' },
             data: {
-              trs_tipo: 2
+              id_tipo_transacao: 2
             }
           });
         },
