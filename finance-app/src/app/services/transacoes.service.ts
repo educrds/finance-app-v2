@@ -30,11 +30,24 @@ export class TransacoesService {
       .pipe(retry(1));
   }
 
-
   addTransacao(dadosTransacao: ITransacao) {
-    return this._http
-      .post<ITransacao[]>(`${this._api_url}transacao/adicionar`, {
+    return this._http.post<ITransacao[]>(
+      `${this._api_url}transacao/adicionar`,
+      {
         data: dadosTransacao,
-      });
+      }
+    );
+  }
+
+  deletarTransacao(idTransacao: string) {
+    return this._http.post(`${this._api_url}transacao/deletar`, {
+      data: idTransacao,
+    });
+  }
+
+  atualizarTransacao(dadosTransacao: ITransacao) {
+    return this._http.post(`${this._api_url}transacao/atualizar`, {
+      data: dadosTransacao,
+    });
   }
 }
