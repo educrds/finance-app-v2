@@ -38,6 +38,7 @@ import { MessageService } from 'primeng/api';
 import { DropdownModule } from 'primeng/dropdown';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ColorPickerModule } from 'primeng/colorpicker';
+import { MessagesModule } from 'primeng/messages';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { ColorPickerModule } from 'primeng/colorpicker';
     CalendarModule,
     DropdownModule,
     ConfirmDialogModule,
-    ColorPickerModule
+    ColorPickerModule,
+    MessagesModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent],
