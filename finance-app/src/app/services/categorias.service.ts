@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, retry } from 'rxjs';
+import { BehaviorSubject, Observable, retry } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { IDropdown } from '../interfaces/IDropdown';
 import { Categoria, Categorias } from '../interfaces/Categorias';
@@ -12,6 +12,15 @@ export class CategoriasService {
   private _api_url = environment.api_url;
 
   constructor(private _http: HttpClient) {}
+
+  public notify = new BehaviorSubject<any>('');
+  notifyObservable$ = this.notify.asObservable();
+
+  public notifyChanges(data: any) {
+    if(data){
+      this.notify.next(data)
+    }
+  }
 
   getCategoriasDropdown(): Observable<IDropdown[]> {
     return this._http
