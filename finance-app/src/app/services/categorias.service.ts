@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, retry } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { IDropdown } from '../interfaces/IDropdown';
-import { Categoria } from '../interfaces/Categorias';
+import { Categoria, Categorias } from '../interfaces/Categorias';
 
 @Injectable({
   providedIn: 'root',
@@ -13,9 +13,15 @@ export class CategoriasService {
 
   constructor(private _http: HttpClient) {}
 
-  getCategorias(): Observable<Categoria[]> {
+  getCategoriasDropdown(): Observable<IDropdown[]> {
     return this._http
-      .post<Categoria[]>(`${this._api_url}categorias/listar`, {})
+      .post<IDropdown[]>(`${this._api_url}categorias/listar-select`, {})
+      .pipe(retry(1));
+  }
+
+  getCategorias(): Observable<Categorias[]> {
+    return this._http
+      .post<Categorias[]>(`${this._api_url}categorias/listar`, {})
       .pipe(retry(1));
   }
 

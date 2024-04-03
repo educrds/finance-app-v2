@@ -6,6 +6,7 @@ import { CategoriasService } from '../../services/categorias.service';
 import { IDropdown } from '../../interfaces/IDropdown';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ITransacao } from '../../interfaces/ITransacao';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'fin-modal-transacao',
@@ -16,30 +17,31 @@ import { ITransacao } from '../../interfaces/ITransacao';
 export class ModalTransacaoComponent implements OnInit {
   formAddTransacao!: FormGroup;
   categoriasOptions!: IDropdown[];
-
+  
   protected loading: boolean = false;
 
   constructor(
     private _fb: FormBuilder,
-    private transacoesService: TransacoesService,
-    private notificationService: NotificationService,
-    private categoriasService: CategoriasService,
-    private ref: DynamicDialogRef,
-    private config: DynamicDialogConfig
+    private _transacoesService: TransacoesService,
+    private _notificationService: NotificationService,
+    private _categoriasService: CategoriasService,
+    private _ref: DynamicDialogRef,
+    private _config: DynamicDialogConfig,
   ) {}
 
   ngOnInit(): void {
-    if (this.config.data.trs_id) {
+    if (this._config.data.trs_id) {
       this.formAddTransacao = this._fb.group({
-        trs_valor: [this.config.data.trs_valor],
-        trs_data_ocorrido: [new Date(this.config.data.trs_data_ocorrido)],
-        trs_titulo: [this.config.data?.trs_titulo, Validators.required],
-        trs_descricao: [this.config.data?.trs_descricao],
-        trs_categoria: [this.config.data?.id_categoria],
+        trs_valor: [this._config.data.trs_valor],
+        trs_data_ocorrido: [new Date(this._config.data.trs_data_ocorrido)],
+        trs_titulo: [this._config.data?.trs_titulo, Validators.required],
+        trs_descricao: [this._config.data?.trs_descricao],
+        trs_categoria: [this._config.data?.id_categoria],
         trs_usuario: [1],
-        trs_tipo: [this.config.data.id_tipo_transacao],
+        trs_tipo: [this._config.data.id_tipo_transacao],
         trs_metodo: [1],
-        trs_id: [this.config.data.trs_id],
+        trs_status: [!!this._config.data.trs_status],
+        trs_id: [this._config.data.trs_id],
       });
     } else {
       this.formAddTransacao = this._fb.group({
@@ -49,15 +51,16 @@ export class ModalTransacaoComponent implements OnInit {
         trs_descricao: [''],
         trs_categoria: [''],
         trs_usuario: [1],
-        trs_tipo: [this.config.data.id_tipo_transacao],
+        trs_tipo: [this._config.data.id_tipo_transacao],
         trs_metodo: [1],
+        trs_status: [false],
       });
     }
 
-    this.categoriasService.getCategorias().subscribe({
+    this._categoriasService.getCategoriasDropdown().subscribe({
       next: (res) => (this.categoriasOptions = res),
       error: () =>
-        this.notificationService.showError(
+        this._notificationService.showError(
           'Ocorreu um erro ao buscar categorias.'
         ),
     });
@@ -75,15 +78,15 @@ export class ModalTransacaoComponent implements OnInit {
   }
 
   private inserirTransacao(form: ITransacao) {
-    this.transacoesService.addTransacao(form).subscribe({
+    this._transacoesService.addTransacao(form).subscribe({
       next: () => {
-        this.notificationService.showSuccess(
+        this._notificationService.showSuccess(
           'Transação adicionada com successo!'
         );
-        this.ref.close();
+        this._ref.close();
       },
       error: () =>
-        this.notificationService.showError(
+        this._notificationService.showError(
           'Ocorreu um erro ao adicionar transação.'
         ),
       complete: () => (this.loading = false),
@@ -91,15 +94,15 @@ export class ModalTransacaoComponent implements OnInit {
   }
 
   private atualizarTransacao(form: ITransacao) {
-    this.transacoesService.atualizarTransacao(form).subscribe({
+    this._transacoesService.atualizarTransacao(form).subscribe({
       next: () => {
-        this.notificationService.showSuccess(
+        this._notificationService.showSuccess(
           'Transação atualizada com successo!'
         );
-        this.ref.close();
+        this._ref.close();
       },
       error: () =>
-        this.notificationService.showError(
+        this._notificationService.showError(
           'Ocorreu um erro ao atualizar transação.'
         ),
       complete: () => (this.loading = false),
