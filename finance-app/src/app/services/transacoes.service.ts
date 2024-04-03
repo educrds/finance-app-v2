@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, retry } from 'rxjs';
+import { BehaviorSubject, Observable, retry } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ITransacao } from '../interfaces/ITransacao';
+import { ITransacoesSoma } from '../interfaces/ITransacoesSoma';
 
 @Injectable({
   providedIn: 'root',
@@ -12,21 +13,36 @@ export class TransacoesService {
 
   constructor(private _http: HttpClient) {}
 
-  getTransacoes(): Observable<ITransacao[]> {
+  public notify = new BehaviorSubject<any>('');
+  notifyObservable$ = this.notify.asObservable();
+
+  public notifyChanges(data: any) {
+    if(data){
+      this.notify.next(data)
+    }
+  }
+
+  getTransacoes(params: Date): Observable<ITransacao[]> {
     return this._http
-      .post<ITransacao[]>(`${this._api_url}transacoes/listar`, {})
+      .post<ITransacao[]>(`${this._api_url}transacoes/listar`, { data: params })
       .pipe(retry(1));
   }
 
-  getReceitas(): Observable<ITransacao[]> {
+  getTransacoesSomatorio(params: Date): Observable<ITransacoesSoma[]> {
     return this._http
-      .post<ITransacao[]>(`${this._api_url}transacoes/listar/receitas`, {})
+      .post<ITransacoesSoma[]>(`${this._api_url}transacoes/somatorio`, { data: params })
       .pipe(retry(1));
   }
 
-  getDespesas(): Observable<ITransacao[]> {
+  getReceitas(params: Date): Observable<ITransacao[]> {
     return this._http
-      .post<ITransacao[]>(`${this._api_url}transacoes/listar/despesas`, {})
+      .post<ITransacao[]>(`${this._api_url}transacoes/listar/receitas`, { data: params })
+      .pipe(retry(1));
+  }
+
+  getDespesas(params: Date): Observable<ITransacao[]> {
+    return this._http
+      .post<ITransacao[]>(`${this._api_url}transacoes/listar/despesas`, { data: params })
       .pipe(retry(1));
   }
 
