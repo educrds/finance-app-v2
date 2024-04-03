@@ -57,6 +57,7 @@ export class ModalCategoriaComponent implements OnInit {
           'Categoria inserida com sucesso!'
         );
         this.ref.close();
+        this._categoriaService.notifyChanges({ refresh: true });
       },
       error: () =>
         this._notificationService.showError(
@@ -73,6 +74,7 @@ export class ModalCategoriaComponent implements OnInit {
           'Categoria atualizada com sucesso!'
         );
         this.ref.close();
+        this._categoriaService.notifyChanges({ refresh: true });
       },
       error: () =>
         this._notificationService.showError(

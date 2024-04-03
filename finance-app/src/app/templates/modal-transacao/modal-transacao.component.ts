@@ -7,6 +7,7 @@ import { IDropdown } from '../../interfaces/IDropdown';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ITransacao } from '../../interfaces/ITransacao';
 import { Router } from '@angular/router';
+import { MainComponent } from '../../components/main/main.component';
 
 @Component({
   selector: 'fin-modal-transacao',
@@ -17,7 +18,7 @@ import { Router } from '@angular/router';
 export class ModalTransacaoComponent implements OnInit {
   formAddTransacao!: FormGroup;
   categoriasOptions!: IDropdown[];
-  
+
   protected loading: boolean = false;
 
   constructor(
@@ -27,6 +28,7 @@ export class ModalTransacaoComponent implements OnInit {
     private _categoriasService: CategoriasService,
     private _ref: DynamicDialogRef,
     private _config: DynamicDialogConfig,
+    private _router: Router
   ) {}
 
   ngOnInit(): void {
@@ -84,6 +86,7 @@ export class ModalTransacaoComponent implements OnInit {
           'Transação adicionada com successo!'
         );
         this._ref.close();
+        this._transacoesService.notifyChanges({ refresh: true });
       },
       error: () =>
         this._notificationService.showError(
@@ -100,6 +103,7 @@ export class ModalTransacaoComponent implements OnInit {
           'Transação atualizada com successo!'
         );
         this._ref.close();
+        this._transacoesService.notifyChanges({ refresh: true });
       },
       error: () =>
         this._notificationService.showError(
