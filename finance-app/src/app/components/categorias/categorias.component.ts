@@ -30,6 +30,13 @@ export class CategoriasComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getCategoriasList();
+    this._categoriasService.notifyObservable$.subscribe(
+      (res) => res.refresh && this.getCategoriasList()
+    );
+  }
+  
+  getCategoriasList(){
     this._categoriasService.getCategorias().subscribe({
       next: (res) => (this.categorias = res),
       error: () =>
@@ -38,6 +45,7 @@ export class CategoriasComponent implements OnInit {
         ),
     });
   }
+  
 
   protected abrirModalAddCategoria() {
     this.ref = this._dialogService.open(ModalCategoriaComponent, {
