@@ -15,6 +15,7 @@
     <tr>
       <th>Categoria</th>
       <th>Cor</th>
+      <th>Tipo da Categoria</th>
       <th>&nbsp;</th>
     </tr>
   </ng-template>
@@ -28,6 +29,11 @@
             [style.background-color]="categoria.cat_cor"
           ></span>
           <span>{{ categoria.cat_cor }}</span>
+        </div>
+      </td>
+      <td>
+        <div class="chip">
+          {{ categoria.cat_tip_nome }}
         </div>
       </td>
       <td class="d-flex justify-content-end">

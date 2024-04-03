@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoriasService } from '../../services/categorias.service';
-import { Categoria } from '../../interfaces/Categorias';
+import { Categoria, Categorias } from '../../interfaces/Categorias';
 import { NotificationService } from '../../services/notification.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ModalCategoriaComponent } from '../../templates/modal-categoria/modal-categoria.component';
@@ -13,7 +13,7 @@ import { ConfirmationService } from 'primeng/api';
   providers: [DialogService, ConfirmationService],
 })
 export class CategoriasComponent implements OnInit {
-  protected categorias!: Categoria[];
+  protected categorias!: Categorias[];
   private _configModal = {
     modal: true,
     header: 'Atualizar Categoria',
