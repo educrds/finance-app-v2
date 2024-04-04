@@ -10,7 +10,6 @@ import { ConfirmationService } from 'primeng/api';
   selector: 'fin-categorias',
   templateUrl: './categorias.component.html',
   styleUrl: './categorias.component.scss',
-  providers: [DialogService, ConfirmationService],
 })
 export class CategoriasComponent implements OnInit {
   protected categorias!: Categorias[];
