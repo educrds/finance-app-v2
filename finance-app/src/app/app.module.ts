@@ -20,6 +20,8 @@ import { DespesasComponent } from './components/despesas/despesas.component';
 import { ModalTransacaoComponent } from './templates/modal-transacao/modal-transacao.component';
 import { CategoriasComponent } from './components/categorias/categorias.component';
 import { ModalCategoriaComponent } from './templates/modal-categoria/modal-categoria.component';
+import { TopCardComponent } from './shared/components/top-card/top-card.component';
+import { AlertContainerComponent } from './shared/components/alert-container/alert-container.component';
 
 // primeng
 import { MenuModule } from 'primeng/menu';
@@ -31,15 +33,17 @@ import { CalendarModule } from 'primeng/calendar';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
-import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { DropdownModule } from 'primeng/dropdown';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ColorPickerModule } from 'primeng/colorpicker';
 import { MessagesModule } from 'primeng/messages';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { ChipModule } from 'primeng/chip';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -57,6 +61,8 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     ModalTransacaoComponent,
     CategoriasComponent,
     ModalCategoriaComponent,
+    TopCardComponent,
+    AlertContainerComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,9 +85,11 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     ConfirmDialogModule,
     ColorPickerModule,
     MessagesModule,
-    InputSwitchModule
+    InputSwitchModule,
+    ChipModule,
+    TooltipModule
   ],
-  providers: [MessageService],
+  providers: [MessageService, ConfirmationService, DialogService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
