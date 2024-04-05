@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, retry } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ITransacao } from '../interfaces/ITransacao';
 import { ITransacoesSoma } from '../interfaces/ITransacoesSoma';
+import { IDropdown } from '../interfaces/IDropdown';
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +21,12 @@ export class TransacoesService {
     if(data){
       this.notify.next(data)
     }
+  }
+
+  getMetodosDropdown(): Observable<IDropdown[]> {
+    return this._http
+      .post<IDropdown[]>(`${this._api_url}transacoes/listar/metodos`, {})
+      .pipe(retry(1));
   }
 
   getTransacoes(params: Date): Observable<ITransacao[]> {
@@ -55,7 +62,7 @@ export class TransacoesService {
     );
   }
 
-  deletarTransacao(idTransacao: string) {
+  deletarTransacao(idTransacao: number) {
     return this._http.post(`${this._api_url}transacao/deletar`, {
       data: idTransacao,
     });
