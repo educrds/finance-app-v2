@@ -6,6 +6,8 @@ import { ConfirmationService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ModalTransacaoComponent } from '../templates/modal-transacao/modal-transacao.component';
 import { ITransacoesSoma } from '../interfaces/ITransacoesSoma';
+import { ParamsTransacao } from '../interfaces/ParamsTransacao';
+import { Observable, catchError, take, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -74,8 +76,17 @@ export class TransacaoUtilService {
     });
   }
 
-  checkStatusUtil(transacao: ITransacao): string | undefined {
-    let status;
+  getTransacoesUtil(params: ParamsTransacao): Observable<ITransacao[]> {
+    return this._transacoesService.getTransacoes(params).pipe(
+      catchError(err => {
+        console.log(err);
+        return throwError(err); // Trata o erro e propaga-o
+      })
+    );
+  }
+
+  checkStatusUtil(transacao: ITransacao): string {
+    let status = '';
 
     if (transacao.id_tipo_transacao === 1) {
       if (transacao.trs_status) {
