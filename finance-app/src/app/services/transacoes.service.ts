@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, retry } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ITransacao } from '../interfaces/ITransacao';
-import { ITransacoesSoma } from '../interfaces/ITransacoesSoma';
 import { IDropdown } from '../interfaces/IDropdown';
+import { ParamsTransacao } from '../interfaces/ParamsTransacao';
 
 @Injectable({
   providedIn: 'root',
@@ -18,9 +18,7 @@ export class TransacoesService {
   notifyObservable$ = this.notify.asObservable();
 
   public notifyChanges(data: any) {
-    if(data){
-      this.notify.next(data)
-    }
+    if (data) this.notify.next(data);
   }
 
   getMetodosDropdown(): Observable<IDropdown[]> {
@@ -29,27 +27,9 @@ export class TransacoesService {
       .pipe(retry(1));
   }
 
-  getTransacoes(params: Date): Observable<ITransacao[]> {
+  getTransacoes(params: ParamsTransacao): Observable<ITransacao[]> {
     return this._http
       .post<ITransacao[]>(`${this._api_url}transacoes/listar`, { data: params })
-      .pipe(retry(1));
-  }
-
-  getTransacoesSomatorio(params: Date): Observable<ITransacoesSoma[]> {
-    return this._http
-      .post<ITransacoesSoma[]>(`${this._api_url}transacoes/somatorio`, { data: params })
-      .pipe(retry(1));
-  }
-
-  getReceitas(params: Date): Observable<ITransacao[]> {
-    return this._http
-      .post<ITransacao[]>(`${this._api_url}transacoes/listar/receitas`, { data: params })
-      .pipe(retry(1));
-  }
-
-  getDespesas(params: Date): Observable<ITransacao[]> {
-    return this._http
-      .post<ITransacao[]>(`${this._api_url}transacoes/listar/despesas`, { data: params })
       .pipe(retry(1));
   }
 
