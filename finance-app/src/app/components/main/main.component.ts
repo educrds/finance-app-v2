@@ -1,25 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { TransacoesService } from '../../services/transacoes.service';
-import { take } from 'rxjs';
 import { ITransacao } from '../../interfaces/ITransacao';
-import { ConfirmationService } from 'primeng/api';
-import { DialogService } from 'primeng/dynamicdialog';
 import { DateFilterService } from '../../services/date-filter.service';
 import { ITransacoesSoma } from '../../interfaces/ITransacoesSoma';
 import { TransacaoUtilService } from '../../utils/transacao-util.service';
+import { ParamsTransacao } from '../../interfaces/ParamsTransacao';
 
 @Component({
   selector: 'fin-main',
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
-  providers: [ConfirmationService, DialogService],
 })
 export class MainComponent implements OnInit {
   protected transacoes: ITransacao[] = [];
   protected somatorio!: ITransacoesSoma;
   protected rowSelected!: ITransacao | null;
 
-  private queryParams: Date = new Date();
+  private queryParams: ParamsTransacao = {
+    filterDate: new Date()
+  };
 
   constructor(
     private _transacoesService: TransacoesService,
@@ -28,11 +27,11 @@ export class MainComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.fetchTransacoes();
+    this.fetchTransacoes(this.queryParams);
 
     this._transacoesService.notifyObservable$.subscribe((res) => {
       if (res.refresh) {
-        this.fetchTransacoes();
+        this.fetchTransacoes(this.queryParams);
       }
       if (res.closeModal) {
         this.rowSelected = null;
@@ -42,25 +41,10 @@ export class MainComponent implements OnInit {
     this._dateFilterService.notifyObservable$.subscribe((res) => {
       const { date } = res;
       if (date) {
-        this.queryParams = date;
-        this.fetchTransacoes();
+        this.queryParams.filterDate = date;
+        this.fetchTransacoes(this.queryParams);
       }
     });
-  }
-
-  private fetchTransacoes() {
-    this._transacoesService
-      .getTransacoes(this.queryParams)
-      .pipe(take(1))
-      .subscribe({
-        next: (res) => {
-          this.transacoes = res;
-          this.somatorio = this._transacaoUtilService.obterSomatorioTransacoes(
-            this.transacoes
-          );
-        },
-        error: (err) => console.log(err),
-      });
   }
 
   protected editarTransacao(transacao: ITransacao) {
@@ -71,7 +55,17 @@ export class MainComponent implements OnInit {
     this._transacaoUtilService.deletarTransacaoUtil(idTransacao);
   }
 
-  protected checkStatus(transacao: ITransacao): string | undefined {
+  protected checkStatus(transacao: ITransacao): string {
     return this._transacaoUtilService.checkStatusUtil(transacao);
+  }
+
+  private fetchTransacoes(params: ParamsTransacao) {
+    this._transacaoUtilService.getTransacoesUtil(params).subscribe({
+      next: (transacoes: ITransacao[]) => {
+        this.transacoes = transacoes;
+        this.somatorio = this._transacaoUtilService.obterSomatorioTransacoes(this.transacoes);
+      },
+      error: (err) => console.log(err),
+    });
   }
 }
