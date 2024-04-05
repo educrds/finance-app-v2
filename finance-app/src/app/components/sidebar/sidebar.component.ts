@@ -7,7 +7,6 @@ import { ModalTransacaoComponent } from '../../templates/modal-transacao/modal-t
   selector: 'fin-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
-  providers: [DialogService],
 })
 export class SidebarComponent implements OnInit {
   items_menu: MenuItem[] | undefined;
@@ -29,12 +28,12 @@ export class SidebarComponent implements OnInit {
           },
           {
             label: 'Receitas',
-            icon: 'pi pi-plus-circle',
+            icon: 'pi pi-arrow-up-right',
             routerLink: ['/receitas'],
           },
           {
             label: 'Despesas',
-            icon: 'pi pi-minus-circle',
+            icon: 'pi pi-arrow-down-right',
             routerLink: ['/despesas'],
           },
         ],
@@ -56,8 +55,8 @@ export class SidebarComponent implements OnInit {
 
     this.items_transacao = [
       {
-        label: 'Receitas',
-        icon: 'pi pi-plus-circle',
+        label: 'Entradas',
+        icon: 'pi pi-arrow-up-right',
         command: () => {
           this.ref = this.dialogService.open(ModalTransacaoComponent, {
             modal: true,
@@ -71,8 +70,8 @@ export class SidebarComponent implements OnInit {
         },
       },
       {
-        label: 'Despesas',
-        icon: 'pi pi-minus-circle',
+        label: 'Saídas',
+        icon: 'pi pi-arrow-down-right',
         command: () => {
           this.ref = this.dialogService.open(ModalTransacaoComponent, {
             modal: true,
