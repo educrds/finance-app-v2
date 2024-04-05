@@ -7,7 +7,6 @@ import { IDropdown } from '../../interfaces/IDropdown';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ITransacao } from '../../interfaces/ITransacao';
 import { Router } from '@angular/router';
-import { MainComponent } from '../../components/main/main.component';
 
 @Component({
   selector: 'fin-modal-transacao',
@@ -18,8 +17,10 @@ import { MainComponent } from '../../components/main/main.component';
 export class ModalTransacaoComponent implements OnInit {
   formAddTransacao!: FormGroup;
   categoriasOptions!: IDropdown[];
+  metodosOptions!: IDropdown[];
 
   protected loading: boolean = false;
+  protected tipoTransacao!: number;
 
   constructor(
     private _fb: FormBuilder,
@@ -27,21 +28,21 @@ export class ModalTransacaoComponent implements OnInit {
     private _notificationService: NotificationService,
     private _categoriasService: CategoriasService,
     private _ref: DynamicDialogRef,
-    private _config: DynamicDialogConfig,
-    private _router: Router
+    private _config: DynamicDialogConfig
   ) {}
 
   ngOnInit(): void {
+    this.tipoTransacao = this._config.data.id_tipo_transacao;
+
     if (this._config.data.trs_id) {
       this.formAddTransacao = this._fb.group({
         trs_valor: [this._config.data.trs_valor],
         trs_data_ocorrido: [new Date(this._config.data.trs_data_ocorrido)],
         trs_titulo: [this._config.data?.trs_titulo, Validators.required],
-        trs_descricao: [this._config.data?.trs_descricao],
         trs_categoria: [this._config.data?.id_categoria],
         trs_usuario: [1],
-        trs_tipo: [this._config.data.id_tipo_transacao],
-        trs_metodo: [1],
+        trs_tipo: [this.tipoTransacao],
+        trs_metodo: [this._config.data.metodo_id],
         trs_status: [!!this._config.data.trs_status],
         trs_id: [this._config.data.trs_id],
       });
@@ -50,22 +51,35 @@ export class ModalTransacaoComponent implements OnInit {
         trs_valor: [''],
         trs_data_ocorrido: [new Date()],
         trs_titulo: ['', Validators.required],
-        trs_descricao: [''],
         trs_categoria: [''],
         trs_usuario: [1],
-        trs_tipo: [this._config.data.id_tipo_transacao],
-        trs_metodo: [1],
+        trs_tipo: [this.tipoTransacao],
+        trs_metodo: [''],
         trs_status: [false],
       });
     }
 
-    this._categoriasService.getCategoriasDropdown().subscribe({
-      next: (res) => (this.categoriasOptions = res),
+    this._transacoesService.getMetodosDropdown().subscribe({
+      next: (res) => (this.metodosOptions = res),
       error: () =>
         this._notificationService.showError(
           'Ocorreu um erro ao buscar categorias.'
         ),
     });
+
+    this._categoriasService
+      .getCategoriasDropdown(this.tipoTransacao)
+      .subscribe({
+        next: (res) => (this.categoriasOptions = res),
+        error: () =>
+          this._notificationService.showError(
+            'Ocorreu um erro ao buscar categorias.'
+          ),
+      });
+
+    this._ref.onClose.subscribe(() =>
+      this._transacoesService.notifyChanges({ closeModal: true })
+    );
   }
 
   protected inserirOuAtualizarTransacao() {
