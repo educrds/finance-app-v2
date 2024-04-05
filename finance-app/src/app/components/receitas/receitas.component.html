@@ -62,7 +62,7 @@
               type="button"
               icon="pi pi-trash"
               size="small"
-              (click)="deletarTransacao(transacao)"
+              (click)="deletarTransacao(transacao.trs_id)"
               class="p-button-rounded p-button-text p-button-danger"
             ></button>
           </td>
@@ -74,7 +74,5 @@
       <fin-alert-container message="Nenhum registro encontrado." />
     </ng-template>
     
-    <p-confirmDialog></p-confirmDialog>
-
   </fin-wrap-container>
 </fin-column>

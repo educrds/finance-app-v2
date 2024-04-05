@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ITransacao } from '../../interfaces/ITransacao';
 import { TransacoesService } from '../../services/transacoes.service';
-import { take } from 'rxjs';
 import { DateFilterService } from '../../services/date-filter.service';
 import { TransacaoUtilService } from '../../utils/transacao-util.service';
+import { ParamsTransacao } from '../../interfaces/ParamsTransacao';
 
 @Component({
   selector: 'fin-receitas',
@@ -14,7 +14,10 @@ export class ReceitasComponent implements OnInit {
   protected transacoes: ITransacao[] = [];
   protected rowSelected!: ITransacao | null;
 
-  private queryParams: Date = new Date();
+  private queryParams: ParamsTransacao = {
+    filterDate: new Date(),
+    idTipoTransacao: 1
+  };
 
   constructor(
     private _transacoesService: TransacoesService,
@@ -23,11 +26,11 @@ export class ReceitasComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getReceitas();
+    this.fetchTransacoes(this.queryParams);
 
     this._transacoesService.notifyObservable$.subscribe((res) => {
       if (res.refresh) {
-        this.getReceitas();
+        this.fetchTransacoes(this.queryParams);
       }
       if (res.closeModal) {
         this.rowSelected = null;
@@ -38,8 +41,8 @@ export class ReceitasComponent implements OnInit {
       const { date } = res;
 
       if (date) {
-        this.queryParams = date;
-        this.getReceitas();
+        this.queryParams.filterDate = date;
+        this.fetchTransacoes(this.queryParams);
       }
     });
   }
@@ -52,17 +55,14 @@ export class ReceitasComponent implements OnInit {
     this._transacaoUtilService.deletarTransacaoUtil(idTransacao);
   }
 
-  protected checkStatus(transacao: ITransacao): string | undefined {
+  protected checkStatus(transacao: ITransacao): string {
     return this._transacaoUtilService.checkStatusUtil(transacao);
   }
 
-  private getReceitas() {
-    this._transacoesService
-      .getReceitas(this.queryParams)
-      .pipe(take(1))
-      .subscribe({
-        next: (res) => (this.transacoes = res),
-        error: (err) => console.log(err),
-      });
+  private fetchTransacoes(params: ParamsTransacao) {
+    this._transacaoUtilService.getTransacoesUtil(params).subscribe({
+      next: (transacoes: ITransacao[]) => (this.transacoes = transacoes),
+      error: (err) => console.log(err),
+    });
   }
 }
