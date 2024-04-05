@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { NotificationService } from '../../services/notification.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Categoria } from '../../interfaces/Categorias';
+import { IDropdown } from '../../interfaces/IDropdown';
 
 @Component({
   selector: 'fin-modal-categoria',
@@ -12,6 +13,16 @@ import { Categoria } from '../../interfaces/Categorias';
 })
 export class ModalCategoriaComponent implements OnInit {
   formAddCategoria!: FormGroup;
+  tipoOptions: IDropdown[] = [
+    {
+      id: 1,
+      text: 'Receita',
+    },
+    {
+      id: 2,
+      text: 'Despesa',
+    },
+  ];
 
   protected loading: boolean = false;
 
@@ -30,11 +41,13 @@ export class ModalCategoriaComponent implements OnInit {
         cat_nome: [this.config.data.cat_nome],
         usr_id: [this.config.data.usr_id],
         cat_cor: [this.config.data.cat_cor],
+        cat_tip_id: [this.config.data.cat_tip_id],
       });
     } else {
       this.formAddCategoria = this._fb.group({
         cat_nome: [''],
         cat_cor: [''],
+        cat_tip_id: [''],
       });
     }
   }
