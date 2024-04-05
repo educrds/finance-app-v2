@@ -22,9 +22,9 @@ export class CategoriasService {
     }
   }
 
-  getCategoriasDropdown(): Observable<IDropdown[]> {
+  getCategoriasDropdown(cat_tip_id: number): Observable<IDropdown[]> {
     return this._http
-      .post<IDropdown[]>(`${this._api_url}categorias/listar-select`, {})
+      .post<IDropdown[]>(`${this._api_url}categorias/listar-select`, { data: cat_tip_id })
       .pipe(retry(1));
   }
 
