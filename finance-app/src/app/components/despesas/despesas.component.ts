@@ -1,20 +1,23 @@
-import { Component } from '@angular/core';
-import { TransacoesService } from '../../services/transacoes.service';
+import { Component, OnInit } from '@angular/core';
 import { ITransacao } from '../../interfaces/ITransacao';
-import { take } from 'rxjs';
+import { TransacoesService } from '../../services/transacoes.service';
 import { DateFilterService } from '../../services/date-filter.service';
 import { TransacaoUtilService } from '../../utils/transacao-util.service';
+import { ParamsTransacao } from '../../interfaces/ParamsTransacao';
 
 @Component({
   selector: 'fin-despesas',
   templateUrl: './despesas.component.html',
   styleUrl: './despesas.component.scss',
 })
-export class DespesasComponent {
+export class DespesasComponent implements OnInit {
   protected transacoes: ITransacao[] = [];
   protected rowSelected!: ITransacao | null;
 
-  private queryParams: Date = new Date();
+  private queryParams: ParamsTransacao = {
+    filterDate: new Date(),
+    idTipoTransacao: 2,
+  };
 
   constructor(
     private _transacoesService: TransacoesService,
@@ -23,11 +26,11 @@ export class DespesasComponent {
   ) {}
 
   ngOnInit(): void {
-    this.getDespesas();
+    this.fetchTransacoes(this.queryParams);
 
     this._transacoesService.notifyObservable$.subscribe((res) => {
       if (res.refresh) {
-        this.getDespesas();
+        this.fetchTransacoes(this.queryParams);
       }
       if (res.closeModal) {
         this.rowSelected = null;
@@ -36,9 +39,10 @@ export class DespesasComponent {
 
     this._dateFilterService.notifyObservable$.subscribe((res) => {
       const { date } = res;
+
       if (date) {
-        this.queryParams = date;
-        this.getDespesas();
+        this.queryParams.filterDate = date;
+        this.fetchTransacoes(this.queryParams);
       }
     });
   }
@@ -51,17 +55,14 @@ export class DespesasComponent {
     this._transacaoUtilService.deletarTransacaoUtil(idTransacao);
   }
 
-  protected checkStatus(transacao: ITransacao): string | undefined {
+  protected checkStatus(transacao: ITransacao): string {
     return this._transacaoUtilService.checkStatusUtil(transacao);
   }
 
-  private getDespesas() {
-    this._transacoesService
-      .getDespesas(this.queryParams)
-      .pipe(take(1))
-      .subscribe({
-        next: (res) => (this.transacoes = res),
-        error: (err) => console.log(err),
-      });
+  private fetchTransacoes(params: ParamsTransacao) {
+    this._transacaoUtilService.getTransacoesUtil(params).subscribe({
+      next: (transacoes: ITransacao[]) => (this.transacoes = transacoes),
+      error: (err) => console.log(err),
+    });
   }
 }
