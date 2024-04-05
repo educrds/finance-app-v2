@@ -10,3 +10,18 @@
 body {
   height: calc(100% - 16px);
 }
+.ellipsis {
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+  display: flex;
+}
+.ellipsis-danger {
+  background-color: red;
+}
+.ellipsis-success {
+  background-color: green;
+}
