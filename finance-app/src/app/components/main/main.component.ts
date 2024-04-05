@@ -8,6 +8,7 @@ import { ModalTransacaoComponent } from '../../templates/modal-transacao/modal-t
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DateFilterService } from '../../services/date-filter.service';
 import { ITransacoesSoma } from '../../interfaces/ITransacoesSoma';
+import { TransacaoUtilService } from '../../utils/transacao-util.service';
 
 @Component({
   selector: 'fin-main',
@@ -18,24 +19,25 @@ import { ITransacoesSoma } from '../../interfaces/ITransacoesSoma';
 export class MainComponent implements OnInit {
   protected transacoes: ITransacao[] = [];
   protected somatorio!: ITransacoesSoma;
+  protected rowSelected!: ITransacao | null;
 
-  private ref!: DynamicDialogRef;
   private queryParams: Date = new Date();
 
   constructor(
     private _transacoesService: TransacoesService,
-    private notificacaoService: NotificationService,
     private _dateFilterService: DateFilterService,
-    private confirmationService: ConfirmationService,
-    private dialogService: DialogService
+    private _transacaoUtilService: TransacaoUtilService
   ) {}
 
   ngOnInit(): void {
-    this.atualizarTransacoes();
+    this.fetchTransacoes();
 
     this._transacoesService.notifyObservable$.subscribe((res) => {
       if (res.refresh) {
-        this.atualizarTransacoes();
+        this.fetchTransacoes();
+      }
+      if (res.closeModal) {
+        this.rowSelected = null;
       }
     });
 
@@ -43,67 +45,35 @@ export class MainComponent implements OnInit {
       const { date } = res;
       if (date) {
         this.queryParams = date;
-        this.atualizarTransacoes();
+        this.fetchTransacoes();
       }
     });
   }
 
-  private atualizarTransacoes() {
+  private fetchTransacoes() {
     this._transacoesService
       .getTransacoes(this.queryParams)
       .pipe(take(1))
       .subscribe({
         next: (res) => {
           this.transacoes = res;
-          this.obterTransacoesSomatorio();
+          this.somatorio = this._transacaoUtilService.obterSomatorioTransacoes(
+            this.transacoes
+          );
         },
         error: (err) => console.log(err),
       });
   }
 
-  private obterTransacoesSomatorio() {
-    this._transacoesService
-      .getTransacoesSomatorio(this.queryParams)
-      .pipe(take(1))
-      .subscribe({
-        next: (res) => (this.somatorio = res[0]),
-        error: (err) => console.log(err),
-      });
-  }
-
-  protected deletarTransacao(idTransacao: string) {
-    this.confirmationService.confirm({
-      message:
-        'Deseja realmente excluir o registro? <br> Esta ação é irreversível.',
-      header: 'Confirmação',
-      icon: 'pi pi-exclamation-triangle',
-      acceptIcon: 'none',
-      rejectIcon: 'none',
-      rejectButtonStyleClass: 'p-button-text',
-      accept: () => {
-        this._transacoesService.deletarTransacao(idTransacao).subscribe({
-          next: () => {
-            this.notificacaoService.showSuccess(
-              'Registro deletado com sucesso!'
-            );
-            this.ngOnInit();
-          },
-          error: () =>
-            this.notificacaoService.showError(
-              'Ocorreu um erro ao deletar registro, tente novamente!'
-            ),
-        });
-      },
-    });
-  }
-
   protected editarTransacao(transacao: ITransacao) {
-    this.ref = this.dialogService.open(ModalTransacaoComponent, {
-      modal: true,
-      header: 'Atualizar Despesa',
-      width: '35vw',
-      contentStyle: { overflow: 'auto' },
-      data: transacao,
-    });
+    this._transacaoUtilService.editarTransacaoUtil(transacao);
+  }
+
+  protected deletarTransacao(idTransacao: number) {
+    this._transacaoUtilService.deletarTransacaoUtil(idTransacao);
+  }
+
+  protected checkStatus(transacao: ITransacao): string | undefined {
+    return this._transacaoUtilService.checkStatusUtil(transacao);
   }
 }

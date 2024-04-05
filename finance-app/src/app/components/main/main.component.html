@@ -1,58 +1,55 @@
 <fin-column>
-  <fin-row>
-    <fin-wrap-container [ngClass]="'flex-1'">
-      <div class="d-flex g-4 align-items-center">
-        <div class="card-title">Entradas</div>
-        <i class="pi pi-arrow-up-right"></i>
-      </div>
-      <p class="card-subtitle">
-        {{ somatorio.soma_receitas || 0 | currency : "R$ " }}
-      </p>
-    </fin-wrap-container>
+  <fin-row *ngIf="somatorio">
+    <fin-top-card
+      [title]="'Entradas'"
+      [value]="somatorio.soma_receitas"
+      [isCurrency]="true"
+      [className]="'pi pi-arrow-up-right'"
+      class="flex-1"
+    ></fin-top-card>
 
-    <fin-wrap-container [ngClass]="'flex-1'">
-      <div class="d-flex g-4 align-items-center">
-        <div class="card-title">Saldo</div>
-        <i class="pi pi-arrows-h"></i>
-      </div>
-      <p class="card-subtitle">
-        {{
-          somatorio.soma_receitas - somatorio.soma_despesas || 0
-            | currency : "R$ "
-        }}
-      </p>
-    </fin-wrap-container>
+    <fin-top-card
+      [title]="'Saldo'"
+      [value]="somatorio.soma_receitas - somatorio.soma_despesas"
+      [className]="'pi pi-arrows-h'"
+      [isCurrency]="true"
+      class="flex-1"
+    ></fin-top-card>
 
-    <fin-wrap-container [ngClass]="'flex-1'">
-      <div class="d-flex g-4 align-items-center">
-        <div class="card-title">Saídas</div>
-        <i class="pi pi-arrow-down-right"></i>
-      </div>
-      <p class="card-subtitle">
-        {{ somatorio.soma_despesas || 0 | currency : "R$ " }}
-      </p>
-    </fin-wrap-container>
+    <fin-top-card
+      [title]="'Saídas'"
+      [value]="somatorio.soma_despesas"
+      [className]="'pi pi-arrow-down-right'"
+      [isCurrency]="true"
+      class="flex-1"
+    ></fin-top-card>
   </fin-row>
+
   <fin-wrap-container [ngClass]="'w-100'">
     <h2>Transações</h2>
     <hr />
     <p-table
       [value]="transacoes"
       [tableStyle]="{ 'min-width': '50rem', 'max-width': '100vw' }"
+      *ngIf="transacoes.length; else noResultsFound"
+      selectionMode="single"
+      (onRowSelect)="editarTransacao($event.data)"
+      [(selection)]="rowSelected"
     >
       <ng-template pTemplate="header">
         <tr>
-          <th>Tipo de Transação</th>
+          <th>Tipo</th>
           <th>Título</th>
           <th>Valor</th>
+          <th>Status</th>
           <th>Categoria</th>
-          <th>Data Transação</th>
+          <th>Data</th>
           <th>Metódo</th>
           <th></th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-transacao>
-        <tr>
+      <ng-template pTemplate="body" let-transacao let-rowData>
+        <tr [pSelectableRow]="rowData">
           <td>
             <div class="chip">
               {{ transacao.tipo_transacao }}
@@ -60,6 +57,16 @@
           </td>
           <td>{{ transacao.trs_titulo }}</td>
           <td>{{ transacao.trs_valor | currency : "R$ " }}</td>
+          <td>
+            <span
+              class="ellipsis"
+              tooltipPosition="top"
+              [pTooltip]="checkStatus(transacao)"
+              [ngClass]="
+                transacao.trs_status ? 'ellipsis-success' : 'ellipsis-danger'
+              "
+            ></span>
+          </td>
           <td>
             <div
               class="chip"
@@ -69,13 +76,14 @@
             </div>
           </td>
           <td>{{ transacao.trs_data_ocorrido | date : "dd/MM/yyyy" }}</td>
-          <td>{{ transacao.metodo }}</td>
+          <td>{{ transacao.metodo_nome }}</td>
           <td class="d-flex">
             <button
               pButton
               pRipple
               type="button"
               icon="pi pi-pencil"
+              size="small"
               (click)="editarTransacao(transacao)"
               class="p-button-rounded p-button-text p-button-primary"
             ></button>
@@ -85,6 +93,7 @@
               pRipple
               type="button"
               icon="pi pi-trash"
+              size="small"
               (click)="deletarTransacao(transacao)"
               class="p-button-rounded p-button-text p-button-danger"
             ></button>
@@ -92,6 +101,11 @@
         </tr>
       </ng-template>
     </p-table>
+
+    <ng-template #noResultsFound>
+      <fin-alert-container message="Nenhum registro encontrado." />
+    </ng-template>
+
     <p-confirmDialog></p-confirmDialog>
   </fin-wrap-container>
 </fin-column>
