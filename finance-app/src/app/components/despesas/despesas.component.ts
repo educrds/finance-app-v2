@@ -50,9 +50,9 @@ export class DespesasComponent implements OnInit {
   protected editarTransacao(transacao: ITransacao) {
     this._transacaoUtilService.editarTransacaoUtil(transacao);
   }
-
-  protected deletarTransacao(idTransacao: number) {
-    this._transacaoUtilService.deletarTransacaoUtil(idTransacao);
+  
+  protected deletarTransacao(idTransacao: number, isParcelado: boolean) {
+    this._transacaoUtilService.deletarTransacaoUtil(idTransacao, isParcelado);
   }
 
   protected checkStatus(transacao: ITransacao): string {
