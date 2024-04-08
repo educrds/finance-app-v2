@@ -6,7 +6,6 @@ import { CategoriasService } from '../../services/categorias.service';
 import { IDropdown } from '../../interfaces/IDropdown';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ITransacao } from '../../interfaces/ITransacao';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'fin-modal-transacao',
@@ -45,6 +44,7 @@ export class ModalTransacaoComponent implements OnInit {
         trs_metodo: [this._config.data.metodo_id],
         trs_status: [!!this._config.data.trs_status],
         trs_id: [this._config.data.trs_id],
+        trs_parcelado: [this._config.data.trs_parcelado],
       });
     } else {
       this.formAddTransacao = this._fb.group({
@@ -56,6 +56,8 @@ export class ModalTransacaoComponent implements OnInit {
         trs_tipo: [this.tipoTransacao],
         trs_metodo: [''],
         trs_status: [false],
+        trs_parcelado: [false],
+        data_fim_repeticao: [''],
       });
     }
 
