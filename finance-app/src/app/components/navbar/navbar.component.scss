@@ -1,6 +1,4 @@
-::ng-deep {
-  .p-calendar {
-    max-width: 10rem;
-    min-width: 10rem;
-  }
+.calendar_filter ::ng-deep.p-calendar {
+  min-width: 9.6rem !important;
+  max-width: 9.6rem !important;
 }
