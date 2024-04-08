@@ -37,10 +37,22 @@ export class TransacaoUtilService {
     );
   }
 
-  deletarTransacaoUtil(idTransacao: number) {
+  deletarTransacaoUtil(idTransacao: number, isParcelado: boolean) {
+    let confirmationMessage =
+      'Deseja realmente excluir o registro? <br> Esta ação é irreversível.';
+    let successMessage = 'Registro deletado com sucesso!';
+    let errorMessage = 'Ocorreu um erro ao deletar registro!';
+
+    if (isParcelado) {
+      confirmationMessage = `Este registro trata-se de uma transação que se repete. <br> 
+      Esta ação deletará também as transações relativas as mese(s) posterior(es). <br>
+      Deseja prosseguir?`;
+      successMessage = 'Registros deletados com sucesso!';
+      errorMessage = 'Ocorreu um erro ao deletar registros!';
+    }
+
     this._confirmationService.confirm({
-      message:
-        'Deseja realmente excluir o registro? <br> Esta ação é irreversível.',
+      message: confirmationMessage,
       header: 'Confirmação',
       icon: 'pi pi-exclamation-triangle',
       acceptIcon: 'none',
@@ -49,15 +61,10 @@ export class TransacaoUtilService {
       accept: () => {
         this._transacoesService.deletarTransacao(idTransacao).subscribe({
           next: () => {
-            this._notificacaoService.showSuccess(
-              'Registro deletado com sucesso!'
-            );
+            this._notificacaoService.showSuccess(successMessage);
             this._transacoesService.notifyChanges({ refresh: true });
           },
-          error: () =>
-            this._notificacaoService.showError(
-              'Ocorreu um erro ao deletar registro, tente novamente!'
-            ),
+          error: () => this._notificacaoService.showError(errorMessage),
         });
       },
     });
@@ -78,7 +85,7 @@ export class TransacaoUtilService {
 
   getTransacoesUtil(params: ParamsTransacao): Observable<ITransacao[]> {
     return this._transacoesService.getTransacoes(params).pipe(
-      catchError(err => {
+      catchError((err) => {
         console.log(err);
         return throwError(err); // Trata o erro e propaga-o
       })
