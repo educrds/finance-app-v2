@@ -61,7 +61,7 @@ export class SidebarComponent implements OnInit {
           this.ref = this.dialogService.open(ModalTransacaoComponent, {
             modal: true,
             header: 'Nova Receita',
-            width: '35vw',
+            width: '40vw',
             contentStyle: { overflow: 'auto' },
             data: {
               id_tipo_transacao: 1
@@ -76,7 +76,7 @@ export class SidebarComponent implements OnInit {
           this.ref = this.dialogService.open(ModalTransacaoComponent, {
             modal: true,
             header: 'Nova Despesa',
-            width: '35vw',
+            width: '40vw',
             contentStyle: { overflow: 'auto' },
             data: {
               id_tipo_transacao: 2
