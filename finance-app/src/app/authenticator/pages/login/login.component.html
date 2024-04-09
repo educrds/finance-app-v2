@@ -1,0 +1,24 @@
+<fin-wrap-container [ngClass]="'text-center auth-container'">
+  <img src="../../../../assets/logo for auth.png" alt="" />
+
+  <form [formGroup]="formAuthenticator">
+    <fin-column>
+    
+      <div class="d-flex flex-column g-4">
+        <label for="input_valor">Email:</label>
+        <input id="input_valor" pInputText formControlName="auth_email" />
+      </div>
+
+      <div class="d-flex flex-column g-4">
+        <label for="input_valor">Senha:</label>
+        <p-password formControlName="auth_password" [toggleMask]="true"></p-password>
+      </div>
+
+      <p-button
+        label="Login"
+        class="d-flex justify-content-end"
+        (onClick)="autenticarUsuario()"
+      ></p-button>
+    </fin-column>
+  </form>
+</fin-wrap-container>
