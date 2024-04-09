@@ -10,18 +10,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HomeComponent } from './pages/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { WrapContainerComponent } from './shared/components/wrap-container/wrap-container.component';
-import { LogoComponent } from './shared/components/logo/logo.component';
 import { MainComponent } from './components/main/main.component';
-import { ColumnComponent } from './shared/components/column/column.component';
-import { RowComponent } from './shared/components/row/row.component';
 import { ReceitasComponent } from './components/receitas/receitas.component';
 import { DespesasComponent } from './components/despesas/despesas.component';
 import { ModalTransacaoComponent } from './templates/modal-transacao/modal-transacao.component';
 import { CategoriasComponent } from './components/categorias/categorias.component';
 import { ModalCategoriaComponent } from './templates/modal-categoria/modal-categoria.component';
-import { TopCardComponent } from './shared/components/top-card/top-card.component';
-import { AlertContainerComponent } from './shared/components/alert-container/alert-container.component';
 
 // primeng
 import { MenuModule } from 'primeng/menu';
@@ -44,6 +38,8 @@ import { MessagesModule } from 'primeng/messages';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { ChipModule } from 'primeng/chip';
 import { TooltipModule } from 'primeng/tooltip';
+import { AuthModule } from './authenticator/auth.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -51,20 +47,15 @@ import { TooltipModule } from 'primeng/tooltip';
     HomeComponent,
     NavbarComponent,
     SidebarComponent,
-    WrapContainerComponent,
-    LogoComponent,
     MainComponent,
-    ColumnComponent,
-    RowComponent,
     ReceitasComponent,
     DespesasComponent,
     ModalTransacaoComponent,
     CategoriasComponent,
     ModalCategoriaComponent,
-    TopCardComponent,
-    AlertContainerComponent,
   ],
   imports: [
+    SharedModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -87,7 +78,8 @@ import { TooltipModule } from 'primeng/tooltip';
     MessagesModule,
     InputSwitchModule,
     ChipModule,
-    TooltipModule
+    TooltipModule,
+    AuthModule,
   ],
   providers: [MessageService, ConfirmationService, DialogService],
   bootstrap: [AppComponent],
