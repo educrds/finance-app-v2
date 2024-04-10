@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { StorageService } from '../../../shared/services/storage.service';
 
 @Component({
   selector: 'fin-register',
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
   formAuthenticator!: FormGroup;
@@ -14,7 +15,8 @@ export class RegisterComponent {
   constructor(
     private _fb: FormBuilder,
     private _authService: AuthService,
-    private _router: Router
+    private _router: Router,
+    private _storageService: StorageService
   ) {}
 
   ngOnInit(): void {
@@ -33,7 +35,7 @@ export class RegisterComponent {
       const form = this.formAuthenticator.getRawValue();
       this._authService.registerUser(form).subscribe({
         next: (res) => {
-          localStorage.setItem('token', res.token);
+          this._storageService.saveUser(res.token);
           this._router.navigate(['/']);
         },
         error: (err) => console.error(err),

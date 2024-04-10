@@ -3,7 +3,6 @@
 
   <form [formGroup]="formAuthenticator">
     <fin-column>
-    
       <div class="d-flex flex-column g-4">
         <label for="input_valor">Email:</label>
         <input id="input_valor" pInputText formControlName="auth_email" />
@@ -11,8 +10,15 @@
 
       <div class="d-flex flex-column g-4">
         <label for="input_valor">Senha:</label>
-        <p-password formControlName="auth_password" [toggleMask]="true"></p-password>
+        <p-password
+          formControlName="auth_password"
+          [toggleMask]="true"
+        ></p-password>
       </div>
+
+      <a class="text-primary" (click)="_router.navigate(['/register'])"
+        >Não possui uma conta? Criar agora.</a
+      >
 
       <p-button
         label="Login"

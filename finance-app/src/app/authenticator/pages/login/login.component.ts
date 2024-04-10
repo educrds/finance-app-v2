@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { StorageService } from '../../../shared/services/storage.service';
 
 @Component({
   selector: 'fin-login',
@@ -14,7 +15,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _authService: AuthService,
-    private _router: Router
+    protected _router: Router,
+    private _storageService: StorageService
   ) {}
 
   ngOnInit(): void {
@@ -32,7 +34,7 @@ export class LoginComponent implements OnInit {
       const form = this.formAuthenticator.getRawValue();
       this._authService.authenticateUser(form).subscribe({
         next: (res) => {
-          localStorage.setItem('token', res.token);
+          this._storageService.saveUser(res.token);
           this._router.navigate(['/']);
         },
         error: (err) => console.error(err),
