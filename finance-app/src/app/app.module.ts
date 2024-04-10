@@ -40,6 +40,7 @@ import { ChipModule } from 'primeng/chip';
 import { TooltipModule } from 'primeng/tooltip';
 import { AuthModule } from './authenticator/auth.module';
 import { SharedModule } from './shared/shared.module';
+import { httpInterceptorProvider } from './helpers/http-interceptor.interceptor';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,12 @@ import { SharedModule } from './shared/shared.module';
     TooltipModule,
     AuthModule,
   ],
-  providers: [MessageService, ConfirmationService, DialogService],
+  providers: [
+    MessageService,
+    ConfirmationService,
+    DialogService,
+    httpInterceptorProvider,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
