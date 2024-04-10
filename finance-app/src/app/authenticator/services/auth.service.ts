@@ -24,7 +24,4 @@ export class AuthService {
       .pipe(retry(1));
   }
 
-  isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
-  }
 }
