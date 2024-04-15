@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoriasService } from '../../services/categorias.service';
 import { Categoria, Categorias } from '../../interfaces/Categorias';
-import { NotificationService } from '../../services/notification.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ModalCategoriaComponent } from '../../templates/modal-categoria/modal-categoria.component';
 import { ConfirmationService } from 'primeng/api';
+import { MessagesService } from '../../services/messages.service';
+import { NotificationService } from '../../shared/services/notification.service';
 
 @Component({
   selector: 'fin-categorias',
@@ -22,15 +23,16 @@ export class CategoriasComponent implements OnInit {
   ref!: DynamicDialogRef;
 
   constructor(
-    private _categoriasService: CategoriasService,
     private _notificationService: NotificationService,
+    private _categoriasService: CategoriasService,
+    private _messagesService: MessagesService,
     private _dialogService: DialogService,
     private _confirmationService: ConfirmationService,
   ) {}
 
   ngOnInit(): void {
     this.getCategoriasList();
-    this._categoriasService.notifyObservable$.subscribe(
+    this._notificationService.notifyObservable$.subscribe(
       (res) => res.refresh && this.getCategoriasList()
     );
   }
@@ -39,13 +41,12 @@ export class CategoriasComponent implements OnInit {
     this._categoriasService.getCategorias().subscribe({
       next: (res) => (this.categorias = res),
       error: () =>
-        this._notificationService.showError(
+        this._messagesService.showError(
           'Erro ao obter categorias. Tente novamente.'
         ),
     });
   }
   
-
   protected abrirModalAddCategoria() {
     this.ref = this._dialogService.open(ModalCategoriaComponent, {
       ...this._configModal,
@@ -65,13 +66,13 @@ export class CategoriasComponent implements OnInit {
       accept: () => {
         this._categoriasService.deletarCategoria(form).subscribe({
           next: () => {
-            this._notificationService.showSuccess(
+            this._messagesService.showSuccess(
               'Registro deletado com sucesso!'
             );
             this.ngOnInit();
           },
           error: () =>
-            this._notificationService.showError(
+            this._messagesService.showError(
               'Ocorreu um erro ao deletar registro, tente novamente!'
             ),
         });

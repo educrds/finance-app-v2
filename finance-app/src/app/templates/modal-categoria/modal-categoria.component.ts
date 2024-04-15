@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoriasService } from '../../services/categorias.service';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { NotificationService } from '../../services/notification.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Categoria } from '../../interfaces/Categorias';
 import { IDropdown } from '../../interfaces/IDropdown';
+import { MessagesService } from '../../services/messages.service';
+import { NotificationService } from '../../shared/services/notification.service';
 
 @Component({
   selector: 'fin-modal-categoria',
@@ -29,6 +30,7 @@ export class ModalCategoriaComponent implements OnInit {
   constructor(
     private _categoriaService: CategoriasService,
     private _fb: FormBuilder,
+    private _messagesService: MessagesService,
     private _notificationService: NotificationService,
     private ref: DynamicDialogRef,
     private config: DynamicDialogConfig
@@ -66,14 +68,14 @@ export class ModalCategoriaComponent implements OnInit {
   private _inserirCategoria(form: Categoria) {
     this._categoriaService.addCategoria(form).subscribe({
       next: () => {
-        this._notificationService.showSuccess(
+        this._messagesService.showSuccess(
           'Categoria inserida com sucesso!'
         );
         this.ref.close();
-        this._categoriaService.notifyChanges({ refresh: true });
+        this._notificationService.notifyChanges({ refresh: true });
       },
       error: () =>
-        this._notificationService.showError(
+        this._messagesService.showError(
           'Ocorreu um erro ao adicionar categoria!'
         ),
       complete: () => (this.loading = false),
@@ -83,14 +85,14 @@ export class ModalCategoriaComponent implements OnInit {
   private _atualizarCategoria(form: Categoria) {
     this._categoriaService.atualizarCategoria(form).subscribe({
       next: () => {
-        this._notificationService.showSuccess(
+        this._messagesService.showSuccess(
           'Categoria atualizada com sucesso!'
         );
         this.ref.close();
-        this._categoriaService.notifyChanges({ refresh: true });
+        this._notificationService.notifyChanges({ refresh: true });
       },
       error: () =>
-        this._notificationService.showError(
+        this._messagesService.showError(
           'Ocorreu um erro ao atualizar categoria!'
         ),
       complete: () => (this.loading = false),

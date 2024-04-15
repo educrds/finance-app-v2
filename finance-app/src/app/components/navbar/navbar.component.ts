@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { DateFilterService } from '../../services/date-filter.service';
+import { MenuItem } from 'primeng/api';
+import { StorageService } from '../../shared/services/storage.service';
+import { NotificationService } from '../../shared/services/notification.service';
 
 @Component({
   selector: 'fin-navbar',
@@ -9,10 +11,12 @@ import { DateFilterService } from '../../services/date-filter.service';
 })
 export class NavbarComponent implements OnInit {
   protected filterDateForm!: FormGroup;
+  protected menuBarItems: MenuItem[] | undefined;
 
   constructor(
     private _fb: FormBuilder,
-    private _dateFilterService: DateFilterService
+    private _notificationService: NotificationService,
+    private _storageService: StorageService
   ) {}
 
   ngOnInit(): void {
@@ -20,11 +24,17 @@ export class NavbarComponent implements OnInit {
       month_selected: this._fb.control(this.getCurrentMonthFormatted()),
     });
 
-    this.filterDateForm.controls['month_selected'].valueChanges.subscribe(
-      (date) => {
-        this._dateFilterService.notifyChanges({ date });
-      }
-    );
+    this.filterDateForm.controls['month_selected'].valueChanges.subscribe((date) => this._notificationService.notifyChanges({ date }));
+
+    this.menuBarItems = [
+      {
+        label: 'Sair',
+        icon: 'pi pi-power-off',
+        command: () => {
+          this._storageService.clearAndRefreshPage();
+        },
+      },
+    ];
   }
 
   private getCurrentMonthFormatted() {

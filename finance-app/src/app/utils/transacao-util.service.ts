@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ITransacao } from '../interfaces/ITransacao';
 import { TransacoesService } from '../services/transacoes.service';
-import { NotificationService } from '../services/notification.service';
 import { ConfirmationService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ModalTransacaoComponent } from '../templates/modal-transacao/modal-transacao.component';
 import { ITransacoesSoma } from '../interfaces/ITransacoesSoma';
 import { ParamsTransacao } from '../interfaces/ParamsTransacao';
 import { Observable, catchError, take, throwError } from 'rxjs';
+import { MessagesService } from '../services/messages.service';
+import { NotificationService } from '../shared/services/notification.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,8 @@ export class TransacaoUtilService {
 
   constructor(
     private _transacoesService: TransacoesService,
-    private _notificacaoService: NotificationService,
+    private _notificationService: NotificationService,
+    private _messagesService: MessagesService,
     private _confirmationService: ConfirmationService,
     private _dialogService: DialogService
   ) {}
@@ -61,10 +63,10 @@ export class TransacaoUtilService {
       accept: () => {
         this._transacoesService.deletarTransacao(idTransacao).subscribe({
           next: () => {
-            this._notificacaoService.showSuccess(successMessage);
-            this._transacoesService.notifyChanges({ refresh: true });
+            this._messagesService.showSuccess(successMessage);
+            this._notificationService.notifyChanges({ refresh: true });
           },
-          error: () => this._notificacaoService.showError(errorMessage),
+          error: () => this._messagesService.showError(errorMessage),
         });
       },
     });

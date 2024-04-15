@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { TransacoesService } from '../../services/transacoes.service';
 import { ITransacao } from '../../interfaces/ITransacao';
-import { DateFilterService } from '../../services/date-filter.service';
 import { ITransacoesSoma } from '../../interfaces/ITransacoesSoma';
 import { TransacaoUtilService } from '../../utils/transacao-util.service';
 import { ParamsTransacao } from '../../interfaces/ParamsTransacao';
+import { NotificationService } from '../../shared/services/notification.service';
 
 @Component({
   selector: 'fin-main',
@@ -21,15 +20,14 @@ export class MainComponent implements OnInit {
   };
 
   constructor(
-    private _transacoesService: TransacoesService,
-    private _dateFilterService: DateFilterService,
+    private _notificationService: NotificationService,
     private _transacaoUtilService: TransacaoUtilService
   ) {}
 
   ngOnInit(): void {
     this.fetchTransacoes(this.queryParams);
 
-    this._transacoesService.notifyObservable$.subscribe((res) => {
+    this._notificationService.notifyObservable$.subscribe((res) => {
       if (res.refresh) {
         this.fetchTransacoes(this.queryParams);
       }
@@ -38,7 +36,7 @@ export class MainComponent implements OnInit {
       }
     });
 
-    this._dateFilterService.notifyObservable$.subscribe((res) => {
+    this._notificationService.notifyObservable$.subscribe((res) => {
       const { date } = res;
       if (date) {
         this.queryParams.filterDate = date;
