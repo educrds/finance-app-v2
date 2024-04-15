@@ -15,7 +15,7 @@ export class RegisterComponent {
   constructor(
     private _fb: FormBuilder,
     private _authService: AuthService,
-    private _router: Router,
+    protected _router: Router,
     private _storageService: StorageService
   ) {}
 

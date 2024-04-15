@@ -1,28 +1,37 @@
-<fin-wrap-container [ngClass]="'text-center auth-container'">
-  <img src="../../../../assets/logo for auth.png" alt="" />
+<div class="text-center auth-container">
+  <div class="auth-content">
+    <img src="../../../../assets/logo for auth.png" width="250px" alt="" />
 
-  <form [formGroup]="formAuthenticator">
-    <fin-column>
-      <div class="d-flex flex-column g-4">
-        <label for="input_valor">Nome:</label>
-        <input id="input_valor" pInputText formControlName="auth_name" />
-      </div>
-      
-      <div class="d-flex flex-column g-4">
-        <label for="input_valor">Email:</label>
-        <input id="input_valor" pInputText formControlName="auth_email" />
-      </div>
+    <form [formGroup]="formAuthenticator">
+      <fin-column>
+        <div class="d-flex flex-column g-4">
+          <label for="input_valor">Nome:</label>
+          <input id="input_valor" pInputText formControlName="auth_name" />
+        </div>
 
-      <div class="d-flex flex-column g-4">
-        <label for="input_valor">Senha:</label>
-        <p-password formControlName="auth_password" [toggleMask]="true"></p-password>
-      </div>
+        <div class="d-flex flex-column g-4">
+          <label for="input_valor">Email:</label>
+          <input id="input_valor" pInputText formControlName="auth_email" />
+        </div>
 
-      <p-button
-        label="Login"
-        class="d-flex justify-content-end"
-        (onClick)="autenticarUsuario()"
-      ></p-button>
-    </fin-column>
-  </form>
-</fin-wrap-container>
+        <div class="d-flex flex-column g-4">
+          <label for="input_valor">Senha:</label>
+          <p-password
+            formControlName="auth_password"
+            [toggleMask]="true"
+          ></p-password>
+        </div>
+
+        <a class="register-link" (click)="_router.navigate(['/login'])"
+          >Já possuo uma conta.</a
+        >
+
+        <p-button
+          label="Cadastrar"
+          class="d-flex justify-content-end"
+          (onClick)="autenticarUsuario()"
+        ></p-button>
+      </fin-column>
+    </form>
+  </div>
+</div>
