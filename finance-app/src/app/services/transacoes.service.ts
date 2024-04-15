@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, retry } from 'rxjs';
+import { Observable, retry } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ITransacao } from '../interfaces/ITransacao';
 import { IDropdown } from '../interfaces/IDropdown';
 import { ParamsTransacao } from '../interfaces/ParamsTransacao';
+import { NotificationService } from '../shared/services/notification.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,15 +13,12 @@ import { ParamsTransacao } from '../interfaces/ParamsTransacao';
 export class TransacoesService {
   private _api_url = environment.api_url;
 
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient, private _notificationService: NotificationService) {}
 
-  public notify = new BehaviorSubject<any>('');
-  notifyObservable$ = this.notify.asObservable();
-
-  public notifyChanges(data: any) {
-    if (data) this.notify.next(data);
+  sendChanges(data: any) {
+    this._notificationService.notifyChanges(data);
   }
-
+  
   getMetodosDropdown(): Observable<IDropdown[]> {
     return this._http
       .post<IDropdown[]>(`${this._api_url}transacoes/listar/metodos`, {})
