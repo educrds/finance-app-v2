@@ -1,0 +1,34 @@
+.auth-container {
+  margin: auto;
+  height: calc(100vh - 32px);
+  display: flex;
+  flex-direction: column;
+
+  .auth-content {
+    gap: 24px;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 35vw;
+    align-items: center;
+    height: 90vh;
+    border-radius: 8px;
+    justify-content: center;
+    background: var(--bs-dark);
+
+      form {
+        input {
+          width: 100%;
+        }
+        label {
+          text-align: start;
+        }
+        .register-link {
+          font-size: 14px;
+          cursor: pointer;
+          color: var(--bs-gray-500);
+          text-align: end;
+        }
+      }
+  }
+}
