@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { StorageService } from '../shared/services/storage.service';
 import { AuthService } from '../authenticator/services/auth.service';
 import { MessagesService } from '../services/messages.service';
+import { HttpErrorHandlerService } from '../shared/services/http-error-handler.service';
 
 @Injectable()
 export class ApiRequestInterceptor implements HttpInterceptor {
@@ -18,7 +19,7 @@ export class ApiRequestInterceptor implements HttpInterceptor {
     private _storageService: StorageService,
     private _router: Router,
     private _messagesService: MessagesService,
-    private _authService: AuthService
+    private _httpErrorHandlerService: HttpErrorHandlerService
   ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
@@ -47,7 +48,7 @@ export class ApiRequestInterceptor implements HttpInterceptor {
       return next
         .handle(req)
         .pipe(
-          catchError((error: HttpErrorResponse) => this._authService.handleHttpError(error))
+          catchError((error: HttpErrorResponse) => this._httpErrorHandlerService.handleHttpError(error))
         );
     }
 
