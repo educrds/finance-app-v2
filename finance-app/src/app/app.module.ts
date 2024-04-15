@@ -1,10 +1,14 @@
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
+// modules
+import { BrowserModule } from '@angular/platform-browser';
+import { AuthModule } from './authenticator/auth.module';
+import { SharedModule } from './shared/shared.module';
+import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
 
 // components
 import { HomeComponent } from './pages/home/home.component';
@@ -16,6 +20,8 @@ import { DespesasComponent } from './components/despesas/despesas.component';
 import { ModalTransacaoComponent } from './templates/modal-transacao/modal-transacao.component';
 import { CategoriasComponent } from './components/categorias/categorias.component';
 import { ModalCategoriaComponent } from './templates/modal-categoria/modal-categoria.component';
+import { httpInterceptorProvider } from './helpers/http-interceptor.interceptor';
+
 
 // primeng
 import { MenuModule } from 'primeng/menu';
@@ -38,9 +44,9 @@ import { MessagesModule } from 'primeng/messages';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { ChipModule } from 'primeng/chip';
 import { TooltipModule } from 'primeng/tooltip';
-import { AuthModule } from './authenticator/auth.module';
-import { SharedModule } from './shared/shared.module';
-import { httpInterceptorProvider } from './helpers/http-interceptor.interceptor';
+import { MenubarModule } from 'primeng/menubar';
+
+
 
 @NgModule({
   declarations: [
@@ -81,6 +87,7 @@ import { httpInterceptorProvider } from './helpers/http-interceptor.interceptor'
     ChipModule,
     TooltipModule,
     AuthModule,
+    MenubarModule
   ],
   providers: [
     MessageService,
