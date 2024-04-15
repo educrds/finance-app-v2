@@ -9,7 +9,41 @@
 
 body {
   height: calc(100% - 16px);
+  margin: 0;
+  padding: 16px;
 }
+
+/* Chrome, Edge and Safari */
+*::-webkit-scrollbar {
+  height: 5px;
+  width: 7px;
+}
+*::-webkit-scrollbar-track {
+  border-radius: 3px;
+  background-color: #DFE9EB;
+}
+
+*::-webkit-scrollbar-track:hover {
+  background-color: #B8C0C2;
+}
+
+*::-webkit-scrollbar-track:active {
+  background-color: #B8C0C2;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: #A78BFA;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #7864B4;
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background-color: #69579D;
+}
+
 .ellipsis {
   border-radius: 50%;
   width: 15px;
