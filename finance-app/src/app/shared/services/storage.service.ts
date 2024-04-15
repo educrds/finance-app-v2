@@ -9,6 +9,11 @@ export class StorageService {
   clean(): void {
     localStorage.removeItem('token');
   }
+  
+  clearAndRefreshPage(): void {
+    this.clean();
+    window.location.reload();
+  }
 
   public saveUser(token: string): void {
     this.clean();
