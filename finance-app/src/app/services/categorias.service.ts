@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, retry } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { IDropdown } from '../interfaces/IDropdown';
 import { Categoria, Categorias } from '../interfaces/Categorias';
+import { NotificationService } from '../shared/services/notification.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,20 +12,20 @@ import { Categoria, Categorias } from '../interfaces/Categorias';
 export class CategoriasService {
   private _api_url = environment.api_url;
 
-  constructor(private _http: HttpClient) {}
+  constructor(
+    private _http: HttpClient,
+    private _notificationService: NotificationService
+  ) {}
 
-  public notify = new BehaviorSubject<any>('');
-  notifyObservable$ = this.notify.asObservable();
-
-  public notifyChanges(data: any) {
-    if(data){
-      this.notify.next(data)
-    }
+  sendChanges(data: any) {
+    this._notificationService.notifyChanges(data);
   }
 
   getCategoriasDropdown(cat_tip_id: number): Observable<IDropdown[]> {
     return this._http
-      .post<IDropdown[]>(`${this._api_url}categorias/listar-select`, { data: cat_tip_id })
+      .post<IDropdown[]>(`${this._api_url}categorias/listar-select`, {
+        data: { cat_tip_id: cat_tip_id },
+      })
       .pipe(retry(1));
   }
 
