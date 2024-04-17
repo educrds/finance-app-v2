@@ -6,7 +6,8 @@
       <fin-column>
         <div class="d-flex flex-column g-4">
           <label for="input_valor">Email:</label>
-          <input id="input_valor" pInputText formControlName="auth_email" />
+          <input id="input_valor" pInputText formControlName="auth_email"             placeholder="Insira seu email."
+          />
           <div
             class="text-start"
             *ngIf="
@@ -33,6 +34,7 @@
             formControlName="auth_password"
             [toggleMask]="true"
             [feedback]="false"
+            placeholder="Insira sua senha"
           ></p-password>
           <div
             class="text-start"
@@ -41,11 +43,6 @@
               formAuthenticator.controls['auth_password'].dirty
             "
           >
-            <small
-              class="text-danger text-start"
-              *ngIf="formAuthenticator.controls['auth_password']?.errors?.['email']"
-              >Senha inválida.</small
-            >
             <small
               class="text-danger text-start"
               *ngIf="formAuthenticator.controls['auth_password']?.errors?.['required']"
