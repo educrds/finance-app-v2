@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ITransacao } from '../../interfaces/ITransacao';
 import { TransacaoUtilService } from '../../utils/transacao-util.service';
 import { ParamsTransacao } from '../../interfaces/ParamsTransacao';
 import { NotificationService } from '../../shared/services/notification.service';
+import { Table } from 'primeng/table';
 
 @Component({
   selector: 'fin-despesas',
@@ -10,8 +11,10 @@ import { NotificationService } from '../../shared/services/notification.service'
   styleUrl: './despesas.component.scss',
 })
 export class DespesasComponent implements OnInit {
+  @ViewChild('dt') dt: Table | undefined;
+
   protected transacoes: ITransacao[] = [];
-  protected rowSelected!: ITransacao | null;
+  protected rowSelected!: ITransacao[] | null;
 
   private queryParams: ParamsTransacao = {
     filterDate: new Date(),
@@ -43,6 +46,17 @@ export class DespesasComponent implements OnInit {
         this.fetchTransacoes(this.queryParams);
       }
     });
+  }
+
+  applyFilterGlobal($event: any, stringVal: any) {
+    this.dt!.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
+  }
+
+  protected deletarTransacoes() {
+    if (this.rowSelected) {
+      const transacoesIds = this.rowSelected.map((item) => item.trs_id);
+      this._transacaoUtilService.deletarTransacoesUtil(transacoesIds);
+    }
   }
 
   protected editarTransacao(transacao: ITransacao) {
