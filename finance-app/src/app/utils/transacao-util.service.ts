@@ -129,19 +129,9 @@ export class TransacaoUtilService {
     let status = '';
 
     if (transacao.id_tipo_transacao === 1) {
-      if (transacao.trs_status) {
-        status = 'Recebida';
-      } else {
-        status = 'A Receber';
-      }
-    }
-
-    if (transacao.id_tipo_transacao === 2) {
-      if (transacao.trs_status) {
-        status = 'Paga';
-      } else {
-        status = 'A Pagar';
-      }
+      status = transacao.trs_status ? 'Recebida' : 'A Receber';
+    } else if (transacao.id_tipo_transacao === 2) {
+      status = transacao.trs_status ? 'Paga' : 'A Pagar';
     }
 
     return status;
