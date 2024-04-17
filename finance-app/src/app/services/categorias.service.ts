@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, retry } from 'rxjs';
+import { Observable, retry } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { IDropdown } from '../interfaces/IDropdown';
 import { Categoria, Categorias } from '../interfaces/Categorias';

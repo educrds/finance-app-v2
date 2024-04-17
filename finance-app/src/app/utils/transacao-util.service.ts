@@ -40,17 +40,21 @@ export class TransacaoUtilService {
   }
 
   deletarTransacaoUtil(idTransacao: number, isParcelado: boolean) {
-    let confirmationMessage =
-      'Deseja realmente excluir o registro? <br> Esta ação é irreversível.';
-    let successMessage = 'Registro deletado com sucesso!';
-    let errorMessage = 'Ocorreu um erro ao deletar registro!';
+    let confirmationMessage: string;
+    let successMessage: string;
+    let errorMessage: string;
 
     if (isParcelado) {
-      confirmationMessage = `Este registro trata-se de uma transação que se repete. <br> 
-      Esta ação deletará também as transações relativas as mese(s) posterior(es). <br>
-      Deseja prosseguir?`;
+      confirmationMessage = `Este registro trata-se de uma transação que se repete. 
+        Esta ação deletará também as transações relativas as mese(s) posterior(es). 
+        Deseja prosseguir?`;
       successMessage = 'Registros deletados com sucesso!';
       errorMessage = 'Ocorreu um erro ao deletar registros!';
+    } else {
+      confirmationMessage =
+        'Deseja realmente excluir o registro? Esta ação é irreversível.';
+      successMessage = 'Registro deletado com sucesso!';
+      errorMessage = 'Ocorreu um erro ao deletar registro!';
     }
 
     this._confirmationService.confirm({
@@ -67,6 +71,33 @@ export class TransacaoUtilService {
             this._notificationService.notifyChanges({ refresh: true });
           },
           error: () => this._messagesService.showError(errorMessage),
+        });
+      },
+    });
+  }
+
+  deletarTransacoesUtil(transacoesIds: number[]) {
+    let confirmationMessage: string = `Deseja realmente excluir os registros? Esta ação é irreversível. <br> 
+    Deseja prosseguir?`;
+    let successMessage: string = 'Registros deletados com sucesso!';
+    let errorMessage: string = 'Ocorreu um erro ao deletar registros!';
+
+    this._confirmationService.confirm({
+      message: confirmationMessage,
+      header: 'Confirmação',
+      icon: 'pi pi-exclamation-triangle',
+      acceptIcon: 'none',
+      rejectIcon: 'none',
+      rejectButtonStyleClass: 'p-button-text',
+      accept: () => {
+        transacoesIds.map((idTransacao) => {
+          this._transacoesService.deletarTransacao(idTransacao).subscribe({
+            next: () => {
+              this._messagesService.showSuccess(successMessage);
+              this._notificationService.notifyChanges({ refresh: true });
+            },
+            error: () => this._messagesService.showError(errorMessage),
+          });
         });
       },
     });

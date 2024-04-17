@@ -11,7 +11,7 @@ export class HttpErrorHandlerService {
 
   handleHttpError(error: HttpErrorResponse) {
     if (error.status === 401) {
-      // Se a resposta for 401 Unauthorized, r
+      // Se a resposta for 401 Unauthorized.
       this._router.navigate(['/login']);
     } else if (error.status === 404) {
       console.error('Recurso não encontrado. Status: 404');
