@@ -9,7 +9,6 @@ import { Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { StorageService } from '../shared/services/storage.service';
-import { AuthService } from '../authenticator/services/auth.service';
 import { MessagesService } from '../services/messages.service';
 import { HttpErrorHandlerService } from '../shared/services/http-error-handler.service';
 
