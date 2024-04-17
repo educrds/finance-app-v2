@@ -6,12 +6,52 @@
       <fin-column>
         <div class="d-flex flex-column g-4">
           <label for="input_valor">Nome:</label>
-          <input id="input_valor" pInputText formControlName="auth_name" />
+          <input id="input_valor" pInputText formControlName="auth_name"             placeholder="Insira seu nome"
+          />
+
+          <div
+            class="text-start"
+            *ngIf="
+              formAuthenticator.controls['auth_name'].touched ||
+              formAuthenticator.controls['auth_name'].dirty
+            "
+          >
+            <small
+              class="text-danger text-start"
+              *ngIf="formAuthenticator.controls['auth_name']?.errors?.['pattern']"
+              >Formato inválido.</small
+            >
+            <small
+              class="text-danger text-start"
+              *ngIf="formAuthenticator.controls['auth_name']?.errors?.['required']"
+              >Campo obrigatório.</small
+            >
+          </div>
         </div>
 
         <div class="d-flex flex-column g-4">
           <label for="input_valor">Email:</label>
-          <input id="input_valor" pInputText formControlName="auth_email" />
+          <input id="input_valor" pInputText formControlName="auth_email"             placeholder="Insira seu email."
+          />
+
+          <div
+            class="text-start"
+            *ngIf="
+              formAuthenticator.controls['auth_email'].touched ||
+              formAuthenticator.controls['auth_email'].dirty
+            "
+          >
+            <small
+              class="text-danger text-start"
+              *ngIf="formAuthenticator.controls['auth_email']?.errors?.['email']"
+              >Email inválido.</small
+            >
+            <small
+              class="text-danger text-start"
+              *ngIf="formAuthenticator.controls['auth_email']?.errors?.['required']"
+              >Email obrigatório.</small
+            >
+          </div>
         </div>
 
         <div class="d-flex flex-column g-4">
@@ -19,7 +59,29 @@
           <p-password
             formControlName="auth_password"
             [toggleMask]="true"
+            [feedback]="false"
+            placeholder="Insira sua senha"
+            autocomplete="new-password"
           ></p-password>
+
+          <div
+            class="text-start"
+            *ngIf="
+              formAuthenticator.controls['auth_password'].touched ||
+              formAuthenticator.controls['auth_password'].dirty
+            "
+          >
+            <small
+              class="text-danger text-start"
+              *ngIf="formAuthenticator.controls['auth_password']?.hasError('minlength')"
+              >Sua senha deve conter no minímo 8 caracteres.</small
+            >
+            <small
+              class="text-danger text-start"
+              *ngIf="formAuthenticator.controls['auth_password']?.errors?.['required']"
+              >Senha obrigatória.</small
+            >
+          </div>
         </div>
 
         <a class="register-link" (click)="_router.navigate(['/login'])"
