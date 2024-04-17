@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ITransacao } from '../../interfaces/ITransacao';
 import { ITransacoesSoma } from '../../interfaces/ITransacoesSoma';
 import { TransacaoUtilService } from '../../utils/transacao-util.service';
 import { ParamsTransacao } from '../../interfaces/ParamsTransacao';
 import { NotificationService } from '../../shared/services/notification.service';
+import { Table } from 'primeng/table';
 
 @Component({
   selector: 'fin-main',
@@ -11,17 +12,19 @@ import { NotificationService } from '../../shared/services/notification.service'
   styleUrl: './main.component.scss',
 })
 export class MainComponent implements OnInit {
+  @ViewChild('dt') dt: Table | undefined;
+
   protected transacoes: ITransacao[] = [];
   protected somatorio!: ITransacoesSoma;
-  protected rowSelected!: ITransacao | null;
+  protected rowSelected!: ITransacao[] | null;
 
   private queryParams: ParamsTransacao = {
-    filterDate: new Date()
+    filterDate: new Date(),
   };
 
   constructor(
     private _notificationService: NotificationService,
-    private _transacaoUtilService: TransacaoUtilService
+    private _transacaoUtilService: TransacaoUtilService,
   ) {}
 
   ngOnInit(): void {
@@ -31,9 +34,7 @@ export class MainComponent implements OnInit {
       if (res.refresh) {
         this.fetchTransacoes(this.queryParams);
       }
-      if (res.closeModal) {
-        this.rowSelected = null;
-      }
+      this.rowSelected = null;
     });
 
     this._notificationService.notifyObservable$.subscribe((res) => {
@@ -43,6 +44,17 @@ export class MainComponent implements OnInit {
         this.fetchTransacoes(this.queryParams);
       }
     });
+  }
+
+  applyFilterGlobal($event: any, stringVal: any) {
+    this.dt!.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
+  }
+
+  protected deletarTransacoes() {
+    if (this.rowSelected) {
+      const transacoesIds = this.rowSelected.map((item) => item.trs_id);
+      this._transacaoUtilService.deletarTransacoesUtil(transacoesIds);
+    }
   }
 
   protected editarTransacao(transacao: ITransacao) {
@@ -61,7 +73,9 @@ export class MainComponent implements OnInit {
     this._transacaoUtilService.getTransacoesUtil(params).subscribe({
       next: (transacoes: ITransacao[]) => {
         this.transacoes = transacoes;
-        this.somatorio = this._transacaoUtilService.obterSomatorioTransacoes(this.transacoes);
+        this.somatorio = this._transacaoUtilService.obterSomatorioTransacoes(
+          this.transacoes
+        );
       },
       error: (err) => console.log(err),
     });
