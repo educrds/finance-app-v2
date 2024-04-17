@@ -37,21 +37,21 @@ export class ModalCategoriaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.config.data.cat_id) {
-      this.formAddCategoria = this._fb.group({
-        cat_id: [this.config.data.cat_id],
-        cat_nome: [this.config.data.cat_nome],
-        usr_id: [this.config.data.usr_id],
-        cat_cor: [this.config.data.cat_cor],
-        cat_tip_id: [this.config.data.cat_tip_id],
-      });
-    } else {
-      this.formAddCategoria = this._fb.group({
-        cat_nome: [''],
-        cat_cor: [''],
-        cat_tip_id: [''],
-      });
+    const defaultCategoriaValues = {
+      cat_id: '',
+      cat_nome: '',
+      usr_id: '',
+      cat_cor: '',
+      cat_tip_id: '',
     }
+
+    this.formAddCategoria = this._fb.group({
+      cat_id: [this.config.data.cat_id || defaultCategoriaValues.cat_id],
+      cat_nome: [this.config.data.cat_nome || defaultCategoriaValues.cat_nome],
+      usr_id: [this.config.data.usr_id || defaultCategoriaValues.usr_id],
+      cat_cor: [this.config.data.cat_cor || defaultCategoriaValues.cat_cor],
+      cat_tip_id: [this.config.data.cat_tip_id || defaultCategoriaValues.cat_tip_id ],
+    });
   }
 
   protected inserirOuAtualizarCategoria() {
@@ -68,34 +68,24 @@ export class ModalCategoriaComponent implements OnInit {
   private _inserirCategoria(form: Categoria) {
     this._categoriaService.addCategoria(form).subscribe({
       next: () => {
-        this._messagesService.showSuccess(
-          'Categoria inserida com sucesso!'
-        );
+        this._messagesService.showSuccess('Categoria inserida com sucesso!');
         this.ref.close();
         this._notificationService.notifyChanges({ refresh: true });
       },
-      error: () =>
-        this._messagesService.showError(
-          'Ocorreu um erro ao adicionar categoria!'
-        ),
-      complete: () => (this.loading = false),
+      error: () => this._messagesService.showError('Ocorreu um erro ao adicionar categoria!'),
+      complete: () => this.loading = false
     });
   }
 
   private _atualizarCategoria(form: Categoria) {
     this._categoriaService.atualizarCategoria(form).subscribe({
       next: () => {
-        this._messagesService.showSuccess(
-          'Categoria atualizada com sucesso!'
-        );
+        this._messagesService.showSuccess('Categoria atualizada com sucesso!');
         this.ref.close();
         this._notificationService.notifyChanges({ refresh: true });
       },
-      error: () =>
-        this._messagesService.showError(
-          'Ocorreu um erro ao atualizar categoria!'
-        ),
-      complete: () => (this.loading = false),
+      error: () => this._messagesService.showError('Ocorreu um erro ao atualizar categoria!'),
+      complete: () => this.loading = false
     });
   }
 }
