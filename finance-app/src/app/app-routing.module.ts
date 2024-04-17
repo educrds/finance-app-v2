@@ -8,7 +8,7 @@ import { ReceitasComponent } from './components/receitas/receitas.component';
 import { DespesasComponent } from './components/despesas/despesas.component';
 import { CategoriasComponent } from './components/categorias/categorias.component';
 import { LoginComponent } from './authenticator/pages/login/login.component';
-import { authGuard } from './guards/auth.guard';
+import { authGuard } from './authenticator/guards/auth.guard';
 import { RegisterComponent } from './authenticator/pages/register/register.component';
 
 const routes: Routes = [
