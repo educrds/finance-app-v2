@@ -118,10 +118,7 @@ export class TransacaoUtilService {
 
   getTransacoesUtil(params: ParamsTransacao): Observable<ITransacao[]> {
     return this._transacoesService.getTransacoes(params).pipe(
-      catchError((err) => {
-        console.log(err);
-        return throwError(err); // Trata o erro e propaga-o
-      })
+      catchError((err) => throwError(err))
     );
   }
 
