@@ -1,0 +1,20 @@
+.alert-container {
+  display: flex;
+  gap: 8px;
+  text-align: center;
+  padding: 1rem 1.5rem;
+  font-size: 16px;
+  align-items: center;
+  box-shadow: 0px 4px 8px 0px rgba(234, 179, 8, 0.04);
+  backdrop-filter: blur(1.5px);
+  background: rgba(254, 252, 232, 0.95);
+  border: solid #fde68a;
+  border-width: 1px;
+  color: #ca8a04;
+  margin: 1rem 0;
+  border-radius: 6px;
+
+  i {
+    font-size: 18px;
+  }
+}
