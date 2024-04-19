@@ -38,7 +38,7 @@ export class ModalTransacaoComponent implements OnInit {
       trs_data_ocorrido: new Date(),
       trs_titulo: '',
       trs_categoria: '',
-      trs_usuario: 1,
+      trs_usuario: '',
       trs_metodo: '',
       trs_status: false,
       trs_parcelado: false,
