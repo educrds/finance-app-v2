@@ -1,19 +1,17 @@
 import { Injectable } from '@angular/core';
+import { User } from '../../interfaces/User';
+import { jwtDecode } from 'jwt-decode';
+
+interface JwtPayload {
+  name: string,
+  email: string
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class StorageService {
   constructor() {}
-
-  clean(): void {
-    localStorage.removeItem('token');
-  }
-  
-  clearAndRefreshPage(): void {
-    this.clean();
-    window.location.reload();
-  }
 
   public saveUser(token: string): void {
     this.clean();
@@ -22,6 +20,28 @@ export class StorageService {
 
   get getToken() {
     return localStorage.getItem('token');
+  }
+
+  clean(): void {
+    localStorage.removeItem('token');
+  }
+
+  clearAndRefreshPage(): void {
+    this.clean();
+    window.location.reload();
+  }
+
+  getUser(): User | null {
+    const token = this.getToken;
+    if (token) {
+      const decodedToken = jwtDecode<JwtPayload>(token);
+      const user: User = {
+        name: decodedToken.name, // Assumindo que o token tenha a propriedade 'name'
+        email: decodedToken.email, // Assumindo que o token tenha a propriedade 'name'
+      };
+      return user;
+    }
+    return null;
   }
 
   private isTokenExpired(): boolean {
