@@ -48,6 +48,10 @@ export class DespesasComponent implements OnInit {
     });
   }
 
+  clear(table: Table) {
+    table.clear();
+  }
+
   applyFilterGlobal($event: any, stringVal: any) {
     this.dt!.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
@@ -62,7 +66,7 @@ export class DespesasComponent implements OnInit {
   protected editarTransacao(transacao: ITransacao) {
     this._transacaoUtilService.editarTransacaoUtil(transacao);
   }
-  
+
   protected deletarTransacao(idTransacao: number, isParcelado: boolean) {
     this._transacaoUtilService.deletarTransacaoUtil(idTransacao, isParcelado);
   }

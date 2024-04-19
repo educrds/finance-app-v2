@@ -45,6 +45,10 @@ export class MainComponent implements OnInit {
       }
     });
   }
+  
+  clear(table: Table) {
+    table.clear();
+  }
 
   applyFilterGlobal($event: any, stringVal: any) {
     this.dt!.filterGlobal(($event.target as HTMLInputElement).value, stringVal);

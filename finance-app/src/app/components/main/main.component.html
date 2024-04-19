@@ -58,12 +58,19 @@
             <span class="p-input-icon-left ml-auto">
               <i class="pi pi-search"></i>
               <input
-                pInputText
-                type="text"
-                (input)="applyFilterGlobal($event, 'contains')"
-                placeholder="Pesquisa"
-              />
-            </span>
+              pInputText
+              type="text"
+              (input)="applyFilterGlobal($event, 'contains')"
+              placeholder="Pesquisa"
+            />
+          </span>
+
+          <button
+            pButton
+            class="p-button-outlined"
+            icon="pi pi-filter-slash"
+            (click)="clear(dt)"
+          ></button>
           </div>
 
           <button
