@@ -27,14 +27,14 @@ export class SidebarComponent implements OnInit {
             routerLink: ['/all'],
           },
           {
-            label: 'Receitas',
+            label: 'Entradas',
             icon: 'pi pi-arrow-up-right',
-            routerLink: ['/receitas'],
+            routerLink: ['/entradas'],
           },
           {
-            label: 'Despesas',
+            label: 'Saídas',
             icon: 'pi pi-arrow-down-right',
-            routerLink: ['/despesas'],
+            routerLink: ['/saidas'],
           },
         ],
       },

@@ -18,8 +18,8 @@ const routes: Routes = [
     canActivate: [authGuard],
     children: [
       { path: 'all', component: MainComponent },
-      { path: 'receitas', component: ReceitasComponent },
-      { path: 'despesas', component: DespesasComponent },
+      { path: 'entradas', component: ReceitasComponent },
+      { path: 'saidas', component: DespesasComponent },
       { path: 'categorias', component: CategoriasComponent },
       { path: '', redirectTo: '/all', pathMatch: 'full' },
     ],
