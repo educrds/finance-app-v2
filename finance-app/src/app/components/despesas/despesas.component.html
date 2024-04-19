@@ -4,6 +4,7 @@
   <p-table
     *ngIf="transacoes.length; else noResultsFound"
     #dt
+    id="tbl_transacoes"
     [value]="transacoes"
     dataKey="trs_id"
     [tableStyle]="{ 'min-width': '50rem' }"

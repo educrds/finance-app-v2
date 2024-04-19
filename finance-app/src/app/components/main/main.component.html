@@ -29,8 +29,9 @@
     <h2>Transações</h2>
     <hr />
     <p-table
-    *ngIf="transacoes.length; else noResultsFound"
+      *ngIf="transacoes.length; else noResultsFound"
       #dt
+      id="tbl_transacoes"
       [value]="transacoes"
       dataKey="trs_id"
       [tableStyle]="{ 'min-width': '50rem', 'max-width': '100vw' }"

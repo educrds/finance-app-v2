@@ -20,28 +20,28 @@ body {
 }
 *::-webkit-scrollbar-track {
   border-radius: 3px;
-  background-color: #DFE9EB;
+  background-color: #dfe9eb;
 }
 
 *::-webkit-scrollbar-track:hover {
-  background-color: #B8C0C2;
+  background-color: #b8c0c2;
 }
 
 *::-webkit-scrollbar-track:active {
-  background-color: #B8C0C2;
+  background-color: #b8c0c2;
 }
 
 *::-webkit-scrollbar-thumb {
   border-radius: 5px;
-  background-color: #A78BFA;
+  background-color: #a78bfa;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background-color: #7864B4;
+  background-color: #7864b4;
 }
 
 *::-webkit-scrollbar-thumb:active {
-  background-color: #69579D;
+  background-color: #69579d;
 }
 
 .ellipsis {
@@ -61,4 +61,13 @@ body {
 }
 .p-paginator {
   justify-content: end !important;
+}
+
+// primeira letra maiúscula da coluna `título`
+#tbl_transacoes {
+  table > tbody > tr:nth-child(2) > td:nth-child(3) {
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
 }
