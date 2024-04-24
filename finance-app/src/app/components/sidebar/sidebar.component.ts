@@ -25,16 +25,19 @@ export class SidebarComponent implements OnInit {
             label: 'Ver todas',
             icon: 'pi pi-book',
             routerLink: ['/all'],
+            routerLinkActiveOptions: { exact: true }
           },
           {
             label: 'Entradas',
             icon: 'pi pi-arrow-up-right',
             routerLink: ['/entradas'],
+            routerLinkActiveOptions: { exact: true }
           },
           {
             label: 'Saídas',
             icon: 'pi pi-arrow-down-right',
             routerLink: ['/saidas'],
+            routerLinkActiveOptions: { exact: true }
           },
         ],
       },
@@ -47,7 +50,8 @@ export class SidebarComponent implements OnInit {
           {
             label: 'Ver todas',
             icon: 'pi pi-book',
-            routerLink: ['/categorias']
+            routerLink: ['/categorias'],
+            routerLinkActiveOptions: { exact: true }
           },
         ],
       },
