@@ -45,6 +45,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { ChipModule } from 'primeng/chip';
 import { TooltipModule } from 'primeng/tooltip';
 import { MenubarModule } from 'primeng/menubar';
+import { ChartModule } from 'primeng/chart';
 
 
 
@@ -87,7 +88,8 @@ import { MenubarModule } from 'primeng/menubar';
     ChipModule,
     TooltipModule,
     AuthModule,
-    MenubarModule
+    MenubarModule,
+    ChartModule
   ],
   providers: [
     MessageService,

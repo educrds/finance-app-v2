@@ -5,6 +5,7 @@ import { TransacaoUtilService } from '../../utils/transacao-util.service';
 import { ParamsTransacao } from '../../interfaces/ParamsTransacao';
 import { NotificationService } from '../../shared/services/notification.service';
 import { Table } from 'primeng/table';
+import { ConfigCategoriaChart } from '../../interfaces/Chart';
 
 @Component({
   selector: 'fin-main',
@@ -18,13 +19,33 @@ export class MainComponent implements OnInit {
   protected somatorio!: ITransacoesSoma;
   protected rowSelected!: ITransacao[] | null;
 
+  protected entradasPorCategoria!: ConfigCategoriaChart;
+  protected saidasPorCategoria!: ConfigCategoriaChart;
+
+  protected options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    borderWidth: 0,
+    plugins: {
+      legend: {
+        position: 'right',
+        labels: {
+          padding: 15,
+          usePointStyle: true,
+          boxHeight: 10,
+          pointStyle: 'circle',
+        },
+      },
+    },
+  };
+
   private queryParams: ParamsTransacao = {
     filterDate: new Date(),
   };
 
   constructor(
     private _notificationService: NotificationService,
-    private _transacaoUtilService: TransacaoUtilService,
+    private _transacaoUtilService: TransacaoUtilService
   ) {}
 
   ngOnInit(): void {
@@ -45,7 +66,7 @@ export class MainComponent implements OnInit {
       }
     });
   }
-  
+
   clear(table: Table) {
     table.clear();
   }
@@ -77,11 +98,57 @@ export class MainComponent implements OnInit {
     this._transacaoUtilService.getTransacoesUtil(params).subscribe({
       next: (transacoes: ITransacao[]) => {
         this.transacoes = transacoes;
-        this.somatorio = this._transacaoUtilService.obterSomatorioTransacoes(
-          this.transacoes
-        );
+        this.somatorio =
+          this._transacaoUtilService.obterSomatorioTransacoes(transacoes);
+        this.calcularSomatorioPorCategoria(transacoes);
       },
       error: (err) => console.log(err),
     });
+  }
+
+  private calcularSomatorioPorCategoria(transacoes: ITransacao[] | any[]) {
+    const resultado = transacoes.reduce(
+      (acc, transacao) => {
+        const tipoTransacao =
+          transacao.id_tipo_transacao === 1 ? 'entrada' : 'saida';
+        const categoria = transacao.categoria_nome;
+        const categoriaCor = transacao.categoria_cor;
+        const valor = transacao.trs_valor;
+
+        // Cria o objeto de categoria se ainda não existir
+        if (!acc[tipoTransacao][categoria]) {
+          acc[tipoTransacao][categoria] = {
+            name: categoria,
+            value: 0,
+            cor: categoriaCor,
+          };
+        }
+
+        // Soma o valor à categoria correspondente
+        acc[tipoTransacao][categoria].value += valor;
+
+        return acc;
+      },
+      { entrada: {}, saida: {} }
+    );
+
+    this.entradasPorCategoria = this.configPieCharts(resultado.entrada);
+    this.saidasPorCategoria = this.configPieCharts(resultado.saida);
+  }
+
+  private configPieCharts(categoriasPorTipo: ConfigCategoriaChart) {
+    const objCategorias = Object.values(categoriasPorTipo);
+
+    let resultadoPorCategoria = {
+      labels: objCategorias.map((item: any) => item.name),
+      datasets: [
+        {
+          data: objCategorias.map((item: any) => item.value),
+          backgroundColor: objCategorias.map((item: any) => item.cor),
+        },
+      ],
+    };
+
+    return resultadoPorCategoria;
   }
 }

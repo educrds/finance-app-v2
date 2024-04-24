@@ -1,4 +1,4 @@
-<fin-column>
+<fin-column class="w-100">
   <fin-row>
     <fin-top-card
       [title]="'Entradas'"
@@ -23,6 +23,30 @@
       [isCurrency]="true"
       class="flex-1"
     ></fin-top-card>
+  </fin-row>
+
+  <fin-row>
+    <div class="wrap-container chart">
+      <h3>Entradas por categoria</h3>
+      <div class="m-auto">
+        <p-chart
+          type="pie"
+          [data]="entradasPorCategoria"
+          [options]="options"
+        ></p-chart>
+      </div>
+    </div>
+
+    <div class="wrap-container chart">
+      <h3>Saídas por categoria</h3>
+      <div class="m-auto">
+        <p-chart
+          type="pie"
+          [data]="saidasPorCategoria"
+          [options]="options"
+        ></p-chart>
+      </div>
+    </div>
   </fin-row>
 
   <fin-wrap-container [ngClass]="'w-100'">
@@ -58,19 +82,19 @@
             <span class="p-input-icon-left ml-auto">
               <i class="pi pi-search"></i>
               <input
-              pInputText
-              type="text"
-              (input)="applyFilterGlobal($event, 'contains')"
-              placeholder="Pesquisa"
-            />
-          </span>
+                pInputText
+                type="text"
+                (input)="applyFilterGlobal($event, 'contains')"
+                placeholder="Pesquisa"
+              />
+            </span>
 
-          <button
-            pButton
-            class="p-button-outlined"
-            icon="pi pi-filter-slash"
-            (click)="clear(dt)"
-          ></button>
+            <button
+              pButton
+              class="p-button-outlined"
+              icon="pi pi-filter-slash"
+              (click)="clear(dt)"
+            ></button>
           </div>
 
           <button
