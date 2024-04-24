@@ -1,0 +1,14 @@
+.wrap-container {
+  background: var(--bs-dark);
+  padding: 1.5rem;
+  border-radius: 10px;
+  width: 100%;
+
+  &.chart {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+  }
+}
