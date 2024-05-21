@@ -151,4 +151,8 @@ export class MainComponent implements OnInit {
 
     return resultadoPorCategoria;
   }
+
+  protected sumSelected(transactions: any): number {
+    return transactions.reduce((acc:number, transacao:ITransacao) => acc + transacao.trs_valor, 0)
+  }
 }

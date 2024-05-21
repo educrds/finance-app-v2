@@ -52,151 +52,159 @@
   <fin-wrap-container [ngClass]="'w-100'">
     <h2>Transações</h2>
     <hr />
-    <p-table
-      *ngIf="transacoes.length; else noResultsFound"
-      #dt
-      id="tbl_transacoes"
-      [value]="transacoes"
-      dataKey="trs_id"
-      [tableStyle]="{ 'min-width': '50rem', 'max-width': '100vw' }"
-      selectionMode="multiple"
-      [(selection)]="rowSelected"
-      [paginator]="true"
-      [rows]="10"
-      [showCurrentPageReport]="true"
-      currentPageReportTemplate="Exibindo {last} de {totalRecords} resultados."
-      [rowsPerPageOptions]="[5, 10, 25]"
-      [globalFilterFields]="[
-        'trs_titulo',
-        'trs_valor',
-        'trs_data_ocorrido',
-        'trs_ano_ocorrido',
-        'trs_mes_ocorrido',
-        'metodo_nome',
-        'categoria_nome'
-      ]"
-    >
-      <ng-template pTemplate="caption">
-        <div class="d-flex justify-content-between">
-          <div class="d-flex g-4">
-            <span class="p-input-icon-left ml-auto">
-              <i class="pi pi-search"></i>
-              <input
-                pInputText
-                type="text"
-                (input)="applyFilterGlobal($event, 'contains')"
-                placeholder="Pesquisa"
-              />
-            </span>
+    @if(transacoes.length){
+      <p-table
+        #dt
+        id="tbl_transacoes"
+        [value]="transacoes"
+        dataKey="trs_id"
+        [tableStyle]="{ 'min-width': '50rem', 'max-width': '100vw' }"
+        selectionMode="multiple"
+        [(selection)]="rowSelected"
+        [paginator]="true"
+        [rows]="10"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Exibindo {last} de {totalRecords} resultados."
+        [rowsPerPageOptions]="[5, 10, 25]"
+        [globalFilterFields]="[
+          'trs_titulo',
+          'trs_valor',
+          'trs_data_ocorrido',
+          'trs_ano_ocorrido',
+          'trs_mes_ocorrido',
+          'metodo_nome',
+          'categoria_nome'
+        ]"
+      >
+        <ng-template pTemplate="caption">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex g-16">
+              <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+                <input
+                  pInputText
+                  type="text"
+                  (input)="applyFilterGlobal($event, 'contains')"
+                  placeholder="Pesquisa"
+                />
+              </span>
+  
+              <button
+                pButton
+                class="p-button-outlined"
+                icon="pi pi-filter-slash"
+                (click)="clear(dt)"
+              ></button>
 
-            <button
+              @if(rowSelected && rowSelected.length){
+                <div class="d-flex flex-column m-auto">
+                  <label for="">Somatório selecionados</label>
+                  <div>{{ sumSelected(rowSelected) | currency:'R$' }}</div>
+                </div>
+              }
+            </div>  
+            
+            @if(rowSelected && rowSelected.length > 1){
+              <button
               pButton
-              class="p-button-outlined"
-              icon="pi pi-filter-slash"
-              (click)="clear(dt)"
-            ></button>
+              label="Deletar selecionados"
+              class="p-button-danger"
+              (click)="deletarTransacoes()"
+              ></button>
+            }
           </div>
+        </ng-template>
+  
+        <ng-template pTemplate="header">
+          <tr>
+            <th>
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th pSortableColumn="tipo_transacao">
+              Tipo <p-sortIcon field="tipo_transacao"></p-sortIcon>
+            </th>
+            <th pSortableColumn="trs_titulo">
+              Título <p-sortIcon field="trs_titulo"></p-sortIcon>
+            </th>
+            <th pSortableColumn="trs_valor">
+              Valor <p-sortIcon field="trs_valor"></p-sortIcon>
+            </th>
+            <th pSortableColumn="trs_status">
+              Status <p-sortIcon field="trs_status"></p-sortIcon>
+            </th>
+            <th pSortableColumn="categoria_nome">
+              Categoria <p-sortIcon field="categoria_nome"></p-sortIcon>
+            </th>
+            <th pSortableColumn="trs_data_ocorrido">
+              Data <p-sortIcon field="trs_data_ocorrido"></p-sortIcon>
+            </th>
+            <th pSortableColumn="metodo_nome">
+              Metódo <p-sortIcon field="metodo_nome"></p-sortIcon>
+            </th>
+            <th></th>
+          </tr>
+        </ng-template>
 
-          <button
-            pButton
-            *ngIf="rowSelected && rowSelected.length > 1"
-            label="Deletar selecionados"
-            class="p-button-danger"
-            (click)="deletarTransacoes()"
-          ></button>
-        </div>
-      </ng-template>
-
-      <ng-template pTemplate="header">
-        <tr>
-          <th>
-            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-          </th>
-          <th pSortableColumn="tipo_transacao">
-            Tipo <p-sortIcon field="tipo_transacao"></p-sortIcon>
-          </th>
-          <th pSortableColumn="trs_titulo">
-            Título <p-sortIcon field="trs_titulo"></p-sortIcon>
-          </th>
-          <th pSortableColumn="trs_valor">
-            Valor <p-sortIcon field="trs_valor"></p-sortIcon>
-          </th>
-          <th pSortableColumn="trs_status">
-            Status <p-sortIcon field="trs_status"></p-sortIcon>
-          </th>
-          <th pSortableColumn="categoria_nome">
-            Categoria <p-sortIcon field="categoria_nome"></p-sortIcon>
-          </th>
-          <th pSortableColumn="trs_data_ocorrido">
-            Data <p-sortIcon field="trs_data_ocorrido"></p-sortIcon>
-          </th>
-          <th pSortableColumn="metodo_nome">
-            Metódo <p-sortIcon field="metodo_nome"></p-sortIcon>
-          </th>
-          <th></th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-transacao let-rowData>
-        <tr [pSelectableRowDisabled]="true" [pSelectableRow]="rowData">
-          <td>
-            <p-tableCheckbox [value]="transacao"></p-tableCheckbox>
-          </td>
-          <td>
-            <div class="chip">
-              {{ transacao.tipo_transacao }}
-            </div>
-          </td>
-          <td>{{ transacao.trs_titulo }}</td>
-          <td>{{ transacao.trs_valor | currency : "R$ " }}</td>
-          <td>
-            <span
-              class="ellipsis"
-              tooltipPosition="top"
-              [pTooltip]="checkStatus(transacao)"
-              [ngClass]="
-                transacao.trs_status ? 'ellipsis-success' : 'ellipsis-danger'
-              "
-            ></span>
-          </td>
-          <td>
-            <div
-              class="chip"
-              [ngStyle]="{ 'background-color': transacao.categoria_cor }"
-            >
-              {{ transacao.categoria_nome }}
-            </div>
-          </td>
-          <td>{{ transacao.trs_data_ocorrido | date : "dd/MM/yyyy" }}</td>
-          <td>{{ transacao.metodo_nome }}</td>
-          <td class="d-flex">
-            <button
-              pButton
-              pRipple
-              type="button"
-              icon="pi pi-pencil"
-              size="small"
-              (click)="editarTransacao(transacao)"
-              class="p-button-rounded p-button-text p-button-primary"
-            ></button>
-
-            <button
-              pButton
-              pRipple
-              type="button"
-              icon="pi pi-trash"
-              size="small"
-              (click)="
-                deletarTransacao(transacao.trs_id, transacao.trs_parcelado)
-              "
-              class="p-button-rounded p-button-text p-button-danger"
-            ></button>
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
-
-    <ng-template #noResultsFound>
+        <ng-template pTemplate="body" let-transacao let-rowData>
+          <tr [pSelectableRowDisabled]="true" [pSelectableRow]="rowData">
+            <td>
+              <p-tableCheckbox [value]="transacao"></p-tableCheckbox>
+            </td>
+            <td>
+              <div class="chip">
+                {{ transacao.tipo_transacao }}
+              </div>
+            </td>
+            <td>{{ transacao.trs_titulo }}</td>
+            <td>{{ transacao.trs_valor | currency : "R$ " }}</td>
+            <td>
+              <span
+                class="ellipsis"
+                tooltipPosition="top"
+                [pTooltip]="checkStatus(transacao)"
+                [ngClass]="
+                  transacao.trs_status ? 'ellipsis-success' : 'ellipsis-danger'
+                "
+              ></span>
+            </td>
+            <td>
+              <div
+                class="chip"
+                [ngStyle]="{ 'background-color': transacao.categoria_cor }"
+              >
+                {{ transacao.categoria_nome }}
+              </div>
+            </td>
+            <td>{{ transacao.trs_data_ocorrido | date : "dd/MM/yyyy" }}</td>
+            <td>{{ transacao.metodo_nome }}</td>
+            <td class="d-flex">
+              <button
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-pencil"
+                size="small"
+                (click)="editarTransacao(transacao)"
+                class="p-button-rounded p-button-text p-button-primary"
+              ></button>
+  
+              <button
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-trash"
+                size="small"
+                (click)="
+                  deletarTransacao(transacao.trs_id, transacao.trs_parcelado)
+                "
+                class="p-button-rounded p-button-text p-button-danger"
+              ></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    } @else if(!transacoes.length) {
       <fin-alert-container message="Nenhum registro encontrado." />
-    </ng-template>
+    }
   </fin-wrap-container>
 </fin-column>
