@@ -6,6 +6,7 @@ import { LogoComponent } from './components/logo/logo.component';
 import { RowComponent } from './components/row/row.component';
 import { TopCardComponent } from './components/top-card/top-card.component';
 import { WrapContainerComponent } from './components/wrap-container/wrap-container.component';
+import { BaseTransacaoDirective } from './directives/base-transacao.directive';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { WrapContainerComponent } from './components/wrap-container/wrap-contain
     RowComponent,
     TopCardComponent,
     WrapContainerComponent,
+    BaseTransacaoDirective,
   ],
   exports: [
     AlertContainerComponent,

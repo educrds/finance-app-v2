@@ -1,35 +1,34 @@
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import { Directive, ViewChild, WritableSignal, inject, signal } from '@angular/core';
 import { Table } from 'primeng/table';
-import { ITransacao } from '../../../interfaces/ITransacao';
-import { ParamsTransacao } from '../../../interfaces/ParamsTransacao';
-import { TransacaoUtilService } from '../../../utils/transacao-util.service';
-import { NotificationService } from '../../services/notification.service';
+import { ITransacao } from '../../interfaces/ITransacao';
+import { ParamsTransacao } from '../../interfaces/ParamsTransacao';
+import { TransacaoUtilService } from '../services/transacao-util.service';
+import { NotificationService } from '../services/notification.service';
 
-@Component({
-  selector: 'fin-base-transacao',
-  templateUrl: './base-transacao.component.html'
+@Directive({
+  selector: '[finBaseTransacao]'
 })
-export class BaseTransacaoComponent implements OnInit {
+export class BaseTransacaoDirective {
   @ViewChild('dt') dt: Table | undefined;
 
   protected _notificationService = inject(NotificationService);
   protected _transacaoUtilService = inject(TransacaoUtilService);
   
-  protected transacoes: ITransacao[] = [];
-  protected rowSelected!: ITransacao[] | null;
-  protected queryParams: ParamsTransacao = {
+  protected transacoes: WritableSignal<ITransacao[]> = signal([]);
+  protected rowSelected: WritableSignal<ITransacao[]> = signal([]);
+  protected queryParams: WritableSignal<ParamsTransacao> = signal({
     filterDate: new Date()
-  };
+  });
 
   ngOnInit(): void {
-    this.fetchTransacoes(this.queryParams);
+    this.fetchTransacoes(this.queryParams());
 
     this._notificationService.notifyObservable$.subscribe((res) => {
       if (res.refresh) {
-        this.fetchTransacoes(this.queryParams);
+        this.fetchTransacoes(this.queryParams());
       }
       if (res.closeModal) {
-        this.rowSelected = null;
+        this.rowSelected.set([]);
       }
     });
 
@@ -37,8 +36,8 @@ export class BaseTransacaoComponent implements OnInit {
       const { date } = res;
 
       if (date) {
-        this.queryParams.filterDate = date;
-        this.fetchTransacoes(this.queryParams);
+        this.queryParams().filterDate = date;
+        this.fetchTransacoes(this.queryParams());
       }
     });
   }
@@ -52,8 +51,8 @@ export class BaseTransacaoComponent implements OnInit {
   }
 
   protected deletarTransacoes() {
-    if (this.rowSelected) {
-      const transacoesIds = this.rowSelected.map((item) => item.trs_id);
+    if (this.rowSelected()) {
+      const transacoesIds = this.rowSelected().map((item) => item.trs_id);
       this._transacaoUtilService.deletarTransacoesUtil(transacoesIds);
     }
   }
@@ -73,7 +72,7 @@ export class BaseTransacaoComponent implements OnInit {
   private fetchTransacoes(params: ParamsTransacao) {
     this._transacaoUtilService.getTransacoesUtil(params).subscribe({
       next: (transacoes: ITransacao[]) => {
-        this.transacoes = transacoes;
+        this.transacoes.set(transacoes);
         this.afterFetchTransacoes(transacoes);
       },
       error: (err) => console.log(err),
@@ -81,4 +80,5 @@ export class BaseTransacaoComponent implements OnInit {
   }
 
   protected afterFetchTransacoes(transacoes: ITransacao[]): void {}
+
 }
