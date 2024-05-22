@@ -9,8 +9,8 @@ import { ModalTransacaoComponent } from '../../templates/modal-transacao/modal-t
   styleUrl: './sidebar.component.scss',
 })
 export class SidebarComponent implements OnInit {
-  items_menu: MenuItem[] | undefined;
-  items_transacao: MenuItem[] | undefined;
+  protected items_menu: MenuItem[] | undefined;
+  protected items_transacao: MenuItem[] | undefined;
 
   ref: DynamicDialogRef | undefined;
 
