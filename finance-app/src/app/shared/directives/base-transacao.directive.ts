@@ -1,5 +1,4 @@
-import { Directive, ViewChild, WritableSignal, inject, signal } from '@angular/core';
-import { Table } from 'primeng/table';
+import { Directive, WritableSignal, inject, signal } from '@angular/core';
 import { Transacao } from '../../interfaces/Transacao';
 import { ParamsTransacao } from '../../interfaces/ParamsTransacao';
 import { TransacaoUtilService } from '../services/transacao-util.service';
@@ -9,8 +8,6 @@ import { NotificationService } from '../services/notification.service';
   selector: '[finBaseTransacao]'
 })
 export class BaseTransacaoDirective {
-  @ViewChild('dt') dt: Table | undefined;
-
   protected _notificationService = inject(NotificationService);
   protected _transacaoUtilService = inject(TransacaoUtilService);
   
@@ -42,33 +39,6 @@ export class BaseTransacaoDirective {
     });
   }
 
-  clear(table: Table) {
-    table.clear();
-  }
-
-  applyFilterGlobal($event: any, stringVal: any) {
-    this.dt!.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
-  }
-
-  protected deletarTransacoes() {
-    if (this.rowSelected()) {
-      const transacoesIds = this.rowSelected().map((item) => item.trs_id);
-      this._transacaoUtilService.deletarTransacoesUtil(transacoesIds);
-    }
-  }
-
-  protected editarTransacao(transacao: Transacao) {
-    this._transacaoUtilService.editarTransacaoUtil(transacao);
-  }
-
-  protected deletarTransacao(idTransacao: number, isParcelado: boolean) {
-    this._transacaoUtilService.deletarTransacaoUtil(idTransacao, isParcelado);
-  }
-
-  protected checkStatus(transacao: Transacao): string {
-    return this._transacaoUtilService.checkStatusUtil(transacao);
-  }
-
   private fetchTransacoes(params: ParamsTransacao) {
     this._transacaoUtilService.getTransacoesUtil(params).subscribe({
       next: (transacoes: Transacao[]) => {
@@ -80,5 +50,4 @@ export class BaseTransacaoDirective {
   }
 
   protected afterFetchTransacoes(transacoes: Transacao[]): void {}
-
 }
