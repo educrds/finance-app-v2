@@ -26,6 +26,7 @@ export class NavbarComponent implements OnInit {
       month_selected: this._fb.control(this.getCurrentMonthFormatted()),
     });
 
+    // Se houver mudanças no mês selecionado, notificará a service e, consequentemente, outros componentes
     this.filterDateForm.controls['month_selected'].valueChanges.subscribe(
       (date) => this._notificationService.notifyChanges({ date })
     );
