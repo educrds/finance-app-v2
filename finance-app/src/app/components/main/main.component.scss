@@ -1,0 +1,12 @@
+:host ::ng-deep {
+  .p-accordion {
+    .p-accordion-content {
+      border: none;
+      background: #252b33;
+    }
+    .p-accordion-header .p-accordion-header-link {
+      background: var(--bs-dark);
+      border: none;
+    }
+  }
+}

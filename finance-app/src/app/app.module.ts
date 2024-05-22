@@ -46,7 +46,7 @@ import { ChipModule } from 'primeng/chip';
 import { TooltipModule } from 'primeng/tooltip';
 import { MenubarModule } from 'primeng/menubar';
 import { ChartModule } from 'primeng/chart';
-
+import { AccordionModule } from 'primeng/accordion';
 
 
 @NgModule({
@@ -89,7 +89,8 @@ import { ChartModule } from 'primeng/chart';
     TooltipModule,
     AuthModule,
     MenubarModule,
-    ChartModule
+    ChartModule,
+    AccordionModule
   ],
   providers: [
     MessageService,

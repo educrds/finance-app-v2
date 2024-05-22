@@ -25,29 +25,34 @@
     ></fin-top-card>
   </fin-row>
 
-  <fin-row>
-    <div class="wrap-container chart">
-      <h3>Entradas por categoria</h3>
-      <div class="m-auto">
-        <p-chart
-          type="pie"
-          [data]="entradasPorCategoria"
-          [options]="options"
-        ></p-chart>
-      </div>
-    </div>
-
-    <div class="wrap-container chart">
-      <h3>Saídas por categoria</h3>
-      <div class="m-auto">
-        <p-chart
-          type="pie"
-          [data]="saidasPorCategoria"
-          [options]="options"
-        ></p-chart>
-      </div>
-    </div>
-  </fin-row>
+  <p-accordion>
+    <p-accordionTab header="Gráficos por categoria">
+      <fin-row>
+        <div class="wrap-container chart">
+          <h3>Entradas por categoria</h3>
+          <div class="m-auto">
+            <p-chart
+            type="pie"
+            [data]="entradasPorCategoria"
+            [options]="options"
+            ></p-chart>
+          </div>
+        </div>
+        
+        <div class="wrap-container chart">
+          <h3>Saídas por categoria</h3>
+          <div class="m-auto">
+            <p-chart
+            type="pie"
+            [data]="saidasPorCategoria"
+            [options]="options"
+            ></p-chart>
+          </div>
+        </div>
+      </fin-row>
+    </p-accordionTab>
+  </p-accordion>
+    
 
   <fin-wrap-container [ngClass]="'w-100'">
     <h2>Transações</h2>
