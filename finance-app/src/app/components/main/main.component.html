@@ -2,7 +2,7 @@
   <fin-row>
     <fin-top-card
       [title]="'Entradas'"
-      [value]="somatorio.soma_receitas"
+      [value]="somatorio().soma_receitas"
       [isCurrency]="true"
       [className]="'pi pi-arrow-up-right'"
       class="flex-1"
@@ -10,7 +10,7 @@
 
     <fin-top-card
       [title]="'Saldo'"
-      [value]="somatorio.soma_receitas - somatorio.soma_despesas"
+      [value]="saldo()"
       [className]="'pi pi-arrows-h'"
       [isCurrency]="true"
       class="flex-1"
@@ -18,7 +18,7 @@
 
     <fin-top-card
       [title]="'Saídas'"
-      [value]="somatorio.soma_despesas"
+      [value]="somatorio().soma_despesas"
       [className]="'pi pi-arrow-down-right'"
       [isCurrency]="true"
       class="flex-1"
@@ -57,11 +57,11 @@
   <fin-wrap-container [ngClass]="'w-100'">
     <h2>Transações</h2>
     <hr />
-    @if(transacoes.length){
+    @if(transacoes().length){
       <p-table
         #dt
         id="tbl_transacoes"
-        [value]="transacoes"
+        [value]="transacoes()"
         dataKey="trs_id"
         [tableStyle]="{ 'min-width': '50rem', 'max-width': '100vw' }"
         selectionMode="multiple"
@@ -101,7 +101,7 @@
                 (click)="clear(dt)"
               ></button>
 
-              @if(rowSelected && rowSelected.length){
+              @if(rowSelected() && rowSelected.length){
                 <div class="d-flex flex-column m-auto">
                   <label for="">Somatório selecionados</label>
                   <div>{{ sumSelected(rowSelected) | currency:'R$' }}</div>
@@ -109,7 +109,7 @@
               }
             </div>  
             
-            @if(rowSelected && rowSelected.length > 1){
+            @if(rowSelected() && rowSelected.length > 1){
               <button
               pButton
               label="Deletar selecionados"
@@ -208,7 +208,7 @@
           </tr>
         </ng-template>
       </p-table>
-    } @else if(!transacoes.length) {
+    } @else if(!transacoes().length) {
       <fin-alert-container message="Nenhum registro encontrado." />
     }
   </fin-wrap-container>
