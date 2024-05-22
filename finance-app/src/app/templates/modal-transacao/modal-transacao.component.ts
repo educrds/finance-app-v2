@@ -4,7 +4,7 @@ import { TransacoesService } from '../../services/transacoes.service';
 import { CategoriasService } from '../../services/categorias.service';
 import { IDropdown } from '../../interfaces/Dropdown';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ITransacao } from '../../interfaces/Transacao';
+import { Transacao } from '../../interfaces/Transacao';
 import { MessagesService } from '../../services/messages.service';
 import { NotificationService } from '../../shared/services/notification.service';
 
@@ -100,7 +100,7 @@ export class ModalTransacaoComponent implements OnInit {
     })
   }
 
-  private inserirTransacao(form: ITransacao) {
+  private inserirTransacao(form: Transacao) {
     this._transacoesService.addTransacao(form).subscribe({
       next: () => {
         this._messagesService.showSuccess('Transação adicionada com successo!');
@@ -112,7 +112,7 @@ export class ModalTransacaoComponent implements OnInit {
     });
   }
 
-  private atualizarTransacao(form: ITransacao) {
+  private atualizarTransacao(form: Transacao) {
     this._transacoesService.atualizarTransacao(form).subscribe({
       next: () => {
         this._messagesService.showSuccess('Transação atualizada com successo!');
