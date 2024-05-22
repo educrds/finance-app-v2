@@ -101,7 +101,7 @@
                 (click)="clear(dt)"
               ></button>
 
-              @if(rowSelected() && rowSelected.length){
+              @if(rowSelected.length){
                 <div class="d-flex flex-column m-auto">
                   <label for="">Somatório selecionados</label>
                   <div>{{ sumSelected(rowSelected) | currency:'R$' }}</div>
@@ -109,7 +109,7 @@
               }
             </div>  
             
-            @if(rowSelected() && rowSelected.length > 1){
+            @if(rowSelected.length > 1){
               <button
               pButton
               label="Deletar selecionados"
