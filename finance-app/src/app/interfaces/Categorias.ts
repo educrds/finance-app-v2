@@ -1,4 +1,4 @@
-import { IDropdown } from './IDropdown';
+import { IDropdown } from './Dropdown';
 
 interface CategoriaCor {
   cat_color: string;

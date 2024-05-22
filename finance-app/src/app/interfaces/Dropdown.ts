@@ -1,4 +1,4 @@
-export interface IDropdown {
+export type IDropdown = {
   id: number;
   text: string;
 }

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, retry } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { IDropdown } from '../interfaces/IDropdown';
+import { IDropdown } from '../interfaces/Dropdown';
 import { Categoria, Categorias } from '../interfaces/Categorias';
 import { NotificationService } from '../shared/services/notification.service';
 

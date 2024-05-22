@@ -1,6 +1,6 @@
 import { Component, OnInit, Signal, WritableSignal, computed, signal } from '@angular/core';
-import { ITransacao } from '../../interfaces/ITransacao';
-import { ITransacoesSoma } from '../../interfaces/ITransacoesSoma';
+import { Transacao } from '../../interfaces/Transacao';
+import { TransacoesSoma } from '../../interfaces/TransacoesSoma';
 import { ConfigCategoriaChart } from '../../interfaces/Chart';
 import { BaseTransacaoDirective } from '../../shared/directives/base-transacao.directive';
 
@@ -10,7 +10,7 @@ import { BaseTransacaoDirective } from '../../shared/directives/base-transacao.d
   styleUrl: './main.component.scss',
 })
 export class MainComponent extends BaseTransacaoDirective implements OnInit {
-  protected somatorio: WritableSignal<ITransacoesSoma> = signal({
+  protected somatorio: WritableSignal<TransacoesSoma> = signal({
     soma_receitas: 0,
     soma_despesas: 0,
   });
@@ -39,7 +39,7 @@ export class MainComponent extends BaseTransacaoDirective implements OnInit {
   };
 
   // sobreescrevendo metódo da classe extendida
-  override afterFetchTransacoes(transacoes: ITransacao[]): void {
+  override afterFetchTransacoes(transacoes: Transacao[]): void {
     this.somatorio.set(
       this._transacaoUtilService.obterSomatorioTransacoes(transacoes)
     );
@@ -47,7 +47,7 @@ export class MainComponent extends BaseTransacaoDirective implements OnInit {
   }
 
   // cálculo de transacoes por categoria e tipo para configurar gráfico de pizza
-  private calcularSomatorioPorCategoria(transacoes: ITransacao[] | any[]) {
+  private calcularSomatorioPorCategoria(transacoes: Transacao[] | any[]) {
     const resultado = transacoes.reduce(
       (acc, transacao) => {
         const { categoria_cor, categoria_nome, trs_valor, id_tipo_transacao } = transacao;
@@ -98,7 +98,7 @@ export class MainComponent extends BaseTransacaoDirective implements OnInit {
   // configurando gráfico de pizza com dados já modelados
   protected sumSelected(transactions: any): number {
     return transactions.reduce(
-      (acc: number, transacao: ITransacao) => acc + transacao.trs_valor,
+      (acc: number, transacao: Transacao) => acc + transacao.trs_valor,
       0
     );
   }

@@ -1,6 +1,6 @@
 import { Directive, ViewChild, WritableSignal, inject, signal } from '@angular/core';
 import { Table } from 'primeng/table';
-import { ITransacao } from '../../interfaces/ITransacao';
+import { Transacao } from '../../interfaces/Transacao';
 import { ParamsTransacao } from '../../interfaces/ParamsTransacao';
 import { TransacaoUtilService } from '../services/transacao-util.service';
 import { NotificationService } from '../services/notification.service';
@@ -14,8 +14,8 @@ export class BaseTransacaoDirective {
   protected _notificationService = inject(NotificationService);
   protected _transacaoUtilService = inject(TransacaoUtilService);
   
-  protected transacoes: WritableSignal<ITransacao[]> = signal([]);
-  protected rowSelected: WritableSignal<ITransacao[]> = signal([]);
+  protected transacoes: WritableSignal<Transacao[]> = signal([]);
+  protected rowSelected: WritableSignal<Transacao[]> = signal([]);
   protected queryParams: WritableSignal<ParamsTransacao> = signal({
     filterDate: new Date()
   });
@@ -57,7 +57,7 @@ export class BaseTransacaoDirective {
     }
   }
 
-  protected editarTransacao(transacao: ITransacao) {
+  protected editarTransacao(transacao: Transacao) {
     this._transacaoUtilService.editarTransacaoUtil(transacao);
   }
 
@@ -65,13 +65,13 @@ export class BaseTransacaoDirective {
     this._transacaoUtilService.deletarTransacaoUtil(idTransacao, isParcelado);
   }
 
-  protected checkStatus(transacao: ITransacao): string {
+  protected checkStatus(transacao: Transacao): string {
     return this._transacaoUtilService.checkStatusUtil(transacao);
   }
 
   private fetchTransacoes(params: ParamsTransacao) {
     this._transacaoUtilService.getTransacoesUtil(params).subscribe({
-      next: (transacoes: ITransacao[]) => {
+      next: (transacoes: Transacao[]) => {
         this.transacoes.set(transacoes);
         this.afterFetchTransacoes(transacoes);
       },
@@ -79,6 +79,6 @@ export class BaseTransacaoDirective {
     });
   }
 
-  protected afterFetchTransacoes(transacoes: ITransacao[]): void {}
+  protected afterFetchTransacoes(transacoes: Transacao[]): void {}
 
 }

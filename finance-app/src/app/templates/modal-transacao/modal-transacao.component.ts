@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TransacoesService } from '../../services/transacoes.service';
 import { CategoriasService } from '../../services/categorias.service';
-import { IDropdown } from '../../interfaces/IDropdown';
+import { IDropdown } from '../../interfaces/Dropdown';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ITransacao } from '../../interfaces/ITransacao';
+import { ITransacao } from '../../interfaces/Transacao';
 import { MessagesService } from '../../services/messages.service';
 import { NotificationService } from '../../shared/services/notification.service';
 

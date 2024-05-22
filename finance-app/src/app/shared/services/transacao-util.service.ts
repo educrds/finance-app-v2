@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { ITransacao } from '../../interfaces/ITransacao';
 import { TransacoesService } from '../../services/transacoes.service';
 import { ConfirmationService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ModalTransacaoComponent } from '../../templates/modal-transacao/modal-transacao.component';
-import { ITransacoesSoma } from '../../interfaces/ITransacoesSoma';
+import { TransacoesSoma } from '../../interfaces/TransacoesSoma';
 import { ParamsTransacao } from '../../interfaces/ParamsTransacao';
 import { Observable, catchError, throwError } from 'rxjs';
 import { MessagesService } from '../../services/messages.service';
 import { NotificationService } from './notification.service';
+import { Transacao } from '../../interfaces/Transacao';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +24,7 @@ export class TransacaoUtilService {
     private _dialogService: DialogService
   ) {}
 
-  obterSomatorioTransacoes(transacoes: ITransacao[]): ITransacoesSoma {
+  obterSomatorioTransacoes(transacoes: Transacao[]): TransacoesSoma {
     return transacoes.reduce(
       (acc, transacao) => {
         if (transacao.id_tipo_transacao === 1) {
@@ -103,7 +103,7 @@ export class TransacaoUtilService {
     });
   }
 
-  editarTransacaoUtil(transacao: ITransacao) {
+  editarTransacaoUtil(transacao: Transacao) {
     const tipoTransacao =
       transacao.id_tipo_transacao === 1 ? 'Receita' : 'Despesa';
 
@@ -116,13 +116,13 @@ export class TransacaoUtilService {
     });
   }
 
-  getTransacoesUtil(params: ParamsTransacao): Observable<ITransacao[]> {
+  getTransacoesUtil(params: ParamsTransacao): Observable<Transacao[]> {
     return this._transacoesService.getTransacoes(params).pipe(
       catchError((err) => throwError(err))
     );
   }
 
-  checkStatusUtil(transacao: ITransacao): string {
+  checkStatusUtil(transacao: Transacao): string {
     let status = '';
 
     if (transacao.id_tipo_transacao === 1) {
