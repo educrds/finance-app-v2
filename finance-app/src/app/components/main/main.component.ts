@@ -20,6 +20,7 @@ export class MainComponent extends BaseTransacaoDirective implements OnInit {
   protected entradasPorCategoria!: ConfigCategoriaChart;
   protected saidasPorCategoria!: ConfigCategoriaChart;
 
+  // charts options
   protected options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -37,6 +38,7 @@ export class MainComponent extends BaseTransacaoDirective implements OnInit {
     },
   };
 
+  // sobreescrevendo metódo da classe extendida
   override afterFetchTransacoes(transacoes: ITransacao[]): void {
     this.somatorio.set(
       this._transacaoUtilService.obterSomatorioTransacoes(transacoes)
@@ -44,6 +46,7 @@ export class MainComponent extends BaseTransacaoDirective implements OnInit {
     this.calcularSomatorioPorCategoria(transacoes);
   }
 
+  // cálculo de transacoes por categoria e tipo para configurar gráfico de pizza
   private calcularSomatorioPorCategoria(transacoes: ITransacao[] | any[]) {
     const resultado = transacoes.reduce(
       (acc, transacao) => {
@@ -75,6 +78,7 @@ export class MainComponent extends BaseTransacaoDirective implements OnInit {
     this.saidasPorCategoria = this.configPieCharts(resultado.saida);
   }
 
+  // configurando gráfico de pizza com dados já modelados
   private configPieCharts(categoriasPorTipo: ConfigCategoriaChart) {
     const objCategorias = Object.values(categoriasPorTipo);
 
@@ -91,6 +95,7 @@ export class MainComponent extends BaseTransacaoDirective implements OnInit {
     return resultadoPorCategoria;
   }
 
+  // configurando gráfico de pizza com dados já modelados
   protected sumSelected(transactions: any): number {
     return transactions.reduce(
       (acc: number, transacao: ITransacao) => acc + transacao.trs_valor,
