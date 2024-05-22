@@ -20,7 +20,7 @@ export class CategoriasComponent implements OnInit {
     width: '35vw',
     contentStyle: { overflow: 'auto' },
   };
-  ref!: DynamicDialogRef;
+  private ref!: DynamicDialogRef;
 
   constructor(
     private _notificationService: NotificationService,
@@ -37,27 +37,26 @@ export class CategoriasComponent implements OnInit {
     );
   }
   
+  // Obtém lista de categorias
   getCategoriasList(){
     this._categoriasService.getCategorias().subscribe({
       next: (res) => (this.categorias = res),
-      error: () =>
-        this._messagesService.showError(
-          'Erro ao obter categorias. Tente novamente.'
-        ),
+      error: () => this._messagesService.showError('Erro ao obter categorias. Tente novamente.'),
     });
   }
   
+  // Metódo responsavel por abrir modal de categoria
   protected abrirModalAddCategoria() {
     this.ref = this._dialogService.open(ModalCategoriaComponent, {
       ...this._configModal,
       data: {},
     });
   }
-
+  
+  // Metódo responsavel por deletar uma categoria
   protected deletarCategoria(form: Categoria) {
     this._confirmationService.confirm({
-      message:
-        'Deseja realmente excluir o registro? <br> Esta ação é irreversível.',
+      message: 'Deseja realmente excluir o registro? <br> Esta ação é irreversível.',
       header: 'Confirmação',
       icon: 'pi pi-exclamation-triangle',
       acceptIcon: 'none',
@@ -66,20 +65,16 @@ export class CategoriasComponent implements OnInit {
       accept: () => {
         this._categoriasService.deletarCategoria(form).subscribe({
           next: () => {
-            this._messagesService.showSuccess(
-              'Registro deletado com sucesso!'
-            );
+            this._messagesService.showSuccess('Registro deletado com sucesso!');
             this.ngOnInit();
           },
-          error: () =>
-            this._messagesService.showError(
-              'Ocorreu um erro ao deletar registro, tente novamente!'
-            ),
+          error: () => this._messagesService.showError('Ocorreu um erro ao deletar registro, tente novamente!'),
         });
       },
     });
   }
-
+  
+  // Metódo responsavel por editar uma categoria
   protected editarCategoria(categoria: Categoria) {
     this.ref = this._dialogService.open(ModalCategoriaComponent, {
       ...this._configModal,
