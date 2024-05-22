@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseTransacaoComponent } from '../../shared/components/base-transacao/base-transacao.component';
+import { BaseTransacaoDirective } from '../../shared/directives/base-transacao.directive';
 
 @Component({
   selector: 'fin-despesas',
@@ -7,11 +7,11 @@ import { BaseTransacaoComponent } from '../../shared/components/base-transacao/b
   styleUrl: './despesas.component.scss',
 })
 export class DespesasComponent
-  extends BaseTransacaoComponent
+  extends BaseTransacaoDirective
   implements OnInit
 {
   override ngOnInit(): void {
-    this.queryParams.idTipoTransacao = 2;
+    this.queryParams().idTipoTransacao = 2;
     super.ngOnInit();
   }
 }
