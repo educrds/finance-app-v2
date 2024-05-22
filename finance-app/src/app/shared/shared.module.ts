@@ -7,6 +7,11 @@ import { RowComponent } from './components/row/row.component';
 import { TopCardComponent } from './components/top-card/top-card.component';
 import { WrapContainerComponent } from './components/wrap-container/wrap-container.component';
 import { BaseTransacaoDirective } from './directives/base-transacao.directive';
+import { TransacaoTableComponent } from './components/transacao-table/transacao-table.component';
+import { TableModule } from 'primeng/table';
+import { TooltipModule } from 'primeng/tooltip';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
   declarations: [
@@ -17,6 +22,7 @@ import { BaseTransacaoDirective } from './directives/base-transacao.directive';
     TopCardComponent,
     WrapContainerComponent,
     BaseTransacaoDirective,
+    TransacaoTableComponent,
   ],
   exports: [
     AlertContainerComponent,
@@ -25,7 +31,8 @@ import { BaseTransacaoDirective } from './directives/base-transacao.directive';
     RowComponent,
     TopCardComponent,
     WrapContainerComponent,
+    TransacaoTableComponent
   ],
-  imports: [CommonModule]
+  imports: [CommonModule, TableModule, TooltipModule, ButtonModule, InputTextModule]
 })
 export class SharedModule {}
