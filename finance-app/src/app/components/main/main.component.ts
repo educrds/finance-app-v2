@@ -1,16 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Signal, WritableSignal, computed, signal } from '@angular/core';
 import { ITransacao } from '../../interfaces/ITransacao';
 import { ITransacoesSoma } from '../../interfaces/ITransacoesSoma';
 import { ConfigCategoriaChart } from '../../interfaces/Chart';
-import { BaseTransacaoComponent } from '../../shared/components/base-transacao/base-transacao.component';
+import { BaseTransacaoDirective } from '../../shared/directives/base-transacao.directive';
 
 @Component({
   selector: 'fin-main',
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
 })
-export class MainComponent extends BaseTransacaoComponent implements OnInit {
-  protected somatorio!: ITransacoesSoma;
+export class MainComponent extends BaseTransacaoDirective implements OnInit {
+  protected somatorio: WritableSignal<ITransacoesSoma> = signal({
+    soma_receitas: 0,
+    soma_despesas: 0,
+  });
+  protected saldo: Signal<number> = computed(() => this.somatorio().soma_receitas - this.somatorio().soma_despesas )
+
+  // charts
   protected entradasPorCategoria!: ConfigCategoriaChart;
   protected saidasPorCategoria!: ConfigCategoriaChart;
 
@@ -32,30 +38,33 @@ export class MainComponent extends BaseTransacaoComponent implements OnInit {
   };
 
   override afterFetchTransacoes(transacoes: ITransacao[]): void {
-    this.somatorio = this._transacaoUtilService.obterSomatorioTransacoes(transacoes);
+    this.somatorio.set(
+      this._transacaoUtilService.obterSomatorioTransacoes(transacoes)
+    );
     this.calcularSomatorioPorCategoria(transacoes);
   }
 
   private calcularSomatorioPorCategoria(transacoes: ITransacao[] | any[]) {
     const resultado = transacoes.reduce(
       (acc, transacao) => {
-        const tipoTransacao =
-          transacao.id_tipo_transacao === 1 ? 'entrada' : 'saida';
-        const categoria = transacao.categoria_nome;
-        const categoriaCor = transacao.categoria_cor;
-        const valor = transacao.trs_valor;
+        const { categoria_cor, categoria_nome, trs_valor, id_tipo_transacao } = transacao;
+        const tipoTransacao = id_tipo_transacao === 1 ? 'entrada' : 'saida';
+
+        const categoriaNome = categoria_nome;
+        const categoriaCor = categoria_cor;
+        const valor = trs_valor;
 
         // Cria o objeto de categoria se ainda não existir
-        if (!acc[tipoTransacao][categoria]) {
-          acc[tipoTransacao][categoria] = {
-            name: categoria,
+        if (!acc[tipoTransacao][categoriaNome]) {
+          acc[tipoTransacao][categoriaNome] = {
+            name: categoriaNome,
             value: 0,
             cor: categoriaCor,
           };
         }
 
         // Soma o valor à categoria correspondente
-        acc[tipoTransacao][categoria].value += valor;
+        acc[tipoTransacao][categoriaNome].value += valor;
 
         return acc;
       },
@@ -83,6 +92,9 @@ export class MainComponent extends BaseTransacaoComponent implements OnInit {
   }
 
   protected sumSelected(transactions: any): number {
-    return transactions.reduce((acc:number, transacao:ITransacao) => acc + transacao.trs_valor, 0)
+    return transactions.reduce(
+      (acc: number, transacao: ITransacao) => acc + transacao.trs_valor,
+      0
+    );
   }
 }
