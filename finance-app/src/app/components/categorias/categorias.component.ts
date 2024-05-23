@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, WritableSignal, signal } from '@angular/core';
 import { CategoriasService } from '../../services/categorias.service';
-import { Categoria, Categorias } from '../../interfaces/Categorias';
+import { Categorias } from '../../interfaces/Categorias';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ModalCategoriaComponent } from '../../templates/modal-categoria/modal-categoria.component';
-import { ConfirmationService } from 'primeng/api';
 import { MessagesService } from '../../services/messages.service';
 import { NotificationService } from '../../shared/services/notification.service';
 
@@ -13,13 +12,14 @@ import { NotificationService } from '../../shared/services/notification.service'
   styleUrl: './categorias.component.scss',
 })
 export class CategoriasComponent implements OnInit {
-  protected categorias!: Categorias[];
-  private _configModal = {
+  protected categorias: WritableSignal<Categorias[]> = signal([]);
+  protected configModal = {
     modal: true,
     header: 'Atualizar Categoria',
     width: '35vw',
     contentStyle: { overflow: 'auto' },
   };
+
   private ref!: DynamicDialogRef;
 
   constructor(
@@ -27,7 +27,6 @@ export class CategoriasComponent implements OnInit {
     private _categoriasService: CategoriasService,
     private _messagesService: MessagesService,
     private _dialogService: DialogService,
-    private _confirmationService: ConfirmationService,
   ) {}
 
   ngOnInit(): void {
@@ -36,11 +35,17 @@ export class CategoriasComponent implements OnInit {
       (res) => res.refresh && this.getCategoriasList()
     );
   }
+
+  deletedCategoria(event: any){
+    if(event){
+      this.ngOnInit();
+    }
+  }
   
   // Obtém lista de categorias
   getCategoriasList(){
     this._categoriasService.getCategorias().subscribe({
-      next: (res) => (this.categorias = res),
+      next: (res) => (this.categorias.set(res)),
       error: () => this._messagesService.showError('Erro ao obter categorias. Tente novamente.'),
     });
   }
@@ -48,37 +53,8 @@ export class CategoriasComponent implements OnInit {
   // Metódo responsavel por abrir modal de categoria
   protected abrirModalAddCategoria() {
     this.ref = this._dialogService.open(ModalCategoriaComponent, {
-      ...this._configModal,
+      ...this.configModal,
       data: {},
-    });
-  }
-  
-  // Metódo responsavel por deletar uma categoria
-  protected deletarCategoria(form: Categoria) {
-    this._confirmationService.confirm({
-      message: 'Deseja realmente excluir o registro? <br> Esta ação é irreversível.',
-      header: 'Confirmação',
-      icon: 'pi pi-exclamation-triangle',
-      acceptIcon: 'none',
-      rejectIcon: 'none',
-      rejectButtonStyleClass: 'p-button-text',
-      accept: () => {
-        this._categoriasService.deletarCategoria(form).subscribe({
-          next: () => {
-            this._messagesService.showSuccess('Registro deletado com sucesso!');
-            this.ngOnInit();
-          },
-          error: () => this._messagesService.showError('Ocorreu um erro ao deletar registro, tente novamente!'),
-        });
-      },
-    });
-  }
-  
-  // Metódo responsavel por editar uma categoria
-  protected editarCategoria(categoria: Categoria) {
-    this.ref = this._dialogService.open(ModalCategoriaComponent, {
-      ...this._configModal,
-      data: categoria,
     });
   }
 }
