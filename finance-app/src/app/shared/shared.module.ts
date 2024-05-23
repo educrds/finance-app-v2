@@ -13,7 +13,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { CategoriaTableComponent } from './components/categoria-table/categoria-table.component';
-
+import { TagModule } from 'primeng/tag';
 @NgModule({
   declarations: [
     AlertContainerComponent,
@@ -36,6 +36,6 @@ import { CategoriaTableComponent } from './components/categoria-table/categoria-
     TransacaoTableComponent,
     CategoriaTableComponent
   ],
-  imports: [CommonModule, TableModule, TooltipModule, ButtonModule, InputTextModule]
+  imports: [CommonModule, TableModule, TooltipModule, ButtonModule, InputTextModule, TagModule]
 })
 export class SharedModule {}

@@ -96,9 +96,11 @@
         <p-tableCheckbox [value]="transacao"></p-tableCheckbox>
       </td>
       <td>
-        <div class="chip">
-          {{ transacao.tipo_transacao }}
-        </div>
+        <p-tag
+          [styleClass]="transacao.id_tipo_transacao === 1 ? 'danger' : 'success'"
+          [rounded]="true"
+          [value]="transacao.tipo_transacao"
+        />
       </td>
       <td>{{ transacao.trs_titulo }}</td>
       <td>{{ transacao.trs_valor | currency : "R$ " }}</td>

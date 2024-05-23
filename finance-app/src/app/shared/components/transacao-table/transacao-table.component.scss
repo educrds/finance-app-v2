@@ -1,0 +1,14 @@
+:host ::ng-deep {
+  .danger {
+    font-size: 0.7rem;
+    font-weight: 700;
+    background: var(--red-50);
+    color: var(--red-700);
+  }
+  .success {
+    font-size: 0.7rem;
+    font-weight: 700;
+    background: var(--green-50);
+    color: var(--green-700);
+  }
+}
