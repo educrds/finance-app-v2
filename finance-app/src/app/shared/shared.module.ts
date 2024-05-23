@@ -12,6 +12,7 @@ import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { CategoriaTableComponent } from './components/categoria-table/categoria-table.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { InputTextModule } from 'primeng/inputtext';
     WrapContainerComponent,
     BaseTransacaoDirective,
     TransacaoTableComponent,
+    CategoriaTableComponent,
   ],
   exports: [
     AlertContainerComponent,
@@ -31,7 +33,8 @@ import { InputTextModule } from 'primeng/inputtext';
     RowComponent,
     TopCardComponent,
     WrapContainerComponent,
-    TransacaoTableComponent
+    TransacaoTableComponent,
+    CategoriaTableComponent
   ],
   imports: [CommonModule, TableModule, TooltipModule, ButtonModule, InputTextModule]
 })
