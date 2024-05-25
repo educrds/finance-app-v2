@@ -1,13 +1,14 @@
-import { Directive, WritableSignal, inject, signal } from '@angular/core';
+import { Directive, OnDestroy, OnInit, WritableSignal, inject, signal } from '@angular/core';
 import { Transacao } from '../../interfaces/Transacao';
 import { ParamsTransacao } from '../../interfaces/ParamsTransacao';
 import { TransacaoUtilService } from '../services/transacao-util.service';
 import { NotificationService } from '../services/notification.service';
+import { Subscription } from 'rxjs';
 
 @Directive({
   selector: '[finBaseTransacao]'
 })
-export class BaseTransacaoDirective {
+export class BaseTransacaoDirective implements OnInit, OnDestroy {
   protected _notificationService = inject(NotificationService);
   protected _transacaoUtilService = inject(TransacaoUtilService);
   
@@ -17,20 +18,21 @@ export class BaseTransacaoDirective {
     filterDate: new Date()
   });
 
+  private _subscription!: Subscription;
+
   ngOnInit(): void {
     this.fetchTransacoes(this.queryParams());
 
-    this._notificationService.notifyObservable$.subscribe((res) => {
-      if (res.refresh) {
+    this._subscription = this._notificationService.notifyObservable$.subscribe((res) => {
+      const { refresh, closeModal, date } = res;
+
+      if (refresh) {
         this.fetchTransacoes(this.queryParams());
       }
-      if (res.closeModal) {
+
+      if (closeModal) {
         this.rowSelected.set([]);
       }
-    });
-
-    this._notificationService.notifyObservable$.subscribe((res) => {
-      const { date } = res;
 
       if (date) {
         this.queryParams().filterDate = date;
@@ -40,7 +42,7 @@ export class BaseTransacaoDirective {
   }
 
   private fetchTransacoes(params: ParamsTransacao) {
-    this._transacaoUtilService.getTransacoesUtil(params).subscribe({
+    this._subscription = this._transacaoUtilService.getTransacoesUtil(params).subscribe({
       next: (transacoes: Transacao[]) => {
         this.transacoes.set(transacoes);
         this.afterFetchTransacoes(transacoes);
@@ -50,4 +52,8 @@ export class BaseTransacaoDirective {
   }
 
   protected afterFetchTransacoes(transacoes: Transacao[]): void {}
+
+  ngOnDestroy(): void {
+    if(this._subscription) this._subscription.unsubscribe();
+  }
 }
