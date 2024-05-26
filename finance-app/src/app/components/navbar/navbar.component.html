@@ -1,14 +1,13 @@
 <fin-wrap-container [className]="'w-100 d-flex justify-between'">
   <fin-logo />
-  <form [formGroup]="filterDateForm">
     <p-calendar
       view="month"
       class="calendar_filter"
       dateFormat="MM"
       [showIcon]="true"
-      formControlName="month_selected"
+      [(ngModel)]="month_selected"
+      (ngModelChange)="onDateChange($event)"
     ></p-calendar>
-  </form>
   <div class="d-flex flex-column justify-content-center">
     <p-avatar
     (click)="menu.toggle($event)"

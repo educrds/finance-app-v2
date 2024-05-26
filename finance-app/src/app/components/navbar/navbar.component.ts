@@ -1,35 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit, WritableSignal, signal } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { StorageService } from '../../shared/services/storage.service';
-import { NotificationService } from '../../shared/services/notification.service';
 import Util from '../../shared/utils';
+import { DatePickerService } from '../../services/date-picker.service';
 @Component({
   selector: 'fin-navbar',
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent implements OnInit {
-  protected filterDateForm!: FormGroup;
   protected menuBarItems: MenuItem[] | undefined;
   protected userInitials: string | undefined;
+  protected month_selected: WritableSignal<Date> = signal(new Date());
 
   constructor(
-    private _fb: FormBuilder,
-    private _notificationService: NotificationService,
+    private _datePickerService: DatePickerService,
     private _storageService: StorageService
   ) {}
 
   ngOnInit(): void {
     this.userInitials = Util.getUserNameInitials(this._storageService);
-    this.filterDateForm = this._fb.group({
-      month_selected: this._fb.control(this.getCurrentMonthFormatted()),
-    });
-
-    // Se houver mudanças no mês selecionado, notificará a service e, consequentemente, outros componentes
-    this.filterDateForm.controls['month_selected'].valueChanges.subscribe(
-      (date) => this._notificationService.notifyChanges({ date })
-    );
+    this._datePickerService.datePickerObservable$.subscribe({
+      next: (data) => this.month_selected.set(data)
+    })
 
     this.menuBarItems = [
       {
@@ -40,8 +33,7 @@ export class NavbarComponent implements OnInit {
     ];
   }
 
-  private getCurrentMonthFormatted() {
-    const date = new Date();
-    return new Date(date.getFullYear(), date.getMonth(), 1);
+  protected onDateChange(date: Date){
+    this._datePickerService.notifyDateChanges(date)
   }
 }
