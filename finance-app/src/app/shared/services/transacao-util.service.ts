@@ -45,7 +45,7 @@ export class TransacaoUtilService {
     let errorMessage: string;
 
     if (isParcelado) {
-      confirmationMessage = `Este registro trata-se de uma transação que se repete. 
+      confirmationMessage = `Este registro trata-se de uma transação que se repete. <br>
         Esta ação deletará também as transações relativas as mese(s) posterior(es). 
         Deseja prosseguir?`;
       successMessage = 'Registros deletados com sucesso!';
