@@ -1,5 +1,6 @@
 <fin-wrap-container [className]="'w-100 d-flex justify-between'">
   <fin-logo />
+  @if (canShowDatePicker$ | async) {
     <p-calendar
       view="month"
       class="calendar_filter"
@@ -8,6 +9,7 @@
       [(ngModel)]="month_selected"
       (ngModelChange)="onDateChange($event)"
     ></p-calendar>
+  }
   <div class="d-flex flex-column justify-content-center">
     <p-avatar
     (click)="menu.toggle($event)"
