@@ -30,7 +30,7 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { CalendarModule } from 'primeng/calendar';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
@@ -90,7 +90,8 @@ import { AccordionModule } from 'primeng/accordion';
     AuthModule,
     MenubarModule,
     ChartModule,
-    AccordionModule
+    AccordionModule,
+    FormsModule
   ],
   providers: [
     MessageService,
