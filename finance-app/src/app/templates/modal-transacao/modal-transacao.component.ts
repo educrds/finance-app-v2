@@ -78,18 +78,17 @@ export class ModalTransacaoComponent implements OnInit {
   }
 
   protected inserirOuAtualizarTransacao() {
+    this.loading = true;
+
     if(this.formAddTransacao.valid){
-      this.loading = true;
       const form = this.formAddTransacao.getRawValue();
 
       if (form.trs_id) {
-        this.atualizarTransacao(form);
-        return;
-      }
-      this.inserirTransacao(form);
-      return;
-    }
-    this.updateValidationForm(this.formAddTransacao);
+        return this.atualizarTransacao(form);
+      } 
+      return this.inserirTransacao(form);
+    } 
+    return this.updateValidationForm(this.formAddTransacao);
   }
   
   private updateValidationForm(group: FormGroup){
