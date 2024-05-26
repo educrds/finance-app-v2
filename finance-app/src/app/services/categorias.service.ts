@@ -4,22 +4,15 @@ import { Observable, retry } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { IDropdown } from '../interfaces/Dropdown';
 import { Categoria, Categorias } from '../interfaces/Categorias';
-import { NotificationService } from '../shared/services/notification.service';
+import { ICategoriasService } from '../interfaces/ICategoriasService';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CategoriasService {
+export class CategoriasService implements ICategoriasService {
   private _api_url = environment.api_url;
 
-  constructor(
-    private _http: HttpClient,
-    private _notificationService: NotificationService
-  ) {}
-
-  sendChanges(data: any) {
-    this._notificationService.notifyChanges(data);
-  }
+  constructor(private _http: HttpClient) {}
 
   getCategoriasDropdown(cat_tip_id: number): Observable<IDropdown[]> {
     return this._http
