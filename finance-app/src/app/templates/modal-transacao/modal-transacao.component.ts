@@ -7,6 +7,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Transacao } from '../../interfaces/Transacao';
 import { MessagesService } from '../../services/messages.service';
 import { NotificationService } from '../../shared/services/notification.service';
+import { DatePickerService } from '../../services/date-picker.service';
 
 @Component({
   selector: 'fin-modal-transacao',
@@ -29,10 +30,12 @@ export class ModalTransacaoComponent implements OnInit {
     private _messagesService: MessagesService,
     private _categoriasService: CategoriasService,
     private _ref: DynamicDialogRef,
-    private _config: DynamicDialogConfig
+    private _config: DynamicDialogConfig,
+    private _datePickerService: DatePickerService,
   ) {}
 
   ngOnInit(): void {
+    
     const defaultTransactionValues = {
       trs_valor: '',
       trs_data_ocorrido: new Date(),
@@ -45,6 +48,9 @@ export class ModalTransacaoComponent implements OnInit {
       data_fim_repeticao: '',
     };
 
+    this._datePickerService.datePickerObservable$.subscribe({
+      next: (date) => defaultTransactionValues.trs_data_ocorrido = date
+    })
     const trs_data = this._config.data.trs_data_ocorrido && new Date(this._config.data.trs_data_ocorrido);
     this.tipoTransacao = this._config.data.id_tipo_transacao;
 
