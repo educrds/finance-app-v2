@@ -61,34 +61,37 @@ export class SidebarComponent implements OnInit {
       {
         label: 'Entradas',
         icon: 'pi pi-arrow-up-right',
-        command: () => {
-          this.ref = this.dialogService.open(ModalTransacaoComponent, {
-            modal: true,
-            header: 'Nova Receita',
-            width: '40vw',
-            contentStyle: { overflow: 'auto' },
-            data: {
-              id_tipo_transacao: 1
-            }
-          });
-        },
+        command: () => this.openModalAddReceita()
       },
       {
         label: 'Saídas',
         icon: 'pi pi-arrow-down-right',
-        command: () => {
-          this.ref = this.dialogService.open(ModalTransacaoComponent, {
-            modal: true,
-            header: 'Nova Despesa',
-            width: '40vw',
-            contentStyle: { overflow: 'auto' },
-            data: {
-              id_tipo_transacao: 2
-            }
-          });
-        },
+        command: () => this.openModalAddDespesa()
       },
     ];
   }
 
+  protected openModalAddReceita(){
+    this.ref = this.dialogService.open(ModalTransacaoComponent, {
+      modal: true,
+      header: 'Nova Receita',
+      width: '40vw',
+      contentStyle: { overflow: 'auto' },
+      data: {
+        id_tipo_transacao: 1
+      }
+    });
+  }
+
+  protected openModalAddDespesa(){
+    this.ref = this.dialogService.open(ModalTransacaoComponent, {
+      modal: true,
+      header: 'Nova Despesa',
+      width: '40vw',
+      contentStyle: { overflow: 'auto' },
+      data: {
+        id_tipo_transacao: 2
+      }
+    });
+  }
 }
