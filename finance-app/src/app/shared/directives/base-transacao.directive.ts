@@ -4,6 +4,7 @@ import { ParamsTransacao } from '../../interfaces/ParamsTransacao';
 import { TransacaoUtilService } from '../services/transacao-util.service';
 import { NotificationService } from '../services/notification.service';
 import { Subscription } from 'rxjs';
+import { DatePickerService } from '../../services/date-picker.service';
 
 @Directive({
   selector: '[finBaseTransacao]'
@@ -11,6 +12,7 @@ import { Subscription } from 'rxjs';
 export class BaseTransacaoDirective implements OnInit, OnDestroy {
   protected _notificationService = inject(NotificationService);
   protected _transacaoUtilService = inject(TransacaoUtilService);
+  protected _datePickerService = inject(DatePickerService);
   
   protected transacoes: WritableSignal<Transacao[]> = signal([]);
   protected rowSelected: WritableSignal<Transacao[]> = signal([]);
@@ -24,7 +26,7 @@ export class BaseTransacaoDirective implements OnInit, OnDestroy {
     this.fetchTransacoes(this.queryParams());
 
     this._subscription = this._notificationService.notifyObservable$.subscribe((res) => {
-      const { refresh, closeModal, date } = res;
+      const { refresh, closeModal } = res;
 
       if (refresh) {
         this.fetchTransacoes(this.queryParams());
@@ -33,12 +35,14 @@ export class BaseTransacaoDirective implements OnInit, OnDestroy {
       if (closeModal) {
         this.rowSelected.set([]);
       }
-
+    });
+    
+    this._subscription = this._datePickerService.datePickerObservable$.subscribe((date) => {
       if (date) {
         this.queryParams().filterDate = date;
         this.fetchTransacoes(this.queryParams());
       }
-    });
+    })
   }
 
   private fetchTransacoes(params: ParamsTransacao) {
