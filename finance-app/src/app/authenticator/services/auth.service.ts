@@ -3,20 +3,20 @@ import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Usuario } from '../../interfaces/Usuario';
-
+import { AuthResponse, IAuthService } from '../../interfaces/IAuthService';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class AuthService implements IAuthService {
   private _api_url = environment.api_url;
 
   constructor(private _http: HttpClient) {}
 
-  authenticateUser(form: Usuario): Observable<any> {
-    return this._http.post(`${this._api_url}user/login`, { data: form })
+  public authenticateUser(form: Usuario): Observable<AuthResponse> {
+    return this._http.post<AuthResponse>(`${this._api_url}user/login`, { data: form });
   }
 
-  registerUser(form: Usuario): Observable<any> {
-    return this._http.post(`${this._api_url}user/register`, { data: form })
+  public registerUser(form: Usuario): Observable<AuthResponse> {
+    return this._http.post<AuthResponse>(`${this._api_url}user/register`, { data: form });
   }
 }
