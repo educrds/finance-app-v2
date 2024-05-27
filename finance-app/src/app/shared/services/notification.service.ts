@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subject } from 'rxjs';
 
 @Injectable({
@@ -12,7 +13,12 @@ export class NotificationService {
   notifyObservable$ = this.notify.asObservable();
 
   // Método para emitir novas notificações
-  public notifyChanges(data: any) {
-    if (data) this.notify.next(data);
+  public notifyChanges(data: any, modalRef?: DynamicDialogRef) {
+    if (data) {
+      if (modalRef) {
+        modalRef.close();
+      }
+      this.notify.next(data);
+    }
   }
 }
