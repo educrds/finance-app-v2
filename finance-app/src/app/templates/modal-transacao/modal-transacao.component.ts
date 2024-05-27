@@ -8,6 +8,7 @@ import { Transacao } from '../../interfaces/Transacao';
 import { MessagesService } from '../../services/messages.service';
 import { NotificationService } from '../../shared/services/notification.service';
 import { DatePickerService } from '../../services/date-picker.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'fin-modal-transacao',
@@ -17,8 +18,9 @@ import { DatePickerService } from '../../services/date-picker.service';
 })
 export class ModalTransacaoComponent implements OnInit {
   formAddTransacao!: FormGroup;
-  categoriasOptions!: IDropdown[];
-  metodosOptions!: IDropdown[];
+  
+  protected categoriasOptions$!: Observable<IDropdown[]>;
+  protected metodosOptions$!: Observable<IDropdown[]>;
 
   protected loading: boolean = false;
   protected tipoTransacao!: number;
@@ -35,7 +37,6 @@ export class ModalTransacaoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    
     const defaultTransactionValues = {
       trs_valor: '',
       trs_data_ocorrido: new Date(),
@@ -68,17 +69,8 @@ export class ModalTransacaoComponent implements OnInit {
       data_fim_repeticao: [''],
     });
 
-    this._transacoesService.getMetodosDropdown().subscribe({
-      next: (res) => this.metodosOptions = res,
-      error: () => this._messagesService.showError('Ocorreu um erro ao buscar categorias.'),
-    });
-
-    this._categoriasService
-      .getCategoriasDropdown(this.tipoTransacao)
-      .subscribe({
-        next: (res) => this.categoriasOptions = res,
-        error: () => this._messagesService.showError('Ocorreu um erro ao buscar categorias.'),
-      });
+    this.metodosOptions$ = this._transacoesService.getMetodosDropdown();
+    this.categoriasOptions$ = this._categoriasService.getCategoriasDropdown(this.tipoTransacao);
 
     this._ref.onClose.subscribe(() => this._notificationService.notifyChanges({ closeModal: true }));
   }
@@ -109,8 +101,7 @@ export class ModalTransacaoComponent implements OnInit {
     this._transacoesService.addTransacao(form).subscribe({
       next: () => {
         this._messagesService.showSuccess('Transação adicionada com successo!');
-        this._ref.close();
-        this._notificationService.notifyChanges({ refresh: true });
+        this._notificationService.notifyChanges({ refresh: true }, this._ref);
       },
       error: () => this._messagesService.showError('Ocorreu um erro ao adicionar transação.'),
       complete: () => this.loading = false
@@ -121,8 +112,7 @@ export class ModalTransacaoComponent implements OnInit {
     this._transacoesService.atualizarTransacao(form).subscribe({
       next: () => {
         this._messagesService.showSuccess('Transação atualizada com successo!');
-        this._ref.close();
-        this._notificationService.notifyChanges({ refresh: true });
+        this._notificationService.notifyChanges({ refresh: true }, this._ref);
       },
       error: () => this._messagesService.showError('Ocorreu um erro ao atualizar transação.'),
       complete: () => this.loading = false

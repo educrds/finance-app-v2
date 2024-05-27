@@ -53,57 +53,48 @@
     </fin-row>
 
     <fin-row>
+      @if(categoriasOptions$ | async; as categorias){
       <div class="d-flex flex-column g-4">
         <label for="input_valor">Categoria:</label>
         <p-dropdown
           formControlName="trs_categoria"
-          [options]="categoriasOptions"
+          [options]="categorias"
           optionLabel="text"
           optionValue="id"
           appendTo="body"
           placeholder="Selecione uma categoria"
         ></p-dropdown>
-
-        <div
-          class="text-start"
-          *ngIf="
-            formAddTransacao.controls['trs_categoria'].touched ||
-            formAddTransacao.controls['trs_categoria'].dirty
-          "
-        >
-          <small
-            class="text-danger text-start"
-            *ngIf="formAddTransacao.controls['trs_categoria']?.errors?.['required']"
-            >Campo obrigatório.</small
-          >
+        @if(formAddTransacao.controls['trs_categoria'].touched ||
+        formAddTransacao.controls['trs_categoria'].dirty){
+        <div class="text-start">
+          @if(formAddTransacao.controls['trs_categoria']?.errors?.['required']){
+          <small class="text-danger text-start">Campo obrigatório.</small>
+          }
         </div>
+        }
       </div>
-
+      } @if(metodosOptions$ | async; as metodos){
       <div class="d-flex flex-column g-4">
         <label for="input_valor">Metódo Pagamento:</label>
         <p-dropdown
           formControlName="trs_metodo"
-          [options]="metodosOptions"
+          [options]="metodos"
           optionLabel="text"
           optionValue="id"
           appendTo="body"
           placeholder="Selecione um metódo"
         ></p-dropdown>
 
-        <div
-          class="text-start"
-          *ngIf="
-            formAddTransacao.controls['trs_metodo'].touched ||
-            formAddTransacao.controls['trs_metodo'].dirty
-          "
-        >
-          <small
-            class="text-danger text-start"
-            *ngIf="formAddTransacao.controls['trs_metodo']?.errors?.['required']"
-            >Campo obrigatório.</small
-          >
+        @if(formAddTransacao.controls['trs_metodo'].touched ||
+        formAddTransacao.controls['trs_metodo'].dirty){
+        <div class="text-start">
+          @if(formAddTransacao.controls['trs_metodo']?.errors?.['required']){
+          <small class="text-danger text-start">Campo obrigatório.</small>
+          }
         </div>
+        }
       </div>
+      }
     </fin-row>
 
     <fin-column>
