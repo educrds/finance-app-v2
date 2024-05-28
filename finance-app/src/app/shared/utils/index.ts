@@ -1,3 +1,5 @@
+import { CategoriesGroupedByType } from '../../interfaces/Chart';
+import { Transacao } from '../../interfaces/Transacao';
 import { StorageService } from '../services/storage.service';
 
 export default class Util {  
@@ -14,5 +16,35 @@ export default class Util {
       return initials;
     }
     return 'X';
+  }
+
+  // cálculo de transacoes por categoria e tipo para configurar gráfico de pizza
+  static calcularSomatorioPorCategoria(transacoes: Transacao[] | any[]): CategoriesGroupedByType {
+    return transacoes.reduce(
+      (acc, transacao) => {
+        const { categoria_cor, categoria_nome, trs_valor, id_tipo_transacao } =
+          transacao;
+        const tipoTransacao = id_tipo_transacao === 1 ? 'entrada' : 'saida';
+
+        const categoriaNome = categoria_nome;
+        const categoriaCor = categoria_cor;
+        const valor = trs_valor;
+
+        // Cria o objeto de categoria se ainda não existir
+        if (!acc[tipoTransacao][categoriaNome]) {
+          acc[tipoTransacao][categoriaNome] = {
+            name: categoriaNome,
+            value: 0,
+            cor: categoriaCor,
+          };
+        }
+
+        // Soma o valor à categoria correspondente
+        acc[tipoTransacao][categoriaNome].value += valor;
+
+        return acc;
+      },
+      { entrada: {}, saida: {} }
+    );
   }
 }
