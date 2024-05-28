@@ -28,6 +28,7 @@ export class CategoriasComponent implements OnInit {
     private _notificationService: NotificationService,
   ) {}
 
+  
   ngOnInit(): void {
     this.categorias$ = this._notificationService.notifyObservable$.pipe(
       startWith({ refresh: true }),

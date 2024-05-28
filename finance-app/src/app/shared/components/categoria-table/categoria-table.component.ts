@@ -42,23 +42,6 @@ export class CategoriaTableComponent {
         });
       }
     );
-    // this._confirmationService.confirm({
-    //   message: ,
-    //   header: 'Confirmação',
-    //   icon: 'pi pi-exclamation-triangle',
-    //   acceptIcon: 'none',
-    //   rejectIcon: 'none',
-    //   rejectButtonStyleClass: 'p-button-text',
-    //   accept: () => {
-    //     this._categoriasService.deletarCategoria(form).subscribe({
-    //       next: () => {
-    //         this._messagesService.showSuccess('Registro deletado com sucesso!');
-    //         this.isCategoriaDeleted.emit(true)
-    //       },
-    //       error: () => this._messagesService.showError('Ocorreu um erro ao deletar registro, tente novamente!'),
-    //     });
-    //   },
-    // });
   }
 
   // Metódo responsavel por editar uma categoria
