@@ -11,9 +11,11 @@
 
   <hr />
 
-  <fin-categoria-table
-    [categorias]="categorias"
-    [configModal]="configModal"
-    (isCategoriaDeleted)="deletedCategoria($event)"
-  ></fin-categoria-table>
+  @if(categorias$ | async; as categorias){
+    <fin-categoria-table
+      [categorias]="categorias"
+      [configModal]="configModal"
+      (isCategoriaDeleted)="deletedCategoria($event)"
+    ></fin-categoria-table>
+  }
 </fin-wrap-container>

@@ -1,10 +1,10 @@
-import { Component, OnInit, WritableSignal, signal } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CategoriasService } from '../../services/categorias.service';
 import { Categorias } from '../../interfaces/Categorias';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ModalCategoriaComponent } from '../../templates/modal-categoria/modal-categoria.component';
-import { MessagesService } from '../../services/messages.service';
 import { NotificationService } from '../../shared/services/notification.service';
+import { Observable, startWith, switchMap } from 'rxjs';
 
 @Component({
   selector: 'fin-categorias',
@@ -12,7 +12,7 @@ import { NotificationService } from '../../shared/services/notification.service'
   styleUrl: './categorias.component.scss',
 })
 export class CategoriasComponent implements OnInit {
-  protected categorias: WritableSignal<Categorias[]> = signal([]);
+  protected categorias$!: Observable<Categorias[]>;
   protected configModal = {
     modal: true,
     header: 'Atualizar Categoria',
@@ -23,16 +23,15 @@ export class CategoriasComponent implements OnInit {
   private ref!: DynamicDialogRef;
 
   constructor(
-    private _notificationService: NotificationService,
     private _categoriasService: CategoriasService,
-    private _messagesService: MessagesService,
     private _dialogService: DialogService,
+    private _notificationService: NotificationService,
   ) {}
 
   ngOnInit(): void {
-    this.getCategoriasList();
-    this._notificationService.notifyObservable$.subscribe(
-      (res) => res.refresh && this.getCategoriasList()
+    this.categorias$ = this._notificationService.notifyObservable$.pipe(
+      startWith({ refresh: true }),
+      switchMap(res => res.refresh ? this._categoriasService.getCategorias() : [])
     );
   }
 
@@ -40,14 +39,6 @@ export class CategoriasComponent implements OnInit {
     if(event){
       this.ngOnInit();
     }
-  }
-  
-  // Obtém lista de categorias
-  getCategoriasList(){
-    this._categoriasService.getCategorias().subscribe({
-      next: (res) => (this.categorias.set(res)),
-      error: () => this._messagesService.showError('Erro ao obter categorias. Tente novamente.'),
-    });
   }
   
   // Metódo responsavel por abrir modal de categoria
