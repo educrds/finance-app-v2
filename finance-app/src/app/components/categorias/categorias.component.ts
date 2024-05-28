@@ -29,21 +29,21 @@ export class CategoriasComponent implements OnInit {
   ) {}
 
   
-  ngOnInit(): void {
+  ngOnInit():void {
     this.categorias$ = this._notificationService.notifyObservable$.pipe(
       startWith({ refresh: true }),
       switchMap(res => res.refresh ? this._categoriasService.getCategorias() : [])
     );
   }
 
-  deletedCategoria(event: any){
+  deletedCategoria(event: any): void {
     if(event){
       this.ngOnInit();
     }
   }
   
   // Metódo responsavel por abrir modal de categoria
-  protected abrirModalAddCategoria() {
+  protected abrirModalAddCategoria():void {
     this.ref = this._dialogService.open(ModalCategoriaComponent, {
       ...this.configModal,
       data: {},
