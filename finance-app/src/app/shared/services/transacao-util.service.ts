@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { TransacoesService } from '../../services/transacoes.service';
-import { ConfirmationService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ModalTransacaoComponent } from '../../templates/modal-transacao/modal-transacao.component';
 import { TransacoesSoma } from '../../interfaces/TransacoesSoma';
@@ -20,7 +19,6 @@ export class TransacaoUtilService {
     private _transacoesService: TransacoesService,
     private _notificationService: NotificationService,
     private _messagesService: MessagesService,
-    private _confirmationService: ConfirmationService,
     private _dialogService: DialogService
   ) {}
 
@@ -57,22 +55,14 @@ export class TransacaoUtilService {
       errorMessage = 'Ocorreu um erro ao deletar registro!';
     }
 
-    this._confirmationService.confirm({
-      message: confirmationMessage,
-      header: 'Confirmação',
-      icon: 'pi pi-exclamation-triangle',
-      acceptIcon: 'none',
-      rejectIcon: 'none',
-      rejectButtonStyleClass: 'p-button-text',
-      accept: () => {
-        this._transacoesService.deletarTransacao(idTransacao).subscribe({
-          next: () => {
-            this._messagesService.showSuccess(successMessage);
-            this._notificationService.notifyChanges({ refresh: true });
-          },
-          error: () => this._messagesService.showError(errorMessage),
-        });
-      },
+    this._messagesService.confirm(confirmationMessage, 'Confirmação', () => {
+      this._transacoesService.deletarTransacao(idTransacao).subscribe({
+        next: () => {
+          this._messagesService.showSuccess(successMessage);
+          this._notificationService.notifyChanges({ refresh: true });
+        },
+        error: () => this._messagesService.showError(errorMessage),
+      });
     });
   }
 
@@ -82,24 +72,16 @@ export class TransacaoUtilService {
     let successMessage: string = 'Registros deletados com sucesso!';
     let errorMessage: string = 'Ocorreu um erro ao deletar registros!';
 
-    this._confirmationService.confirm({
-      message: confirmationMessage,
-      header: 'Confirmação',
-      icon: 'pi pi-exclamation-triangle',
-      acceptIcon: 'none',
-      rejectIcon: 'none',
-      rejectButtonStyleClass: 'p-button-text',
-      accept: () => {
-        transacoesIds.map((idTransacao) => {
-          this._transacoesService.deletarTransacao(idTransacao).subscribe({
-            next: () => {
-              this._messagesService.showSuccess(successMessage);
-              this._notificationService.notifyChanges({ refresh: true });
-            },
-            error: () => this._messagesService.showError(errorMessage),
-          });
+    this._messagesService.confirm(confirmationMessage, 'Confirmação', () => {
+      transacoesIds.map((idTransacao) => {
+        this._transacoesService.deletarTransacao(idTransacao).subscribe({
+          next: () => {
+            this._messagesService.showSuccess(successMessage);
+            this._notificationService.notifyChanges({ refresh: true });
+          },
+          error: () => this._messagesService.showError(errorMessage),
         });
-      },
+      });
     });
   }
 
@@ -117,9 +99,9 @@ export class TransacaoUtilService {
   }
 
   getTransacoesUtil(params: ParamsTransacao): Observable<Transacao[]> {
-    return this._transacoesService.getTransacoes(params).pipe(
-      catchError((err) => throwError(err))
-    );
+    return this._transacoesService
+      .getTransacoes(params)
+      .pipe(catchError((err) => throwError(err)));
   }
 
   checkStatusUtil(transacao: Transacao): string {
