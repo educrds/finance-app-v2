@@ -14,6 +14,9 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { CategoriaTableComponent } from './components/categoria-table/categoria-table.component';
 import { TagModule } from 'primeng/tag';
+import { PieChartCategoriaComponent } from './components/charts/pie-chart-categoria/pie-chart-categoria.component';
+import { ChartModule } from 'primeng/chart';
+
 @NgModule({
   declarations: [
     AlertContainerComponent,
@@ -25,6 +28,7 @@ import { TagModule } from 'primeng/tag';
     BaseTransacaoDirective,
     TransacaoTableComponent,
     CategoriaTableComponent,
+    PieChartCategoriaComponent,
   ],
   exports: [
     AlertContainerComponent,
@@ -34,8 +38,17 @@ import { TagModule } from 'primeng/tag';
     TopCardComponent,
     WrapContainerComponent,
     TransacaoTableComponent,
-    CategoriaTableComponent
+    CategoriaTableComponent,
+    PieChartCategoriaComponent,
   ],
-  imports: [CommonModule, TableModule, TooltipModule, ButtonModule, InputTextModule, TagModule]
+  imports: [
+    CommonModule,
+    TableModule,
+    TooltipModule,
+    ButtonModule,
+    InputTextModule,
+    TagModule,
+    ChartModule,
+  ],
 })
 export class SharedModule {}
