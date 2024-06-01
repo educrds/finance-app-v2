@@ -36,8 +36,8 @@ export class TransacaoTableComponent {
     this._transacaoUtilService.editarTransacaoUtil(transacao);
   }
 
-  protected deletarTransacao(idTransacao: number, isParcelado: boolean) {
-    this._transacaoUtilService.deletarTransacaoUtil(idTransacao, isParcelado);
+  protected deletarTransacao(transacao: Transacao) {
+    this._transacaoUtilService.deletarTransacaoUtil(transacao);
   }
 
   protected deletarTransacoes() {
@@ -50,4 +50,5 @@ export class TransacaoTableComponent {
   protected checkStatus(transacao: Transacao): string {
     return this._transacaoUtilService.checkStatusUtil(transacao);
   }
+
 }
