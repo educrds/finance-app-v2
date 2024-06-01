@@ -1,0 +1,11 @@
+<div class="d-flex align-items-center gap-3">
+  <i class="pi pi-exclamation-triangle fs-2"></i>
+  <p class="fs-6" [innerHtml]="config.body"></p>
+</div>
+
+<div class="d-flex">
+  <div class="ms-auto d-flex align-items-center gap-1">
+    <p-button [text]="true" (click)="onReject()">{{ config.rejectLabel }}</p-button>
+    <p-button (click)="onAccept()">{{ config.acceptLabel }}</p-button>
+  </div>
+</div>
