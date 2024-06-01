@@ -5,6 +5,7 @@ import { TransacaoUtilService } from '../services/transacao-util.service';
 import { NotificationService } from '../services/notification.service';
 import { Subscription } from 'rxjs';
 import { DatePickerService } from '../../services/date-picker.service';
+import { TransacoesService } from '../../services/transacoes.service';
 
 @Directive({
   selector: '[finBaseTransacao]'
@@ -12,18 +13,22 @@ import { DatePickerService } from '../../services/date-picker.service';
 export class BaseTransacaoDirective implements OnInit, OnDestroy {
   protected _notificationService = inject(NotificationService);
   protected _transacaoUtilService = inject(TransacaoUtilService);
+  protected _transacoesService = inject(TransacoesService);
   protected _datePickerService = inject(DatePickerService);
   
   protected transacoes: WritableSignal<Transacao[]> = signal([]);
   protected rowSelected: WritableSignal<Transacao[]> = signal([]);
-  protected queryParams: WritableSignal<ParamsTransacao> = signal({
-    filterDate: new Date()
-  });
+  protected queryParams: WritableSignal<ParamsTransacao> = signal({});
 
   private _subscription!: Subscription;
 
   ngOnInit(): void {
-    this.fetchTransacoes(this.queryParams());
+    this._subscription = this._datePickerService.datePickerObservable$.subscribe((date) => {
+      if (date) {
+        this.queryParams().filterDate = date;
+        this.fetchTransacoes(this.queryParams());
+      }
+    })
 
     this._subscription = this._notificationService.notifyObservable$.subscribe((res) => {
       const { refresh, closeModal } = res;
@@ -37,16 +42,10 @@ export class BaseTransacaoDirective implements OnInit, OnDestroy {
       }
     });
     
-    this._subscription = this._datePickerService.datePickerObservable$.subscribe((date) => {
-      if (date) {
-        this.queryParams().filterDate = date;
-        this.fetchTransacoes(this.queryParams());
-      }
-    })
   }
 
   private fetchTransacoes(params: ParamsTransacao) {
-    this._subscription = this._transacaoUtilService.getTransacoesUtil(params).subscribe({
+    this._subscription = this._transacoesService.getTransacoes(params).subscribe({
       next: (transacoes: Transacao[]) => {
         this.transacoes.set(transacoes);
         this.afterFetchTransacoes(transacoes);
