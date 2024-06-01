@@ -1,4 +1,6 @@
-export interface ParamsTransacao {
+type Params = {
   filterDate: Date;
-  idTipoTransacao?: number;
+  idTipoTransacao: number;
 }
+
+export type ParamsTransacao = Partial<Params>;
