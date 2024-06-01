@@ -33,9 +33,21 @@ export class TransacoesService implements ITransacoesService {
     });
   }
 
-  deletarTransacao(idTransacao: number): Observable<any> {
+  deletarTransacao(id_transacao: number): Observable<any> {
     return this._http.post(`${this._api_url}transacao/deletar`, {
-      data: idTransacao,
+      data: id_transacao,
+    });
+  }
+
+  deletarParcelaTransacao(id_transacao: number): Observable<any> {
+    return this._http.post(`${this._api_url}transacao/deletar-parcela`, {
+      data: id_transacao,
+    });
+  }
+
+  deletarTodasTransacoesById(id_transacao: number): Observable<any> {
+    return this._http.post(`${this._api_url}transacao/deletar-todas`, {
+      data: id_transacao,
     });
   }
 
