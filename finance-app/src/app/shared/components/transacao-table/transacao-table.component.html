@@ -97,7 +97,7 @@
       </td>
       <td>
         <p-tag
-          [styleClass]="transacao.id_tipo_transacao === 1 ? 'danger' : 'success'"
+          [styleClass]="transacao.id_tipo_transacao === 2 ? 'danger' : 'success'"
           [rounded]="true"
           [value]="transacao.tipo_transacao"
         />
@@ -141,7 +141,7 @@
           type="button"
           icon="pi pi-trash"
           size="small"
-          (click)="deletarTransacao(transacao.trs_id, transacao.trs_parcelado)"
+          (click)="deletarTransacao(transacao)"
           class="p-button-rounded p-button-text p-button-danger"
         ></button>
       </td>
