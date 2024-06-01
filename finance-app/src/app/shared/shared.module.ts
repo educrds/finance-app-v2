@@ -16,6 +16,8 @@ import { CategoriaTableComponent } from './components/categoria-table/categoria-
 import { TagModule } from 'primeng/tag';
 import { PieChartCategoriaComponent } from './components/charts/pie-chart-categoria/pie-chart-categoria.component';
 import { ChartModule } from 'primeng/chart';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmDialogComponent } from '../templates/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import { ChartModule } from 'primeng/chart';
     TransacaoTableComponent,
     CategoriaTableComponent,
     PieChartCategoriaComponent,
+    ConfirmDialogComponent,
   ],
   exports: [
     AlertContainerComponent,
@@ -40,6 +43,7 @@ import { ChartModule } from 'primeng/chart';
     TransacaoTableComponent,
     CategoriaTableComponent,
     PieChartCategoriaComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     CommonModule,
@@ -49,6 +53,7 @@ import { ChartModule } from 'primeng/chart';
     InputTextModule,
     TagModule,
     ChartModule,
+    ConfirmDialogModule
   ],
 })
 export class SharedModule {}
