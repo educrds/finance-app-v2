@@ -72,7 +72,7 @@ export class ModalCategoriaComponent implements OnInit {
         this.ref.close();
         this._notificationService.notifyChanges({ refresh: true });
       },
-      error: () => this._messagesService.showError('Ocorreu um erro ao adicionar categoria!'),
+      error: ({error}) => this._messagesService.showError(error.message),
       complete: () => this.loading = false
     });
   }
@@ -84,7 +84,7 @@ export class ModalCategoriaComponent implements OnInit {
         this.ref.close();
         this._notificationService.notifyChanges({ refresh: true });
       },
-      error: () => this._messagesService.showError('Ocorreu um erro ao atualizar categoria!'),
+      error: ({error}) => this._messagesService.showError(error.message),
       complete: () => this.loading = false
     });
   }
