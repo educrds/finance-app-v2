@@ -129,6 +129,10 @@
               dateFormat="mm/yy"
               view="month"
             ></p-calendar>
+
+            <div *ngIf="formAddTransacao.errors?.['invalidDates'] && (formAddTransacao.dirty || formAddTransacao.touched)">
+              <small class="text-danger">Intervalo de datas inválido.</small>
+            </div>
           </div>
         </fin-row>
       </fin-row>

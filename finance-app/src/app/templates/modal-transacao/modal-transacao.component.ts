@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validator, ValidatorFn, Validators } from '@angular/forms';
 import { TransacoesService } from '../../services/transacoes.service';
 import { CategoriasService } from '../../services/categorias.service';
 import { IDropdown } from '../../interfaces/Dropdown';
@@ -76,7 +76,22 @@ export class ModalTransacaoComponent implements OnInit {
       trs_id: [this._config.data.trs_id || null],
       trs_parcelado: [ this._config.data.trs_parcelado || defaultTransactionValues.trs_parcelado ],
       data_fim_repeticao: [''],
+    }, { validators: [ this._verifyDates() ] 
     });
+  }
+
+  private _verifyDates(): Validators {
+    return (form: FormGroup): ValidationErrors | null => {
+      const startDate:Date = form.get('trs_data_ocorrido')?.value;
+      const endDate:Date = form.get('data_fim_repeticao')?.value;
+
+      if(startDate && endDate){
+        const isRangeValid = (endDate.getTime() - startDate.getTime() > 0);
+        return isRangeValid ? null : { invalidDates: true }
+      }
+
+      return null
+    }
   }
 
   private _initializeDatePickerListener(defaultTransactionValues:any){
@@ -100,9 +115,10 @@ export class ModalTransacaoComponent implements OnInit {
       }
       return this.inserirTransacao(form);
     }
+    this.loading = false;
     return this.updateValidationForm(this.formAddTransacao);
   }
-
+  
   private updateValidationForm(group: FormGroup) {
     group.markAllAsTouched();
     Object.keys(group.controls).map((key: string) => {
