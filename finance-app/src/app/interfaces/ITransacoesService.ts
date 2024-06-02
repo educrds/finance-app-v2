@@ -7,8 +7,7 @@ export interface ITransacoesService {
   getMetodosDropdown(): Observable<IDropdown[]>;
   getTransacoes(params: ParamsTransacao): Observable<Transacao[]>;
   addTransacao(dadosTransacao: Transacao): Observable<Transacao[]>;
-  deletarTransacao(id_transacao: number): Observable<any>;
+  deletarTransacao(id_transacao: number, trs_parcelado?: boolean): Observable<any>;
   atualizarTransacao(dadosTransacao: Transacao): Observable<any>;
-  deletarParcelaTransacao(id_transacao: number): Observable<any>;
   deletarTodasTransacoesById(id_transacao: number): Observable<any>;
   }

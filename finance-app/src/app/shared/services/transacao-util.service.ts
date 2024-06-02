@@ -64,7 +64,7 @@ export class TransacaoUtilService {
   }
 
   deletarTransacoesParceladas(transacao: Transacao) {
-    const { par_id, trs_id } = transacao;
+    const { par_id, trs_id, trs_parcelado } = transacao;
 
     const configModal = {
       modal: true,
@@ -92,7 +92,7 @@ export class TransacaoUtilService {
       if (res.accept) {
         if (par_id !== null) {
           return this._transacoesService
-            .deletarParcelaTransacao(par_id)
+            .deletarTransacao(par_id, !!trs_parcelado)
             .subscribe({
               next: () => {
                 this._messagesService.showSuccess(successMessage);

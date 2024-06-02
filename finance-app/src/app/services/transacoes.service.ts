@@ -33,15 +33,12 @@ export class TransacoesService implements ITransacoesService {
     });
   }
 
-  deletarTransacao(id_transacao: number): Observable<any> {
+  deletarTransacao(id_transacao: number, trs_parcelado?: boolean): Observable<any> {
     return this._http.post(`${this._api_url}transacao/deletar`, {
-      data: id_transacao,
-    });
-  }
-
-  deletarParcelaTransacao(id_transacao: number): Observable<any> {
-    return this._http.post(`${this._api_url}transacao/deletar-parcela`, {
-      data: id_transacao,
+      data: { 
+        id_transacao: id_transacao, 
+        trs_parcelado: trs_parcelado
+      },
     });
   }
 
