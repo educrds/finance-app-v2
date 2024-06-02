@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild, inject } from '@angular/core';
 import { Transacao } from '../../../interfaces/Transacao';
 import { Table } from 'primeng/table';
 import { TransacaoUtilService } from '../../services/transacao-util.service';
@@ -10,6 +10,7 @@ import { TransacaoUtilService } from '../../services/transacao-util.service';
 })
 export class TransacaoTableComponent {
   @ViewChild('dt') dt: Table | undefined;
+  @ViewChild('inputSearch') inputSearch: ElementRef | undefined;
   
   @Input() transacoes: Transacao[] = [];
   @Input() rowSelected: Transacao[] = [];
@@ -17,6 +18,9 @@ export class TransacaoTableComponent {
   private _transacaoUtilService = inject(TransacaoUtilService);
 
   clear(table: Table) {
+    if(this.inputSearch){
+      this.inputSearch.nativeElement.value = null;
+    }
     table.clear();
   }
 
