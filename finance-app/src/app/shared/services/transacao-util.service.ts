@@ -41,10 +41,9 @@ export class TransacaoUtilService {
   }
 
   deletarTransacaoUtil(transacao: Transacao) {
-    let confirmationMessage =
-      'Deseja realmente excluir o registro? Esta ação é irreversível.';
-    let successMessage = 'Registro deletado com sucesso!';
-    let errorMessage = 'Ocorreu um erro ao deletar registro!';
+    const confirmationMessage = 'Deseja realmente excluir o registro? Esta ação é irreversível.';
+    const successMessage = 'Registro deletado com sucesso!';
+    const errorMessage = 'Ocorreu um erro ao deletar registro!';
 
     if (transacao.trs_parcelado) {
       // lida com a lógica de excluir TODOS ou apenas UM
@@ -76,8 +75,8 @@ export class TransacaoUtilService {
 
     const confirmationMessage = `Este registro trata-se de uma transação que se repete.<br>
     Deseja deletar <b>todos os registros</b> ou <b>apenas esse</b>?`;
-    let successMessage = 'Registro deletado com sucesso!';
-    let errorMessage = 'Ocorreu um erro ao deletar registro!';
+    const successMessage = 'Registro deletado com sucesso!';
+    const errorMessage = 'Ocorreu um erro ao deletar registro!';
 
     this._ref = this._dialogService.open(ConfirmDialogComponent, {
       ...configModal,
