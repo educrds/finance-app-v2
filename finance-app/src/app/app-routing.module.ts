@@ -10,6 +10,7 @@ import { CategoriasComponent } from './components/categorias/categorias.componen
 import { LoginComponent } from './authenticator/pages/login/login.component';
 import { authGuard } from './authenticator/guards/auth.guard';
 import { RegisterComponent } from './authenticator/pages/register/register.component';
+import { loggedInGuard } from './guards/logged-in.guard';
 
 const routes: Routes = [
   {
@@ -27,11 +28,13 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    canActivate: [loggedInGuard],
     children: [],
   },
   {
     path: 'register',
     component: RegisterComponent,
+    canActivate: [loggedInGuard],
     children: [],
   },
 ];
