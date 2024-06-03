@@ -4,7 +4,7 @@ import { StorageService } from '../../shared/services/storage.service';
 import Util from '../../shared/utils';
 import { DatePickerService } from '../../services/date-picker.service';
 import { NavigationEnd, Router } from '@angular/router';
-import { Observable, filter, map } from 'rxjs';
+import { Observable, filter, map, startWith } from 'rxjs';
 @Component({
   selector: 'fin-navbar',
   templateUrl: './navbar.component.html',
@@ -30,7 +30,13 @@ export class NavbarComponent implements OnInit {
       map(event => event as NavigationEnd) 
     );
     this.canShowDatePicker$ = this.navigationEvents$.pipe(
-       map(event => this.checkRoute(event.url))
+       startWith(true),
+       map(event => {
+        if(typeof event === 'boolean'){
+          return event;
+        }
+        return this.checkRoute(event.url)
+      })
     );
 
     this.userInitials = Util.getUserNameInitials(this._storageService);
