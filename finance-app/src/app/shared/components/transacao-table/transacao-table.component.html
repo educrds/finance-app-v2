@@ -2,6 +2,10 @@
   #dt
   id="tbl_transacoes"
   [value]="transacoes"
+  selectionIntevalRows
+  [rowSelected]="rowSelected"
+  [transacoes]="transacoes"
+  (selectionChange)="updateSelectionRows($event)"
   dataKey="trs_id"
   [tableStyle]="{ 'min-width': '50rem', 'max-width': '100vw' }"
   selectionMode="multiple"

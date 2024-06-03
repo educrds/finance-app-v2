@@ -28,6 +28,10 @@ export class TransacaoTableComponent {
     this.dt!.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
 
+  protected updateSelectionRows(newSelection: Transacao[]){
+    this.rowSelected = newSelection;
+  }
+
   // configurando gráfico de pizza com dados já modelados
   protected sumSelected(transactions: any): number {
     return transactions.reduce(

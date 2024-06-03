@@ -18,6 +18,7 @@ import { PieChartCategoriaComponent } from './components/charts/pie-chart-catego
 import { ChartModule } from 'primeng/chart';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmDialogComponent } from '../templates/confirm-dialog/confirm-dialog.component';
+import { SelectionIntevalRowsDirective } from './directives/selection-inteval-rows.directive';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ConfirmDialogComponent } from '../templates/confirm-dialog/confirm-dial
     CategoriaTableComponent,
     PieChartCategoriaComponent,
     ConfirmDialogComponent,
+    SelectionIntevalRowsDirective,
   ],
   exports: [
     AlertContainerComponent,
@@ -43,7 +45,8 @@ import { ConfirmDialogComponent } from '../templates/confirm-dialog/confirm-dial
     TransacaoTableComponent,
     CategoriaTableComponent,
     PieChartCategoriaComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    SelectionIntevalRowsDirective
   ],
   imports: [
     CommonModule,
