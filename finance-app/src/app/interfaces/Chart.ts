@@ -1,3 +1,5 @@
+import { ApexNonAxisChartSeries, ApexChart, ApexResponsive, ApexOptions } from "ng-apexcharts";
+
 export interface CategoriaChartItem {
   name: string;
   value: number;
@@ -13,11 +15,11 @@ export interface CategoriesGroupedByType {
   saida: {[key: string]: CategoriaChartItem},
 }
 
-interface Dataset {
-  data: number[];
-  backgroundColor?: string[];
-}
-export interface ConfigCategoriaChart {
-  labels: string[];
-  datasets: Dataset[];
-}
+export type ChartOptions = {
+  series: ApexNonAxisChartSeries;
+  chart: ApexChart;
+  responsive: ApexResponsive[];
+  labels: any;
+  options: ApexOptions;
+  colors: string[];
+};
