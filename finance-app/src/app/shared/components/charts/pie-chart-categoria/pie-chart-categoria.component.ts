@@ -1,51 +1,99 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { CategoriaChart, CategoriaChartItem, ConfigCategoriaChart } from '../../../../interfaces/Chart';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
+import {
+  CategoriaChart,
+  CategoriaChartItem,
+  ChartOptions,
+} from '../../../../interfaces/Chart';
+import { ChartComponent } from 'ng-apexcharts';
+
+import Util from '../../../utils';
 
 @Component({
   selector: 'fin-pie-chart-categoria',
   templateUrl: './pie-chart-categoria.component.html',
-  styleUrl: './pie-chart-categoria.component.scss',
+  styleUrls: ['./pie-chart-categoria.component.scss'],
 })
-export class PieChartCategoriaComponent implements OnInit {
+export class PieChartCategoriaComponent implements OnInit, OnChanges {
   @Input() chartData!: CategoriaChart;
+  
+  @ViewChild('chart') chart!: ChartComponent;
+  protected chartOptions!: Partial<ChartOptions> | any;
 
-  protected formattedChartData!: ConfigCategoriaChart;
-  // charts options
-  protected chartOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    borderWidth: 0,
-    plugins: {
-      legend: {
-        position: 'right',
-        labels: {
-          padding: 15,
-          usePointStyle: true,
-          boxHeight: 10,
-          pointStyle: 'circle',
-        },
-      },
-    },
-  };
 
   ngOnInit(): void {
-    this.formattedChartData = this.configPieCharts(this.chartData);
+    if (this.chartData) {
+      this.configPieCharts();
+    } else {
+      console.error('chartOptions is not provided');
+    }
   }
 
-  // configurando gráfico de pizza com dados já modelados
-  private configPieCharts(categoriasPorTipo: CategoriaChart): ConfigCategoriaChart {
-    const categoryItems: CategoriaChartItem[] = Object.values(categoriasPorTipo);
+  ngOnChanges(changes: SimpleChanges): void {
+    const isEqual = Util.objectCompare(changes['chartData'].currentValue, changes['chartData'].previousValue)
 
-    const formattedData = {
+    if (changes['chartData'] && isEqual) {
+      this.configPieCharts();
+    }
+  }
+
+  // Configurando gráfico de pizza com dados já modelados
+  private configPieCharts() {
+    const categoryItems: CategoriaChartItem[] = Object.values(this.chartData);
+
+    const colors = categoryItems.map((item: CategoriaChartItem) => item.cor);
+    const series = categoryItems.map((item: CategoriaChartItem) => item.value);
+
+    this.chartOptions = {
+      series: series,
+      chart: {
+        width: 375,
+        type: 'pie',
+      },
+      options: {
+        stroke: {
+          show: false,
+        },
+        legend: {
+          fontSize: '14px',
+          horizontalAlign: 'right',
+          position: 'right',
+          labels: {
+            colors: '#dedede',
+          },
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        tooltip: {
+          y: {
+            formatter: (val: any) => {
+              return Util.numToCurrency(val);
+            },
+          },
+        },
+      },
       labels: categoryItems.map((item: CategoriaChartItem) => item.name),
-      datasets: [
+      colors: colors,
+      responsive: [
         {
-          data: categoryItems.map((item: CategoriaChartItem) => item.value),
-          backgroundColor: categoryItems.map((item: CategoriaChartItem) => item.cor),
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200,
+            },
+            legend: {
+              position: 'bottom',
+            },
+          },
         },
       ],
     };
-
-    return formattedData ;
   }
 }
