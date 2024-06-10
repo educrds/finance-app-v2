@@ -15,10 +15,10 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CategoriaTableComponent } from './components/categoria-table/categoria-table.component';
 import { TagModule } from 'primeng/tag';
 import { PieChartCategoriaComponent } from './components/charts/pie-chart-categoria/pie-chart-categoria.component';
-import { ChartModule } from 'primeng/chart';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmDialogComponent } from '../templates/confirm-dialog/confirm-dialog.component';
 import { SelectionIntevalRowsDirective } from './directives/selection-inteval-rows.directive';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   declarations: [
@@ -55,8 +55,8 @@ import { SelectionIntevalRowsDirective } from './directives/selection-inteval-ro
     ButtonModule,
     InputTextModule,
     TagModule,
-    ChartModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    NgApexchartsModule,
   ],
 })
 export class SharedModule {}
