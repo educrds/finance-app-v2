@@ -47,4 +47,19 @@ export default class Util {
       { entrada: {}, saida: {} }
     );
   }
+
+  static numToCurrency(value: number | string): string {
+    return value.toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+      minimumFractionDigits: 2,
+    });
+  }
+
+  static objectCompare(prev: Object, current: Object): boolean {
+    if (prev !== undefined && current !== undefined) {
+      return JSON.stringify(prev) !== JSON.stringify(current);
+    }
+    return false;
+  }
 }
