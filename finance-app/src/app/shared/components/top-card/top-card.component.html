@@ -1,14 +1,22 @@
 <fin-wrap-container>
   <div class="d-flex g-4 align-items-center">
     <div class="card-title">{{ title }}</div>
-    <i [className]="className" ></i>
+    <i [className]="className"></i>
   </div>
 
-  <p *ngIf="!isCurrency" class="card-subtitle" [ngClass]="value < 0 ? 'text-danger' : 'text-success' ">
+  @if(!isCurrency){
+  <p
+    class="card-subtitle"
+    [ngClass]="value < 0 ? 'text-danger' : 'text-success'"
+  >
     {{ value || 0 }}
   </p>
-
-  <p *ngIf="isCurrency" class="card-subtitle" [ngClass]="value < 0 ? 'text-danger' : 'text-success' ">
+  } @if(isCurrency){
+  <p
+    class="card-subtitle"
+    [ngClass]="value < 0 ? 'text-danger' : 'text-success'"
+  >
     {{ value || 0 | currency : "R$ " }}
   </p>
+  }
 </fin-wrap-container>

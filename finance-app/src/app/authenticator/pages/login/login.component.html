@@ -6,26 +6,23 @@
       <fin-column>
         <div class="d-flex flex-column g-4">
           <label for="input_valor">Email:</label>
-          <input id="input_valor" pInputText formControlName="auth_email"             placeholder="Insira seu email."
+          <input
+            id="input_valor"
+            pInputText
+            formControlName="auth_email"
+            placeholder="Insira seu email."
           />
-          <div
-            class="text-start"
-            *ngIf="
-              formAuthenticator.controls['auth_email'].touched ||
-              formAuthenticator.controls['auth_email'].dirty
-            "
-          >
-            <small
-              class="text-danger text-start"
-              *ngIf="formAuthenticator.controls['auth_email']?.errors?.['email']"
-              >Email inválido.</small
-            >
-            <small
-              class="text-danger text-start"
-              *ngIf="formAuthenticator.controls['auth_email']?.errors?.['required']"
-              >Email obrigatório.</small
-            >
+          @if(formAuthenticator.controls['auth_email'].touched ||
+          formAuthenticator.controls['auth_email'].dirty){
+          <div class="text-start">
+            @if(formAuthenticator.controls['auth_email']?.errors?.['email']){
+            <small class="text-danger text-start">Email inválido.</small>
+            }
+            @if(formAuthenticator.controls['auth_email']?.errors?.['required']){
+            <small class="text-danger text-start">Email obrigatório.</small>
+            }
           </div>
+          }
         </div>
 
         <div class="d-flex flex-column g-4">
@@ -36,19 +33,14 @@
             [feedback]="false"
             placeholder="Insira sua senha"
           ></p-password>
-          <div
-            class="text-start"
-            *ngIf="
-              formAuthenticator.controls['auth_password'].touched ||
-              formAuthenticator.controls['auth_password'].dirty
-            "
-          >
-            <small
-              class="text-danger text-start"
-              *ngIf="formAuthenticator.controls['auth_password']?.errors?.['required']"
-              >Senha obrigatória.</small
-            >
+          @if(formAuthenticator.controls['auth_password'].touched ||
+          formAuthenticator.controls['auth_password'].dirty){
+          <div class="text-start">
+            @if(formAuthenticator.controls['auth_password']?.errors?.['required']){
+            <small class="text-danger text-start">Senha obrigatória.</small>
+            }
           </div>
+          }
         </div>
 
         <a class="register-link" (click)="_router.navigate(['/register'])"

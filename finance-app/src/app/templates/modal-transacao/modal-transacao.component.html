@@ -3,19 +3,14 @@
     ><div class="d-flex flex-column g-4">
       <label for="input_valor">Título:</label>
       <input id="input_valor" pInputText formControlName="trs_titulo" />
-      <div
-        class="text-start"
-        *ngIf="
-          formAddTransacao.controls['trs_titulo'].touched ||
-          formAddTransacao.controls['trs_titulo'].dirty
-        "
-      >
-        <small
-          class="text-danger text-start"
-          *ngIf="formAddTransacao.controls['trs_titulo']?.errors?.['required']"
-          >Campo obrigatório.</small
-        >
+      @if(formAddTransacao.controls['trs_titulo'].touched ||
+      formAddTransacao.controls['trs_titulo'].dirty){
+      <div class="text-start">
+        @if(formAddTransacao.controls['trs_titulo']?.errors?.['required']){
+        <small class="text-danger text-start">Campo obrigatório.</small>
+        }
       </div>
+      }
     </div>
 
     <fin-row>
@@ -28,19 +23,14 @@
           locale="pt-BR"
         >
         </p-inputNumber>
-        <div
-          class="text-start"
-          *ngIf="
-            formAddTransacao.controls['trs_valor'].touched ||
-            formAddTransacao.controls['trs_valor'].dirty
-          "
-        >
-          <small
-            class="text-danger text-start"
-            *ngIf="formAddTransacao.controls['trs_valor']?.errors?.['required']"
-            >Campo obrigatório.</small
-          >
+        @if(formAddTransacao.controls['trs_valor'].touched ||
+        formAddTransacao.controls['trs_valor'].dirty){
+        <div class="text-start">
+          @if(formAddTransacao.controls['trs_valor']?.errors?.['required']){
+          <small class="text-danger text-start">Campo obrigatório.</small>
+          }
         </div>
+        }
       </div>
 
       <div class="d-flex flex-column g-4">
@@ -109,12 +99,9 @@
           ></p-calendar>
         </div>
 
-        <fin-row
-          *ngIf="
-            !formAddTransacao.get('trs_id')?.value &&
-            formAddTransacao.get('trs_parcelado')?.value
-          "
-        >
+        @if(!formAddTransacao.get('trs_id')?.value &&
+        formAddTransacao.get('trs_parcelado')?.value){
+        <fin-row>
           <div class="d-flex flex-column g-4 justify-content-center">
             <span>&nbsp;</span>
             <span>Até</span>
@@ -130,20 +117,21 @@
               view="month"
             ></p-calendar>
 
-            <div *ngIf="formAddTransacao.errors?.['invalidDates'] && (formAddTransacao.dirty || formAddTransacao.touched)">
-              <small class="text-danger">Intervalo de datas inválido.</small>
-            </div>
+            @if(formAddTransacao.errors?.['invalidDates'] &&
+            (formAddTransacao.dirty || formAddTransacao.touched)){
+            <small class="text-danger">Intervalo de datas inválido.</small>
+            }
           </div>
         </fin-row>
+        }
       </fin-row>
 
-      <div
-        class="d-flex g-4 align-items-center"
-        *ngIf="!formAddTransacao.get('trs_id')?.value"
-      >
+      @if(!formAddTransacao.get('trs_id')?.value){
+      <div class="d-flex g-4 align-items-center">
         <span>Repetir</span>
         <p-inputSwitch formControlName="trs_parcelado"></p-inputSwitch>
       </div>
+      }
     </fin-column>
 
     <p-button
