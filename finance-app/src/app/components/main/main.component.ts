@@ -8,29 +8,42 @@ import { CategoriaChart } from '../../interfaces/Chart';
 @Component({
   selector: 'fin-main',
   templateUrl: './main.component.html',
-  styleUrl: './main.component.scss',
+  styleUrls: ['./main.component.scss'],
 })
 export class MainComponent extends BaseTransacaoDirective implements OnInit {
   protected somatorio: WritableSignal<TransacoesSoma> = signal({
     soma_receitas: 0,
     soma_despesas: 0,
   });
-  protected saldo: Signal<number> = computed(() => this.somatorio().soma_receitas - this.somatorio().soma_despesas )
+  protected saldo: Signal<number> = computed(
+    () => this.somatorio().soma_receitas - this.somatorio().soma_despesas
+  );
 
   // charts
   protected entradasPorCategoria!: CategoriaChart;
   protected saidasPorCategoria!: CategoriaChart;
 
-  // sobreescrevendo metódo da classe extendida
-  override afterFetchTransacoes(transacoes: Transacao[]): void {
-    this.somatorio.set(this._transacaoUtilService.obterSomatorioTransacoes(transacoes));
+  protected override afterFetchTransacoes(transacoes: Transacao[]): void {
+    if (transacoes.length > 0) {
+      this.updateSomatorio(transacoes);
+      this.updateCharts(transacoes);
+    }
+  }
 
+  // Atualizando a soma das transações.
+  private updateSomatorio(transacoes: Transacao[]): void {
+    this.somatorio.set(
+      this._transacaoUtilService.obterSomatorioTransacoes(transacoes)
+    );
+  }
+
+  // Atualizando os dados dos gráficos
+  private updateCharts(transacoes: Transacao[]): void {
     const { entrada, saida } = Util.calcularSomatorioPorCategoria(transacoes);
     this.entradasPorCategoria = entrada;
     this.saidasPorCategoria = saida;
   }
 
-  // Metódo responsável por retornar valor total das transações selecionadas.
   protected sumSelected(transactions: Transacao[]): number {
     return transactions.reduce(
       (acc: number, transacao: Transacao) => acc + transacao.trs_valor,
