@@ -24,10 +24,8 @@ export class MainComponent extends BaseTransacaoDirective implements OnInit {
   protected saidasPorCategoria!: CategoriaChart;
 
   protected override afterFetchTransacoes(transacoes: Transacao[]): void {
-    if (transacoes.length > 0) {
-      this.updateSomatorio(transacoes);
-      this.updateCharts(transacoes);
-    }
+    this.updateSomatorio(transacoes);
+    this.updateCharts(transacoes);
   }
 
   // Atualizando a soma das transações.
