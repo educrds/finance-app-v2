@@ -6,6 +6,7 @@ import { NotificationService } from '../services/notification.service';
 import { Subject, takeUntil } from 'rxjs';
 import { DatePickerService } from '../../services/date-picker.service';
 import { TransacoesService } from '../../services/transacoes.service';
+import { MessagesService } from '../../services/messages.service';
 
 @Directive({
   selector: '[finBaseTransacao]',
@@ -14,6 +15,7 @@ export class BaseTransacaoDirective implements OnInit, OnDestroy {
   protected _notificationService = inject(NotificationService);
   protected _transacaoUtilService = inject(TransacaoUtilService);
   protected _transacoesService = inject(TransacoesService);
+  protected _messagesService = inject(MessagesService);
   protected _datePickerService = inject(DatePickerService);
 
   protected transacoes: WritableSignal<Transacao[]> = signal([]);
