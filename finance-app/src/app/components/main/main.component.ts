@@ -1,4 +1,4 @@
-import { Component, OnInit, Signal, WritableSignal, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, Signal, WritableSignal, computed, signal } from '@angular/core';
 import { Transacao } from '../../interfaces/Transacao';
 import { TransacoesSoma } from '../../interfaces/TransacoesSoma';
 import { BaseTransacaoDirective } from '../../shared/directives/base-transacao.directive';
@@ -9,6 +9,7 @@ import { CategoriaChart } from '../../interfaces/Chart';
   selector: 'fin-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MainComponent extends BaseTransacaoDirective implements OnInit {
   protected somatorio: WritableSignal<TransacoesSoma> = signal({
@@ -24,10 +25,8 @@ export class MainComponent extends BaseTransacaoDirective implements OnInit {
   protected saidasPorCategoria!: CategoriaChart;
 
   protected override afterFetchTransacoes(transacoes: Transacao[]): void {
-    if (transacoes.length > 0) {
-      this.updateSomatorio(transacoes);
-      this.updateCharts(transacoes);
-    }
+    this.updateSomatorio(transacoes);
+    this.updateCharts(transacoes);
   }
 
   // Atualizando a soma das transações.

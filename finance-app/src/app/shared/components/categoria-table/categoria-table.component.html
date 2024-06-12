@@ -24,7 +24,8 @@
         </div>
       </td>
       <td class="d-flex justify-content-end">
-        <div *ngIf="categoria.usr_id !== null; else isNotEditable">
+        @if(categoria.usr_id !== null){
+        <div>
           <button
             pButton
             pRipple
@@ -43,8 +44,9 @@
             class="p-button-rounded p-button-text p-button-danger"
           ></button>
         </div>
-
-        <ng-template #isNotEditable>&nbsp;</ng-template>
+        } @else {
+        <div>&nbsp;</div>
+        }
       </td>
     </tr>
   </ng-template>
