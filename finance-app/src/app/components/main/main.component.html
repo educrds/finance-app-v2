@@ -26,7 +26,7 @@
   </fin-row>
 
   <p-accordion>
-    <p-accordionTab [disabled]="!transacoes.length" header="Gráficos por categoria">
+    <p-accordionTab [disabled]="transacoes.length !== 0" header="Gráficos por categoria">
       <fin-row>
         @if(saidasPorCategoria){
           <div class="wrap-container chart">
