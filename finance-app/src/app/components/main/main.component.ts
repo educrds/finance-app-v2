@@ -1,15 +1,14 @@
-import { ChangeDetectionStrategy, Component, OnInit, Signal, WritableSignal, computed, signal } from '@angular/core';
+import { Component, OnInit, Signal, WritableSignal, computed, signal } from '@angular/core';
 import { Transacao } from '../../interfaces/Transacao';
 import { TransacoesSoma } from '../../interfaces/TransacoesSoma';
 import { BaseTransacaoDirective } from '../../shared/directives/base-transacao.directive';
 import Util from '../../shared/utils';
-import { CategoriaChart } from '../../interfaces/Chart';
+import { BarChartResult, CategoriaChart } from '../../interfaces/Chart';
 
 @Component({
   selector: 'fin-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MainComponent extends BaseTransacaoDirective implements OnInit {
   protected somatorio: WritableSignal<TransacoesSoma> = signal({
@@ -21,12 +20,21 @@ export class MainComponent extends BaseTransacaoDirective implements OnInit {
   );
 
   // charts
-  protected entradasPorCategoria!: CategoriaChart;
-  protected saidasPorCategoria!: CategoriaChart;
+  protected entradasPorCategoria: CategoriaChart | undefined;
+  protected saidasPorCategoria: CategoriaChart | undefined;
+  protected comparativoAnual: BarChartResult | undefined;
 
   protected override afterFetchTransacoes(transacoes: Transacao[]): void {
     this.updateSomatorio(transacoes);
     this.updateCharts(transacoes);
+    this.getComparativoChartResult();
+    }
+    
+  private getComparativoChartResult() {
+    this._transacoesService.getComparativoChart(this.queryParams()).subscribe({
+      next: (res: BarChartResult) => this.comparativoAnual = res,
+      error: (err) => this._messagesService.showError(err)
+    })  
   }
 
   // Atualizando a soma das transações.
