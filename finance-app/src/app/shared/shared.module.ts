@@ -19,6 +19,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmDialogComponent } from '../templates/confirm-dialog/confirm-dialog.component';
 import { SelectionIntevalRowsDirective } from './directives/selection-inteval-rows.directive';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { BarChartAnualComponent } from './components/charts/bar-chart-anual/bar-chart-anual.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     PieChartCategoriaComponent,
     ConfirmDialogComponent,
     SelectionIntevalRowsDirective,
+    BarChartAnualComponent
   ],
   exports: [
     AlertContainerComponent,
@@ -46,7 +48,8 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     CategoriaTableComponent,
     PieChartCategoriaComponent,
     ConfirmDialogComponent,
-    SelectionIntevalRowsDirective
+    SelectionIntevalRowsDirective,
+    BarChartAnualComponent
   ],
   imports: [
     CommonModule,
