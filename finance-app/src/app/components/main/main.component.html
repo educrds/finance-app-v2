@@ -26,26 +26,42 @@
   </fin-row>
 
   <p-accordion>
-    <p-accordionTab [disabled]="transacoes.length !== 0" header="Gráficos por categoria">
-      <fin-row>
-        @if(saidasPorCategoria){
+    <p-accordionTab
+      [disabled]="transacoes.length !== 0"
+      header="Gráficos por categoria"
+    >
+      <fin-column>
+        @if((entradasPorCategoria | keyvalue)?.length || (saidasPorCategoria |
+        keyvalue)?.length){
+        <fin-row>
+          @if((entradasPorCategoria | keyvalue)?.length){
           <div class="wrap-container chart">
             <h3>Entradas por categoria</h3>
-            <div class="m-auto">
+            <div class="d-block w-100">
               <fin-pie-chart-categoria [chartData]="entradasPorCategoria" />
             </div>
           </div>
-        }
-
-        @if(entradasPorCategoria){
+          } @if((saidasPorCategoria | keyvalue)?.length){
           <div class="wrap-container chart">
             <h3>Saídas por categoria</h3>
-            <div class="m-auto">
+            <div class="d-block w-100">
               <fin-pie-chart-categoria [chartData]="saidasPorCategoria" />
             </div>
           </div>
+          }
+        </fin-row>
         }
-      </fin-row>
+        <fin-row>
+          @if(comparativoAnual){
+          <div class="wrap-container chart">
+            <h3>Comparativo mensal</h3>
+            <div class="d-block w-100">
+              <fin-bar-chart-anual [chartData]="comparativoAnual" />
+            </div>
+          </div>
+          }
+        </fin-row>
+      </fin-column>
     </p-accordionTab>
   </p-accordion>
 
