@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, afterRender } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -16,8 +16,11 @@ export class RegisterComponent {
     private _fb: FormBuilder,
     private _authService: AuthService,
     protected _router: Router,
-    private _storageService: StorageService
-  ) {}
+    private _storageService: StorageService,
+    private _elementRef: ElementRef
+  ) {
+    afterRender(()=> this._elementRef.nativeElement.querySelector('#input_valor')?.focus())
+  }
 
   ngOnInit(): void {
     this.formAuthenticator = this._fb.group({
