@@ -11,7 +11,6 @@ import {
   CategoriaChartItem,
   ChartOptions,
 } from '../../../../interfaces/Chart';
-import { ChartComponent } from 'ng-apexcharts';
 
 import Util from '../../../utils';
 
@@ -22,10 +21,7 @@ import Util from '../../../utils';
 })
 export class PieChartCategoriaComponent implements OnInit, OnChanges {
   @Input() chartData!: CategoriaChart;
-  
-  @ViewChild('chart') chart!: ChartComponent;
   protected chartOptions!: Partial<ChartOptions> | any;
-
 
   ngOnInit(): void {
     if (this.chartData) {
@@ -53,8 +49,8 @@ export class PieChartCategoriaComponent implements OnInit, OnChanges {
     this.chartOptions = {
       series: series,
       chart: {
-        width: 375,
         type: 'pie',
+        height: 275
       },
       options: {
         stroke: {
