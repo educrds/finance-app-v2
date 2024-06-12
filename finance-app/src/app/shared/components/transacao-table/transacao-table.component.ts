@@ -17,18 +17,18 @@ export class TransacaoTableComponent {
 
   private _transacaoUtilService = inject(TransacaoUtilService);
 
-  clear(table: Table) {
+  protected clear(table: Table): void {
     if(this.inputSearch){
       this.inputSearch.nativeElement.value = null;
     }
     table.clear();
   }
 
-  applyFilterGlobal($event: any, stringVal: any) {
+  protected applyFilterGlobal($event: any, stringVal: any): void {
     this.dt!.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
 
-  protected updateSelectionRows(newSelection: Transacao[]){
+  protected updateSelectionRows(newSelection: Transacao[]): void{
     this.rowSelected = newSelection;
   }
 
@@ -40,15 +40,15 @@ export class TransacaoTableComponent {
     );
   }
 
-  protected editarTransacao(transacao: Transacao) {
+  protected editarTransacao(transacao: Transacao): void {
     this._transacaoUtilService.editarTransacaoUtil(transacao);
   }
 
-  protected deletarTransacao(transacao: Transacao) {
+  protected deletarTransacao(transacao: Transacao): void {
     this._transacaoUtilService.deletarTransacaoUtil(transacao);
   }
 
-  protected deletarTransacoes() {
+  protected deletarTransacoes(): void {
     if (this.rowSelected) {
       const transacoesIds = this.rowSelected.map((item) => item.trs_id);
       this._transacaoUtilService.deletarTransacoesUtil(transacoesIds);
