@@ -9,11 +9,13 @@ import { ButtonModule } from 'primeng/button';
 import { PasswordModule } from 'primeng/password';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './pages/register/register.component';
-
+import { DividerModule } from 'primeng/divider';
+import { SocialButtonsComponent } from './components/social-buttons/social-buttons.component';
 @NgModule({
   declarations: [
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    SocialButtonsComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +24,8 @@ import { RegisterComponent } from './pages/register/register.component';
     ReactiveFormsModule,
     ButtonModule,
     PasswordModule,
-    HttpClientModule
+    HttpClientModule,
+    DividerModule
   ]
 })
 export class AuthModule { }

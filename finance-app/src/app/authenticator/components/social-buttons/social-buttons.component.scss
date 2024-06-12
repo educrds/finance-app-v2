@@ -1,0 +1,12 @@
+:host {
+  ::ng-deep {
+    .p-divider.p-divider-horizontal {
+      margin: 0.75rem 0;
+      padding: 0 1.25rem;
+    }
+    .p-divider .p-divider-content {
+      background: var(--bs-dark);
+      color: var(--gray-500);
+    }
+  }
+}
