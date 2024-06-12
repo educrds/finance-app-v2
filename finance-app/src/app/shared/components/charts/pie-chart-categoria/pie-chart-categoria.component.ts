@@ -4,10 +4,8 @@ import {
   OnChanges,
   OnInit,
   SimpleChanges,
-  ViewChild,
 } from '@angular/core';
 import {
-  CategoriaChart,
   CategoriaChartItem,
   ChartOptions,
 } from '../../../../interfaces/Chart';
@@ -20,14 +18,12 @@ import Util from '../../../utils';
   styleUrls: ['./pie-chart-categoria.component.scss'],
 })
 export class PieChartCategoriaComponent implements OnInit, OnChanges {
-  @Input() chartData!: CategoriaChart;
+  @Input() chartData!: CategoriaChartItem;
   protected chartOptions!: Partial<ChartOptions> | any;
 
   ngOnInit(): void {
     if (this.chartData) {
       this.configPieCharts();
-    } else {
-      console.error('chartOptions is not provided');
     }
   }
 
