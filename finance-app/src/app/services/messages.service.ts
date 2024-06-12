@@ -8,7 +8,7 @@ export class MessagesService {
   private _confirmationService = inject(ConfirmationService);
   private _messageService = inject(MessageService);
 
-  showSuccess(message: string) {
+  public showSuccess(message: string):void {
     this._messageService.add({
       severity: 'success',
       summary: 'Sucesso',
@@ -16,7 +16,7 @@ export class MessagesService {
     });
   }
 
-  showError(message: string) {
+  public showError(message: string):void {
     this._messageService.add({
       severity: 'error',
       summary: 'Erro',
@@ -29,7 +29,7 @@ export class MessagesService {
     header: string,
     accept: () => void,
     reject?: () => void
-  ) {
+  ):void {
     this._confirmationService.confirm({
       message: message,
       header: header,
