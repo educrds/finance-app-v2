@@ -7,7 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AuthModule } from './authenticator/auth.module';
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // components
@@ -96,6 +96,9 @@ import { AccordionModule } from 'primeng/accordion';
     ConfirmationService,
     DialogService,
     httpInterceptorProvider,
+    provideHttpClient(
+      withFetch()
+    )
   ],
   bootstrap: [AppComponent],
 })
