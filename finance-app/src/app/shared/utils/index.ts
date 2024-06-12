@@ -24,7 +24,7 @@ export default class Util {
       (acc, transacao) => {
         const { categoria_cor, categoria_nome, trs_valor, id_tipo_transacao } =
           transacao;
-        const tipoTransacao = id_tipo_transacao === 1 ? 'entrada' : 'saida';
+        const tipoTransacao = id_tipo_transacao === 1 ? 'entradas' : 'saidas';
 
         const categoriaNome = categoria_nome;
         const categoriaCor = categoria_cor;
@@ -44,7 +44,7 @@ export default class Util {
 
         return acc;
       },
-      { entrada: {}, saida: {} }
+      { entradas: {}, saidas: {} }
     );
   }
 
