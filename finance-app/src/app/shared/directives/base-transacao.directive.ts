@@ -30,7 +30,7 @@ export class BaseTransacaoDirective implements OnInit, OnDestroy {
       .subscribe((date) => {
         if (date) {
           this.queryParams().filterDate = date;
-          this.fetchTransacoes(this.queryParams());
+          this._fetchTransacoes(this.queryParams());
         }
       });
 
@@ -40,7 +40,7 @@ export class BaseTransacaoDirective implements OnInit, OnDestroy {
         const { refresh, closeModal } = res;
 
         if (refresh) {
-          this.fetchTransacoes(this.queryParams());
+          this._fetchTransacoes(this.queryParams());
         }
 
         if (closeModal) {
@@ -49,7 +49,7 @@ export class BaseTransacaoDirective implements OnInit, OnDestroy {
       });
   }
 
-  private fetchTransacoes(params: ParamsTransacao) {
+  private _fetchTransacoes(params: ParamsTransacao) {
     this._transacoesService
       .getTransacoes(params)
       .pipe(takeUntil(this._destroy$))

@@ -3,14 +3,11 @@ import { TransacoesService } from '../../services/transacoes.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ModalTransacaoComponent } from '../../templates/modal-transacao/modal-transacao.component';
 import { TransacoesSoma } from '../../interfaces/TransacoesSoma';
-import { ParamsTransacao } from '../../interfaces/ParamsTransacao';
-import { Observable, catchError, throwError } from 'rxjs';
 import { MessagesService } from '../../services/messages.service';
 import { NotificationService } from './notification.service';
 import { Transacao } from '../../interfaces/Transacao';
 import { ConfirmDialogComponent } from '../../templates/confirm-dialog/confirm-dialog.component';
 import { ConfirmDialogService } from './confirm-dialog.service';
-import { BarChartResult } from '../../interfaces/Chart';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +23,7 @@ export class TransacaoUtilService {
     private _confirmDialogService: ConfirmDialogService
   ) {}
 
-  obterSomatorioTransacoes(transacoes: Transacao[]): TransacoesSoma {
+  public obterSomatorioTransacoes(transacoes: Transacao[]): TransacoesSoma {
     return transacoes.reduce(
       (acc, transacao) => {
         if (transacao.id_tipo_transacao === 1) {
@@ -41,7 +38,7 @@ export class TransacaoUtilService {
     );
   }
 
-  deletarTransacaoUtil(transacao: Transacao) {
+  public deletarTransacaoUtil(transacao: Transacao) {
     const confirmationMessage =
       'Deseja realmente excluir o registro? Esta ação é irreversível.';
     const successMessage = 'Registro deletado com sucesso!';
@@ -64,7 +61,7 @@ export class TransacaoUtilService {
     }
   }
 
-  deletarTransacoesParceladas(transacao: Transacao) {
+  public deletarTransacoesParceladas(transacao: Transacao) {
     const { par_id, trs_id, trs_parcelado } = transacao;
 
     const configModal = {
@@ -132,7 +129,7 @@ export class TransacaoUtilService {
     });
   }
 
-  deletarTransacoesUtil(transacoesIds: number[]) {
+  public deletarTransacoesUtil(transacoesIds: number[]) {
     let confirmationMessage: string = `Deseja realmente excluir os registros? Esta ação é irreversível. <br> 
     Deseja prosseguir?`;
     let successMessage: string = 'Registros deletados com sucesso!';
@@ -151,7 +148,7 @@ export class TransacaoUtilService {
     });
   }
 
-  editarTransacaoUtil(transacao: Transacao) {
+  public editarTransacaoUtil(transacao: Transacao) {
     const tipoTransacao =
       transacao.id_tipo_transacao === 1 ? 'Receita' : 'Despesa';
 
@@ -164,7 +161,7 @@ export class TransacaoUtilService {
     });
   }
 
-  checkStatusUtil(transacao: Transacao): string {
+  public checkStatusUtil(transacao: Transacao): string {
     let status = '';
 
     if (transacao.id_tipo_transacao === 1) {
