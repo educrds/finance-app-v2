@@ -10,6 +10,7 @@ import { NotificationService } from './notification.service';
 import { Transacao } from '../../interfaces/Transacao';
 import { ConfirmDialogComponent } from '../../templates/confirm-dialog/confirm-dialog.component';
 import { ConfirmDialogService } from './confirm-dialog.service';
+import { BarChartResult } from '../../interfaces/Chart';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +23,7 @@ export class TransacaoUtilService {
     private _notificationService: NotificationService,
     private _messagesService: MessagesService,
     private _dialogService: DialogService,
-    private _confirmDialogService: ConfirmDialogService,
+    private _confirmDialogService: ConfirmDialogService
   ) {}
 
   obterSomatorioTransacoes(transacoes: Transacao[]): TransacoesSoma {
@@ -41,7 +42,8 @@ export class TransacaoUtilService {
   }
 
   deletarTransacaoUtil(transacao: Transacao) {
-    const confirmationMessage = 'Deseja realmente excluir o registro? Esta ação é irreversível.';
+    const confirmationMessage =
+      'Deseja realmente excluir o registro? Esta ação é irreversível.';
     const successMessage = 'Registro deletado com sucesso!';
     const errorMessage = 'Ocorreu um erro ao deletar registro!';
 
@@ -83,7 +85,7 @@ export class TransacaoUtilService {
       data: {
         acceptLabel: 'Apenas selecionado',
         rejectLabel: 'Todas',
-        body: confirmationMessage
+        body: confirmationMessage,
       },
     });
 
@@ -95,7 +97,10 @@ export class TransacaoUtilService {
             .subscribe({
               next: () => {
                 this._messagesService.showSuccess(successMessage);
-                this._notificationService.notifyChanges({ refresh: true }, this._ref);
+                this._notificationService.notifyChanges(
+                  { refresh: true },
+                  this._ref
+                );
               },
               error: () => this._messagesService.showError(errorMessage),
             });
@@ -103,7 +108,10 @@ export class TransacaoUtilService {
         return this._transacoesService.deletarTransacao(trs_id).subscribe({
           next: () => {
             this._messagesService.showSuccess(successMessage);
-            this._notificationService.notifyChanges({ refresh: true }, this._ref);
+            this._notificationService.notifyChanges(
+              { refresh: true },
+              this._ref
+            );
           },
           error: () => this._messagesService.showError(errorMessage),
         });
@@ -113,7 +121,10 @@ export class TransacaoUtilService {
           .subscribe({
             next: () => {
               this._messagesService.showSuccess(successMessage);
-              this._notificationService.notifyChanges({ refresh: true }, this._ref);
+              this._notificationService.notifyChanges(
+                { refresh: true },
+                this._ref
+              );
             },
             error: () => this._messagesService.showError(errorMessage),
           });
@@ -151,12 +162,6 @@ export class TransacaoUtilService {
       contentStyle: { overflow: 'auto' },
       data: transacao,
     });
-  }
-
-  getTransacoesUtil(params: ParamsTransacao): Observable<Transacao[]> {
-    return this._transacoesService
-      .getTransacoes(params)
-      .pipe(catchError((err) => throwError(err)));
   }
 
   checkStatusUtil(transacao: Transacao): string {
