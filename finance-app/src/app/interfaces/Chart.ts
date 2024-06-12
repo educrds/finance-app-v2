@@ -23,3 +23,6 @@ export type ChartOptions = {
   options: ApexOptions;
   colors: string[];
 };
+
+type BarChartKeys = 'entradas' | 'saidas';
+export type BarChartResult = Array<Record<BarChartKeys, number>>

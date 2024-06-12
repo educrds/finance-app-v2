@@ -6,6 +6,7 @@ import { Transacao } from '../interfaces/Transacao';
 import { IDropdown } from '../interfaces/Dropdown';
 import { ParamsTransacao } from '../interfaces/ParamsTransacao';
 import { ITransacoesService } from '../interfaces/ITransacoesService';
+import { BarChartResult } from '../interfaces/Chart';
 
 @Injectable({
   providedIn: 'root',
@@ -27,17 +28,26 @@ export class TransacoesService implements ITransacoesService {
       .pipe(retry(1));
   }
 
+  getComparativoChart(params: ParamsTransacao): Observable<BarChartResult> {
+    return this._http
+      .post<BarChartResult>(`${this._api_url}charts/comparativo-anual`, { data: params })
+      .pipe(retry(1));
+  }
+
   addTransacao(dadosTransacao: Transacao): Observable<Transacao[]> {
     return this._http.post<Transacao[]>(`${this._api_url}transacao/adicionar`, {
       data: dadosTransacao,
     });
   }
 
-  deletarTransacao(id_transacao: number, trs_parcelado?: boolean): Observable<any> {
+  deletarTransacao(
+    id_transacao: number,
+    trs_parcelado?: boolean
+  ): Observable<any> {
     return this._http.post(`${this._api_url}transacao/deletar`, {
-      data: { 
-        id_transacao: id_transacao, 
-        trs_parcelado: trs_parcelado
+      data: {
+        id_transacao: id_transacao,
+        trs_parcelado: trs_parcelado,
       },
     });
   }
