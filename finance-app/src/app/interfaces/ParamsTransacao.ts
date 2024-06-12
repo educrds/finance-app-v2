@@ -1,6 +1,4 @@
-type Params = {
+export type ParamsTransacao = Partial<{
   filterDate: Date;
   idTipoTransacao: number;
-}
-
-export type ParamsTransacao = Partial<Params>;
+}>;
