@@ -31,21 +31,21 @@
       header="Gráficos por categoria"
     >
       <fin-column>
-        @if((entradasPorCategoria | keyvalue)?.length || (saidasPorCategoria |
+        @if((transacoesPorCategoria.entradas | keyvalue)?.length || (transacoesPorCategoria.saidas |
         keyvalue)?.length){
         <fin-row>
-          @if((entradasPorCategoria | keyvalue)?.length){
+          @if((transacoesPorCategoria.entradas | keyvalue)?.length){
           <div class="wrap-container chart">
             <h3>Entradas por categoria</h3>
             <div class="d-block w-100">
-              <fin-pie-chart-categoria [chartData]="entradasPorCategoria" />
+              <fin-pie-chart-categoria [chartData]="transacoesPorCategoria.entradas" />
             </div>
           </div>
-          } @if((saidasPorCategoria | keyvalue)?.length){
+          } @if((transacoesPorCategoria.saidas | keyvalue)?.length){
           <div class="wrap-container chart">
             <h3>Saídas por categoria</h3>
             <div class="d-block w-100">
-              <fin-pie-chart-categoria [chartData]="saidasPorCategoria" />
+              <fin-pie-chart-categoria [chartData]="transacoesPorCategoria.saidas" />
             </div>
           </div>
           }

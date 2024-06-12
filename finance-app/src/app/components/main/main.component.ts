@@ -3,7 +3,7 @@ import { Transacao } from '../../interfaces/Transacao';
 import { TransacoesSoma } from '../../interfaces/TransacoesSoma';
 import { BaseTransacaoDirective } from '../../shared/directives/base-transacao.directive';
 import Util from '../../shared/utils';
-import { BarChartResult, CategoriaChart } from '../../interfaces/Chart';
+import { BarChartResult, CategoriesGroupedByType } from '../../interfaces/Chart';
 
 @Component({
   selector: 'fin-main',
@@ -20,35 +20,13 @@ export class MainComponent extends BaseTransacaoDirective implements OnInit {
   );
 
   // charts
-  protected entradasPorCategoria: CategoriaChart | undefined;
-  protected saidasPorCategoria: CategoriaChart | undefined;
+  protected transacoesPorCategoria!: CategoriesGroupedByType;
   protected comparativoAnual: BarChartResult | undefined;
 
   protected override afterFetchTransacoes(transacoes: Transacao[]): void {
-    this.updateSomatorio(transacoes);
-    this.updateCharts(transacoes);
-    this.getComparativoChartResult();
-    }
-    
-  private getComparativoChartResult() {
-    this._transacoesService.getComparativoChart(this.queryParams()).subscribe({
-      next: (res: BarChartResult) => this.comparativoAnual = res,
-      error: (err) => this._messagesService.showError(err)
-    })  
-  }
-
-  // Atualizando a soma das transações.
-  private updateSomatorio(transacoes: Transacao[]): void {
-    this.somatorio.set(
-      this._transacaoUtilService.obterSomatorioTransacoes(transacoes)
-    );
-  }
-
-  // Atualizando os dados dos gráficos
-  private updateCharts(transacoes: Transacao[]): void {
-    const { entrada, saida } = Util.calcularSomatorioPorCategoria(transacoes);
-    this.entradasPorCategoria = entrada;
-    this.saidasPorCategoria = saida;
+    this._updateSomatorio(transacoes);
+    this._updateCharts(transacoes);
+    this._getComparativoChartResult();
   }
 
   protected sumSelected(transactions: Transacao[]): number {
@@ -57,4 +35,22 @@ export class MainComponent extends BaseTransacaoDirective implements OnInit {
       0
     );
   }
+    
+  private _getComparativoChartResult():void {
+    this._transacoesService.getComparativoChart(this.queryParams()).subscribe({
+      next: (res: BarChartResult) => this.comparativoAnual = res,
+      error: (err) => this._messagesService.showError(err)
+    })  
+  }
+
+  // Atualizando a soma das transações.
+  private _updateSomatorio(transacoes: Transacao[]): void {
+    this.somatorio.set(this._transacaoUtilService.obterSomatorioTransacoes(transacoes));
+  }
+
+  // Atualizando os dados dos gráficos
+  private _updateCharts(transacoes: Transacao[]): void {
+    this.transacoesPorCategoria = Util.calcularSomatorioPorCategoria(transacoes);
+  }
+
 }
