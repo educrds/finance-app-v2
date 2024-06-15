@@ -7,9 +7,7 @@ import { MainComponent } from './components/main/main.component';
 import { ReceitasComponent } from './components/receitas/receitas.component';
 import { DespesasComponent } from './components/despesas/despesas.component';
 import { CategoriasComponent } from './components/categorias/categorias.component';
-import { LoginComponent } from './authenticator/pages/login/login.component';
 import { authGuard } from './authenticator/guards/auth.guard';
-import { RegisterComponent } from './authenticator/pages/register/register.component';
 import { loggedInGuard } from './guards/logged-in.guard';
 
 const routes: Routes = [
@@ -26,17 +24,10 @@ const routes: Routes = [
     ],
   },
   {
-    path: 'login',
-    component: LoginComponent,
-    canActivate: [loggedInGuard],
-    children: [],
-  },
-  {
-    path: 'register',
-    component: RegisterComponent,
-    canActivate: [loggedInGuard],
-    children: [],
-  },
+    path: 'auth',
+    loadChildren: () => import('./authenticator/auth.module').then(m => m.AuthModule),
+    canActivate: [loggedInGuard]
+  }
 ];
 
 @NgModule({
