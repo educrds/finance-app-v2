@@ -9,7 +9,6 @@ import { Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { StorageService } from '../shared/services/storage.service';
-import { MessagesService } from '../services/messages.service';
 import { HttpErrorHandlerService } from '../shared/services/http-error-handler.service';
 
 @Injectable()
@@ -17,7 +16,6 @@ export class ApiRequestInterceptor implements HttpInterceptor {
   constructor(
     private _storageService: StorageService,
     private _router: Router,
-    private _messagesService: MessagesService,
     private _httpErrorHandlerService: HttpErrorHandlerService
   ) {}
 
@@ -26,10 +24,8 @@ export class ApiRequestInterceptor implements HttpInterceptor {
 
     if (authRoutes) {
       return next.handle(req).pipe(
-        catchError((err: HttpErrorResponse) => {
-          this._messagesService.showError(err.error.message);
-          return throwError(err);
-        })
+        catchError((err: HttpErrorResponse) => this._httpErrorHandlerService.handleHttpError(err)
+)
       );
     }
 
@@ -46,13 +42,10 @@ export class ApiRequestInterceptor implements HttpInterceptor {
 
       return next
         .handle(req)
-        .pipe(
-          catchError((error: HttpErrorResponse) => this._httpErrorHandlerService.handleHttpError(error))
-        );
+        .pipe(catchError((error: HttpErrorResponse) => this._httpErrorHandlerService.handleHttpError(error)));
     }
 
     this._router.navigate(['/login']);
-    this._messagesService.showError('Usúario não autenticado.');
     return throwError('Usuário não autenticado');
   }
 }
