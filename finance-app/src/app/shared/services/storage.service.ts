@@ -11,8 +11,6 @@ interface JwtPayload {
   providedIn: 'root',
 })
 export class StorageService {
-  constructor() {}
-
   public saveUser(token: string): void {
     this.clean();
     window.localStorage.setItem('token', token);
