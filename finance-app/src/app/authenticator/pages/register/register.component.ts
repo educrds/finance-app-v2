@@ -15,12 +15,9 @@ export class RegisterComponent {
   constructor(
     private _fb: FormBuilder,
     private _authService: AuthService,
-    protected _router: Router,
-    private _storageService: StorageService,
-    private _elementRef: ElementRef
-  ) {
-    afterRender(()=> this._elementRef.nativeElement.querySelector('#input_valor')?.focus())
-  }
+    private _router: Router,
+    private _storageService: StorageService
+  ) {}
 
   ngOnInit(): void {
     this.formAuthenticator = this._fb.group({
@@ -40,6 +37,10 @@ export class RegisterComponent {
         Validators.compose([Validators.required, Validators.minLength(8)]),
       ],
     });
+  }
+
+  protected goToLogin(): void {
+    this._router.navigate(['/login'])
   }
 
   autenticarUsuario() {
