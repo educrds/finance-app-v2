@@ -1,8 +1,8 @@
 import { Component, OnInit, Signal, WritableSignal, computed, signal } from '@angular/core';
 import { Transacao } from '../../interfaces/Transacao';
 import { TransacoesSoma } from '../../interfaces/TransacoesSoma';
-import { BaseTransacaoDirective } from '../../shared/directives/base-transacao.directive';
-import Util from '../../shared/utils';
+import { BaseTransacaoDirective } from '../../../shared/directives/base-transacao.directive';
+import Util from '../../../shared/utils';
 import { BarChartResult, CategoriesGroupedByType } from '../../interfaces/Chart';
 
 @Component({

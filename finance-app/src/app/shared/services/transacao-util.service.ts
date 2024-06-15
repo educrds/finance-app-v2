@@ -1,13 +1,13 @@
 import { Injectable, inject } from '@angular/core';
-import { TransacoesService } from '../../services/transacoes.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ModalTransacaoComponent } from '../../templates/modal-transacao/modal-transacao.component';
-import { TransacoesSoma } from '../../interfaces/TransacoesSoma';
-import { MessagesService } from '../../services/messages.service';
+import { ModalTransacaoComponent } from '../../core/templates/modal-transacao/modal-transacao.component';
+import { TransacoesSoma } from '../../core/interfaces/TransacoesSoma';
+import { MessagesService } from '../../core/services/messages.service';
 import { NotificationService } from './notification.service';
-import { Transacao } from '../../interfaces/Transacao';
-import { ConfirmDialogComponent } from '../../templates/confirm-dialog/confirm-dialog.component';
+import { Transacao } from '../../core/interfaces/Transacao';
 import { ConfirmDialogService } from './confirm-dialog.service';
+import { TransacoesService } from '../../core/services/transacoes.service';
+import { ConfirmDialogComponent } from '../components/confirm-dialog/confirm-dialog.component';
 
 @Injectable({
   providedIn: 'root',

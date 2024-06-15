@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseTransacaoDirective } from '../../shared/directives/base-transacao.directive';
+import { BaseTransacaoDirective } from '../../../shared/directives/base-transacao.directive';
 
 @Component({
   selector: 'fin-despesas',

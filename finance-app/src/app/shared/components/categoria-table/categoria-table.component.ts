@@ -5,11 +5,11 @@ import {
   Output,
   inject,
 } from '@angular/core';
-import { Categoria, Categorias } from '../../../interfaces/Categorias';
+import { Categoria, Categorias } from '../../../core/interfaces/Categorias';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { CategoriasService } from '../../../services/categorias.service';
-import { MessagesService } from '../../../services/messages.service';
-import { ModalCategoriaComponent } from '../../../templates/modal-categoria/modal-categoria.component';
+import { CategoriasService } from '../../../core/services/categorias.service';
+import { MessagesService } from '../../../core/services/messages.service';
+import { ModalCategoriaComponent } from '../../../core/templates/modal-categoria/modal-categoria.component';
 
 @Component({
   selector: 'fin-categoria-table',

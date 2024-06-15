@@ -20,7 +20,7 @@ export class ApiRequestInterceptor implements HttpInterceptor {
   ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    const authRoutes = req.url.includes('/auth');
+    const authRoutes = req.url.includes('/login') || req.url.includes('/register');
 
     if (authRoutes) {
       return next.handle(req).pipe(

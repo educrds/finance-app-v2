@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { ConfirmDialogService } from '../../shared/services/confirm-dialog.service';
+import { ConfirmDialogService } from '../../services/confirm-dialog.service';
 
 @Component({
   selector: 'fin-confirm-dialog',

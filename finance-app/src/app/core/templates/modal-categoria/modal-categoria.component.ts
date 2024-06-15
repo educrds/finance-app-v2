@@ -5,7 +5,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Categoria } from '../../interfaces/Categorias';
 import { IDropdown } from '../../interfaces/Dropdown';
 import { MessagesService } from '../../services/messages.service';
-import { NotificationService } from '../../shared/services/notification.service';
+import { NotificationService } from '../../../shared/services/notification.service';
 
 @Component({
   selector: 'fin-modal-categoria',

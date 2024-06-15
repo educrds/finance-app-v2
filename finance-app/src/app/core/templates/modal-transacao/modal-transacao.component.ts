@@ -6,7 +6,7 @@ import { IDropdown } from '../../interfaces/Dropdown';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Transacao } from '../../interfaces/Transacao';
 import { MessagesService } from '../../services/messages.service';
-import { NotificationService } from '../../shared/services/notification.service';
+import { NotificationService } from '../../../shared/services/notification.service';
 import { DatePickerService } from '../../services/date-picker.service';
 import { Observable } from 'rxjs';
 

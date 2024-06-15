@@ -1,12 +1,12 @@
 import { Directive, OnDestroy, OnInit, WritableSignal, inject, signal } from '@angular/core';
-import { Transacao } from '../../interfaces/Transacao';
-import { ParamsTransacao } from '../../interfaces/ParamsTransacao';
+import { Transacao } from '../../core/interfaces/Transacao';
+import { ParamsTransacao } from '../../core/interfaces/ParamsTransacao';
 import { TransacaoUtilService } from '../services/transacao-util.service';
 import { NotificationService } from '../services/notification.service';
 import { Subject, takeUntil } from 'rxjs';
-import { DatePickerService } from '../../services/date-picker.service';
-import { TransacoesService } from '../../services/transacoes.service';
-import { MessagesService } from '../../services/messages.service';
+import { DatePickerService } from '../../core/services/date-picker.service';
+import { TransacoesService } from '../../core/services/transacoes.service';
+import { MessagesService } from '../../core/services/messages.service';
 
 @Directive({
   selector: '[finBaseTransacao]',

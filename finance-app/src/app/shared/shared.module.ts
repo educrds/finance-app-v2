@@ -16,10 +16,10 @@ import { CategoriaTableComponent } from './components/categoria-table/categoria-
 import { TagModule } from 'primeng/tag';
 import { PieChartCategoriaComponent } from './components/charts/pie-chart-categoria/pie-chart-categoria.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ConfirmDialogComponent } from '../templates/confirm-dialog/confirm-dialog.component';
 import { SelectionIntevalRowsDirective } from './directives/selection-inteval-rows.directive';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { BarChartAnualComponent } from './components/charts/bar-chart-anual/bar-chart-anual.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [

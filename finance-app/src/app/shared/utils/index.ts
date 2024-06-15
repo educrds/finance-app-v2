@@ -1,5 +1,5 @@
-import { CategoriesGroupedByType } from '../../interfaces/Chart';
-import { Transacao } from '../../interfaces/Transacao';
+import { CategoriesGroupedByType } from '../../core/interfaces/Chart';
+import { Transacao } from '../../core/interfaces/Transacao';
 import { StorageService } from '../services/storage.service';
 
 export default class Util {  
