@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, retry } from 'rxjs';
+import { Observable, retry, shareReplay } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Transacao } from '../interfaces/Transacao';
 import { IDropdown } from '../interfaces/Dropdown';
@@ -19,19 +19,19 @@ export class TransacoesService implements ITransacoesService {
   public getMetodosDropdown(): Observable<IDropdown[]> {
     return this._http
       .post<IDropdown[]>(`${this._api_url}transacoes/listar/metodos`, {})
-      .pipe(retry(1));
+      .pipe(retry(1), shareReplay(1));
   }
 
   public getTransacoes(params: ParamsTransacao): Observable<Transacao[]> {
     return this._http
       .post<Transacao[]>(`${this._api_url}transacoes/listar`, { data: params })
-      .pipe(retry(1));
+      .pipe(retry(1), shareReplay(1));
   }
 
   public getComparativoChart(params: ParamsTransacao): Observable<BarChartResult> {
     return this._http
       .post<BarChartResult>(`${this._api_url}charts/comparativo-anual`, { data: params })
-      .pipe(retry(1));
+      .pipe(retry(1), shareReplay(1));
   }
 
   public addTransacao(dadosTransacao: Transacao): Observable<Transacao[]> {
