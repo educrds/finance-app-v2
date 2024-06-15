@@ -1,5 +1,5 @@
 export type Usuario =  {
-  auth_name?: string;
-  auth_login: string;
-  auth_password: string;
+  auth_name: string;
+  auth_email: string;
+  auth_password?: string;
 }
