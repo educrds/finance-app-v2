@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, shareReplay } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ export class DatePickerService {
   public datePicker = new BehaviorSubject<Date>(this.getCurrentMonthFormatted());
   
   // Observable público que permite que outras partes da aplicação se inscrevam para obter data
-  datePickerObservable$ = this.datePicker.asObservable();
+  datePickerObservable$ = this.datePicker.asObservable().pipe(shareReplay(1));
   
   // Método para emitir novas notificações
   public notifyDateChanges(date: Date) {
