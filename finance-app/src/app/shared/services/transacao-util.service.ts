@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { TransacoesService } from '../../services/transacoes.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ModalTransacaoComponent } from '../../templates/modal-transacao/modal-transacao.component';
@@ -13,15 +13,13 @@ import { ConfirmDialogService } from './confirm-dialog.service';
   providedIn: 'root',
 })
 export class TransacaoUtilService {
-  private _ref!: DynamicDialogRef;
+  #_ref!: DynamicDialogRef;
 
-  constructor(
-    private _transacoesService: TransacoesService,
-    private _notificationService: NotificationService,
-    private _messagesService: MessagesService,
-    private _dialogService: DialogService,
-    private _confirmDialogService: ConfirmDialogService
-  ) {}
+  #_transacoesService = inject(TransacoesService);
+  #_notificationService = inject(NotificationService);
+  #_messagesService = inject(MessagesService);
+  #_dialogService = inject(DialogService);
+  #_confirmDialogService = inject(ConfirmDialogService);
 
   public obterSomatorioTransacoes(transacoes: Transacao[]): TransacoesSoma {
     return transacoes.reduce(
@@ -48,14 +46,14 @@ export class TransacaoUtilService {
       // lida com a lógica de excluir TODOS ou apenas UM
       this.deletarTransacoesParceladas(transacao);
     } else {
-      this._messagesService.confirm(confirmationMessage, 'Confirmação', () => {
+      this.#_messagesService.confirm(confirmationMessage, 'Confirmação', () => {
         // transformar em um metódo pq vai ser chamado em mais de um local
-        this._transacoesService.deletarTransacao(transacao.trs_id).subscribe({
+        this.#_transacoesService.deletarTransacao(transacao.trs_id).subscribe({
           next: () => {
-            this._messagesService.showSuccess(successMessage);
-            this._notificationService.notifyChanges({ refresh: true });
+            this.#_messagesService.showSuccess(successMessage);
+            this.#_notificationService.notifyChanges({ refresh: true });
           },
-          error: () => this._messagesService.showError(errorMessage),
+          error: () => this.#_messagesService.showError(errorMessage),
         });
       });
     }
@@ -77,7 +75,7 @@ export class TransacaoUtilService {
     const successMessage = 'Registro deletado com sucesso!';
     const errorMessage = 'Ocorreu um erro ao deletar registro!';
 
-    this._ref = this._dialogService.open(ConfirmDialogComponent, {
+    this.#_ref = this.#_dialogService.open(ConfirmDialogComponent, {
       ...configModal,
       data: {
         acceptLabel: 'Apenas selecionado',
@@ -86,44 +84,44 @@ export class TransacaoUtilService {
       },
     });
 
-    this._confirmDialogService.config$.subscribe((res) => {
+    this.#_confirmDialogService.config$.subscribe((res) => {
       if (res.accept) {
         if (par_id !== null) {
-          return this._transacoesService
+          return this.#_transacoesService
             .deletarTransacao(par_id, !!trs_parcelado)
             .subscribe({
               next: () => {
-                this._messagesService.showSuccess(successMessage);
-                this._notificationService.notifyChanges(
+                this.#_messagesService.showSuccess(successMessage);
+                this.#_notificationService.notifyChanges(
                   { refresh: true },
-                  this._ref
+                  this.#_ref
                 );
               },
-              error: () => this._messagesService.showError(errorMessage),
+              error: () => this.#_messagesService.showError(errorMessage),
             });
         }
-        return this._transacoesService.deletarTransacao(trs_id).subscribe({
+        return this.#_transacoesService.deletarTransacao(trs_id).subscribe({
           next: () => {
-            this._messagesService.showSuccess(successMessage);
-            this._notificationService.notifyChanges(
+            this.#_messagesService.showSuccess(successMessage);
+            this.#_notificationService.notifyChanges(
               { refresh: true },
-              this._ref
+              this.#_ref
             );
           },
-          error: () => this._messagesService.showError(errorMessage),
+          error: () => this.#_messagesService.showError(errorMessage),
         });
       } else {
-        return this._transacoesService
+        return this.#_transacoesService
           .deletarTodasTransacoesById(trs_id)
           .subscribe({
             next: () => {
-              this._messagesService.showSuccess(successMessage);
-              this._notificationService.notifyChanges(
+              this.#_messagesService.showSuccess(successMessage);
+              this.#_notificationService.notifyChanges(
                 { refresh: true },
-                this._ref
+                this.#_ref
               );
             },
-            error: () => this._messagesService.showError(errorMessage),
+            error: () => this.#_messagesService.showError(errorMessage),
           });
       }
     });
@@ -135,14 +133,14 @@ export class TransacaoUtilService {
     let successMessage: string = 'Registros deletados com sucesso!';
     let errorMessage: string = 'Ocorreu um erro ao deletar registros!';
 
-    this._messagesService.confirm(confirmationMessage, 'Confirmação', () => {
+    this.#_messagesService.confirm(confirmationMessage, 'Confirmação', () => {
       transacoesIds.map((id_transacao) => {
-        this._transacoesService.deletarTransacao(id_transacao).subscribe({
+        this.#_transacoesService.deletarTransacao(id_transacao).subscribe({
           next: () => {
-            this._messagesService.showSuccess(successMessage);
-            this._notificationService.notifyChanges({ refresh: true });
+            this.#_messagesService.showSuccess(successMessage);
+            this.#_notificationService.notifyChanges({ refresh: true });
           },
-          error: () => this._messagesService.showError(errorMessage),
+          error: () => this.#_messagesService.showError(errorMessage),
         });
       });
     });
@@ -152,7 +150,7 @@ export class TransacaoUtilService {
     const tipoTransacao =
       transacao.id_tipo_transacao === 1 ? 'Receita' : 'Despesa';
 
-    this._ref = this._dialogService.open(ModalTransacaoComponent, {
+    this.#_ref = this.#_dialogService.open(ModalTransacaoComponent, {
       modal: true,
       header: `Atualizar ${tipoTransacao}`,
       width: '35vw',
