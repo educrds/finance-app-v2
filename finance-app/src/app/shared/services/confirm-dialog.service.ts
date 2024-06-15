@@ -5,16 +5,14 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class ConfirmDialogService {
-  private configSource = new Subject<any>();
-  config$ = this.configSource.asObservable();
-
-  constructor() { }
+  #configSource = new Subject<any>();
+  public config$ = this.#configSource.asObservable();
 
   accept(): void {
-    this.configSource.next({ accept: true });
+    this.#configSource.next({ accept: true });
   }
 
   reject(): void {
-    this.configSource.next({ reject: true });
+    this.#configSource.next({ reject: true });
   }
 }
