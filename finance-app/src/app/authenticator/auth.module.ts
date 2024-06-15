@@ -13,6 +13,7 @@ import { DividerModule } from 'primeng/divider';
 import { SocialButtonsComponent } from './components/social-buttons/social-buttons.component';
 import { provideAuth0 } from '@auth0/auth0-angular';
 import { environment } from '../../environments/environment';
+import { AuthRoutingModule } from './auth-routing.module';
 @NgModule({
   declarations: [
     LoginComponent,
@@ -29,6 +30,7 @@ import { environment } from '../../environments/environment';
     HttpClientModule,
     DividerModule
   ],
+  exports: [AuthRoutingModule],
   providers:[
     provideAuth0(environment.auth0)
   ]
