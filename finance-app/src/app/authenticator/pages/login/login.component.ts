@@ -17,10 +17,7 @@ export class LoginComponent implements OnInit {
     private _authService: AuthService,
     protected _router: Router,
     private _storageService: StorageService,
-    private _elementRef: ElementRef
-  ) {
-    afterRender(()=> this._elementRef.nativeElement.querySelector('#input_valor')?.focus())
-  }
+  ) {}
 
   ngOnInit(): void {
     this.formAuthenticator = this._fb.group({
