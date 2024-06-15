@@ -2,16 +2,24 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { throwError } from 'rxjs';
+import { MessagesService } from '../../services/messages.service';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpErrorHandlerService {
-  constructor(private _router: Router) {}
+  constructor(
+    private _router: Router,
+    private _messagesService: MessagesService,
+    private _storageService: StorageService,
+  ) {}
 
   handleHttpError(error: HttpErrorResponse) {
+    this._messagesService.showError(error.error.message);
     if (error.status === 401) {
       // Se a resposta for 401 Unauthorized.
+      this._storageService.clean();
       this._router.navigate(['/login']);
     } else if (error.status === 404) {
       console.error('Recurso não encontrado. Status: 404');
