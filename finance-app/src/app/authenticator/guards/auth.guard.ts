@@ -6,7 +6,7 @@ export const authGuard: CanActivateFn = (route, state): boolean => {
   const storageService = inject(StorageService);
   const router = inject(Router);
 
-  const authRoutes = router.url.includes('/login') || router.url.includes('/register');
+  const authRoutes = router.url.includes('/auth');
 
   const currentUser = storageService.isLoggedIn();
   if (currentUser || authRoutes) {
@@ -14,6 +14,6 @@ export const authGuard: CanActivateFn = (route, state): boolean => {
   }
 
   storageService.clean();
-  router.navigate(['/login']);
+  router.navigate(['/auth/login']);
   return false;
 };

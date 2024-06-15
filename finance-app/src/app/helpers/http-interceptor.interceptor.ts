@@ -20,7 +20,7 @@ export class ApiRequestInterceptor implements HttpInterceptor {
   ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    const authRoutes = req.url.includes('/login') || req.url.includes('/register');
+    const authRoutes = req.url.includes('/auth');
 
     if (authRoutes) {
       return next.handle(req).pipe(
@@ -45,7 +45,7 @@ export class ApiRequestInterceptor implements HttpInterceptor {
         .pipe(catchError((error: HttpErrorResponse) => this._httpErrorHandlerService.handleHttpError(error)));
     }
 
-    this._router.navigate(['/login']);
+    this._router.navigate(['/auth/login']);
     return throwError('Usuário não autenticado');
   }
 }

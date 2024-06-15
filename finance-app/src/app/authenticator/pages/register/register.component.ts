@@ -40,7 +40,7 @@ export class RegisterComponent {
   }
 
   protected goToLogin(): void {
-    this._router.navigate(['/login'])
+    this._router.navigate(['/auth/login'])
   }
 
   autenticarUsuario() {

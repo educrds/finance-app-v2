@@ -18,7 +18,7 @@ export class HttpErrorHandlerService {
     if (error.status === 401) {
       // Se a resposta for 401 Unauthorized.
       this.#_storageService.clean();
-      this.#_router.navigate(['/login']);
+      this.#_router.navigate(['/auth/login']);
     } else if (error.status === 404) {
       console.error('Recurso não encontrado. Status: 404');
     } else if (error.status === 500) {
