@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { throwError } from 'rxjs';
 import { MessagesService } from '../../services/messages.service';
@@ -9,18 +9,16 @@ import { StorageService } from './storage.service';
   providedIn: 'root',
 })
 export class HttpErrorHandlerService {
-  constructor(
-    private _router: Router,
-    private _messagesService: MessagesService,
-    private _storageService: StorageService,
-  ) {}
+  #_router = inject(Router);
+  #_messagesService= inject(MessagesService);
+  #_storageService= inject(StorageService);
 
   handleHttpError(error: HttpErrorResponse) {
-    this._messagesService.showError(error.error.message);
+    this.#_messagesService.showError(error.error.message);
     if (error.status === 401) {
       // Se a resposta for 401 Unauthorized.
-      this._storageService.clean();
-      this._router.navigate(['/login']);
+      this.#_storageService.clean();
+      this.#_router.navigate(['/login']);
     } else if (error.status === 404) {
       console.error('Recurso não encontrado. Status: 404');
     } else if (error.status === 500) {
