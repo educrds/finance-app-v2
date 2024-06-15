@@ -7,6 +7,6 @@ export type AuthResponse = {
 };
 
 export interface IAuthService {
-  authenticateUser(form: Usuario): Observable<AuthResponse>;
-  registerUser(form: Usuario): Observable<AuthResponse>;
+  authenticateUser(form: Usuario, isSocialAuth?: boolean): Observable<AuthResponse>;
+  registerUser(form: Usuario, isSocialAuth?: boolean): Observable<AuthResponse>;
 }
