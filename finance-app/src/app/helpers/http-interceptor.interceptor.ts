@@ -24,8 +24,7 @@ export class ApiRequestInterceptor implements HttpInterceptor {
 
     if (authRoutes) {
       return next.handle(req).pipe(
-        catchError((err: HttpErrorResponse) => this._httpErrorHandlerService.handleHttpError(err)
-)
+        catchError((err: HttpErrorResponse) => this._httpErrorHandlerService.handleHttpError(err))
       );
     }
 
