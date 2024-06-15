@@ -5,8 +5,8 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class ThemeService {
-  private theme = new BehaviorSubject<string>(this._getUserThemePreference());
-  themeObservable$ = this.theme.asObservable();
+  #theme = new BehaviorSubject<string>(this._getUserThemePreference());
+  themeObservable$ = this.#theme.asObservable();
 
   private _getUserThemePreference():string {
     const theme = localStorage.getItem('theme') ?? 'light';
@@ -16,6 +16,6 @@ export class ThemeService {
   public toggleTheme(themeSelected:string):void {
     document.documentElement.classList.toggle('dark-mode');
     localStorage.setItem('theme', themeSelected);
-    this.theme.next(themeSelected);
+    this.#theme.next(themeSelected);
   }
 }
