@@ -11,6 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './pages/register/register.component';
 import { DividerModule } from 'primeng/divider';
 import { SocialButtonsComponent } from './components/social-buttons/social-buttons.component';
+import { provideAuth0 } from '@auth0/auth0-angular';
+import { environment } from '../../environments/environment';
 @NgModule({
   declarations: [
     LoginComponent,
@@ -26,6 +28,9 @@ import { SocialButtonsComponent } from './components/social-buttons/social-butto
     PasswordModule,
     HttpClientModule,
     DividerModule
+  ],
+  providers:[
+    provideAuth0(environment.auth0)
   ]
 })
 export class AuthModule { }
