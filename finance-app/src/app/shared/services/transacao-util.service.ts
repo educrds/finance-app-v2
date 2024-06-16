@@ -158,16 +158,4 @@ export class TransacaoUtilService {
       data: transacao,
     });
   }
-
-  public checkStatusUtil(transacao: Transacao): string {
-    let status = '';
-
-    if (transacao.id_tipo_transacao === 1) {
-      status = transacao.trs_status ? 'Recebida' : 'A Receber';
-    } else if (transacao.id_tipo_transacao === 2) {
-      status = transacao.trs_status ? 'Paga' : 'A Pagar';
-    }
-
-    return status;
-  }
 }

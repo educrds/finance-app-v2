@@ -62,4 +62,13 @@ export default class Util {
     }
     return false;
   }
+
+  static checkStatusUtil(transacao: Transacao): string {
+    const statusMap: { [key: number]: string[] } = {
+      1: ['A Receber', 'Recebida'],
+      2: ['A Pagar', 'Paga']
+    };
+  
+    return statusMap[transacao.id_tipo_transacao]?.[transacao.trs_status] || '';
+  }
 }

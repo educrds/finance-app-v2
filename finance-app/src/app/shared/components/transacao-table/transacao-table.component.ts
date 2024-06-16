@@ -2,6 +2,7 @@ import { Component, ElementRef, Input, ViewChild, inject } from '@angular/core';
 import { Transacao } from '../../../core/interfaces/Transacao';
 import { Table } from 'primeng/table';
 import { TransacaoUtilService } from '../../services/transacao-util.service';
+import Util from '../../utils';
 
 @Component({
   selector: 'fin-transacao-table',
@@ -56,7 +57,6 @@ export class TransacaoTableComponent {
   }
 
   protected checkStatus(transacao: Transacao): string {
-    return this._transacaoUtilService.checkStatusUtil(transacao);
+    return Util.checkStatusUtil(transacao);
   }
-
 }
