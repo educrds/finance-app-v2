@@ -31,6 +31,7 @@ export class PieChartCategoriaComponent implements OnInit, OnChanges {
     const isEqual = Util.objectCompare(changes['chartData'].currentValue, changes['chartData'].previousValue)
 
     if (changes['chartData'] && isEqual) {
+      this.chartOptions = undefined;
       this.configPieCharts();
     }
   }
@@ -46,7 +47,7 @@ export class PieChartCategoriaComponent implements OnInit, OnChanges {
       series: series,
       chart: {
         type: 'pie',
-        height: 275
+        height: 255
       },
       options: {
         stroke: {
