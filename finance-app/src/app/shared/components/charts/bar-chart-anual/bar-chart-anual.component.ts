@@ -28,14 +28,21 @@ export class BarChartAnualComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     const isEqual = Util.objectCompare(changes['chartData'].previousValue, changes['chartData'].currentValue)
     
-    if (changes['chartData'] && isEqual) {
+    if (changes['chartData'] && isEqual && !changes['chartData']['firstChange']) {
+      this.chartOptions = undefined; // Resetar opções para forçar a re-renderização
       this.configPieCharts();
     }
   }
 
+  private _getChartSeries(chartData: any) {
+    const entradas = chartData.map((data: any) => data.entradas);
+    const saidas = chartData.map((data: any) => data.saidas);
+
+    return { saidas, entradas }
+  }
+
   private configPieCharts() {
-    const entradas = this.chartData.map((data: any) => data.entradas);
-    const saidas = this.chartData.map((data: any) => data.saidas);
+    const { saidas, entradas } = this._getChartSeries(this.chartData);
 
     this.chartOptions = {
       series: [
@@ -58,7 +65,7 @@ export class BarChartAnualComponent implements OnInit, OnChanges {
       },
       chart: {
         type: 'bar',
-        height: 275,
+        height: 255,
         toolbar: {
           show: false,
         },
