@@ -2,7 +2,6 @@ import {
   Component,
   Input,
   OnChanges,
-  OnDestroy,
   OnInit,
   SimpleChanges,
 } from '@angular/core';
@@ -27,11 +26,9 @@ export class BarChartAnualComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (
-      changes['chartData'] &&
-      changes['chartData'].currentValue &&
-      changes['chartData'].previousValue
-    ) {
+    const isEqual = Util.objectCompare(changes['chartData'].previousValue, changes['chartData'].currentValue)
+    
+    if (changes['chartData'] && isEqual) {
       this.configPieCharts();
     }
   }
