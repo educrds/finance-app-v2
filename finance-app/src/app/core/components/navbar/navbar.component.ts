@@ -1,4 +1,4 @@
-import { Component, OnInit, WritableSignal, signal } from '@angular/core';
+import { Component, OnInit, WritableSignal, inject, signal } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { DatePickerService } from '../../services/date-picker.service';
 import { NavigationEnd, Router } from '@angular/router';
@@ -14,22 +14,20 @@ export class NavbarComponent implements OnInit {
   protected menuBarItems: MenuItem[] | undefined;
   protected userInitials: string | undefined;
   protected month_selected: WritableSignal<Date> = signal(new Date());
-
-  canShowDatePicker$!: Observable<boolean>;
-  navigationEvents$!: Observable<NavigationEnd>;
-
-  constructor(
-    private _datePickerService: DatePickerService,
-    private _storageService: StorageService,
-    private _router: Router,
-  ) {}
+  protected canShowDatePicker$: Observable<boolean> | undefined;
+  
+  #navigationEvents$: Observable<NavigationEnd> | undefined;
+  
+  #_datePickerService = inject(DatePickerService);
+  #_storageService = inject(StorageService);
+  #_router = inject(Router);
 
   ngOnInit(): void {
-    this.navigationEvents$ = this._router.events.pipe(
+    this.#navigationEvents$ = this.#_router.events.pipe(
       filter(event => event instanceof NavigationEnd),
       map(event => event as NavigationEnd) 
     );
-    this.canShowDatePicker$ = this.navigationEvents$.pipe(
+    this.canShowDatePicker$ = this.#navigationEvents$.pipe(
        startWith(true),
        map(event => {
         if(typeof event === 'boolean'){
@@ -39,8 +37,8 @@ export class NavbarComponent implements OnInit {
       })
     );
 
-    this.userInitials = Util.getUserNameInitials(this._storageService);
-    this._datePickerService.datePickerObservable$.subscribe({
+    this.userInitials = Util.getUserNameInitials(this.#_storageService);
+    this.#_datePickerService.datePickerObservable$.subscribe({
       next: (data) => this.month_selected.set(data)
     })
 
@@ -48,7 +46,7 @@ export class NavbarComponent implements OnInit {
       {
         label: 'Sair',
         icon: 'pi pi-power-off',
-        command: () => this._storageService.clearAndRefreshPage(),
+        command: () => this.#_storageService.clearAndRefreshPage(),
       },
     ];
   }
@@ -58,6 +56,6 @@ export class NavbarComponent implements OnInit {
   }
 
   protected onDateChange(date: Date){
-    this._datePickerService.notifyDateChanges(date)
+    this.#_datePickerService.notifyDateChanges(date)
   }
 }

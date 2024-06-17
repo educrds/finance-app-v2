@@ -52,5 +52,4 @@ export class MainComponent extends BaseTransacaoDirective implements OnInit {
   private _updateCharts(transacoes: Transacao[]): void {
     this.transacoesPorCategoria = Util.calcularSomatorioPorCategoria(transacoes);
   }
-
 }
