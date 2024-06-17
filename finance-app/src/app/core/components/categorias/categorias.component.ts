@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CategoriasService } from '../../services/categorias.service';
 import { Categorias } from '../../interfaces/Categorias';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -12,27 +12,24 @@ import { NotificationService } from '../../../shared/services/notification.servi
   styleUrl: './categorias.component.scss',
 })
 export class CategoriasComponent implements OnInit {
-  protected categorias$!: Observable<Categorias[]>;
+  #ref: DynamicDialogRef | undefined;
+
+  #_categoriasService =  inject(CategoriasService);
+  #_dialogService =  inject(DialogService);
+  #_notificationService =  inject(NotificationService);
+  
+  protected categorias$: Observable<Categorias[]> | undefined;
   protected configModal = {
     modal: true,
     header: 'Atualizar Categoria',
     width: '35vw',
     contentStyle: { overflow: 'auto' },
   };
-
-  private ref!: DynamicDialogRef;
-
-  constructor(
-    private _categoriasService: CategoriasService,
-    private _dialogService: DialogService,
-    private _notificationService: NotificationService,
-  ) {}
-
   
-  ngOnInit():void {
-    this.categorias$ = this._notificationService.notifyObservable$.pipe(
+  ngOnInit(): void {
+    this.categorias$ = this.#_notificationService.notifyObservable$.pipe(
       startWith({ refresh: true }),
-      switchMap(res => res.refresh ? this._categoriasService.getCategoriasByUser$() : [])
+      switchMap(res => res.refresh ? this.#_categoriasService.getCategoriasByUser$() : [])
     );
   }
 
@@ -43,8 +40,8 @@ export class CategoriasComponent implements OnInit {
   }
   
   // Metódo responsavel por abrir modal de categoria
-  protected abrirModalAddCategoria():void {
-    this.ref = this._dialogService.open(ModalCategoriaComponent, {
+  protected abrirModalAddCategoria(): void {
+    this.#ref = this.#_dialogService.open(ModalCategoriaComponent, {
       ...this.configModal,
       data: {},
     });
