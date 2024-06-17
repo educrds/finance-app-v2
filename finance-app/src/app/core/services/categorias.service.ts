@@ -22,7 +22,7 @@ export class CategoriasService implements ICategoriasService {
       .pipe(retry(1), shareReplay(1));
   }
 
-  getCategorias$(): Observable<Categorias[]> {
+  getCategoriasByUser$(): Observable<Categorias[]> {
     return this._http
       .post<Categorias[]>(`${this.#_api_url}categorias/listar`, {})
       .pipe(retry(1), shareReplay(1));
