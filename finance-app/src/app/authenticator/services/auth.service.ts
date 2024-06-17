@@ -12,14 +12,14 @@ export class AuthService implements IAuthService {
 
   constructor(private _http: HttpClient) {}
 
-  public authenticateUser(form: Usuario, isSocialAuth?: boolean): Observable<AuthResponse> {
+  public authenticateUser$(form: Usuario, isSocialAuth?: boolean): Observable<AuthResponse> {
     return this._http.post<AuthResponse>(`${this._api_url}user/login`, { 
       data: form,
       socialAuth: isSocialAuth ?? false
     });
   }
 
-  public registerUser(form: Usuario, isSocialAuth?: boolean): Observable<AuthResponse> {
+  public registerUser$(form: Usuario, isSocialAuth?: boolean): Observable<AuthResponse> {
     return this._http.post<AuthResponse>(`${this._api_url}user/register`, { 
       data: form,
       socialAuth: isSocialAuth ?? false

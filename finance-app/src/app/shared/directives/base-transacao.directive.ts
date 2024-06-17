@@ -3,7 +3,7 @@ import { Transacao } from '../../core/interfaces/Transacao';
 import { ParamsTransacao } from '../../core/interfaces/ParamsTransacao';
 import { TransacaoUtilService } from '../services/transacao-util.service';
 import { NotificationService } from '../services/notification.service';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, distinctUntilChanged, takeUntil } from 'rxjs';
 import { DatePickerService } from '../../core/services/date-picker.service';
 import { TransacoesService } from '../../core/services/transacoes.service';
 import { MessagesService } from '../../core/services/messages.service';
@@ -51,7 +51,7 @@ export class BaseTransacaoDirective implements OnInit, OnDestroy {
 
   private _fetchTransacoes(params: ParamsTransacao) {
     this._transacoesService
-      .getTransacoes(params)
+      .getTransacoes$(params)
       .pipe(takeUntil(this._destroy$))
       .subscribe({
         next: (transacoes: Transacao[]) => {

@@ -48,7 +48,7 @@ export class TransacaoUtilService {
     } else {
       this.#_messagesService.confirm(confirmationMessage, 'Confirmação', () => {
         // transformar em um metódo pq vai ser chamado em mais de um local
-        this.#_transacoesService.deletarTransacao(transacao.trs_id).subscribe({
+        this.#_transacoesService.deletarTransacao$(transacao.trs_id).subscribe({
           next: () => {
             this.#_messagesService.showSuccess(successMessage);
             this.#_notificationService.notifyChanges({ refresh: true });
@@ -88,7 +88,7 @@ export class TransacaoUtilService {
       if (res.accept) {
         if (par_id !== null) {
           return this.#_transacoesService
-            .deletarTransacao(par_id, !!trs_parcelado)
+            .deletarTransacao$(par_id, !!trs_parcelado)
             .subscribe({
               next: () => {
                 this.#_messagesService.showSuccess(successMessage);
@@ -100,7 +100,7 @@ export class TransacaoUtilService {
               error: () => this.#_messagesService.showError(errorMessage),
             });
         }
-        return this.#_transacoesService.deletarTransacao(trs_id).subscribe({
+        return this.#_transacoesService.deletarTransacao$(trs_id).subscribe({
           next: () => {
             this.#_messagesService.showSuccess(successMessage);
             this.#_notificationService.notifyChanges(
@@ -112,7 +112,7 @@ export class TransacaoUtilService {
         });
       } else {
         return this.#_transacoesService
-          .deletarTodasTransacoesById(trs_id)
+          .deletarTodasTransacoesById$(trs_id)
           .subscribe({
             next: () => {
               this.#_messagesService.showSuccess(successMessage);
@@ -135,7 +135,7 @@ export class TransacaoUtilService {
 
     this.#_messagesService.confirm(confirmationMessage, 'Confirmação', () => {
       transacoesIds.map((id_transacao) => {
-        this.#_transacoesService.deletarTransacao(id_transacao).subscribe({
+        this.#_transacoesService.deletarTransacao$(id_transacao).subscribe({
           next: () => {
             this.#_messagesService.showSuccess(successMessage);
             this.#_notificationService.notifyChanges({ refresh: true });

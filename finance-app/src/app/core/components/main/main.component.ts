@@ -37,7 +37,7 @@ export class MainComponent extends BaseTransacaoDirective implements OnInit {
   }
     
   private _getComparativoChartResult():void {
-    this._transacoesService.getComparativoChart(this.queryParams()).subscribe({
+    this._transacoesService.getComparativoChart$(this.queryParams()).subscribe({
       next: (res: BarChartResult) => this.comparativoAnual = res,
       error: (err) => this._messagesService.showError(err)
     })  

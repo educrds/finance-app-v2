@@ -33,7 +33,7 @@ export class CategoriaTableComponent {
       'Deseja realmente excluir o registro? <br> Esta ação é irreversível.',
       'Confirmação',
       () => {
-        this._categoriasService.deletarCategoria(form).subscribe({
+        this._categoriasService.deletarCategoria$(form).subscribe({
           next: () => {
             this._messagesService.showSuccess('Registro deletado com sucesso!');
             this.isCategoriaDeleted.emit(true);

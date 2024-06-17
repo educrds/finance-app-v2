@@ -32,7 +32,7 @@ export class CategoriasComponent implements OnInit {
   ngOnInit():void {
     this.categorias$ = this._notificationService.notifyObservable$.pipe(
       startWith({ refresh: true }),
-      switchMap(res => res.refresh ? this._categoriasService.getCategorias() : [])
+      switchMap(res => res.refresh ? this._categoriasService.getCategorias$() : [])
     );
   }
 

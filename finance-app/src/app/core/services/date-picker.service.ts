@@ -8,7 +8,8 @@ export class DatePickerService {
   // BehaviorSubject que mantém o estado atual da data
   public datePicker = new BehaviorSubject<Date>(this.getCurrentMonthFormatted());
   
-  // Observable público que permite que outras partes da aplicação se inscrevam para obter data
+  // Observable público que permite que outras partes da aplicação se inscrevam para obter data.
+  // Operador distinctUntilChanged para evitar subscriptions valores duplicados
   datePickerObservable$ = this.datePicker.asObservable()
     .pipe(distinctUntilChanged((prev, curr) => prev.getTime() === curr.getTime()), shareReplay(1));
   

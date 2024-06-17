@@ -66,7 +66,7 @@ export class ModalCategoriaComponent implements OnInit {
   }
 
   private _inserirCategoria(form: Categoria) {
-    this._categoriaService.addCategoria(form).subscribe({
+    this._categoriaService.addCategoria$(form).subscribe({
       next: () => {
         this._messagesService.showSuccess('Categoria inserida com sucesso!');
         this.ref.close();
@@ -78,7 +78,7 @@ export class ModalCategoriaComponent implements OnInit {
   }
 
   private _atualizarCategoria(form: Categoria) {
-    this._categoriaService.atualizarCategoria(form).subscribe({
+    this._categoriaService.atualizarCategoria$(form).subscribe({
       next: () => {
         this._messagesService.showSuccess('Categoria atualizada com sucesso!');
         this.ref.close();

@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
   autenticarUsuario() {
     if (this.formAuthenticator.valid) {
       const form = this.formAuthenticator.getRawValue();
-      this._authService.authenticateUser(form).subscribe({
+      this._authService.authenticateUser$(form).subscribe({
         next: (res) => {
           this._storageService.saveUser(res.token);
           this._router.navigate(['/']);
