@@ -7,11 +7,11 @@ import {
   take
 } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { Transacao } from '../interfaces/Transacao';
-import { IDropdown } from '../interfaces/Dropdown';
-import { ParamsTransacao } from '../interfaces/ParamsTransacao';
+import { Transacao } from '../models/Transacao';
+import { IDropdown } from '../models/Dropdown';
+import { ParamsTransacao } from '../models/ParamsTransacao';
 import { ITransacoesService } from '../interfaces/ITransacoesService';
-import { BarChartResult } from '../interfaces/Chart';
+import { BarChartResult } from '../models/Chart';
 
 @Injectable({
   providedIn: 'root',

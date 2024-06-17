@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CategoriasService } from '../../services/categorias.service';
-import { Categorias } from '../../interfaces/Categorias';
+import { Categorias } from '../../models/Categorias';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ModalCategoriaComponent } from '../../templates/modal-categoria/modal-categoria.component';
 import { Observable, startWith, switchMap } from 'rxjs';

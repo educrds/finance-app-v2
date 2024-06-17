@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, retry, shareReplay } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { IDropdown } from '../interfaces/Dropdown';
-import { Categoria, Categorias } from '../interfaces/Categorias';
+import { IDropdown } from '../models/Dropdown';
+import { Categoria, Categorias } from '../models/Categorias';
 import { ICategoriasService } from '../interfaces/ICategoriasService';
 
 @Injectable({

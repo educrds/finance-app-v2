@@ -1,6 +1,6 @@
 import { Directive, OnDestroy, OnInit, WritableSignal, inject, signal } from '@angular/core';
-import { Transacao } from '../../core/interfaces/Transacao';
-import { ParamsTransacao } from '../../core/interfaces/ParamsTransacao';
+import { Transacao } from '../../core/models/Transacao';
+import { ParamsTransacao } from '../../core/models/ParamsTransacao';
 import { TransacaoUtilService } from '../services/transacao-util.service';
 import { NotificationService } from '../services/notification.service';
 import { Subject, distinctUntilChanged, takeUntil } from 'rxjs';

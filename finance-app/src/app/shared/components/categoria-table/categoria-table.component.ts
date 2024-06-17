@@ -5,7 +5,7 @@ import {
   Output,
   inject,
 } from '@angular/core';
-import { Categoria, Categorias } from '../../../core/interfaces/Categorias';
+import { Categoria, Categorias } from '../../../core/models/Categorias';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CategoriasService } from '../../../core/services/categorias.service';
 import { MessagesService } from '../../../core/services/messages.service';

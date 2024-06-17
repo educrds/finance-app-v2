@@ -1,6 +1,6 @@
 import { Observable } from "rxjs";
-import { IDropdown } from "./Dropdown";
-import { Categoria, Categorias } from "./Categorias";
+import { IDropdown } from "../models/Dropdown";
+import { Categoria, Categorias } from "../models/Categorias";
 
 export interface ICategoriasService {
   getCategoriasDropdown$(cat_tip_id: number): Observable<IDropdown[]>;

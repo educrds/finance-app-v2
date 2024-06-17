@@ -1,5 +1,5 @@
 import { Observable } from "rxjs";
-import { Usuario } from "./Usuario";
+import { Usuario } from "../models/Usuario";
 
 export type AuthResponse = {
   message: string;

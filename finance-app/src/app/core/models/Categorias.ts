@@ -1,9 +1,9 @@
-import { IDropdown } from './Dropdown';
+import { IDropdown } from "./Dropdown";
 
-interface CategoriaCor {
+type CategoriaCor = {
   cat_color: string;
 }
-export interface Categorias {
+export type Categorias = {
   cat_id: number;
   cat_nome: string;
   cat_cor: string;

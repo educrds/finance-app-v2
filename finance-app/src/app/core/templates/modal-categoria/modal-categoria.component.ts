@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CategoriasService } from '../../services/categorias.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { Categoria } from '../../interfaces/Categorias';
-import { IDropdown } from '../../interfaces/Dropdown';
+import { Categoria } from '../../models/Categorias';
+import { IDropdown } from '../../models/Dropdown';
 import { MessagesService } from '../../services/messages.service';
 import { NotificationService } from '../../../shared/services/notification.service';
 

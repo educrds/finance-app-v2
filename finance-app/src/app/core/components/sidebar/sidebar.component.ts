@@ -61,17 +61,19 @@ export class SidebarComponent implements OnInit {
       {
         label: 'Entradas',
         icon: 'pi pi-arrow-up-right',
-        command: () => this.openModalAdd(1, 'Nova Receita')
+        command: () => this.openModalAdd(1)
       },
       {
         label: 'Saídas',
         icon: 'pi pi-arrow-down-right',
-        command: () => this.openModalAdd(2, 'Nova Despesa')
+        command: () => this.openModalAdd(2)
       },
     ];
   }
 
-  protected openModalAdd(trs_tipo: number, header: string){
+  protected openModalAdd(trs_tipo: number){
+    const header = trs_tipo === 1 ? 'Nova Receita' : 'Nova Despesa';
+
     this.#ref = this.#dialogService.open(ModalTransacaoComponent, {
       modal: true,
       header: header,

@@ -8,7 +8,7 @@ import {
 import {
   CategoriaChartItem,
   ChartOptions,
-} from '../../../../core/interfaces/Chart';
+} from '../../../../core/models/Chart';
 
 import Util from '../../../utils';
 

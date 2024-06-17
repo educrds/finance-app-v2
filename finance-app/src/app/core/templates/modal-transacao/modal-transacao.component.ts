@@ -10,9 +10,9 @@ import {
 } from '@angular/forms';
 import { TransacoesService } from '../../services/transacoes.service';
 import { CategoriasService } from '../../services/categorias.service';
-import { IDropdown } from '../../interfaces/Dropdown';
+import { IDropdown } from '../../models/Dropdown';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { Transacao } from '../../interfaces/Transacao';
+import { Transacao } from '../../models/Transacao';
 import { MessagesService } from '../../services/messages.service';
 import { NotificationService } from '../../../shared/services/notification.service';
 import { DatePickerService } from '../../services/date-picker.service';

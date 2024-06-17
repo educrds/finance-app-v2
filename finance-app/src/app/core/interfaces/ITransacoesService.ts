@@ -1,8 +1,8 @@
 import { Observable } from "rxjs";
-import { ParamsTransacao } from "./ParamsTransacao";
-import { Transacao } from "./Transacao";
-import { IDropdown } from "./Dropdown";
-import { BarChartResult } from "./Chart";
+import { ParamsTransacao } from "../models/ParamsTransacao";
+import { Transacao } from "../models/Transacao";
+import { IDropdown } from "../models/Dropdown";
+import { BarChartResult } from "../models/Chart";
 
 export interface ITransacoesService {
   getMetodosDropdown$(): Observable<IDropdown[]>;

@@ -1,9 +1,9 @@
 import { Component, OnInit, Signal, WritableSignal, computed, signal } from '@angular/core';
-import { Transacao } from '../../interfaces/Transacao';
-import { TransacoesSoma } from '../../interfaces/TransacoesSoma';
+import { Transacao } from '../../models/Transacao';
+import { TransacoesSoma } from '../../models/TransacoesSoma';
 import { BaseTransacaoDirective } from '../../../shared/directives/base-transacao.directive';
 import Util from '../../../shared/utils';
-import { BarChartResult, CategoriesGroupedByType } from '../../interfaces/Chart';
+import { BarChartResult, CategoriesGroupedByType } from '../../models/Chart';
 
 @Component({
   selector: 'fin-main',

@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, ViewChild, inject } from '@angular/core';
-import { Transacao } from '../../../core/interfaces/Transacao';
+import { Transacao } from '../../../core/models/Transacao';
 import { Table } from 'primeng/table';
 import { TransacaoUtilService } from '../../services/transacao-util.service';
 import Util from '../../utils';

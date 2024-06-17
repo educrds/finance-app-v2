@@ -1,5 +1,5 @@
 import { Directive, EventEmitter, HostListener, Input, Output } from '@angular/core';
-import { Transacao } from '../../core/interfaces/Transacao';
+import { Transacao } from '../../core/models/Transacao';
 
 @Directive({
   selector: '[selectionIntevalRows]'
