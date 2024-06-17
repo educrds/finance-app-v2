@@ -37,7 +37,7 @@ export class SocialButtonsComponent {
 
     const serviceToUse = this.context === 'register'
         ? this._authService.registerUser$(user, true)
-        : this._authService.authenticateUser$(user, true);
+        : this._authService.loginUser$(user, true);
 
     serviceToUse.subscribe({
       next: () => {
