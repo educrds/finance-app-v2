@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ModalTransacaoComponent } from '../../templates/modal-transacao/modal-transacao.component';
@@ -12,9 +12,9 @@ export class SidebarComponent implements OnInit {
   protected items_menu: MenuItem[] | undefined;
   protected items_transacao: MenuItem[] | undefined;
 
-  ref: DynamicDialogRef | undefined;
+  #ref: DynamicDialogRef | undefined;
 
-  constructor(private dialogService: DialogService) {}
+  #dialogService = inject(DialogService);
 
   ngOnInit(): void {
     this.items_menu = [
@@ -61,36 +61,24 @@ export class SidebarComponent implements OnInit {
       {
         label: 'Entradas',
         icon: 'pi pi-arrow-up-right',
-        command: () => this.openModalAddReceita()
+        command: () => this.openModalAdd(1, 'Nova Receita')
       },
       {
         label: 'Saídas',
         icon: 'pi pi-arrow-down-right',
-        command: () => this.openModalAddDespesa()
+        command: () => this.openModalAdd(2, 'Nova Despesa')
       },
     ];
   }
 
-  protected openModalAddReceita(){
-    this.ref = this.dialogService.open(ModalTransacaoComponent, {
+  protected openModalAdd(trs_tipo: number, header: string){
+    this.#ref = this.#dialogService.open(ModalTransacaoComponent, {
       modal: true,
-      header: 'Nova Receita',
+      header: header,
       width: '40vw',
       contentStyle: { overflow: 'auto' },
       data: {
-        id_tipo_transacao: 1
-      }
-    });
-  }
-
-  protected openModalAddDespesa(){
-    this.ref = this.dialogService.open(ModalTransacaoComponent, {
-      modal: true,
-      header: 'Nova Despesa',
-      width: '40vw',
-      contentStyle: { overflow: 'auto' },
-      data: {
-        id_tipo_transacao: 2
+        id_tipo_transacao: trs_tipo
       }
     });
   }
