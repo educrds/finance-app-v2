@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable, retry, shareReplay } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { IDropdown } from '../interfaces/Dropdown';
@@ -11,11 +11,10 @@ import { ICategoriasService } from '../interfaces/ICategoriasService';
 })
 export class CategoriasService implements ICategoriasService {
   #_api_url = environment.api_url;
-
-  constructor(private _http: HttpClient) {}
+  #_http = inject(HttpClient)
 
   getCategoriasDropdown$(cat_tip_id: number): Observable<IDropdown[]> {
-    return this._http
+    return this.#_http
       .post<IDropdown[]>(`${this.#_api_url}categorias/listar-select`, {
         data: { cat_tip_id: cat_tip_id },
       })
@@ -23,25 +22,25 @@ export class CategoriasService implements ICategoriasService {
   }
 
   getCategoriasByUser$(): Observable<Categorias[]> {
-    return this._http
+    return this.#_http
       .post<Categorias[]>(`${this.#_api_url}categorias/listar`, {})
       .pipe(retry(1), shareReplay(1));
   }
 
   addCategoria$(form: Categoria): Observable<Categoria> {
-    return this._http
+    return this.#_http
       .post<Categoria>(`${this.#_api_url}categoria/adicionar`, { data: form })
       .pipe(retry(1));
   }
 
   atualizarCategoria$(form: Categoria): Observable<Categoria> {
-    return this._http
+    return this.#_http
       .post<Categoria>(`${this.#_api_url}categoria/atualizar`, { data: form })
       .pipe(retry(1));
   }
 
   deletarCategoria$(form: Categoria): Observable<Categoria> {
-    return this._http
+    return this.#_http
       .post<Categoria>(`${this.#_api_url}categoria/deletar`, { data: form })
       .pipe(retry(1));
   }
