@@ -22,32 +22,32 @@ export class TransacoesService implements ITransacoesService {
 
   public getMetodosDropdown$(): Observable<IDropdown[]> {
     return this.#_http
-      .post<IDropdown[]>(`${this.#_api_url}transacoes/listar/metodos`, {})
+      .post<IDropdown[]>(`${this.#_api_url}transacao/listar-metodos`, {})
       .pipe(take(1), retry(1), shareReplay(1));
   }
 
   public getTransacoes$(params: ParamsTransacao): Observable<Transacao[]> {
     return this.#_http
-      .post<Transacao[]>(`${this.#_api_url}transacoes/listar`, { data: params })
+      .post<Transacao[]>(`${this.#_api_url}transacao/listar-transacoes`, { data: params })
       .pipe(take(1), retry(1), shareReplay(1));
   }
 
   public getComparativoChart$(params: ParamsTransacao): Observable<BarChartResult> {
     return this.#_http
-      .post<BarChartResult>(`${this.#_api_url}charts/comparativo-anual`, {
+      .post<BarChartResult>(`${this.#_api_url}chart/chart-anual`, {
         data: params,
       })
       .pipe(take(1), retry(1), shareReplay(1));
   }
 
   public addTransacao$(dadosTransacao: Transacao): Observable<Transacao[]> {
-    return this.#_http.post<Transacao[]>(`${this.#_api_url}transacao/adicionar`, {
+    return this.#_http.post<Transacao[]>(`${this.#_api_url}transacao/adicionar-transacao`, {
       data: dadosTransacao,
     });
   }
 
   public deletarTransacao$(id_transacao: number, trs_parcelado?: boolean): Observable<any> {
-    return this.#_http.post(`${this.#_api_url}transacao/deletar`, {
+    return this.#_http.post(`${this.#_api_url}transacao/deletar-transacao`, {
       data: {
         id_transacao: id_transacao,
         trs_parcelado: trs_parcelado,
@@ -63,7 +63,7 @@ export class TransacoesService implements ITransacoesService {
 
   public atualizarTransacao$(dadosTransacao: Transacao): Observable<any> {
     return this.#_http
-      .post(`${this.#_api_url}transacao/atualizar`, {
+      .post(`${this.#_api_url}transacao/atualizar-transacao`, {
         data: dadosTransacao,
       })
   }
