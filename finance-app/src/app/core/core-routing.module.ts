@@ -5,11 +5,13 @@ import { DespesasComponent } from './components/despesas/despesas.component';
 import { MainComponent } from './components/main/main.component';
 import { ReceitasComponent } from './components/receitas/receitas.component';
 import { HomeComponent } from './pages/home/home.component';
+import { authGuard } from '../authenticator/guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+    canActivateChild: [authGuard],
     children: [
       { path: 'all', component: MainComponent },
       { path: 'entradas', component: ReceitasComponent },
