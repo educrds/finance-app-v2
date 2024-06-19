@@ -15,7 +15,7 @@ export class CategoriasService implements ICategoriasService {
 
   getCategoriasDropdown$(cat_tip_id: number): Observable<IDropdown[]> {
     return this.#_http
-      .post<IDropdown[]>(`${this.#_api_url}categorias/listar-select`, {
+      .post<IDropdown[]>(`${this.#_api_url}categoria/listar-select-categorias`, {
         data: { cat_tip_id: cat_tip_id },
       })
       .pipe(retry(1), shareReplay(1));
@@ -23,25 +23,25 @@ export class CategoriasService implements ICategoriasService {
 
   getCategoriasByUser$(): Observable<Categorias[]> {
     return this.#_http
-      .post<Categorias[]>(`${this.#_api_url}categorias/listar`, {})
+      .post<Categorias[]>(`${this.#_api_url}categoria/listar-categorias`, {})
       .pipe(retry(1), shareReplay(1));
   }
 
   addCategoria$(form: Categoria): Observable<Categoria> {
     return this.#_http
-      .post<Categoria>(`${this.#_api_url}categoria/adicionar`, { data: form })
+      .post<Categoria>(`${this.#_api_url}categoria/adicionar-categoria`, { data: form })
       .pipe(retry(1));
   }
 
   atualizarCategoria$(form: Categoria): Observable<Categoria> {
     return this.#_http
-      .post<Categoria>(`${this.#_api_url}categoria/atualizar`, { data: form })
+      .post<Categoria>(`${this.#_api_url}categoria/atualizar-categoria`, { data: form })
       .pipe(retry(1));
   }
 
   deletarCategoria$(form: Categoria): Observable<Categoria> {
     return this.#_http
-      .post<Categoria>(`${this.#_api_url}categoria/deletar`, { data: form })
+      .post<Categoria>(`${this.#_api_url}categoria/deletar-categoria`, { data: form })
       .pipe(retry(1));
   }
 }
