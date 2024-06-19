@@ -3,7 +3,7 @@ import { Transacao } from '../../core/models/Transacao';
 import { ParamsTransacao } from '../../core/models/ParamsTransacao';
 import { TransacaoUtilService } from '../services/transacao-util.service';
 import { NotificationService } from '../services/notification.service';
-import { Subject, distinctUntilChanged, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { DatePickerService } from '../../core/services/date-picker.service';
 import { TransacoesService } from '../../core/services/transacoes.service';
 import { MessagesService } from '../../core/services/messages.service';
