@@ -20,6 +20,7 @@ import { SelectionIntevalRowsDirective } from './directives/selection-inteval-ro
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { BarChartAnualComponent } from './components/charts/bar-chart-anual/bar-chart-anual.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     TagModule,
     ConfirmDialogModule,
     NgApexchartsModule,
+    FontAwesomeModule
   ],
 })
 export class SharedModule {}

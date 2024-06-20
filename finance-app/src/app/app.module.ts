@@ -19,6 +19,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from '@auth0/auth0-angular';
 import { environment } from '../environments/environment';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 @NgModule({
   declarations: [
     AppComponent
@@ -35,6 +36,7 @@ import { environment } from '../environments/environment';
       domain: environment.auth0.domain,
       clientId: environment.auth0.clientId,
     }),
+    FontAwesomeModule,
   ],
   providers: [
     MessageService,

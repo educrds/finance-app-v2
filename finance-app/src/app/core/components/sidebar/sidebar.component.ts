@@ -1,7 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { MenuItem } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ModalTransacaoComponent } from '../../templates/modal-transacao/modal-transacao.component';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { faChartSimple, faLevelDownAlt, faLevelUpAlt, faList } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'fin-sidebar',
@@ -9,8 +10,16 @@ import { ModalTransacaoComponent } from '../../templates/modal-transacao/modal-t
   styleUrl: './sidebar.component.scss',
 })
 export class SidebarComponent implements OnInit {
-  protected items_menu: MenuItem[] | undefined;
-  protected items_transacao: MenuItem[] | undefined;
+  private iconsSidebar: {[key: string]: IconProp} = {
+    dashboard: faChartSimple,
+    entrada: faLevelUpAlt,
+    saida: faLevelDownAlt,
+    categorias: faList,
+  }
+
+  // incompatibilidade entre tipos do fontAwesome e tipagem do MenuItem.
+  protected items_menu!: any[];
+  protected items_transacao!: any[];
 
   #ref: DynamicDialogRef | undefined;
 
@@ -22,21 +31,21 @@ export class SidebarComponent implements OnInit {
         label: 'Transações',
         items: [
           {
-            label: 'Ver todas',
-            icon: 'pi pi-book',
-            routerLink: ['/all'],
+            label: 'Dashboard',
+            icon: this.iconsSidebar['dashboard'],
+            route: '/all',
             routerLinkActiveOptions: { exact: true }
           },
           {
             label: 'Entradas',
-            icon: 'pi pi-arrow-up-right',
-            routerLink: ['/entradas'],
+            icon: this.iconsSidebar['entrada'],
+            route: '/entradas',
             routerLinkActiveOptions: { exact: true }
           },
           {
             label: 'Saídas',
-            icon: 'pi pi-arrow-down-right',
-            routerLink: ['/saidas'],
+            icon: this.iconsSidebar['saida'],
+            route: '/saidas',
             routerLinkActiveOptions: { exact: true }
           },
         ],
@@ -49,8 +58,8 @@ export class SidebarComponent implements OnInit {
         items: [
           {
             label: 'Ver todas',
-            icon: 'pi pi-book',
-            routerLink: ['/categorias'],
+            icon: this.iconsSidebar['categorias'],
+            route: '/categorias',
             routerLinkActiveOptions: { exact: true }
           },
         ],
@@ -60,12 +69,12 @@ export class SidebarComponent implements OnInit {
     this.items_transacao = [
       {
         label: 'Entradas',
-        icon: 'pi pi-arrow-up-right',
+        icon: this.iconsSidebar['entrada'],
         command: () => this.openModalAdd(1)
       },
       {
         label: 'Saídas',
-        icon: 'pi pi-arrow-down-right',
+        icon: this.iconsSidebar['saida'],
         command: () => this.openModalAdd(2)
       },
     ];

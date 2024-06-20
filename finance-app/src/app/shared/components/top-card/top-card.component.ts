@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
   selector: 'fin-top-card',
@@ -7,7 +8,7 @@ import { Component, Input } from '@angular/core';
 })
 export class TopCardComponent {
  @Input() title!: string;
- @Input() className!: string;
+ @Input() icon!: IconProp;
  @Input() value!: number;
  @Input() isCurrency!: boolean;
 }

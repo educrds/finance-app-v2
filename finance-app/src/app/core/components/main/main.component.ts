@@ -4,6 +4,8 @@ import { TransacoesSoma } from '../../models/TransacoesSoma';
 import { BaseTransacaoDirective } from '../../../shared/directives/base-transacao.directive';
 import Util from '../../../shared/utils';
 import { BarChartResult, CategoriesGroupedByType } from '../../models/Chart';
+import { faLevelDownAlt, faLevelUpAlt, faWallet } from '@fortawesome/free-solid-svg-icons';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
   selector: 'fin-main',
@@ -11,6 +13,11 @@ import { BarChartResult, CategoriesGroupedByType } from '../../models/Chart';
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent extends BaseTransacaoDirective implements OnInit {
+  protected iconsCard: {[key: string]: IconProp} = {
+    entrada: faLevelUpAlt,
+    saldo: faWallet,
+    saida: faLevelDownAlt
+  }
   protected somatorio: WritableSignal<TransacoesSoma> = signal({
     soma_receitas: 0,
     soma_despesas: 0,

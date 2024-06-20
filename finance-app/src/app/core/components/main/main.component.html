@@ -4,23 +4,23 @@
       [title]="'Entradas'"
       [value]="somatorio().soma_receitas"
       [isCurrency]="true"
-      [className]="'pi pi-arrow-up-right'"
+      [icon]="iconsCard['entrada']"
       class="flex-1"
     ></fin-top-card>
 
     <fin-top-card
       [title]="'Saldo'"
       [value]="saldo()"
-      [className]="'pi pi-arrows-h'"
       [isCurrency]="true"
+      [icon]="iconsCard['saldo']"
       class="flex-1"
     ></fin-top-card>
 
     <fin-top-card
       [title]="'Saídas'"
       [value]="somatorio().soma_despesas"
-      [className]="'pi pi-arrow-down-right'"
       [isCurrency]="true"
+      [icon]="iconsCard['saida']"
       class="flex-1"
     ></fin-top-card>
   </fin-row>

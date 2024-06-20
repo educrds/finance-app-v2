@@ -1,9 +1,19 @@
 <fin-wrap-container  [class]="'w-fit d-flex'">
     <div class="mb-3">
-      <p-splitButton label="Adicionar" icon="pi pi-plus" (onClick)="openModalAdd(1)" [model]="items_transacao"></p-splitButton>
+      <p-splitButton label="Adicionar" icon="pi pi-plus" (onClick)="openModalAdd(1)" [model]="items_transacao">
+      </p-splitButton>
   </div>
   
   <div class="card flex justify-content-center">
-    <p-menu [model]="items_menu"></p-menu>
+    <p-menu [model]="items_menu">
+      <ng-template pTemplate="item" let-item>
+        <ng-container>
+          <a [routerLink]="item.route" class="p-menuitem-link d-flex gap-2">
+            <fa-icon [icon]="item.icon"></fa-icon>
+            <span>{{ item.label }}</span>
+          </a>
+        </ng-container>
+      </ng-template>
+    </p-menu>
   </div>
 </fin-wrap-container>

@@ -33,6 +33,7 @@ import { MainComponent } from './components/main/main.component';
 import { ModalCategoriaComponent } from './templates/modal-categoria/modal-categoria.component';
 import { ModalTransacaoComponent } from './templates/modal-transacao/modal-transacao.component';
 import { SharedModule } from '../shared/shared.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { SharedModule } from '../shared/shared.module';
     MenubarModule,
     AccordionModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    FontAwesomeModule
   ],
   exports: [CoreRoutingModule]
 })
