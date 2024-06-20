@@ -69,12 +69,10 @@ export class SidebarComponent implements OnInit {
     this.items_transacao = [
       {
         label: 'Entradas',
-        icon: this.iconsSidebar['entrada'],
         command: () => this.openModalAdd(1)
       },
       {
         label: 'Saídas',
-        icon: this.iconsSidebar['saida'],
         command: () => this.openModalAdd(2)
       },
     ];
