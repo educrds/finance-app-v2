@@ -43,7 +43,7 @@ export class ApiRequestInterceptor implements HttpInterceptor {
     }
 
     this.#_router.navigate(['/auth/login']);
-    return throwError('Usuário não autenticado');
+    return throwError(() => new Error('Usuário não autenticado'));
   }
 }
 

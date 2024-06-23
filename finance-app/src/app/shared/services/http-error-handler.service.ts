@@ -27,6 +27,6 @@ export class HttpErrorHandlerService {
     } else {
       console.error('Erro não tratado. Status:', error.status);
     }
-    return throwError(error);
+    return throwError(() => new Error("Error ao fazer requisição."));
   }
 }
