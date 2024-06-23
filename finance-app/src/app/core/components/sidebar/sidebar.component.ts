@@ -33,7 +33,7 @@ export class SidebarComponent implements OnInit {
           {
             label: 'Dashboard',
             icon: this.iconsSidebar['dashboard'],
-            route: '/all',
+            route: '/dashboard',
             routerLinkActiveOptions: { exact: true }
           },
           {

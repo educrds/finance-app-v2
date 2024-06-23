@@ -10,7 +10,7 @@ export const loggedInGuard: CanActivateFn = (route, state) => {
 
   if(storageService.isLoggedIn()){
     messagesService.showError("Você já está autenticado.");
-    return router.navigate(['/all']);
+    return router.navigate(['/dashboard']);
   }
   return true;
 };
