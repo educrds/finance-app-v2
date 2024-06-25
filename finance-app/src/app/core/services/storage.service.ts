@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User } from '../../core/models/User';
+import { User } from '../models/User';
 import { jwtDecode } from 'jwt-decode';
 
 interface JwtPayload {

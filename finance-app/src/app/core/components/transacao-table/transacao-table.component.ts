@@ -1,25 +1,25 @@
-import { Component, ElementRef, Input, ViewChild, inject } from '@angular/core';
-import { Transacao } from '../../../core/models/Transacao';
-import { Table } from 'primeng/table';
-import { TransacaoUtilService } from '../../services/transacao-util.service';
-import Util from '../../utils';
+import { Component, ElementRef, Input, ViewChild, inject } from "@angular/core";
+import { Transacao } from "../../models/Transacao";
+import { Table } from "primeng/table";
+import { TransacaoUtilService } from "../../services/transacao-util.service";
+import SharedUtil from "../../../shared/utils";
 
 @Component({
-  selector: 'fin-transacao-table',
-  templateUrl: './transacao-table.component.html',
-  styleUrl: './transacao-table.component.scss',
+  selector: "fin-transacao-table",
+  templateUrl: "./transacao-table.component.html",
+  styleUrl: "./transacao-table.component.scss",
 })
 export class TransacaoTableComponent {
-  @ViewChild('dt') dt: Table | undefined;
-  @ViewChild('inputSearch') inputSearch: ElementRef | undefined;
-  
+  @ViewChild("dt") dt: Table | undefined;
+  @ViewChild("inputSearch") inputSearch: ElementRef | undefined;
+
   @Input() transacoes: Transacao[] = [];
   @Input() rowSelected: Transacao[] = [];
 
   private _transacaoUtilService = inject(TransacaoUtilService);
 
   protected clear(table: Table): void {
-    if(this.inputSearch){
+    if (this.inputSearch) {
       this.inputSearch.nativeElement.value = null;
     }
     table.clear();
@@ -29,16 +29,13 @@ export class TransacaoTableComponent {
     this.dt!.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
 
-  protected updateSelectionRows(newSelection: Transacao[]): void{
+  protected updateSelectionRows(newSelection: Transacao[]): void {
     this.rowSelected = newSelection;
   }
 
   // configurando gráfico de pizza com dados já modelados
   protected sumSelected(transactions: any): number {
-    return transactions.reduce(
-      (acc: number, transacao: Transacao) => acc + transacao.trs_valor,
-      0
-    );
+    return transactions.reduce((acc: number, transacao: Transacao) => acc + transacao.trs_valor, 0);
   }
 
   protected editarTransacao(transacao: Transacao): void {
@@ -57,6 +54,6 @@ export class TransacaoTableComponent {
   }
 
   protected checkStatus(transacao: Transacao): string {
-    return Util.checkStatusUtil(transacao);
+    return SharedUtil.checkStatusUtil(transacao);
   }
 }

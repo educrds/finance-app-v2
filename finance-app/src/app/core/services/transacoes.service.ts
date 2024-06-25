@@ -1,20 +1,15 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
-import {
-  Observable,
-  retry,
-  shareReplay,
-  take
-} from 'rxjs';
-import { environment } from '../../../environments/environment';
-import { Transacao } from '../models/Transacao';
-import { IDropdown } from '../models/Dropdown';
-import { ParamsTransacao } from '../models/ParamsTransacao';
-import { ITransacoesService } from '../interfaces/ITransacoesService';
-import { BarChartResult } from '../models/Chart';
+import { HttpClient } from "@angular/common/http";
+import { Injectable, inject } from "@angular/core";
+import { Observable, retry, shareReplay, take } from "rxjs";
+import { environment } from "../../../environments/environment";
+import { Transacao } from "../models/Transacao";
+import { IDropdown } from "../models/Dropdown";
+import { ParamsTransacao } from "../models/ParamsTransacao";
+import { ITransacoesService } from "../interfaces/ITransacoesService";
+import { BarChartResult } from "../models/Chart";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class TransacoesService implements ITransacoesService {
   readonly #_api_url = environment.api_url;
@@ -27,7 +22,7 @@ export class TransacoesService implements ITransacoesService {
   public getMetodosDropdown$(): Observable<IDropdown[]> {
     return this.#_http
       .post<IDropdown[]>(`${this.#_api_url}transacao/listar-metodos`, {})
-      .pipe(take(1), retry(1), shareReplay(1));
+      .pipe(take(1), shareReplay(1));
   }
 
   /**
@@ -38,7 +33,7 @@ export class TransacoesService implements ITransacoesService {
   public getTransacoes$(params: ParamsTransacao): Observable<Transacao[]> {
     return this.#_http
       .post<Transacao[]>(`${this.#_api_url}transacao/listar-transacoes`, { data: params })
-      .pipe(take(1), retry(1), shareReplay(1));
+      .pipe(take(1), shareReplay(1));
   }
 
   /**
@@ -50,7 +45,8 @@ export class TransacoesService implements ITransacoesService {
     return this.#_http
       .post<BarChartResult>(`${this.#_api_url}chart/chart-anual`, {
         data: params,
-      }).pipe(take(1), retry(1), shareReplay(1));
+      })
+      .pipe(take(1), shareReplay(1));
   }
 
   /**
@@ -96,9 +92,6 @@ export class TransacoesService implements ITransacoesService {
    * @returns Um Observable indicando o resultado da operação.
    */
   public atualizarTransacao$(dadosTransacao: Transacao): Observable<any> {
-    return this.#_http
-      .post(`${this.#_api_url}transacao/atualizar-transacao`, {
-        data: dadosTransacao,
-      })
+    return this.#_http.post(`${this.#_api_url}transacao/atualizar-transacao`, { data: dadosTransacao });
   }
 }

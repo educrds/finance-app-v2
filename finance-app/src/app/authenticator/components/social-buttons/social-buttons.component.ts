@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AuthService as Auth0Service } from '@auth0/auth0-angular';
-import { StorageService } from '../../../shared/services/storage.service';
+import { StorageService } from '../../../core/services/storage.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 

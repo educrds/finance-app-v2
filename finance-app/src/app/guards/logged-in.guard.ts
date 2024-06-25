@@ -1,9 +1,9 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { StorageService } from '../shared/services/storage.service';
+import { StorageService } from '../core/services/storage.service';
 import { MessagesService } from '../core/services/messages.service';
 
-export const loggedInGuard: CanActivateFn = (route, state) => {
+export const loggedInGuard: CanActivateFn = () => {
   const storageService = inject(StorageService);
   const router = inject(Router);
   const messagesService = inject(MessagesService);

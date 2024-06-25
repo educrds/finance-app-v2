@@ -1,6 +1,7 @@
 {
   "name": "finance-app",
   "version": "0.0.0",
+  "lint:ts": "eslint --color -c .eslintrc --ext .ts .",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

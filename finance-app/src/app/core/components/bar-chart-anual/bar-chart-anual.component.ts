@@ -5,7 +5,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import Util from '../../../utils';
+import SharedUtil from '../../../shared/utils';
 import { ChartOptions } from 'chart.js';
 
 @Component({
@@ -26,7 +26,7 @@ export class BarChartAnualComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    const isEqual = Util.objectCompare(changes['chartData'].previousValue, changes['chartData'].currentValue)
+    const isEqual = SharedUtil.objectCompare(changes['chartData'].previousValue, changes['chartData'].currentValue)
     
     if (changes['chartData'] && isEqual && !changes['chartData']['firstChange']) {
       this.chartOptions = undefined; // Resetar opções para forçar a re-renderização
@@ -130,7 +130,7 @@ export class BarChartAnualComponent implements OnInit, OnChanges {
       colors: ['#780000', '#386641'],
       yaxis: {
         labels: {
-          formatter: (val: any) => Util.numToCurrency(val),
+          formatter: (val: any) => SharedUtil.numToCurrency(val),
           style: {
             colors: ['#dedede'],
           },
@@ -141,7 +141,7 @@ export class BarChartAnualComponent implements OnInit, OnChanges {
       },
       tooltip: {
         y: {
-          formatter: (val: any) => Util.numToCurrency(val),
+          formatter: (val: any) => SharedUtil.numToCurrency(val),
         },
         theme: 'dark',
       },

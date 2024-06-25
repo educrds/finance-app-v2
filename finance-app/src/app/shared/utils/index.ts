@@ -1,57 +1,10 @@
-import { CategoriesGroupedByType } from '../../core/models/Chart';
-import { Transacao } from '../../core/models/Transacao';
-import { StorageService } from '../services/storage.service';
+import { Transacao } from "../../core/models/Transacao";
 
-export default class Util {  
-  static getUserNameInitials(storageService: StorageService): string | undefined {
-    const user = storageService.getUser();
-    if (user) {
-      let rgx = new RegExp(/(\p{L}{1})\p{L}+/, 'gu');
-
-      const arrayName = [...user.name.matchAll(rgx)] || [];
-      const firstLetter = arrayName.shift()?.[1] || '';
-      const secondLetter = arrayName.pop()?.[1] || '';
-
-      const initials = (firstLetter + secondLetter).toUpperCase();
-      return initials;
-    }
-    return 'X';
-  }
-
-  // cálculo de transacoes por categoria e tipo para configurar gráfico de pizza
-  static calcularSomatorioPorCategoria(transacoes: Transacao[] | any[]): CategoriesGroupedByType {
-    return transacoes.reduce(
-      (acc, transacao) => {
-        const { categoria_cor, categoria_nome, trs_valor, id_tipo_transacao } =
-          transacao;
-        const tipoTransacao = id_tipo_transacao === 1 ? 'entradas' : 'saidas';
-
-        const categoriaNome = categoria_nome;
-        const categoriaCor = categoria_cor;
-        const valor = trs_valor;
-
-        // Cria o objeto de categoria se ainda não existir
-        if (!acc[tipoTransacao][categoriaNome]) {
-          acc[tipoTransacao][categoriaNome] = {
-            name: categoriaNome,
-            value: 0,
-            cor: categoriaCor,
-          };
-        }
-
-        // Soma o valor à categoria correspondente
-        acc[tipoTransacao][categoriaNome].value += valor;
-
-        return acc;
-      },
-      { entradas: {}, saidas: {} }
-    );
-  }
-
+export default class SharedUtil {
   static numToCurrency(value: number | string): string {
-    return value.toLocaleString('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
+    return value.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
       minimumFractionDigits: 2,
     });
   }
@@ -65,10 +18,10 @@ export default class Util {
 
   static checkStatusUtil(transacao: Transacao): string {
     const statusMap: { [key: number]: string[] } = {
-      1: ['A Receber', 'Recebida'],
-      2: ['A Pagar', 'Paga']
+      1: ["A Receber", "Recebida"],
+      2: ["A Pagar", "Paga"],
     };
-  
-    return statusMap[transacao.id_tipo_transacao]?.[transacao.trs_status] || '';
+
+    return statusMap[transacao.id_tipo_transacao]?.[transacao.trs_status] || "";
   }
 }

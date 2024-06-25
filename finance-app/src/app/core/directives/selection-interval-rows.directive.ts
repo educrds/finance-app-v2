@@ -1,10 +1,10 @@
 import { Directive, EventEmitter, HostListener, Input, Output } from '@angular/core';
-import { Transacao } from '../../core/models/Transacao';
+import { Transacao } from '../models/Transacao';
 
 @Directive({
   selector: '[selectionIntevalRows]'
 })
-export class SelectionIntevalRowsDirective {
+export class SelectionIntervalRowsDirective {
   @Input() rowSelected: Transacao[] = [];
   @Input() transacoes: Transacao[] = [];
 

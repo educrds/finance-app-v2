@@ -1,12 +1,12 @@
 import { Directive, OnDestroy, OnInit, WritableSignal, inject, signal } from '@angular/core';
-import { Transacao } from '../../core/models/Transacao';
-import { ParamsTransacao } from '../../core/models/ParamsTransacao';
+import { Transacao } from '../models/Transacao';
+import { ParamsTransacao } from '../models/ParamsTransacao';
 import { TransacaoUtilService } from '../services/transacao-util.service';
 import { NotificationService } from '../services/notification.service';
 import { Subject, takeUntil } from 'rxjs';
-import { DatePickerService } from '../../core/services/date-picker.service';
-import { TransacoesService } from '../../core/services/transacoes.service';
-import { MessagesService } from '../../core/services/messages.service';
+import { DatePickerService } from '../services/date-picker.service';
+import { TransacoesService } from '../services/transacoes.service';
+import { MessagesService } from '../services/messages.service';
 
 @Directive({
   selector: '[finBaseTransacao]',
@@ -22,7 +22,7 @@ export class BaseTransacaoDirective implements OnInit, OnDestroy {
   protected rowSelected: WritableSignal<Transacao[]> = signal([]);
   protected queryParams: WritableSignal<ParamsTransacao> = signal({});
 
-  private _destroy$ = new Subject<void>();
+  private _destroy$: Subject<boolean> = new Subject<boolean>();
 
   ngOnInit(): void {
     this._datePickerService.datePickerObservable$
@@ -65,8 +65,7 @@ export class BaseTransacaoDirective implements OnInit, OnDestroy {
   protected afterFetchTransacoes(transacoes: Transacao[]): void {}
 
   ngOnDestroy(): void {
-    this._destroy$.next();  // Emite um valor para todos os observadores
-    this._destroy$.complete();  // Completa o Subject
+    this._destroy$.next(true);  // Emite um valor para todos os observadores
+    this._destroy$.unsubscribe();  // Remove todos os observadores e libera os recursos imediatamente, sem notificar uma conclusão limpa. Isso é mais como um "cancelamento abrupto".
   }
-  
 }

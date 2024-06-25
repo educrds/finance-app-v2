@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  AbstractControl,
   FormBuilder,
   FormGroup,
   ValidationErrors,
-  Validator,
-  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { TransacoesService } from '../../services/transacoes.service';
@@ -14,9 +11,9 @@ import { IDropdown } from '../../models/Dropdown';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Transacao } from '../../models/Transacao';
 import { MessagesService } from '../../services/messages.service';
-import { NotificationService } from '../../../shared/services/notification.service';
+import { NotificationService } from '../../services/notification.service';
 import { DatePickerService } from '../../services/date-picker.service';
-import { Observable, distinctUntilChanged } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'fin-modal-transacao',

@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { throwError } from 'rxjs';
 import { MessagesService } from '../../core/services/messages.service';
-import { StorageService } from './storage.service';
+import { StorageService } from '../../core/services/storage.service';
 
 @Injectable({
   providedIn: 'root',

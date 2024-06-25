@@ -8,9 +8,9 @@ import {
 import {
   CategoriaChartItem,
   ChartOptions,
-} from '../../../../core/models/Chart';
+} from '../../models/Chart';
 
-import Util from '../../../utils';
+import SharedUtil from '../../../shared/utils';
 
 @Component({
   selector: 'fin-pie-chart-categoria',
@@ -28,7 +28,7 @@ export class PieChartCategoriaComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    const isEqual = Util.objectCompare(changes['chartData'].currentValue, changes['chartData'].previousValue)
+    const isEqual = SharedUtil.objectCompare(changes['chartData'].currentValue, changes['chartData'].previousValue)
 
     if (changes['chartData'] && isEqual) {
       this.chartOptions = undefined;
@@ -67,7 +67,7 @@ export class PieChartCategoriaComponent implements OnInit, OnChanges {
         tooltip: {
           y: {
             formatter: (val: any) => {
-              return Util.numToCurrency(val);
+              return SharedUtil.numToCurrency(val);
             },
           },
         },

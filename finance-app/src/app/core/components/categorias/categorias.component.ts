@@ -4,7 +4,7 @@ import { Categorias } from '../../models/Categorias';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ModalCategoriaComponent } from '../../templates/modal-categoria/modal-categoria.component';
 import { Observable, startWith, switchMap } from 'rxjs';
-import { NotificationService } from '../../../shared/services/notification.service';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'fin-categorias',

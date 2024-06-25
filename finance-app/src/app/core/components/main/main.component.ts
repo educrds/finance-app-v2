@@ -1,11 +1,12 @@
 import { Component, OnInit, Signal, WritableSignal, computed, signal } from '@angular/core';
 import { Transacao } from '../../models/Transacao';
 import { TransacoesSoma } from '../../models/TransacoesSoma';
-import { BaseTransacaoDirective } from '../../../shared/directives/base-transacao.directive';
-import Util from '../../../shared/utils';
+import { BaseTransacaoDirective } from '../../directives/base-transacao.directive';
+import SharedUtil from '../../../shared/utils';
 import { BarChartResult, CategoriesGroupedByType } from '../../models/Chart';
 import { faLevelDownAlt, faLevelUpAlt, faWallet } from '@fortawesome/free-solid-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import CoreUtil from '../../utils';
 
 @Component({
   selector: 'fin-main',
@@ -57,6 +58,6 @@ export class MainComponent extends BaseTransacaoDirective implements OnInit {
 
   // Atualizando os dados dos gráficos
   private _updateCharts(transacoes: Transacao[]): void {
-    this.transacoesPorCategoria = Util.calcularSomatorioPorCategoria(transacoes);
+    this.transacoesPorCategoria = CoreUtil.calcularSomatorioPorCategoria(transacoes);
   }
 }

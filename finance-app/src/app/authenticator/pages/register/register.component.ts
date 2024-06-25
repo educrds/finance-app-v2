@@ -1,8 +1,8 @@
-import { Component, ElementRef, afterRender } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { StorageService } from '../../../shared/services/storage.service';
+import { StorageService } from '../../../core/services/storage.service';
 
 @Component({
   selector: 'fin-register',

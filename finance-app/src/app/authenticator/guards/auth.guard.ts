@@ -1,12 +1,12 @@
-import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
-import { StorageService } from '../../shared/services/storage.service';
+import { inject } from "@angular/core";
+import { CanActivateFn, Router } from "@angular/router";
+import { StorageService } from "../../core/services/storage.service";
 
-export const authGuard: CanActivateFn = (route, state): boolean => {
+export const authGuard: CanActivateFn = (): boolean => {
   const storageService = inject(StorageService);
   const router = inject(Router);
 
-  const authRoutes = router.url.includes('/auth');
+  const authRoutes = router.url.includes("/auth");
 
   const currentUser = storageService.isLoggedIn();
   if (currentUser || authRoutes) {
@@ -14,6 +14,6 @@ export const authGuard: CanActivateFn = (route, state): boolean => {
   }
 
   storageService.clean();
-  router.navigate(['/auth/login']);
+  router.navigate(["/auth/login"]);
   return false;
 };
