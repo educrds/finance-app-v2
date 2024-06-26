@@ -14,19 +14,39 @@ export class HttpErrorHandlerService {
   #_storageService= inject(StorageService);
 
   handleHttpError(error: HttpErrorResponse) {
-    this.#_messagesService.showError(error.error.message);
-    if (error.status === 401) {
-      // Se a resposta for 401 Unauthorized.
-      this.#_storageService.clean();
-      this.#_router.navigate(['/auth/login']);
-    } else if (error.status === 404) {
-      console.error('Recurso não encontrado. Status: 404');
-    } else if (error.status === 500) {
-      // Trate o erro 500 (Internal Server Error).
-      console.error('Erro interno do servidor. Status: 500');
-    } else {
-      console.error('Erro não tratado. Status:', error.status);
+    const errorActions: { [key:number]: () => void } = {
+      401: () => this._handleUnauthorized(),
+      404: () => this._handleNotFound(),
+      500: () => this._handleServerError()
     }
+
+    const action = errorActions[error.status];
+    if(action){
+      action();
+    } else {
+      this._handleUnknownError(error.status);
+    }
+
     return throwError(() => new Error("Error ao fazer requisição."));
+  }
+
+  private _handleUnauthorized() {
+    this.#_storageService.clean();
+    this.#_router.navigate(['/auth/login']);
+  }
+
+  private _handleNotFound() {
+    this.#_messagesService.showError('Recurso não encontrado. Status: 404');
+    console.error('Recurso não encontrado. Status: 404');
+  }
+
+  private _handleServerError() {
+    this.#_messagesService.showError('Erro interno do servidor. Status: 500');
+    console.error('Erro interno do servidor. Status: 500');
+  }
+
+  private _handleUnknownError(status: number) {
+    this.#_messagesService.showError(`Erro não tratado. Status: ${status}`);
+    console.error('Erro não tratado. Status:', status);
   }
 }
