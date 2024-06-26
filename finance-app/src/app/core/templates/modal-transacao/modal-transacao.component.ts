@@ -143,13 +143,14 @@ export class ModalTransacaoComponent implements OnInit {
   }
 
   private atualizarTransacao(form: Transacao) {
-    this._transacoesService.atualizarTransacao$(form).subscribe({
-      next: () => {
-        this._messagesService.showSuccess("Transação atualizada com successo!");
-        this._notificationService.notifyChanges({ refresh: true }, this._ref);
-      },
-      error: () => this._messagesService.showError("Ocorreu um erro ao atualizar transação."),
-      complete: () => (this.loading = false),
-    });
+    this._transacoesService
+      .atualizarTransacao$(form)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe({
+        next: () => {
+          this._messagesService.showSuccess("Transação atualizada com successo!");
+          this._notificationService.notifyChanges({ refresh: true }, this._ref);
+        },
+      });
   }
 }
