@@ -1,38 +1,25 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
-import {
-  CategoriaChartItem,
-  ChartOptions,
-} from '../../models/Chart';
+import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
+import { CategoriaChartItem, ChartOptions } from "../../models/Chart";
 
-import SharedUtil from '../../../shared/utils';
+import SharedUtil from "../../../shared/utils";
 
 @Component({
-  selector: 'fin-pie-chart-categoria',
-  templateUrl: './pie-chart-categoria.component.html',
-  styleUrls: ['./pie-chart-categoria.component.scss'],
+  selector: "fin-pie-chart-categoria",
+  templateUrl: "./pie-chart-categoria.component.html",
+  styleUrls: ["./pie-chart-categoria.component.scss"],
 })
-export class PieChartCategoriaComponent implements OnInit, OnChanges {
+export class PieChartCategoriaComponent implements OnChanges {
   @Input() chartData!: CategoriaChartItem;
   protected chartOptions!: Partial<ChartOptions> | any;
 
-  ngOnInit(): void {
-    if (this.chartData) {
-      this.configPieCharts();
-    }
-  }
-
   ngOnChanges(changes: SimpleChanges): void {
-    const isEqual = SharedUtil.objectCompare(changes['chartData'].currentValue, changes['chartData'].previousValue)
+    if ("chartData" in changes) {
+      const change = changes["chartData"];
 
-    if (changes['chartData'] && isEqual) {
-      this.chartOptions = undefined;
-      this.configPieCharts();
+      if (change.firstChange || !SharedUtil.isObjectEquals(change.previousValue, change.currentValue)) {
+        this.chartOptions = undefined; // Resetar opções para forçar a re-renderização
+        this.configPieCharts();
+      }
     }
   }
 
@@ -46,19 +33,19 @@ export class PieChartCategoriaComponent implements OnInit, OnChanges {
     this.chartOptions = {
       series: series,
       chart: {
-        type: 'pie',
-        height: 255
+        type: "pie",
+        height: 255,
       },
       options: {
         stroke: {
           show: false,
         },
         legend: {
-          fontSize: '14px',
-          horizontalAlign: 'right',
-          position: 'right',
+          fontSize: "14px",
+          horizontalAlign: "right",
+          position: "right",
           labels: {
-            colors: '#dedede',
+            colors: "#dedede",
           },
         },
         dataLabels: {
@@ -82,7 +69,7 @@ export class PieChartCategoriaComponent implements OnInit, OnChanges {
               width: 200,
             },
             legend: {
-              position: 'bottom',
+              position: "bottom",
             },
           },
         },

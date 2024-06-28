@@ -1,36 +1,24 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
-import SharedUtil from '../../../shared/utils';
-import { ChartOptions } from 'chart.js';
+import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
+import SharedUtil from "../../../shared/utils";
+import { ChartOptions } from "chart.js";
 
 @Component({
-  selector: 'fin-bar-chart-anual',
-  templateUrl: './bar-chart-anual.component.html',
-  styleUrl: './bar-chart-anual.component.scss',
+  selector: "fin-bar-chart-anual",
+  templateUrl: "./bar-chart-anual.component.html",
+  styleUrl: "./bar-chart-anual.component.scss",
 })
-export class BarChartAnualComponent implements OnInit, OnChanges {
+export class BarChartAnualComponent implements OnChanges {
   @Input() chartData!: any;
   protected chartOptions!: Partial<ChartOptions> | any;
 
-  ngOnInit(): void {
-    if (this.chartData) {
-      this.configPieCharts();
-    } else {
-      console.error('chartOptions is not provided');
-    }
-  }
-
   ngOnChanges(changes: SimpleChanges): void {
-    const isEqual = SharedUtil.objectCompare(changes['chartData'].previousValue, changes['chartData'].currentValue)
-    
-    if (changes['chartData'] && isEqual && !changes['chartData']['firstChange']) {
-      this.chartOptions = undefined; // Resetar opções para forçar a re-renderização
-      this.configPieCharts();
+    if ("chartData" in changes) {
+      const change = changes["chartData"];
+
+      if (change.firstChange || !SharedUtil.isObjectEquals(change.previousValue, change.currentValue)) {
+        this.chartOptions = undefined; // Resetar opções para forçar a re-renderização
+        this.configPieCharts();
+      }
     }
   }
 
@@ -38,7 +26,7 @@ export class BarChartAnualComponent implements OnInit, OnChanges {
     const entradas = chartData.map((data: any) => data.entradas);
     const saidas = chartData.map((data: any) => data.saidas);
 
-    return { saidas, entradas }
+    return { saidas, entradas };
   }
 
   private configPieCharts() {
@@ -47,24 +35,24 @@ export class BarChartAnualComponent implements OnInit, OnChanges {
     this.chartOptions = {
       series: [
         {
-          name: 'Saídas',
+          name: "Saídas",
           data: saidas,
         },
         {
-          name: 'Entradas',
+          name: "Entradas",
           data: entradas,
         },
       ],
       legend: {
-        fontSize: '14px',
-        horizontalAlign: 'center',
-        position: 'bottom',
+        fontSize: "14px",
+        horizontalAlign: "center",
+        position: "bottom",
         labels: {
-          colors: '#dedede',
+          colors: "#dedede",
         },
       },
       chart: {
-        type: 'bar',
+        type: "bar",
         height: 255,
         toolbar: {
           show: false,
@@ -76,10 +64,10 @@ export class BarChartAnualComponent implements OnInit, OnChanges {
       plotOptions: {
         bar: {
           horizontal: false,
-          columnWidth: '80%',
+          columnWidth: "80%",
           borderRadius: 5,
-          borderRadiusApplication: 'end',
-          endingShape: 'rounded',
+          borderRadiusApplication: "end",
+          endingShape: "rounded",
         },
       },
       dataLabels: {
@@ -88,38 +76,25 @@ export class BarChartAnualComponent implements OnInit, OnChanges {
       stroke: {
         show: true,
         width: 4,
-        colors: ['transparent'],
+        colors: ["transparent"],
       },
       xaxis: {
-        categories: [
-          'Jan',
-          'Fev',
-          'Mar',
-          'Abr',
-          'Mai',
-          'Jun',
-          'Jul',
-          'Ago',
-          'Set',
-          'Out',
-          'Nov',
-          'Dez',
-        ],
+        categories: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
         labels: {
           style: {
             colors: [
-              '#dedede',
-              '#dedede',
-              '#dedede',
-              '#dedede',
-              '#dedede',
-              '#dedede',
-              '#dedede',
-              '#dedede',
-              '#dedede',
-              '#dedede',
-              '#dedede',
-              '#dedede',
+              "#dedede",
+              "#dedede",
+              "#dedede",
+              "#dedede",
+              "#dedede",
+              "#dedede",
+              "#dedede",
+              "#dedede",
+              "#dedede",
+              "#dedede",
+              "#dedede",
+              "#dedede",
             ],
           },
         },
@@ -127,12 +102,12 @@ export class BarChartAnualComponent implements OnInit, OnChanges {
           show: false,
         },
       },
-      colors: ['#780000', '#386641'],
+      colors: ["#780000", "#386641"],
       yaxis: {
         labels: {
           formatter: (val: any) => SharedUtil.numToCurrency(val),
           style: {
-            colors: ['#dedede'],
+            colors: ["#dedede"],
           },
         },
       },
@@ -143,7 +118,7 @@ export class BarChartAnualComponent implements OnInit, OnChanges {
         y: {
           formatter: (val: any) => SharedUtil.numToCurrency(val),
         },
-        theme: 'dark',
+        theme: "dark",
       },
     };
   }
