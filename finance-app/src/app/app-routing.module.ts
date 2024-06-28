@@ -16,7 +16,8 @@ const routes: Routes = [
     loadChildren: () => import('./authenticator/auth.module').then(m => m.AuthModule),
     canActivate: [loggedInGuard],
   },
-  { path: '', redirectTo: '', pathMatch: 'full' },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '**', redirectTo: '/dashboard' },
 ];
 
 @NgModule({
