@@ -22,11 +22,11 @@ export class BaseTransacaoDirective implements OnInit, OnDestroy {
   protected rowSelected: WritableSignal<Transacao[]> = signal([]);
   protected queryParams: WritableSignal<ParamsTransacao> = signal({});
 
-  private _destroy$: Subject<boolean> = new Subject<boolean>();
+  private _isDestroy$: Subject<boolean> = new Subject<boolean>();
 
   ngOnInit(): void {
     this._datePickerService.datePickerObservable$
-      .pipe(takeUntil(this._destroy$))
+      .pipe(takeUntil(this._isDestroy$))
       .subscribe((date) => {
         if (date) {
           this.queryParams().filterDate = date;
@@ -35,7 +35,7 @@ export class BaseTransacaoDirective implements OnInit, OnDestroy {
       });
 
     this._notificationService.notifyObservable$
-      .pipe(takeUntil(this._destroy$))
+      .pipe(takeUntil(this._isDestroy$))
       .subscribe((res) => {
         const { refresh, closeModal } = res;
 
@@ -52,7 +52,7 @@ export class BaseTransacaoDirective implements OnInit, OnDestroy {
   private _fetchTransacoes(params: ParamsTransacao) {
     this._transacoesService
       .getTransacoes$(params)
-      .pipe(takeUntil(this._destroy$))
+      .pipe(takeUntil(this._isDestroy$))
       .subscribe({
         next: (transacoes: Transacao[]) => {
           this.transacoes.set(transacoes);
@@ -65,7 +65,7 @@ export class BaseTransacaoDirective implements OnInit, OnDestroy {
   protected afterFetchTransacoes(transacoes: Transacao[]): void {}
 
   ngOnDestroy(): void {
-    this._destroy$.next(true);  // Emite um valor para todos os observadores
-    this._destroy$.unsubscribe();  // Remove todos os observadores e libera os recursos imediatamente, sem notificar uma conclusão limpa. Isso é mais como um "cancelamento abrupto".
+    this._isDestroy$.next(true);  // Emite um valor para todos os observadores
+    this._isDestroy$.unsubscribe();  // Remove todos os observadores e libera os recursos imediatamente, sem notificar uma conclusão limpa. Isso é mais como um "cancelamento abrupto".
   }
 }
