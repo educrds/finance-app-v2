@@ -26,7 +26,7 @@ export class ModalCategoriaComponent implements OnInit {
     },
   ];
 
-  protected loading: boolean = false;
+  protected isLoading: boolean = false;
 
   constructor(
     private _categoriaService: CategoriasService,
@@ -56,7 +56,7 @@ export class ModalCategoriaComponent implements OnInit {
   }
 
   protected inserirOuAtualizarCategoria() {
-    this.loading = false;
+    this.isLoading = false;
     const form = this.formAddCategoria.getRawValue();
 
     if (form.cat_id) {
@@ -69,7 +69,7 @@ export class ModalCategoriaComponent implements OnInit {
   private _inserirCategoria(form: Categoria) {
     this._categoriaService
       .addCategoria$(form)
-      .pipe(finalize(() => (this.loading = false)))
+      .pipe(finalize(() => (this.isLoading = false)))
       .subscribe({
         next: () => {
           this._messagesService.showSuccess("Categoria inserida com sucesso!");
@@ -82,7 +82,7 @@ export class ModalCategoriaComponent implements OnInit {
   private _atualizarCategoria(form: Categoria) {
     this._categoriaService
       .atualizarCategoria$(form)
-      .pipe(finalize(() => (this.loading = false)))
+      .pipe(finalize(() => (this.isLoading = false)))
       .subscribe({
         next: () => {
           this._messagesService.showSuccess("Categoria atualizada com sucesso!");
