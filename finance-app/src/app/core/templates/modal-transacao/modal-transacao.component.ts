@@ -22,7 +22,7 @@ export class ModalTransacaoComponent implements OnInit {
   protected categoriasOptions$!: Observable<IDropdown[]>;
   protected metodosOptions$!: Observable<IDropdown[]>;
 
-  protected loading: boolean = false;
+  protected isLoading: boolean = false;
   protected tipoTransacao!: number;
 
   constructor(
@@ -108,7 +108,7 @@ export class ModalTransacaoComponent implements OnInit {
   }
 
   protected inserirOuAtualizarTransacao() {
-    this.loading = true;
+    this.isLoading = true;
 
     if (this.formAddTransacao.valid) {
       const form = this.formAddTransacao.getRawValue();
@@ -118,7 +118,7 @@ export class ModalTransacaoComponent implements OnInit {
       }
       return this.inserirTransacao(form);
     }
-    this.loading = false;
+    this.isLoading = false;
     return this.updateValidationForm(this.formAddTransacao);
   }
 
@@ -133,7 +133,7 @@ export class ModalTransacaoComponent implements OnInit {
   private inserirTransacao(form: Transacao) {
     this._transacoesService
       .addTransacao$(form)
-      .pipe(finalize(() => (this.loading = false)))
+      .pipe(finalize(() => (this.isLoading = false)))
       .subscribe({
         next: () => {
           this._messagesService.showSuccess("Transação adicionada com successo!");
@@ -145,7 +145,7 @@ export class ModalTransacaoComponent implements OnInit {
   private atualizarTransacao(form: Transacao) {
     this._transacoesService
       .atualizarTransacao$(form)
-      .pipe(finalize(() => (this.loading = false)))
+      .pipe(finalize(() => (this.isLoading = false)))
       .subscribe({
         next: () => {
           this._messagesService.showSuccess("Transação atualizada com successo!");
