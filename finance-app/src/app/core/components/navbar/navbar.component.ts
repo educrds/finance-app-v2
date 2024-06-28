@@ -14,7 +14,7 @@ export class NavbarComponent implements OnInit {
   protected menuBarItems: MenuItem[] | undefined;
   protected userInitials: string | undefined;
   protected month_selected: WritableSignal<Date> = signal(new Date());
-  protected canShowDatePicker$: Observable<boolean> | undefined;
+  protected isShowDatePicker$: Observable<boolean> | undefined;
 
   #navigationEvents$: Observable<NavigationEnd> | undefined;
 
@@ -27,7 +27,7 @@ export class NavbarComponent implements OnInit {
       filter(event => event instanceof NavigationEnd),
       map(event => event as NavigationEnd)
     );
-    this.canShowDatePicker$ = this.#navigationEvents$.pipe(
+    this.isShowDatePicker$ = this.#navigationEvents$.pipe(
       startWith(true),
       map(event => {
         if (typeof event === "boolean") {

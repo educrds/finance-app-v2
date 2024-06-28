@@ -1,6 +1,6 @@
 <fin-wrap-container [className]="'w-100 d-flex justify-between'">
   <fin-logo />
-  @if (canShowDatePicker$ | async) {
+  @if (isShowDatePicker$ | async) {
     <p-calendar
       view="month"
       class="calendar_filter"
