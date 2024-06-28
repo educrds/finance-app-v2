@@ -9,7 +9,7 @@ export default class SharedUtil {
     });
   }
 
-  static objectCompare(prev: Object, current: Object): boolean {
+  static isObjectEquals(prev: Object, current: Object): boolean {
     if (prev !== undefined && current !== undefined) {
       return JSON.stringify(prev) !== JSON.stringify(current);
     }
