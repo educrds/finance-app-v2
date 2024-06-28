@@ -1,30 +1,29 @@
-import { Component, OnInit, Signal, WritableSignal, computed, signal } from '@angular/core';
-import { Transacao } from '../../models/Transacao';
-import { TransacoesSoma } from '../../models/TransacoesSoma';
-import { BaseTransacaoDirective } from '../../directives/base-transacao.directive';
-import SharedUtil from '../../../shared/utils';
-import { BarChartResult, CategoriesGroupedByType } from '../../models/Chart';
-import { faLevelDownAlt, faLevelUpAlt, faWallet } from '@fortawesome/free-solid-svg-icons';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import CoreUtil from '../../utils';
+import { Component, OnInit, Signal, WritableSignal, computed, signal } from "@angular/core";
+import { Transacao } from "../../models/Transacao";
+import { TransacoesSoma } from "../../models/TransacoesSoma";
+import { BaseTransacaoDirective } from "../../directives/base-transacao.directive";
+import { BarChartResult, CategoriesGroupedByType } from "../../models/Chart";
+import { faLevelDownAlt, faLevelUpAlt, faWallet } from "@fortawesome/free-solid-svg-icons";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import CoreUtil from "../../utils";
 
 @Component({
-  selector: 'fin-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss'],
+  selector: "fin-main",
+  templateUrl: "./main.component.html",
+  styleUrls: ["./main.component.scss"],
 })
 export class MainComponent extends BaseTransacaoDirective implements OnInit {
-  protected iconsCard: {[key: string]: IconProp} = {
+  protected iconsCard: { [key: string]: IconProp } = {
     entrada: faLevelUpAlt,
     saldo: faWallet,
-    saida: faLevelDownAlt
-  }
+    saida: faLevelDownAlt,
+  };
   protected somatorio: WritableSignal<TransacoesSoma> = signal({
     soma_receitas: 0,
     soma_despesas: 0,
   });
   protected saldo: Signal<number> = computed(
-    () => this.somatorio().soma_receitas - this.somatorio().soma_despesas
+    () => this.somatorio()["soma_receitas"] - this.somatorio()["soma_despesas"]
   );
 
   // charts
@@ -38,17 +37,14 @@ export class MainComponent extends BaseTransacaoDirective implements OnInit {
   }
 
   protected sumSelected(transactions: Transacao[]): number {
-    return transactions.reduce(
-      (acc: number, transacao: Transacao) => acc + transacao.trs_valor,
-      0
-    );
+    return transactions.reduce((acc: number, transacao: Transacao) => acc + transacao.trs_valor, 0);
   }
-    
-  private _getComparativoChartResult():void {
+
+  private _getComparativoChartResult(): void {
     this._transacoesService.getComparativoChart$(this.queryParams()).subscribe({
-      next: (res: BarChartResult) => this.comparativoAnual = res,
-      error: (err) => this._messagesService.showError(err)
-    })  
+      next: (res: BarChartResult) => (this.comparativoAnual = res),
+      error: err => this._messagesService.showError(err),
+    });
   }
 
   // Atualizando a soma das transações.

@@ -2,7 +2,7 @@
   <fin-row>
     <fin-top-card
       [title]="'Entradas'"
-      [value]="somatorio().soma_receitas"
+      [value]="somatorio()['soma_receitas']"
       [isCurrency]="true"
       [icon]="iconsCard['entrada']"
       class="flex-1"
@@ -18,7 +18,7 @@
 
     <fin-top-card
       [title]="'Saídas'"
-      [value]="somatorio().soma_despesas"
+      [value]="somatorio()['soma_despesas']"
       [isCurrency]="true"
       [icon]="iconsCard['saida']"
       class="flex-1"
