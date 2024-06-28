@@ -1,4 +1,2 @@
-export type TransacoesSoma = {
-  soma_receitas: number;
-  soma_despesas: number;
-}
+export type TransacoesSoma = { [TransacoesSomaKey: string]: number };
+export type TransacoesSomaKey = "soma_receitas" | "soma_despesas";
