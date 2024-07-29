@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, inject } from "@angular/core";
 import { FormBuilder, FormGroup, ValidationErrors, Validators } from "@angular/forms";
 import { TransacoesService } from "../../services/transacoes.service";
 import { CategoriasService } from "../../services/categorias.service";
@@ -25,16 +25,14 @@ export class ModalTransacaoComponent implements OnInit {
   protected isLoading: boolean = false;
   protected tipoTransacao!: number;
 
-  constructor(
-    private _fb: FormBuilder,
-    private _notificationService: NotificationService,
-    private _transacoesService: TransacoesService,
-    private _messagesService: MessagesService,
-    private _categoriasService: CategoriasService,
-    private _ref: DynamicDialogRef,
-    private _config: DynamicDialogConfig,
-    private _datePickerService: DatePickerService
-  ) {}
+  #_fb = inject(FormBuilder);
+  #_notificationService = inject(NotificationService);
+  #_transacoesService = inject(TransacoesService);
+  #_messagesService = inject(MessagesService);
+  #_categoriasService = inject(CategoriasService);
+  #_ref = inject(DynamicDialogRef);
+  #_config = inject(DynamicDialogConfig);
+  #_datePickerService = inject(DatePickerService);
 
   ngOnInit(): void {
     const defaultTransactionValues = this.getDefaultTransactionValues();
@@ -43,7 +41,7 @@ export class ModalTransacaoComponent implements OnInit {
     this._initializeForm(defaultTransactionValues);
     this._initializeDropdownOptions();
 
-    this._ref.onClose.subscribe(() => this._notificationService.notifyChanges({ closeModal: true }));
+    this.#_ref.onClose.subscribe(() => this.#_notificationService.notifyChanges({ closeModal: true }));
   }
 
   private getDefaultTransactionValues() {
@@ -61,21 +59,24 @@ export class ModalTransacaoComponent implements OnInit {
   }
 
   private _initializeForm(defaultTransactionValues: any): void {
-    const trs_data = this._config.data.trs_data_ocorrido && new Date(this._config.data.trs_data_ocorrido);
-    this.tipoTransacao = this._config.data.id_tipo_transacao;
+    const trs_data = this.#_config.data.trs_data_ocorrido && new Date(this.#_config.data.trs_data_ocorrido);
+    this.tipoTransacao = this.#_config.data.id_tipo_transacao;
 
-    this.formAddTransacao = this._fb.group(
+    this.formAddTransacao = this.#_fb.group(
       {
-        trs_valor: [this._config.data.trs_valor || defaultTransactionValues.trs_valor, Validators.required],
+        trs_valor: [this.#_config.data.trs_valor || defaultTransactionValues.trs_valor, Validators.required],
         trs_data_ocorrido: [trs_data || defaultTransactionValues.trs_data_ocorrido],
-        trs_titulo: [this._config.data?.trs_titulo || defaultTransactionValues.trs_titulo, Validators.required],
-        trs_categoria: [this._config.data?.id_categoria || defaultTransactionValues.trs_categoria, Validators.required],
+        trs_titulo: [this.#_config.data?.trs_titulo || defaultTransactionValues.trs_titulo, Validators.required],
+        trs_categoria: [
+          this.#_config.data?.id_categoria || defaultTransactionValues.trs_categoria,
+          Validators.required,
+        ],
         trs_usuario: [defaultTransactionValues.trs_usuario],
         trs_tipo: [this.tipoTransacao],
-        trs_metodo: [this._config.data.metodo_id || defaultTransactionValues.trs_metodo, Validators.required],
-        trs_status: [!!this._config.data.trs_status || defaultTransactionValues.trs_status],
-        trs_id: [this._config.data.trs_id || null],
-        trs_parcelado: [this._config.data.trs_parcelado || defaultTransactionValues.trs_parcelado],
+        trs_metodo: [this.#_config.data.metodo_id || defaultTransactionValues.trs_metodo, Validators.required],
+        trs_status: [!!this.#_config.data.trs_status || defaultTransactionValues.trs_status],
+        trs_id: [this.#_config.data.trs_id || null],
+        trs_parcelado: [this.#_config.data.trs_parcelado || defaultTransactionValues.trs_parcelado],
         data_fim_repeticao: [""],
       },
       { validators: [this._verifyDates()] }
@@ -97,14 +98,14 @@ export class ModalTransacaoComponent implements OnInit {
   }
 
   private _initializeDatePickerListener(defaultTransactionValues: any) {
-    this._datePickerService.datePickerObservable$.subscribe({
+    this.#_datePickerService.datePickerObservable$.subscribe({
       next: date => (defaultTransactionValues.trs_data_ocorrido = date),
     });
   }
 
   private _initializeDropdownOptions(): void {
-    this.metodosOptions$ = this._transacoesService.getMetodosDropdown$();
-    this.categoriasOptions$ = this._categoriasService.getCategoriasDropdown$(this.tipoTransacao);
+    this.metodosOptions$ = this.#_transacoesService.getMetodosDropdown$();
+    this.categoriasOptions$ = this.#_categoriasService.getCategoriasDropdown$(this.tipoTransacao);
   }
 
   protected inserirOuAtualizarTransacao() {
@@ -131,25 +132,25 @@ export class ModalTransacaoComponent implements OnInit {
   }
 
   private inserirTransacao(form: Transacao) {
-    this._transacoesService
+    this.#_transacoesService
       .addTransacao$(form)
       .pipe(finalize(() => (this.isLoading = false)))
       .subscribe({
         next: () => {
-          this._messagesService.showSuccess("Transação adicionada com successo!");
-          this._notificationService.notifyChanges({ refresh: true }, this._ref);
+          this.#_messagesService.showSuccess("Transação adicionada com successo!");
+          this.#_notificationService.notifyChanges({ refresh: true }, this.#_ref);
         },
       });
   }
 
   private atualizarTransacao(form: Transacao) {
-    this._transacoesService
+    this.#_transacoesService
       .atualizarTransacao$(form)
       .pipe(finalize(() => (this.isLoading = false)))
       .subscribe({
         next: () => {
-          this._messagesService.showSuccess("Transação atualizada com successo!");
-          this._notificationService.notifyChanges({ refresh: true }, this._ref);
+          this.#_messagesService.showSuccess("Transação atualizada com successo!");
+          this.#_notificationService.notifyChanges({ refresh: true }, this.#_ref);
         },
       });
   }

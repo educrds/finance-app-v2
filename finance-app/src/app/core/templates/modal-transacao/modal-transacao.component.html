@@ -1,37 +1,9 @@
 <form action="" [formGroup]="formAddTransacao">
-  <fin-column
-    ><div class="d-flex flex-column g-4">
-      <label for="input_valor">Título:</label>
-      <input id="input_valor" pInputText formControlName="trs_titulo" />
-      @if(formAddTransacao.controls['trs_titulo'].touched ||
-      formAddTransacao.controls['trs_titulo'].dirty){
-      <div class="text-start">
-        @if(formAddTransacao.controls['trs_titulo']?.errors?.['required']){
-        <small class="text-danger text-start">Campo obrigatório.</small>
-        }
-      </div>
-      }
-    </div>
-
+  <fin-column>
+    <fin-input-form type="text" label="Título" placeholder="Digite um título" formControlName="trs_titulo" />
+    
     <fin-row>
-      <div class="d-flex flex-column g-4">
-        <label for="input_valor">Valor:</label>
-        <p-inputNumber
-          formControlName="trs_valor"
-          mode="currency"
-          currency="BRL"
-          locale="pt-BR"
-        >
-        </p-inputNumber>
-        @if(formAddTransacao.controls['trs_valor'].touched ||
-        formAddTransacao.controls['trs_valor'].dirty){
-        <div class="text-start">
-          @if(formAddTransacao.controls['trs_valor']?.errors?.['required']){
-          <small class="text-danger text-start">Campo obrigatório.</small>
-          }
-        </div>
-        }
-      </div>
+      <fin-input-form type="currency" label="Valor" formControlName="trs_valor" />
 
       <div class="d-flex flex-column g-4">
         <label for="input_valor">&nbsp;</label>
@@ -54,8 +26,7 @@
           appendTo="body"
           placeholder="Selecione uma categoria"
         ></p-dropdown>
-        @if(formAddTransacao.controls['trs_categoria'].touched ||
-        formAddTransacao.controls['trs_categoria'].dirty){
+        @if(formAddTransacao.controls['trs_categoria'].touched || formAddTransacao.controls['trs_categoria'].dirty){
         <div class="text-start">
           @if(formAddTransacao.controls['trs_categoria']?.errors?.['required']){
           <small class="text-danger text-start">Campo obrigatório.</small>
@@ -75,8 +46,7 @@
           placeholder="Selecione um metódo"
         ></p-dropdown>
 
-        @if(formAddTransacao.controls['trs_metodo'].touched ||
-        formAddTransacao.controls['trs_metodo'].dirty){
+        @if(formAddTransacao.controls['trs_metodo'].touched || formAddTransacao.controls['trs_metodo'].dirty){
         <div class="text-start">
           @if(formAddTransacao.controls['trs_metodo']?.errors?.['required']){
           <small class="text-danger text-start">Campo obrigatório.</small>
@@ -99,8 +69,7 @@
           ></p-calendar>
         </div>
 
-        @if(!formAddTransacao.get('trs_id')?.value &&
-        formAddTransacao.get('trs_parcelado')?.value){
+        @if(!formAddTransacao.get('trs_id')?.value && formAddTransacao.get('trs_parcelado')?.value){
         <fin-row>
           <div class="d-flex flex-column g-4 justify-content-center">
             <span>&nbsp;</span>
@@ -117,8 +86,7 @@
               view="month"
             ></p-calendar>
 
-            @if(formAddTransacao.errors?.['invalidDates'] &&
-            (formAddTransacao.dirty || formAddTransacao.touched)){
+            @if(formAddTransacao.errors?.['invalidDates'] && (formAddTransacao.dirty || formAddTransacao.touched)){
             <small class="text-danger">Intervalo de datas inválido.</small>
             }
           </div>
