@@ -34,6 +34,7 @@ import { ModalCategoriaComponent } from "./templates/modal-categoria/modal-categ
 import { ModalTransacaoComponent } from "./templates/modal-transacao/modal-transacao.component";
 import { SharedModule } from "../shared/shared.module";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { InputFormComponent } from './components/input-form/input-form.component';
 
 const CORE_MODULES = [
   CommonModule,
@@ -74,11 +75,12 @@ const CORE_COMPONENTS = [
   MainComponent,
   ModalCategoriaComponent,
   ModalTransacaoComponent,
+  InputFormComponent
 ];
 
 @NgModule({
   exports: [CoreRoutingModule],
-  declarations: [...CORE_COMPONENTS],
+  declarations: [...CORE_COMPONENTS, InputFormComponent],
   imports: [...CORE_MODULES],
 })
 export class CoreModule {}

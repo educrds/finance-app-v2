@@ -1,0 +1,31 @@
+<div class="d-flex flex-column g-4">
+  @if(label){
+  <label for="input_valor">{{ label }}:</label>
+  } @if(type === 'currency'){
+  <p-inputNumber
+    [formControl]="control"
+    [placeholder]="placeholder"
+    mode="currency"
+    currency="BRL"
+    locale="pt-BR"
+    [class.ng-invalid]="control.invalid && control.touched"
+    [class.ng-dirty]="control.invalid && control.touched"
+  ></p-inputNumber>
+  } @else{
+  <input
+    pInputText
+    [type]="type"
+    [placeholder]="placeholder"
+    [formControl]="control"
+    class="form-control"
+    [class.ng-invalid]="control.invalid && control.touched"
+    [class.ng-dirty]="control.invalid && control.touched"
+  />
+  } @if(control.touched && control.invalid){
+  <div class="text-start">
+    @if(control.errors?.['required']){
+    <small class="text-danger text-start">Campo obrigatório.</small>
+    }
+  </div>
+  }
+</div>
