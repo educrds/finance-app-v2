@@ -1,10 +1,7 @@
 <form action="" [formGroup]="formAddCategoria">
   <fin-column
     >
-    <div class="d-flex flex-column g-4">
-      <label for="input_nome">Nome:</label>
-      <input id="input_nome" pInputText formControlName="cat_nome" />
-    </div>
+    <fin-input-form type="text" label="Título" placeholder="Digite um título" formControlName="cat_nome" />
     
     <div class="d-flex flex-column g-4">
       <label>Tipo:</label>

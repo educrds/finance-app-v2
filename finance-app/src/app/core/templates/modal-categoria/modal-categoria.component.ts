@@ -38,20 +38,12 @@ export class ModalCategoriaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const defaultCategoriaValues = {
-      cat_id: "",
-      cat_nome: "",
-      usr_id: "",
-      cat_cor: "",
-      cat_tip_id: "",
-    };
-
     this.formAddCategoria = this._fb.group({
-      cat_id: [this.config.data.cat_id || defaultCategoriaValues.cat_id],
-      cat_nome: [this.config.data.cat_nome || defaultCategoriaValues.cat_nome],
-      usr_id: [this.config.data.usr_id || defaultCategoriaValues.usr_id],
-      cat_cor: [this.config.data.cat_cor || defaultCategoriaValues.cat_cor],
-      cat_tip_id: [this.config.data.cat_tip_id || defaultCategoriaValues.cat_tip_id],
+      cat_id: [this.config.data.cat_id || null],
+      cat_nome: [this.config.data.cat_nome || null],
+      usr_id: [this.config.data.usr_id || null],
+      cat_cor: [this.config.data.cat_cor || null],
+      cat_tip_id: [this.config.data.cat_tip_id || null],
     });
   }
 
