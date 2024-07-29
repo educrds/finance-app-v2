@@ -8,7 +8,7 @@ import { ConfirmDialogService } from '../../services/confirm-dialog.service';
   styleUrl: './confirm-dialog.component.scss'
 })
 export class ConfirmDialogComponent implements OnInit {
-  protected config: any = {
+  protected config: {[ key:string]: string | null } = {
     acceptLabel: 'Confirmar',
     rejectLabel: 'Cancelar',
     body: null
