@@ -27,9 +27,11 @@
 
   <p-accordion>
     <p-accordionTab
-      [disabled]="transacoes.length !== 0"
-      header="Gráficos por categoria"
+    [disabled]="transacoes.length !== 0"
+    header="Gráficos por categoria"
+    #accordionClicked
     >
+    @defer (on interaction(accordionClicked)) {
       <fin-column>
         @if((transacoesPorCategoria['entradas'] | keyvalue)?.length || (transacoesPorCategoria['saidas'] | keyvalue)?.length){
         <fin-row>
@@ -72,6 +74,8 @@
           }
         </fin-row>
       </fin-column>
+    }
+
     </p-accordionTab>
   </p-accordion>
 
