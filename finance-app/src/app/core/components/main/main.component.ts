@@ -29,15 +29,21 @@ export class MainComponent extends BaseTransacaoDirective implements OnInit {
   // charts
   protected transacoesPorCategoria!: CategoriesGroupedByType;
   protected comparativoAnual: BarChartResult | undefined;
+  protected saidasPorMetodo: any;
 
   protected override afterFetchTransacoes(transacoes: Transacao[]): void {
     this._updateSomatorio(transacoes);
     this._updateCharts(transacoes);
     this._getComparativoChartResult();
+    this._getTransacaoesPorMetodo(transacoes);
   }
 
   protected sumSelected(transactions: Transacao[]): number {
     return transactions.reduce((acc: number, transacao: Transacao) => acc + transacao.trs_valor, 0);
+  }
+
+  private _getTransacaoesPorMetodo(transacoes: Transacao[]): void {
+    this.saidasPorMetodo = CoreUtil.orderByMetodo(transacoes);
   }
 
   private _getComparativoChartResult(): void {

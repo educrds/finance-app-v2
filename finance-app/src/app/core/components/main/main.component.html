@@ -31,26 +31,36 @@
       header="Gráficos por categoria"
     >
       <fin-column>
-        @if((transacoesPorCategoria?.entradas | keyvalue)?.length || (transacoesPorCategoria?.saidas |
-        keyvalue)?.length){
+        @if((transacoesPorCategoria['entradas'] | keyvalue)?.length || (transacoesPorCategoria['saidas'] | keyvalue)?.length){
         <fin-row>
-          @if((transacoesPorCategoria?.entradas | keyvalue)?.length){
+          @if((transacoesPorCategoria['entradas'] | keyvalue)?.length){
           <div class="wrap-container chart">
             <h3>Entradas por categoria</h3>
             <div class="d-block w-100">
-              <fin-pie-chart-categoria [chartData]="transacoesPorCategoria.entradas" />
+              <fin-pie-chart-categoria [chartData]="transacoesPorCategoria['entradas']" />
             </div>
           </div>
-          } @if((transacoesPorCategoria?.saidas | keyvalue)?.length){
+          } @if((transacoesPorCategoria['saidas'] | keyvalue)?.length){
           <div class="wrap-container chart">
             <h3>Saídas por categoria</h3>
             <div class="d-block w-100">
-              <fin-pie-chart-categoria [chartData]="transacoesPorCategoria.saidas" />
+              <fin-pie-chart-categoria [chartData]="transacoesPorCategoria['saidas']" />
+            </div>
+          </div>
+        }
+        </fin-row>
+      }
+      <fin-row>
+        @if(saidasPorMetodo){
+          <div class="wrap-container chart">
+            <h3>Saídas por Método</h3>
+            <div class="d-block w-100">
+              <fin-pie-chart-categoria [chartData]="saidasPorMetodo" />
             </div>
           </div>
           }
         </fin-row>
-        }
+        
         <fin-row>
           @if(comparativoAnual){
           <div class="wrap-container chart">
