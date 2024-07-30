@@ -8,7 +8,7 @@ export interface CategoriaChartItem{
 
 type BarChartKeys = 'entradas' | 'saidas';
 
-export type CategoriesGroupedByType = Record<BarChartKeys, CategoriaChartItem>
+export type CategoriesGroupedByType = {[key: string]: CategoriaChartItem}
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
