@@ -4,11 +4,14 @@
   border-radius: 10px;
   width: 100%;
 
-  &.chart {
+  &.chart, .pie-chart {
     display: flex;
     justify-content: center;
     flex-direction: column;
     gap: 8px;
-    flex: 1;
+  }
+
+  &.pie-chart {
+    max-width: 50%;
   }
 }
