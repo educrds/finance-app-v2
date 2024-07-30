@@ -1,12 +1,12 @@
-import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from "@angular/core";
 import { CategoriaChartItem, ChartOptions } from "../../models/Chart";
-
 import SharedUtil from "../../../shared/utils";
 
 @Component({
   selector: "fin-pie-chart-categoria",
   templateUrl: "./pie-chart-categoria.component.html",
   styleUrls: ["./pie-chart-categoria.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PieChartCategoriaComponent implements OnChanges {
   @Input() chartData!: CategoriaChartItem;
@@ -14,12 +14,7 @@ export class PieChartCategoriaComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if ("chartData" in changes) {
-      const change = changes["chartData"];
-
-      if (change.firstChange || !SharedUtil.isObjectEquals(change.previousValue, change.currentValue)) {
-        this.chartOptions = undefined; // Resetar opções para forçar a re-renderização
-        this.configPieCharts();
-      }
+      this.configPieCharts();
     }
   }
 

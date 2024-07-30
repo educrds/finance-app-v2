@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from "@angular/core";
 import SharedUtil from "../../../shared/utils";
 import { ChartOptions } from "chart.js";
 
@@ -6,6 +6,7 @@ import { ChartOptions } from "chart.js";
   selector: "fin-bar-chart-anual",
   templateUrl: "./bar-chart-anual.component.html",
   styleUrl: "./bar-chart-anual.component.scss",
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BarChartAnualComponent implements OnChanges {
   @Input() chartData!: any;
@@ -13,12 +14,8 @@ export class BarChartAnualComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if ("chartData" in changes) {
-      const change = changes["chartData"];
-
-      if (change.firstChange || !SharedUtil.isObjectEquals(change.previousValue, change.currentValue)) {
-        this.chartOptions = undefined; // Resetar opções para forçar a re-renderização
-        this.configPieCharts();
-      }
+      this.chartOptions = undefined; // Resetar opções para forçar a re-renderização
+      this.configPieCharts();
     }
   }
 
