@@ -1,11 +1,10 @@
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-
+import { Injectable } from "@angular/core";
+import { Subject } from "rxjs";
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class ConfirmDialogService {
-  #configSource = new Subject<any>();
+  #configSource = new Subject<{ [key: string]: boolean }>();
   public config$ = this.#configSource.asObservable();
 
   accept(): void {
