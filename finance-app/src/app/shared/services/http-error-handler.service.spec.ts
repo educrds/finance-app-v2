@@ -54,7 +54,7 @@ describe(HttpErrorHandlerService.name, () => {
 
     service.handleHttpError(errorResponse).subscribe({
       error: () => {
-        expect(messagesServiceSpy.showError).toHaveBeenCalledWith('Recurso não encontrado. Status: 500')
+        expect(messagesServiceSpy.showError).toHaveBeenCalledWith('Erro interno do servidor. Status: 500')
       }
     })
   });
@@ -64,7 +64,7 @@ describe(HttpErrorHandlerService.name, () => {
 
     service.handleHttpError(errorResponse).subscribe({
       error: () => {
-        expect(messagesServiceSpy.showError).toHaveBeenCalledWith('Recurso não encontrado. Status: 413')
+        expect(messagesServiceSpy.showError).toHaveBeenCalledWith('Erro não tratado. Status: 413')
       }
     })
   });
