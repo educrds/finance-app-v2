@@ -21,10 +21,8 @@ export class MainComponent extends BaseTransacaoDirective implements OnInit {
   protected somatorio: WritableSignal<TransacoesSoma> = signal({
     soma_receitas: 0,
     soma_despesas: 0,
+    saldo: 0,
   });
-  protected saldo: Signal<number> = computed(
-    () => this.somatorio()["soma_receitas"] - this.somatorio()["soma_despesas"]
-  );
 
   // charts
   protected transacoesPorCategoria!: CategoriesGroupedByType;
@@ -55,7 +53,9 @@ export class MainComponent extends BaseTransacaoDirective implements OnInit {
 
   // Atualizando a soma das transações.
   private _updateSomatorio(transacoes: Transacao[]): void {
-    this.somatorio.set(this._transacaoUtilService.obterSomatorioTransacoes(transacoes));
+    const somatorio = this._transacaoUtilService.obterSomatorioTransacoes(transacoes);
+    const saldo = somatorio["soma_despesas"] - somatorio["soma_receitas"];
+    this.somatorio.set({...somatorio, saldo: saldo});
   }
 
   // Atualizando os dados dos gráficos
