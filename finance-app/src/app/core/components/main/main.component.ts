@@ -23,7 +23,7 @@ export class MainComponent extends BaseTransacaoDirective implements OnInit {
   // charts
   protected transacoesPorCategoria!: CategoriesGroupedByType;
   protected comparativoAnual: BarChartResult | undefined;
-  protected saidasPorMetodo: CategoriesGroupedByType | undefined;
+  protected saidasPorMetodo: any;
 
   protected override afterFetchTransacoes(transacoes: Transacao[]): void {
     this._updateSomatorio(transacoes);
@@ -51,7 +51,7 @@ export class MainComponent extends BaseTransacaoDirective implements OnInit {
   // Atualizando a soma das transações.
   private _updateSomatorio(transacoes: Transacao[]): void {
     const somatorio = this._transacaoUtilService.obterSomatorioTransacoes(transacoes);
-    const saldo = somatorio["soma_despesas"] - somatorio["soma_receitas"];
+    const saldo = somatorio["soma_receitas"] - somatorio["soma_despesas"];
     
     this.somatorio.set({...somatorio, saldo: saldo});
   }
