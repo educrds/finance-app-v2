@@ -86,7 +86,7 @@ export class TransacaoUtilService {
     });
 
     this.#_confirmDialogService.config$.subscribe(res => {
-      if (res.accept) {
+      if (res['accept']) {
         if (par_id !== null) {
           return this.#_transacoesService.deletarTransacao$(par_id, !!trs_parcelado).subscribe({
             next: () => {
@@ -116,10 +116,10 @@ export class TransacaoUtilService {
   }
 
   public deletarTransacoesUtil(transacoesIds: number[]) {
-    let confirmationMessage: string = `Deseja realmente excluir os registros? Esta ação é irreversível. <br> 
+    const confirmationMessage: string = `Deseja realmente excluir os registros? Esta ação é irreversível. <br> 
     Deseja prosseguir?`;
-    let successMessage: string = "Registros deletados com sucesso!";
-    let errorMessage: string = "Ocorreu um erro ao deletar registros!";
+    const successMessage: string = "Registros deletados com sucesso!";
+    const errorMessage: string = "Ocorreu um erro ao deletar registros!";
 
     this.#_messagesService.confirm(confirmationMessage, "Confirmação", () => {
       transacoesIds.map(id_transacao => {
