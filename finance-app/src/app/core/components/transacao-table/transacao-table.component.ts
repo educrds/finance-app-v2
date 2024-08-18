@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild, inject } from "@angular/core";
+import { ChangeDetectionStrategy, Component, ElementRef, Input, ViewChild, inject } from "@angular/core";
 import { Transacao } from "../../models/Transacao";
 import { Table } from "primeng/table";
 import { TransacaoUtilService } from "../../services/transacao-util.service";
@@ -8,6 +8,7 @@ import SharedUtil from "../../../shared/utils";
   selector: "fin-transacao-table",
   templateUrl: "./transacao-table.component.html",
   styleUrl: "./transacao-table.component.scss",
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TransacaoTableComponent {
   @ViewChild("dt") dt: Table | undefined;
