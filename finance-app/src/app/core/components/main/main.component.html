@@ -1,27 +1,27 @@
 <fin-column class="w-100">
   <fin-row>
     <fin-top-card
-      [title]="'Entradas'"
       [value]="somatorio()['soma_receitas']"
       [isCurrency]="true"
       [icon]="iconsCard['entrada']"
+      title="Entradas"
       class="flex-1"
     ></fin-top-card>
 
     <fin-top-card
-      [title]="'Saldo'"
       [value]="somatorio()['saldo']"
       [isCurrency]="true"
       [icon]="iconsCard['saldo']"
+      title="Saldo"
       class="flex-1"
     ></fin-top-card>
 
     <fin-top-card
-      [title]="'Saídas'"
       [value]="somatorio()['soma_despesas']"
       [isCurrency]="true"
       [icon]="iconsCard['saida']"
       class="flex-1"
+      title="Saídas"
     ></fin-top-card>
   </fin-row>
 
@@ -82,13 +82,9 @@
   <fin-wrap-container [ngClass]="'w-100'">
     <h2>Transações</h2>
     <hr />
-    @if(transacoes().length){
     <fin-transacao-table
       [transacoes]="transacoes()"
       [rowSelected]="rowSelected()"
-    />
-    } @else if(!transacoes().length) {
-    <fin-alert-container message="Nenhum registro encontrado." />
-    }
+    /> 
   </fin-wrap-container>
 </fin-column>
