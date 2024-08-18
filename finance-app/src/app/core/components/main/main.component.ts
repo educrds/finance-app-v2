@@ -23,7 +23,7 @@ export class MainComponent extends BaseTransacaoDirective implements OnInit {
   // charts
   protected transacoesPorCategoria!: CategoriesGroupedByType;
   protected comparativoAnual: BarChartResult | undefined;
-  protected saidasPorMetodo: CategoriesGroupedByType | undefined;
+  protected saidasPorMetodo: any;
 
   protected override afterFetchTransacoes(transacoes: Transacao[]): void {
     this._updateSomatorio(transacoes);
