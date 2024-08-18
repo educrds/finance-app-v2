@@ -1,8 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ModalTransacaoComponent } from '../../templates/modal-transacao/modal-transacao.component';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faChartSimple, faLevelDownAlt, faLevelUpAlt, faList } from '@fortawesome/free-solid-svg-icons';
+import { Icon } from '../../models/Icon';
 
 @Component({
   selector: 'fin-sidebar',
@@ -10,7 +10,7 @@ import { faChartSimple, faLevelDownAlt, faLevelUpAlt, faList } from '@fortawesom
   styleUrl: './sidebar.component.scss',
 })
 export class SidebarComponent implements OnInit {
-  private iconsSidebar: {[key: string]: IconProp} = {
+  private iconsSidebar: Icon = {
     dashboard: faChartSimple,
     entrada: faLevelUpAlt,
     saida: faLevelDownAlt,
