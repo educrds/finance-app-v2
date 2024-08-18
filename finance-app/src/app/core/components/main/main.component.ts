@@ -4,10 +4,8 @@ import { TransacoesSoma } from "../../models/TransacoesSoma";
 import { BaseTransacaoDirective } from "../../directives/base-transacao.directive";
 import { BarChartResult, CategoriesGroupedByType } from "../../models/Chart";
 import { faLevelDownAlt, faLevelUpAlt, faWallet } from "@fortawesome/free-solid-svg-icons";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import CoreUtil from "../../utils";
-
-type Icon = { [key: string]: IconProp }
+import { Icon } from "../../models/Icon";
 
 @Component({
   selector: "fin-main",

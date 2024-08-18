@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, forwardRef } from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input, forwardRef } from "@angular/core";
 import {
   AbstractControl,
   ControlValueAccessor,
@@ -8,8 +8,6 @@ import {
   ValidationErrors,
   Validators,
 } from "@angular/forms";
-
-type EventType = (val: string) => void;
 
 @Component({
   selector: "fin-input-form",
@@ -27,6 +25,7 @@ type EventType = (val: string) => void;
       multi: true,
     },
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InputFormComponent implements ControlValueAccessor {
   @Input() label?: string = "";

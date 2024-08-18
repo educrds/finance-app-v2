@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
@@ -15,6 +16,7 @@ import { ModalCategoriaComponent } from '../../templates/modal-categoria/modal-c
   selector: 'fin-categoria-table',
   templateUrl: './categoria-table.component.html',
   styleUrl: './categoria-table.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CategoriaTableComponent {
   @Input() categorias: Categorias[] = [];
