@@ -1,8 +1,11 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Input, ViewChild, inject } from "@angular/core";
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChild, WritableSignal, inject } from "@angular/core";
 import { Transacao } from "../../models/Transacao";
 import { Table } from "primeng/table";
 import { TransacaoUtilService } from "../../services/transacao-util.service";
 import SharedUtil from "../../../shared/utils";
+import { CategoriasService } from "../../services/categorias.service";
+import { Observable } from "rxjs";
+import { IDropdown } from "../../models/Dropdown";
 
 @Component({
   selector: "fin-transacao-table",
@@ -10,14 +13,21 @@ import SharedUtil from "../../../shared/utils";
   styleUrl: "./transacao-table.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TransacaoTableComponent {
+export class TransacaoTableComponent implements OnInit {
   @ViewChild("dt") dt: Table | undefined;
   @ViewChild("inputSearch") inputSearch: ElementRef | undefined;
 
   @Input() transacoes: Transacao[] = [];
   @Input() rowSelected: Transacao[] = [];
 
+  protected categoriasOptions$!: Observable<IDropdown[]>;
+
   private _transacaoUtilService = inject(TransacaoUtilService);
+  private _categoriasService = inject(CategoriasService);
+
+  ngOnInit(): void {
+    this.categoriasOptions$ = this._categoriasService.getCategoriasDropdown$();
+  }
 
   protected clear(table: Table): void {
     if (this.inputSearch) {
