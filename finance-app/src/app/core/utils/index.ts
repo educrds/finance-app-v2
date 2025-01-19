@@ -5,10 +5,11 @@ import { StorageService } from "../services/storage.service";
 export default class CoreUtil {
   static getUserNameInitials(storageService: StorageService): string | undefined {
     const user = storageService.getUser();
-    if (user) {
-      let rgx = new RegExp(/(\p{L}{1})\p{L}+/, "gu");
 
-      const arrayName = [...user.name.matchAll(rgx)] || [];
+    if (user && user.name) {
+      const rgx = /\p{L}{1}\p{L}+/gu;
+
+      const arrayName = [...user.name.matchAll(rgx)];
       const firstLetter = arrayName.shift()?.[1] || "";
       const secondLetter = arrayName.pop()?.[1] || "";
 
@@ -18,7 +19,7 @@ export default class CoreUtil {
     return "X";
   }
 
-  static orderByMetodo(transacoes: Transacao[] | any[]): CategoriesGroupedByType {
+  static orderByMetodo(transacoes: Transacao[]): CategoriesGroupedByType {
     return transacoes.reduce((acc: CategoriesGroupedByType, transacao: Transacao) => {
       const { categoria_cor, metodo_nome, trs_valor, id_tipo_transacao } = transacao;
   
@@ -44,6 +45,7 @@ export default class CoreUtil {
   
   
   // cálculo de transacoes por categoria e tipo para configurar gráfico de pizza
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static calcularSomatorioPorCategoria(transacoes: Transacao[] | any[]): CategoriesGroupedByType {
     return transacoes.reduce(
       (acc, transacao) => {
