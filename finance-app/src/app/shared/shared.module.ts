@@ -21,6 +21,7 @@ import { NgApexchartsModule } from "ng-apexcharts";
 import { BarChartAnualComponent } from "../core/components/bar-chart-anual/bar-chart-anual.component";
 import { ConfirmDialogComponent } from "./components/confirm-dialog/confirm-dialog.component";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { SplitButton, SplitButtonModule } from "primeng/splitbutton";
 
 const SHARED_COMPONENTS = [
   AlertContainerComponent,
@@ -39,18 +40,18 @@ const SHARED_COMPONENTS = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    TableModule,
-    TooltipModule,
-    ButtonModule,
-    InputTextModule,
-    TagModule,
-    ConfirmDialogModule,
-    NgApexchartsModule,
-    FontAwesomeModule,
-  ],
-  declarations: [...SHARED_COMPONENTS],
-  exports: [...SHARED_COMPONENTS],
+    imports: [
+        CommonModule,
+        TableModule,
+        TooltipModule,
+        ButtonModule,
+        InputTextModule,
+        TagModule,
+        ConfirmDialogModule,
+        NgApexchartsModule,
+        FontAwesomeModule,
+        ...SHARED_COMPONENTS,
+    ],
+    exports: [...SHARED_COMPONENTS],
 })
 export class SharedModule {}

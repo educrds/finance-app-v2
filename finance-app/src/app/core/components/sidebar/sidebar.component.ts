@@ -3,11 +3,26 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ModalTransacaoComponent } from '../../templates/modal-transacao/modal-transacao.component';
 import { faChartSimple, faLevelDownAlt, faLevelUpAlt, faList } from '@fortawesome/free-solid-svg-icons';
 import { Icon } from '../../models/Icon';
+import { WrapContainerComponent } from '../wrap-container/wrap-container.component';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { MenuModule } from 'primeng/menu';
+import { PrimeTemplate } from 'primeng/api';
+import { RouterLink } from '@angular/router';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 
 @Component({
-  selector: 'fin-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.scss',
+    selector: 'fin-sidebar',
+    templateUrl: './sidebar.component.html',
+    styleUrl: './sidebar.component.scss',
+    standalone: true,
+    imports: [
+        WrapContainerComponent,
+        SplitButtonModule,
+        MenuModule,
+        PrimeTemplate,
+        RouterLink,
+        FaIconComponent,
+    ],
 })
 export class SidebarComponent implements OnInit {
   private iconsSidebar: Icon = {

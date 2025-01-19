@@ -2,7 +2,8 @@ import { Directive, EventEmitter, HostListener, Input, Output } from '@angular/c
 import { Transacao } from '../models/Transacao';
 
 @Directive({
-  selector: '[selectionIntevalRows]'
+    selector: '[selectionIntevalRows]',
+    standalone: true
 })
 export class SelectionIntervalRowsDirective {
   @Input() rowSelected: Transacao[] = [];

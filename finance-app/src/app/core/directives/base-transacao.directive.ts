@@ -9,7 +9,8 @@ import { TransacoesService } from '../services/transacoes.service';
 import { MessagesService } from '../services/messages.service';
 
 @Directive({
-  selector: '[finBaseTransacao]',
+    selector: '[finBaseTransacao]',
+    standalone: true,
 })
 export class BaseTransacaoDirective implements OnInit, OnDestroy {
   protected _notificationService = inject(NotificationService);

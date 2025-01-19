@@ -1,10 +1,13 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { NgClass } from '@angular/common';
 
 @Component({
-  selector: 'fin-wrap-container',
-  templateUrl: './wrap-container.component.html',
-  styleUrl: './wrap-container.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'fin-wrap-container',
+    templateUrl: './wrap-container.component.html',
+    styleUrl: './wrap-container.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [NgClass]
 })
 export class WrapContainerComponent {
   @Input() className: string | undefined;

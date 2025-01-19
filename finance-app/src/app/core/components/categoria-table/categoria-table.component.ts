@@ -10,12 +10,17 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CategoriasService } from '../../services/categorias.service';
 import { MessagesService } from '../../services/messages.service';
 import { ModalCategoriaComponent } from '../../templates/modal-categoria/modal-categoria.component';
+import { TableModule } from 'primeng/table';
+import { PrimeTemplate } from 'primeng/api';
+import { ButtonDirective } from 'primeng/button';
 
 @Component({
-  selector: 'fin-categoria-table',
-  templateUrl: './categoria-table.component.html',
-  styleUrl: './categoria-table.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'fin-categoria-table',
+    templateUrl: './categoria-table.component.html',
+    styleUrl: './categoria-table.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [TableModule, PrimeTemplate, ButtonDirective]
 })
 export class CategoriaTableComponent {
   public configModal = input();

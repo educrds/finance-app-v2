@@ -3,11 +3,15 @@ import { AuthService as Auth0Service } from '@auth0/auth0-angular';
 import { StorageService } from '../../../core/services/storage.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { DividerModule } from 'primeng/divider';
+import { Button } from 'primeng/button';
 
 @Component({
-  selector: 'fin-social-buttons',
-  templateUrl: './social-buttons.component.html',
-  styleUrl: './social-buttons.component.scss',
+    selector: 'fin-social-buttons',
+    templateUrl: './social-buttons.component.html',
+    styleUrl: './social-buttons.component.scss',
+    standalone: true,
+    imports: [DividerModule, Button],
 })
 export class SocialButtonsComponent {
   @Input() context: string = 'login';

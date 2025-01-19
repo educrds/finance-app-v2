@@ -19,7 +19,7 @@ import { InputTextModule } from "primeng/inputtext";
 import { MenuModule } from "primeng/menu";
 import { MenubarModule } from "primeng/menubar";
 import { MessagesModule } from "primeng/messages";
-import { SplitButtonModule } from "primeng/splitbutton";
+import { SplitButton, SplitButtonModule } from "primeng/splitbutton";
 import { TableModule } from "primeng/table";
 import { ToastModule } from "primeng/toast";
 import { TooltipModule } from "primeng/tooltip";
@@ -79,8 +79,7 @@ const CORE_COMPONENTS = [
 ];
 
 @NgModule({
-  exports: [CoreRoutingModule],
-  declarations: [...CORE_COMPONENTS, InputFormComponent],
-  imports: [...CORE_MODULES],
+    exports: [CoreRoutingModule],
+    imports: [...CORE_MODULES, ...CORE_COMPONENTS, InputFormComponent],
 })
 export class CoreModule {}

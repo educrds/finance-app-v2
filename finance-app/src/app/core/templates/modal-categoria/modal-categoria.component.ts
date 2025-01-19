@@ -1,17 +1,34 @@
 import { Component, OnInit } from "@angular/core";
 import { CategoriasService } from "../../services/categorias.service";
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
 import { Categoria } from "../../models/Categorias";
 import { IDropdown } from "../../models/Dropdown";
 import { MessagesService } from "../../services/messages.service";
 import { NotificationService } from "../../services/notification.service";
 import { finalize } from "rxjs";
+import { ColumnComponent } from "../../../shared/components/column/column.component";
+import { InputFormComponent } from "../../components/input-form/input-form.component";
+import { DropdownModule } from "primeng/dropdown";
+import { RowComponent } from "../../../shared/components/row/row.component";
+import { ColorPickerModule } from "primeng/colorpicker";
+import { Button } from "primeng/button";
 
 @Component({
-  selector: "fin-modal-categoria",
-  templateUrl: "./modal-categoria.component.html",
-  styleUrl: "./modal-categoria.component.scss",
+    selector: "fin-modal-categoria",
+    templateUrl: "./modal-categoria.component.html",
+    styleUrl: "./modal-categoria.component.scss",
+    standalone: true,
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        ColumnComponent,
+        InputFormComponent,
+        DropdownModule,
+        RowComponent,
+        ColorPickerModule,
+        Button,
+    ],
 })
 export class ModalCategoriaComponent implements OnInit {
   formAddCategoria!: FormGroup;

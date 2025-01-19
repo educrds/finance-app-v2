@@ -1,12 +1,15 @@
 import { ChangeDetectionStrategy, Component, input, OnChanges, SimpleChanges } from "@angular/core";
 import SharedUtil from "../../../shared/utils";
 import { ChartOptions } from "chart.js";
+import { ChartComponent } from "ng-apexcharts";
 
 @Component({
-  selector: "fin-bar-chart-anual",
-  templateUrl: "./bar-chart-anual.component.html",
-  styleUrl: "./bar-chart-anual.component.scss",
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: "fin-bar-chart-anual",
+    templateUrl: "./bar-chart-anual.component.html",
+    styleUrl: "./bar-chart-anual.component.scss",
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [ChartComponent]
 })
 export class BarChartAnualComponent implements OnChanges {
   public chartData = input();

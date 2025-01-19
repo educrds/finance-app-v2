@@ -1,13 +1,28 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { StorageService } from '../../../core/services/storage.service';
+import { ColumnComponent } from '../../../shared/components/column/column.component';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
+import { Button } from 'primeng/button';
+import { SocialButtonsComponent } from '../../components/social-buttons/social-buttons.component';
 
 @Component({
-  selector: 'fin-register',
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.scss',
+    selector: 'fin-register',
+    templateUrl: './register.component.html',
+    styleUrl: './register.component.scss',
+    standalone: true,
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        ColumnComponent,
+        InputTextModule,
+        PasswordModule,
+        Button,
+        SocialButtonsComponent,
+    ],
 })
 export class RegisterComponent {
   formAuthenticator!: FormGroup;

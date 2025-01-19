@@ -1,12 +1,15 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from "@angular/core";
 import { CategoriaChartItem, ChartOptions } from "../../models/Chart";
 import SharedUtil from "../../../shared/utils";
+import { ChartComponent } from "ng-apexcharts";
 
 @Component({
-  selector: "fin-pie-chart-categoria",
-  templateUrl: "./pie-chart-categoria.component.html",
-  styleUrls: ["./pie-chart-categoria.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: "fin-pie-chart-categoria",
+    templateUrl: "./pie-chart-categoria.component.html",
+    styleUrls: ["./pie-chart-categoria.component.scss"],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [ChartComponent]
 })
 export class PieChartCategoriaComponent implements OnChanges {
   @Input() chartData!: CategoriaChartItem;

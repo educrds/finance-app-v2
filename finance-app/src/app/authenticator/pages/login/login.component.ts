@@ -1,13 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { StorageService } from '../../../core/services/storage.service';
+import { ColumnComponent } from '../../../shared/components/column/column.component';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
+import { Button } from 'primeng/button';
+import { SocialButtonsComponent } from '../../components/social-buttons/social-buttons.component';
 
 @Component({
-  selector: 'fin-login',
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+    selector: 'fin-login',
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.scss',
+    standalone: true,
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        ColumnComponent,
+        InputTextModule,
+        PasswordModule,
+        Button,
+        SocialButtonsComponent,
+    ],
 })
 export class LoginComponent implements OnInit {
   protected formAuthenticator: FormGroup = this._fb.group({});

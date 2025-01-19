@@ -1,11 +1,14 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { ConfirmDialogService } from '../../services/confirm-dialog.service';
+import { Button } from 'primeng/button';
 
 @Component({
-  selector: 'fin-confirm-dialog',
-  templateUrl: './confirm-dialog.component.html',
-  styleUrl: './confirm-dialog.component.scss'
+    selector: 'fin-confirm-dialog',
+    templateUrl: './confirm-dialog.component.html',
+    styleUrl: './confirm-dialog.component.scss',
+    standalone: true,
+    imports: [Button]
 })
 export class ConfirmDialogComponent implements OnInit {
   protected config: {[ key:string]: string | null } = {

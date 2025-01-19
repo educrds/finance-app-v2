@@ -1,31 +1,27 @@
 import { ChangeDetectionStrategy, Component, forwardRef, input } from "@angular/core";
-import {
-  AbstractControl,
-  ControlValueAccessor,
-  FormControl,
-  NG_VALIDATORS,
-  NG_VALUE_ACCESSOR,
-  ValidationErrors,
-  Validators,
-} from "@angular/forms";
+import { AbstractControl, ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validators, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { InputNumberModule } from "primeng/inputnumber";
+import { InputTextModule } from "primeng/inputtext";
 
 @Component({
-  selector: "fin-input-form",
-  templateUrl: "./input-form.component.html",
-  styleUrl: "./input-form.component.scss",
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InputFormComponent),
-      multi: true,
-    },
-    {
-      provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => InputFormComponent),
-      multi: true,
-    },
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: "fin-input-form",
+    templateUrl: "./input-form.component.html",
+    styleUrl: "./input-form.component.scss",
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => InputFormComponent),
+            multi: true,
+        },
+        {
+            provide: NG_VALIDATORS,
+            useExisting: forwardRef(() => InputFormComponent),
+            multi: true,
+        },
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [InputNumberModule, FormsModule, ReactiveFormsModule, InputTextModule]
 })
 export class InputFormComponent implements ControlValueAccessor {
   public label = input<string>();

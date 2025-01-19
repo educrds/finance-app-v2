@@ -5,10 +5,27 @@ import { NavigationEnd, Router } from "@angular/router";
 import { Observable, filter, map, startWith } from "rxjs";
 import { StorageService } from "../../services/storage.service";
 import CoreUtil from "../../utils";
+import { WrapContainerComponent } from "../wrap-container/wrap-container.component";
+import { LogoComponent } from "../../../shared/components/logo/logo.component";
+import { CalendarModule } from "primeng/calendar";
+import { FormsModule } from "@angular/forms";
+import { AvatarModule } from "primeng/avatar";
+import { MenuModule } from "primeng/menu";
+import { AsyncPipe } from "@angular/common";
 @Component({
-  selector: "fin-navbar",
-  templateUrl: "./navbar.component.html",
-  styleUrl: "./navbar.component.scss",
+    selector: "fin-navbar",
+    templateUrl: "./navbar.component.html",
+    styleUrl: "./navbar.component.scss",
+    standalone: true,
+    imports: [
+        WrapContainerComponent,
+        LogoComponent,
+        CalendarModule,
+        FormsModule,
+        AvatarModule,
+        MenuModule,
+        AsyncPipe,
+    ],
 })
 export class NavbarComponent implements OnInit {
   protected menuBarItems: MenuItem[] | undefined;

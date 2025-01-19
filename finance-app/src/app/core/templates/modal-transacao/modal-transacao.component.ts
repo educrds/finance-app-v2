@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from "@angular/core";
-import { FormBuilder, FormGroup, ValidationErrors, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, ValidationErrors, Validators, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { TransacoesService } from "../../services/transacoes.service";
 import { CategoriasService } from "../../services/categorias.service";
 import { IDropdown } from "../../models/Dropdown";
@@ -9,12 +9,33 @@ import { MessagesService } from "../../services/messages.service";
 import { NotificationService } from "../../services/notification.service";
 import { DatePickerService } from "../../services/date-picker.service";
 import { Observable, finalize } from "rxjs";
+import { ColumnComponent } from "../../../shared/components/column/column.component";
+import { InputFormComponent } from "../../components/input-form/input-form.component";
+import { RowComponent } from "../../../shared/components/row/row.component";
+import { InputSwitchModule } from "primeng/inputswitch";
+import { DropdownModule } from "primeng/dropdown";
+import { CalendarModule } from "primeng/calendar";
+import { Button } from "primeng/button";
+import { AsyncPipe } from "@angular/common";
 
 @Component({
-  selector: "fin-modal-transacao",
-  templateUrl: "./modal-transacao.component.html",
-  styleUrl: "./modal-transacao.component.scss",
-  providers: [],
+    selector: "fin-modal-transacao",
+    templateUrl: "./modal-transacao.component.html",
+    styleUrl: "./modal-transacao.component.scss",
+    providers: [],
+    standalone: true,
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        ColumnComponent,
+        InputFormComponent,
+        RowComponent,
+        InputSwitchModule,
+        DropdownModule,
+        CalendarModule,
+        Button,
+        AsyncPipe,
+    ],
 })
 export class ModalTransacaoComponent implements OnInit {
   protected formAddTransacao!: FormGroup;

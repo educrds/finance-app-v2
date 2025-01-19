@@ -22,13 +22,12 @@ describe(ConfirmDialogComponent.name, () => {
     };
 
     await TestBed.configureTestingModule({
-      declarations: [ConfirmDialogComponent],
-      imports: [ButtonModule],
-      providers: [
+    imports: [ButtonModule, ConfirmDialogComponent],
+    providers: [
         { provide: ConfirmDialogService, useValue: confirmDialogServiceSpy },
         { provide: DynamicDialogConfig, useValue: dynamicDialogConfigStub },
-      ],
-    }).compileComponents();
+    ],
+}).compileComponents();
   });
 
   beforeEach(() => {

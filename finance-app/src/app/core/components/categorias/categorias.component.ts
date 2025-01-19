@@ -5,11 +5,22 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ModalCategoriaComponent } from '../../templates/modal-categoria/modal-categoria.component';
 import { Observable, startWith, switchMap } from 'rxjs';
 import { NotificationService } from '../../services/notification.service';
+import { WrapContainerComponent } from '../wrap-container/wrap-container.component';
+import { Button } from 'primeng/button';
+import { CategoriaTableComponent } from '../categoria-table/categoria-table.component';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'fin-categorias',
-  templateUrl: './categorias.component.html',
-  styleUrl: './categorias.component.scss',
+    selector: 'fin-categorias',
+    templateUrl: './categorias.component.html',
+    styleUrl: './categorias.component.scss',
+    standalone: true,
+    imports: [
+        WrapContainerComponent,
+        Button,
+        CategoriaTableComponent,
+        AsyncPipe,
+    ],
 })
 export class CategoriasComponent implements OnInit {
   #ref: DynamicDialogRef | undefined;
