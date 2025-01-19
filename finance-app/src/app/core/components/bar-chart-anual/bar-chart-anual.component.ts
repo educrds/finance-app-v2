@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from "@angular/core";
+import { ChangeDetectionStrategy, Component, input, OnChanges, SimpleChanges } from "@angular/core";
 import SharedUtil from "../../../shared/utils";
 import { ChartOptions } from "chart.js";
 
@@ -9,7 +9,7 @@ import { ChartOptions } from "chart.js";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BarChartAnualComponent implements OnChanges {
-  @Input() chartData!: any;
+  public chartData = input();
   protected chartOptions!: Partial<ChartOptions> | any;
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -22,13 +22,11 @@ export class BarChartAnualComponent implements OnChanges {
   private _getChartSeries(chartData: any) {
     const entradas = chartData.map((data: any) => data.entradas);
     const saidas = chartData.map((data: any) => data.saidas);
-
     return { saidas, entradas };
   }
 
   private configPieCharts() {
-    const { saidas, entradas } = this._getChartSeries(this.chartData);
-
+    const { saidas, entradas } = this._getChartSeries(this.chartData());
     this.chartOptions = {
       series: [
         {
