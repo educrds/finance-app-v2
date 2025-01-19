@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, forwardRef, input } from "@angular/core";
 import { AbstractControl, ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validators, FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { InputNumberModule } from "primeng/inputnumber";
-import { InputTextModule } from "primeng/inputtext";
+import { InputNumber } from "primeng/inputnumber";
+import { InputText } from "primeng/inputtext";
 
 @Component({
     selector: "fin-input-form",
@@ -21,7 +21,7 @@ import { InputTextModule } from "primeng/inputtext";
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [InputNumberModule, FormsModule, ReactiveFormsModule, InputTextModule]
+    imports: [InputNumber, FormsModule, ReactiveFormsModule, InputText]
 })
 export class InputFormComponent implements ControlValueAccessor {
   public label = input<string>();
