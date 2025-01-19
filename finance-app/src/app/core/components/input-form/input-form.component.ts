@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, forwardRef } from "@angular/core";
+import { ChangeDetectionStrategy, Component, forwardRef, input } from "@angular/core";
 import {
   AbstractControl,
   ControlValueAccessor,
@@ -28,9 +28,9 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InputFormComponent implements ControlValueAccessor {
-  @Input() label?: string = "";
-  @Input() placeholder?: string = "";
-  @Input() type: string = "text";
+  public label = input<string>();
+  public placeholder = input<string>();
+  public type = input<string>("text");
 
   protected control: FormControl = new FormControl("", Validators.required);
 
