@@ -15,4 +15,6 @@ export type Transacao = {
   id_tipo_transacao: number;
   trs_parcelado: number;
   par_id: number | null;
+  trs_num_parcela: number | null;
+  total_parcelas: number | null;
 };
