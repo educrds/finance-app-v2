@@ -11,23 +11,17 @@ import { RegisterComponent } from './pages/register/register.component';
 import { DividerModule } from 'primeng/divider';
 import { SocialButtonsComponent } from './components/social-buttons/social-buttons.component';
 import { AuthRoutingModule } from './auth-routing.module';
-import { HttpClientModule } from '@angular/common/http';
-@NgModule({
-  declarations: [
-    LoginComponent,
-    RegisterComponent,
-    SocialButtonsComponent
-  ],
-  imports: [
-    CommonModule,
-    HttpClientModule,
-    AuthRoutingModule,
-    InputTextModule,
-    ReactiveFormsModule,
-    ButtonModule,
-    SharedModule,
-    PasswordModule,
-    DividerModule
-  ]
-})
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+@NgModule({ declarations: [
+        LoginComponent,
+        RegisterComponent,
+        SocialButtonsComponent
+    ], imports: [CommonModule,
+        AuthRoutingModule,
+        InputTextModule,
+        ReactiveFormsModule,
+        ButtonModule,
+        SharedModule,
+        PasswordModule,
+        DividerModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AuthModule { }
