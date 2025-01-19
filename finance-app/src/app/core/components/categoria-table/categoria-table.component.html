@@ -1,4 +1,4 @@
-<p-table [value]="categorias" [tableStyle]="{ 'min-width': '50rem' }">
+<p-table [value]="categorias()" [tableStyle]="{ 'min-width': '50rem' }">
   <ng-template pTemplate="header">
     <tr>
       <th>Categoria</th>
@@ -12,10 +12,7 @@
       <td>{{ categoria.cat_nome }}</td>
       <td>
         <div class="d-flex align-items-center g-4">
-          <span
-            class="color_circle"
-            [style.background-color]="categoria.cat_cor"
-          ></span>
+          <span class="color_circle" [style.background-color]="categoria.cat_cor"></span>
         </div>
       </td>
       <td>
@@ -33,7 +30,9 @@
             icon="pi pi-pencil"
             (click)="editarCategoria(categoria)"
             class="p-button-rounded p-button-text p-button-primary"
-          ></button>
+          >
+            &nbsp;
+          </button>
 
           <button
             pButton
@@ -42,7 +41,9 @@
             icon="pi pi-trash"
             (click)="deletarCategoria(categoria)"
             class="p-button-rounded p-button-text p-button-danger"
-          ></button>
+          >
+            &nbsp;
+          </button>
         </div>
         } @else {
         <div>&nbsp;</div>

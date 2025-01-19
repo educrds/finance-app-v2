@@ -1,10 +1,9 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
-  Input,
-  Output,
   inject,
+  input,
+  output,
 } from '@angular/core';
 import { Categoria, Categorias } from '../../models/Categorias';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -19,10 +18,11 @@ import { ModalCategoriaComponent } from '../../templates/modal-categoria/modal-c
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CategoriaTableComponent {
-  @Input() categorias: Categorias[] = [];
-  @Input() configModal: any;
-  @Output() isCategoriaDeleted = new EventEmitter<boolean>();
+  public configModal = input();
+  public categorias = input<Categorias[]>([]);
+  public isCategoriaDeleted = output<boolean>();
 
+  // dependencias
   private _messagesService = inject(MessagesService);
   private _dialogService = inject(DialogService);
   private _categoriasService = inject(CategoriasService);
