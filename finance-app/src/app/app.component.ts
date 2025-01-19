@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { PrimeNGConfig } from 'primeng/api';
 import { RouterOutlet } from '@angular/router';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { PrimeNG } from 'primeng/config';
+import Lara from '@primeng/themes/lara';
 
 @Component({
     selector: 'fin-root',
@@ -15,9 +16,11 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     ],
 })
 export class AppComponent implements OnInit {
-  constructor(private _config: PrimeNGConfig) {}
+  constructor(private _config: PrimeNG) {}
 
   ngOnInit(): void {
+    this._config.ripple.set(true);
+    this._config.theme.set({ preset: Lara })
     this._config.setTranslation({
       accept: 'Sim',
       reject: 'Não',
