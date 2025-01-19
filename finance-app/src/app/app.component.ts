@@ -1,9 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
+import { RouterOutlet } from '@angular/router';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @Component({
-  selector: 'fin-root',
-  templateUrl: './app.component.html',
+    selector: 'fin-root',
+    templateUrl: './app.component.html',
+    standalone: true,
+    imports: [
+        RouterOutlet,
+        ToastModule,
+        ConfirmDialogModule,
+    ],
 })
 export class AppComponent implements OnInit {
   constructor(private _config: PrimeNGConfig) {}
