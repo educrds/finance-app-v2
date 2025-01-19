@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
         'Sábado',
       ],
       dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
-      dayNamesMin: ['Do', 'Se', 'Te', 'Qu', 'Qu', 'Se', 'Sa'],
+      dayNamesMin: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
       monthNames: [
         'Janeiro',
         'Fevereiro',
