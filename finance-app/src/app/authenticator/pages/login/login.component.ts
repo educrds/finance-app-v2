@@ -10,7 +10,7 @@ import { StorageService } from '../../../core/services/storage.service';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent implements OnInit {
-  formAuthenticator!: FormGroup;
+  protected formAuthenticator: FormGroup = this._fb.group({});
 
   constructor(
     private _fb: FormBuilder,

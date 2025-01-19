@@ -6,19 +6,12 @@
       <fin-column>
         <div class="d-flex flex-column g-4">
           <label for="input_valor">Email:</label>
-          <input
-            id="input_valor"
-            pInputText
-            formControlName="auth_email"
-            placeholder="Insira seu email."
-          />
-          @if(formAuthenticator.controls['auth_email'].touched ||
-          formAuthenticator.controls['auth_email'].dirty){
+          <input id="input_valor" pInputText formControlName="auth_email" placeholder="Insira seu email." />
+          @if(formAuthenticator.get('auth_email')?.touched || formAuthenticator.get('auth_email')?.dirty) {
           <div class="text-start">
-            @if(formAuthenticator.controls['auth_email']?.errors?.['email']){
+            @if(formAuthenticator.get('auth_email')?.errors?.['email']) {
             <small class="text-danger text-start">Email inválido.</small>
-            }
-            @if(formAuthenticator.controls['auth_email']?.errors?.['required']){
+            } @if(formAuthenticator.get('auth_email')?.errors?.['required']) {
             <small class="text-danger text-start">Email obrigatório.</small>
             }
           </div>
@@ -33,28 +26,23 @@
             [feedback]="false"
             placeholder="Insira sua senha"
           ></p-password>
-          @if(formAuthenticator.controls['auth_password'].touched ||
-          formAuthenticator.controls['auth_password'].dirty){
-          <div class="text-start">
-            @if(formAuthenticator.controls['auth_password']?.errors?.['required']){
-            <small class="text-danger text-start">Senha obrigatória.</small>
-            }
-          </div>
+          @if(formAuthenticator.get('auth_password')?.touched || formAuthenticator.get('auth_password')?.dirty) {
+            <div class="text-start">
+              @if(formAuthenticator.get('auth_password')?.errors?.['required']) {
+                <small class="text-danger text-start">Senha obrigatória.</small>
+              }
+            </div>
           }
+          
         </div>
 
-        <a class="register-link" (click)="_router.navigate(['/auth/register'])"
-          >Não possui uma conta? Criar agora.</a
-        >
+        <a class="register-link" aria-hidden="true" (click)="_router.navigate(['/auth/register'])">
+          Não possui uma conta? Criar agora.
+        </a>
 
-        <p-button
-          label="Entrar"
-          class="d-flex justify-content-end"
-          (onClick)="autenticarUsuario()"
-        ></p-button>
+        <p-button label="Entrar" class="d-flex justify-content-end" (onClick)="autenticarUsuario()"></p-button>
 
         <fin-social-buttons context="login" />
-
       </fin-column>
     </form>
   </div>
