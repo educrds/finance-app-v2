@@ -1,120 +1,134 @@
 @if(transacoes.length){
-  <p-table
-    #dt
-    id="tbl_transacoes"
-    [value]="transacoes"
-    selectionIntevalRows
-    [rowSelected]="rowSelected"
-    [transacoes]="transacoes"
-    (selectionChange)="updateSelectionRows($event)"
-    dataKey="trs_id"
-    [tableStyle]="{ 'min-width': '50vw', 'max-width': '100vw' }"
-    selectionMode="multiple"
-    [(selection)]="rowSelected"
-    [paginator]="true"
-    [rows]="10"
-    [showCurrentPageReport]="true"
-    currentPageReportTemplate="Exibindo {last} de {totalRecords} resultados."
-    [rowsPerPageOptions]="[5, 10, 25]"
-    [globalFilterFields]="[
-      'trs_titulo',
-      'trs_valor',
-      'trs_data_ocorrido',
-      'trs_ano_ocorrido',
-      'trs_mes_ocorrido',
-      'metodo_nome',
-      'categoria_nome'
-    ]"
-  >
-    <ng-template pTemplate="caption">
-      <div class="d-flex justify-content-between">
-        <div class="d-flex g-16">
-          <span class="p-input-icon-left ml-auto">
-            <i class="pi pi-search"></i>
-            <input
-              #inputSearch
-              pInputText
-              type="text"
-              (input)="applyFilterGlobal($event, 'contains')"
-              placeholder="Pesquisa"
-            />
-          </span>
-  
-          <button
-            pButton
-            class="p-button-outlined"
-            icon="pi pi-filter-slash"
-            (click)="clear(dt)"
-          >&nbsp;</button>
-  
-          @if(rowSelected.length){
-          <div class="d-flex flex-column m-auto">
-            <label for="">Somatório selecionados</label>
-            <div>{{ sumSelected(rowSelected) | currency : "R$" }}</div>
-          </div>
-          }
+<p-table
+  #dt
+  id="tbl_transacoes"
+  [value]="transacoes"
+  selectionIntevalRows
+  [rowSelected]="rowSelected"
+  [transacoes]="transacoes"
+  (selectionChange)="updateSelectionRows($event)"
+  dataKey="trs_id"
+  [tableStyle]="{ 'min-width': '50vw', 'max-width': '100vw' }"
+  selectionMode="multiple"
+  [(selection)]="rowSelected"
+  [paginator]="true"
+  [rows]="10"
+  [showCurrentPageReport]="true"
+  currentPageReportTemplate="Exibindo {last} de {totalRecords} resultados."
+  [rowsPerPageOptions]="[5, 10, 25]"
+  [globalFilterFields]="[
+    'trs_titulo',
+    'trs_valor',
+    'trs_data_ocorrido',
+    'trs_ano_ocorrido',
+    'trs_mes_ocorrido',
+    'metodo_nome',
+    'categoria_nome'
+  ]"
+>
+  <ng-template pTemplate="caption">
+    <div class="d-flex justify-content-between">
+      <div class="d-flex g-16">
+        <p-iconfield>
+          <p-inputicon styleClass="pi pi-search" />
+          <input
+            #inputSearch
+            pInputText
+            type="text"
+            (input)="applyFilterGlobal($event, 'contains')"
+            placeholder="Pesquisa"
+          />
+        </p-iconfield>
+        @if(inputSearch.value.length){
+          <button pButton class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt)">&nbsp;</button>
+        }
+
+        <p-select
+          [options]="categoriasOptions()"
+          [showClear]="true"
+          [(ngModel)]="selectedCategory"
+          (ngModelChange)="clear(dt); applyFilterGlobal($event)"
+          appendTo="body"
+          placeholder="Categoria"
+        />
+
+        <p-select
+          [options]="metodosOptions()"
+          [showClear]="true"
+          [(ngModel)]="selectedMetodo"
+          (ngModelChange)="clear(dt); applyFilterGlobal($event)"
+          appendTo="body"
+          placeholder="Método"
+        />
+
+        @if(rowSelected.length){
+        <div class="d-flex flex-column m-auto">
+          <label for="">Somatório selecionados</label>
+          <div>{{ sumSelected(rowSelected) | currency : "R$" }}</div>
         </div>
-  
-        @if(rowSelected.length > 1){
-        <button
-          pButton
-          label="Deletar selecionados"
-          class="p-button-danger"
-          (click)="deletarTransacoes()"
-        >&nbsp;</button>
         }
       </div>
-    </ng-template>
-  
-    <ng-template pTemplate="header">
-      <tr>
-        <th>
-          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-        </th>
-        <th>Tipo</th>
-        <th pSortableColumn="trs_titulo">
-          Título <p-sortIcon field="trs_titulo"></p-sortIcon>
-        </th>
-        <th pSortableColumn="trs_valor">
-          Valor <p-sortIcon field="trs_valor"></p-sortIcon>
-        </th>
-        <th>Parcela</th>
-        <!-- <th pSortableColumn="trs_status">
+
+      @if(rowSelected.length > 1){
+      <button pButton label="Deletar selecionados" class="p-button-danger" (click)="deletarTransacoes()">&nbsp;</button>
+      }
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th>
+        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+      </th>
+      <th>Tipo</th>
+      <th pSortableColumn="trs_titulo">
+        Título
+        <p-sortIcon field="trs_titulo"></p-sortIcon>
+      </th>
+      <th pSortableColumn="trs_valor">
+        Valor
+        <p-sortIcon field="trs_valor"></p-sortIcon>
+      </th>
+      <th>Parcela</th>
+      <!-- <th pSortableColumn="trs_status">
           Status <p-sortIcon field="trs_status"></p-sortIcon>
         </th> -->
-        <th pSortableColumn="categoria_nome">
-          Categoria <p-sortIcon field="categoria_nome"></p-sortIcon>
-        </th>
-        <th pSortableColumn="trs_data_ocorrido">
-          Data <p-sortIcon field="trs_data_ocorrido"></p-sortIcon>
-        </th>
-        <th pSortableColumn="metodo_nome">
-          Metódo <p-sortIcon field="metodo_nome"></p-sortIcon>
-        </th>
-        <th>&nbsp;</th>
-      </tr>
-    </ng-template>
-  
-    <ng-template pTemplate="body" let-transacao let-rowData>
-      <tr [pSelectableRowDisabled]="true" [pSelectableRow]="rowData">
-        <td>
-          <p-tableCheckbox [value]="transacao"></p-tableCheckbox>
-        </td>
-        <td>
-          <span class="tipo_despesa" [ngClass]="transacao.id_tipo_transacao === 2 ? 'danger' : 'success'">
-            {{ transacao.id_tipo_transacao === 2 ? 'D' : 'R' }}
-          </span>
-        </td>
-        <td>{{ transacao.trs_titulo }}</td>
-        <td>{{ transacao.trs_valor | currency : "R$ " }}</td>
-        <td> 
-          @if(transacao.total_parcelas > 1){
-            {{transacao.trs_num_parcela}}/{{transacao.total_parcelas}}
-          } @else {
-            <span>-</span>
-          }
-        </td>
-        <!-- <td>
+      <th pSortableColumn="categoria_nome">
+        Categoria
+        <p-sortIcon field="categoria_nome"></p-sortIcon>
+      </th>
+      <th pSortableColumn="trs_data_ocorrido">
+        Data
+        <p-sortIcon field="trs_data_ocorrido"></p-sortIcon>
+      </th>
+      <th pSortableColumn="metodo_nome">
+        Metódo
+        <p-sortIcon field="metodo_nome"></p-sortIcon>
+      </th>
+      <th>&nbsp;</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-transacao let-rowData>
+    <tr [pSelectableRowDisabled]="true" [pSelectableRow]="rowData">
+      <td>
+        <p-tableCheckbox [value]="transacao"></p-tableCheckbox>
+      </td>
+      <td>
+        <span class="tipo_despesa" [ngClass]="transacao.id_tipo_transacao === 2 ? 'danger' : 'success'">
+          {{ transacao.id_tipo_transacao === 2 ? "D" : "R" }}
+        </span>
+      </td>
+      <td>{{ transacao.trs_titulo }}</td>
+      <td>{{ transacao.trs_valor | currency : "R$ " }}</td>
+      <td>
+        @if(transacao.total_parcelas > 1){
+        {{ transacao.trs_num_parcela }}/{{ transacao.total_parcelas }}
+        } @else {
+        <span>-</span>
+        }
+      </td>
+      <!-- <td>
           <span
             class="ellipsis"
             tooltipPosition="top"
@@ -124,40 +138,41 @@
             "
           ></span>
         </td> -->
-        <td>
-          <div
-            class="chip"
-            [ngStyle]="{ 'background-color': transacao.categoria_cor }"
-          >
-            {{ transacao.categoria_nome }}
-          </div>
-        </td>
-        <td>{{ transacao.trs_data_ocorrido | date : "dd/MM" }}</td>
-        <td>{{ transacao.metodo_nome }}</td>
-        <td class="d-flex flex-1">
-          <button
-            pButton
-            pRipple
-            type="button"
-            icon="pi pi-pencil"
-            size="small"
-            (click)="editarTransacao(transacao)"
-            class="p-button-rounded p-button-text p-button-primary"
-          >&nbsp;</button>
-  
-          <button
-            pButton
-            pRipple
-            type="button"
-            icon="pi pi-trash"
-            size="small"
-            (click)="deletarTransacao(transacao)"
-            class="p-button-rounded p-button-text p-button-danger"
-          >&nbsp;</button>
-        </td>
-      </tr>
-    </ng-template>
-  </p-table>
+      <td>
+        <div class="chip" [ngStyle]="{ 'background-color': transacao.categoria_cor }">
+          {{ transacao.categoria_nome }}
+        </div>
+      </td>
+      <td>{{ transacao.trs_data_ocorrido | date : "dd/MM" }}</td>
+      <td>{{ transacao.metodo_nome }}</td>
+      <td class="d-flex flex-1">
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-pencil"
+          size="small"
+          (click)="editarTransacao(transacao)"
+          class="p-button-rounded p-button-text p-button-primary"
+        >
+          &nbsp;
+        </button>
+
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-trash"
+          size="small"
+          (click)="deletarTransacao(transacao)"
+          class="p-button-rounded p-button-text p-button-danger"
+        >
+          &nbsp;
+        </button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
 } @else {
-  <fin-alert-container message="Nenhum registro encontrado." />
+<fin-alert-container message="Nenhum registro encontrado." />
 }
