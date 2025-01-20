@@ -4,8 +4,8 @@ import { httpInterceptorProvider } from "./app/helpers/http-interceptor.intercep
 import { provideHttpClient, withFetch, withInterceptorsFromDi } from "@angular/common/http";
 import { provideAnimations } from "@angular/platform-browser/animations";
 import { BrowserModule, bootstrapApplication } from "@angular/platform-browser";
-import { RouterModule } from "@angular/router";
-import { AppRoutingModule } from "./app/app-routing.module";
+import { provideRouter, RouterModule } from "@angular/router";
+import { APP_ROUTES } from "./app/app-routes";
 import { ToastModule } from "primeng/toast";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
 import { AuthModule } from "@auth0/auth0-angular";
@@ -28,7 +28,6 @@ bootstrapApplication(AppComponent, {
     importProvidersFrom(
       BrowserModule,
       RouterModule,
-      AppRoutingModule,
       ToastModule,
       ConfirmDialogModule,
       AuthModule.forRoot({
@@ -37,6 +36,7 @@ bootstrapApplication(AppComponent, {
       }),
       FontAwesomeModule
     ),
+    provideRouter(APP_ROUTES),
     MessageService,
     ConfirmationService,
     DialogService,
