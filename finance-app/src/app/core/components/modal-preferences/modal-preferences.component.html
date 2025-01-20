@@ -1,0 +1,22 @@
+<form [formGroup]="formPreferences">
+  <div class="d-flex flex-column gap-2 mb-2">
+    <div class="d-flex align-items-center gap-1">
+      <p-toggleswitch formControlName="saidas_por_categoria" />
+      <span>Saídas por categoria</span>
+    </div>
+    <div class="d-flex align-items-center gap-1">
+      <p-toggleswitch formControlName="entradas_por_categoria" />
+      <span>Entradas por categoria</span>
+    </div>
+    <div class="d-flex align-items-center gap-1">
+      <p-toggleswitch formControlName="saidas_por_metodo" />
+      <span>Saídas por métodos</span>
+    </div>
+    <div class="d-flex align-items-center gap-1">
+      <p-toggleswitch formControlName="comparativo_mensal" />
+      <span>Comparativo mensal</span>
+    </div>
+  </div>
+
+  <p-button label="Salvar" class="mt-1" (onClick)="updatePreference()"></p-button>
+</form>
