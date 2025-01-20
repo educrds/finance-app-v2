@@ -7,11 +7,11 @@ export default class CoreUtil {
     const user = storageService.getUser();
 
     if (user && user.name) {
-      const rgx = /\p{L}{1}\p{L}+/gu;
-
+      const rgx = /\b(\p{L})/gu; // Captura apenas a primeira letra de cada palavra.
       const arrayName = [...user.name.matchAll(rgx)];
-      const firstLetter = arrayName.shift()?.[1] || "";
-      const secondLetter = arrayName.pop()?.[1] || "";
+      
+      const firstLetter = arrayName.shift()?.[0] || "";
+      const secondLetter = arrayName.pop()?.[0] || "";
 
       const initials = (firstLetter + secondLetter).toUpperCase();
       return initials;
