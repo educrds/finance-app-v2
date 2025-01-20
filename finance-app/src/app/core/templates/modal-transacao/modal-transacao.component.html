@@ -102,11 +102,23 @@
       }
     </fin-column>
 
-    <p-button
-      label="Salvar"
-      [loading]="isLoading"
-      class="d-flex justify-content-end"
-      (onClick)="inserirOuAtualizarTransacao()"
-    ></p-button>
+    <div class="d-flex align-items-center gap-1 justify-content-end">
+      @if(!formAddTransacao.get('trs_id')?.value){
+        <p-button
+          label="Salvar e adicionar outra"
+          [loading]="isLoading"
+          variant="text"
+          class="d-flex justify-content-end"
+          (onClick)="inserirOuAtualizarTransacao(false)"
+        ></p-button>
+      }
+  
+      <p-button
+        label="Salvar"
+        [loading]="isLoading"
+        class="d-flex justify-content-end"
+        (onClick)="inserirOuAtualizarTransacao()"
+      ></p-button>
+    </div>
   </fin-column>
 </form>

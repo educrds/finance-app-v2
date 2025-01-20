@@ -128,7 +128,7 @@ export class ModalTransacaoComponent implements OnInit {
     this.categoriasOptions$ = this._categoriasService.getCategoriasDropdown$(this.tipoTransacao);
   }
 
-  protected inserirOuAtualizarTransacao() {
+  protected inserirOuAtualizarTransacao(closeModal: boolean = true) {
     this.isLoading = true;
 
     if (this.formAddTransacao.valid) {
@@ -137,7 +137,8 @@ export class ModalTransacaoComponent implements OnInit {
       if (form.trs_id) {
         return this.atualizarTransacao(form);
       }
-      return this.inserirTransacao(form);
+      this.inserirTransacao(form, closeModal);
+      return this._initializeForm(this.getDefaultTransactionValues());
     }
     this.isLoading = false;
     return this.updateValidationForm(this.formAddTransacao);
@@ -151,14 +152,14 @@ export class ModalTransacaoComponent implements OnInit {
     });
   }
 
-  private inserirTransacao(form: Transacao) {
+  private inserirTransacao(form: Transacao, closeModal: boolean) {
     this._transacoesService
       .addTransacao$(form)
       .pipe(finalize(() => (this.isLoading = false)))
       .subscribe({
         next: () => {
           this._messagesService.showSuccess("Transação adicionada com successo!");
-          this._notificationService.notifyChanges({ refresh: true }, this._ref);
+          this._notificationService.notifyChanges({ refresh: true }, this._ref, closeModal);
         },
       });
   }
