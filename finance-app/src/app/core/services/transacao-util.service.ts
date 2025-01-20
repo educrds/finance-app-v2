@@ -141,6 +141,7 @@ export class TransacaoUtilService {
       modal: true,
       header: `Atualizar ${tipoTransacao}`,
       width: "35vw",
+      closable: true,
       contentStyle: { overflow: "auto" },
       data: transacao,
     });
