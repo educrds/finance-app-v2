@@ -12,7 +12,7 @@ import { TopCardComponent } from "../top-card/top-card.component";
 import { PieChartCategoriaComponent } from "../pie-chart-categoria/pie-chart-categoria.component";
 import { BarChartAnualComponent } from "../bar-chart-anual/bar-chart-anual.component";
 import { WrapContainerComponent } from "../wrap-container/wrap-container.component";
-import { NgClass, KeyValuePipe } from "@angular/common";
+import { NgClass, KeyValuePipe, AsyncPipe } from "@angular/common";
 import { TransacaoTableComponent } from "../transacao-table/transacao-table.component";
 import { AccordionModule } from 'primeng/accordion';
 
@@ -32,6 +32,7 @@ import { AccordionModule } from 'primeng/accordion';
         NgClass,
         TransacaoTableComponent,
         KeyValuePipe,
+        AsyncPipe
     ],
 })
 export class MainComponent extends BaseTransacaoDirective implements OnInit {
