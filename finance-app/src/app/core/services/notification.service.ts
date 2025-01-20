@@ -13,9 +13,9 @@ export class NotificationService {
   notifyObservable$ = this.notify.asObservable();
 
   // Método para emitir novas notificações
-  public notifyChanges(data: any, modalRef?: DynamicDialogRef) {
+  public notifyChanges(data: any, modalRef?: DynamicDialogRef, closeModal: boolean = true) {
     if (data) {
-      if (modalRef) {
+      if (modalRef && closeModal) {
         modalRef.close();
       }
       this.notify.next(data);
