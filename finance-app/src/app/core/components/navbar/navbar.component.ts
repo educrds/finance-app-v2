@@ -12,29 +12,34 @@ import { FormsModule } from "@angular/forms";
 import { Avatar } from "primeng/avatar";
 import { Menu } from "primeng/menu";
 import { AsyncPipe } from "@angular/common";
+import { ModalPreferencesComponent } from "../modal-preferences/modal-preferences.component";
+import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 @Component({
     selector: "fin-navbar",
     templateUrl: "./navbar.component.html",
     styleUrl: "./navbar.component.scss",
     standalone: true,
     imports: [
-        WrapContainerComponent,
-        LogoComponent,
-        DatePicker,
-        FormsModule,
-        Avatar,
-        Menu,
-        AsyncPipe,
-    ],
+    WrapContainerComponent,
+    LogoComponent,
+    DatePicker,
+    FormsModule,
+    Avatar,
+    Menu,
+    AsyncPipe
+],
 })
 export class NavbarComponent implements OnInit {
   protected menuBarItems: MenuItem[] | undefined;
   protected userInitials: string | undefined;
   protected month_selected: WritableSignal<Date> = signal(new Date());
   protected isShowDatePicker$: Observable<boolean> | undefined;
+  protected isModalPreferencesVisible: WritableSignal<boolean> = signal(false);
 
   #navigationEvents$: Observable<NavigationEnd> | undefined;
+  #ref: DynamicDialogRef | undefined;
 
+  #_dialogService = inject(DialogService);
   #_datePickerService = inject(DatePickerService);
   #_storageService = inject(StorageService);
   #_router = inject(Router);
@@ -61,11 +66,30 @@ export class NavbarComponent implements OnInit {
 
     this.menuBarItems = [
       {
+        label: "Preferências",
+        icon: "pi pi-cog",
+        command: () => this._openModalPreferences(),
+      },
+      {
+        separator: true
+      },
+      {
         label: "Sair",
         icon: "pi pi-power-off",
         command: () => this.#_storageService.clearAndRefreshPage(),
       },
     ];
+  }
+
+  // Metódo responsavel por abrir modal de preferencias
+  private _openModalPreferences(): void {
+    this.#ref = this.#_dialogService.open(ModalPreferencesComponent, {
+      modal: true,
+      header: 'Preferências usuário',
+      width: '35vw',
+      closable: true,
+      contentStyle: { overflow: 'auto' },
+    });
   }
 
   private checkRoute(url: string) {
