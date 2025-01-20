@@ -34,6 +34,7 @@ export class CategoriasComponent implements OnInit {
     modal: true,
     header: 'Atualizar Categoria',
     width: '35vw',
+    closable: true,
     contentStyle: { overflow: 'auto' },
   };
   
