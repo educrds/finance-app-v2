@@ -9,12 +9,12 @@ import { Icon } from "../../models/Icon";
 import { ColumnComponent } from "../../../shared/components/column/column.component";
 import { RowComponent } from "../../../shared/components/row/row.component";
 import { TopCardComponent } from "../top-card/top-card.component";
-import { AccordionModule } from "primeng/accordion";
 import { PieChartCategoriaComponent } from "../pie-chart-categoria/pie-chart-categoria.component";
 import { BarChartAnualComponent } from "../bar-chart-anual/bar-chart-anual.component";
 import { WrapContainerComponent } from "../wrap-container/wrap-container.component";
 import { NgClass, KeyValuePipe } from "@angular/common";
 import { TransacaoTableComponent } from "../transacao-table/transacao-table.component";
+import { AccordionModule } from 'primeng/accordion';
 
 @Component({
     selector: "fin-main",

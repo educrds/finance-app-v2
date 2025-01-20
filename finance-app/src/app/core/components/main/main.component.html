@@ -25,58 +25,57 @@
     ></fin-top-card>
   </fin-row>
 
-  <p-accordion>
-    <p-accordionTab
-    [disabled]="transacoes.length !== 0"
-    header="Gráficos por categoria"
-    #accordionClicked
-    >
-    @defer (on interaction(accordionClicked)) {
-      <fin-column>
-        @if((transacoesPorCategoria['entradas'] | keyvalue)?.length || (transacoesPorCategoria['saidas'] | keyvalue)?.length){
-        <fin-row>
-          @if((transacoesPorCategoria['entradas'] | keyvalue)?.length){
-          <div class="wrap-container pie-chart">
-            <h3>Entradas por categoria</h3>
-            <div class="d-block w-100">
-              <fin-pie-chart-categoria [chartData]="transacoesPorCategoria['entradas']" />
-            </div>
-          </div>
-          } @if((transacoesPorCategoria['saidas'] | keyvalue)?.length){
-          <div class="wrap-container pie-chart">
-            <h3>Saídas por categoria</h3>
-            <div class="d-block w-100">
-              <fin-pie-chart-categoria [chartData]="transacoesPorCategoria['saidas']" />
-            </div>
-          </div>
+  <p-accordion [value]="['0']">
+    <p-accordion-panel value="0" #accordionClicked [disabled]="transacoes.length !== 0">
+      <p-accordion-header>Gráficos por categoria</p-accordion-header>
+        <p-accordion-content>
+        @defer (on interaction(accordionClicked)) {
+          <fin-column>
+            @if((transacoesPorCategoria['entradas'] | keyvalue)?.length || (transacoesPorCategoria['saidas'] | keyvalue)?.length){
+            <fin-row>
+              @if((transacoesPorCategoria['entradas'] | keyvalue)?.length){
+              <div class="wrap-container pie-chart">
+                <h3>Entradas por categoria</h3>
+                <div class="d-block w-100">
+                  <fin-pie-chart-categoria [chartData]="transacoesPorCategoria['entradas']" />
+                </div>
+              </div>
+              } @if((transacoesPorCategoria['saidas'] | keyvalue)?.length){
+              <div class="wrap-container pie-chart">
+                <h3>Saídas por categoria</h3>
+                <div class="d-block w-100">
+                  <fin-pie-chart-categoria [chartData]="transacoesPorCategoria['saidas']" />
+                </div>
+              </div>
+            }
+            </fin-row>
+          }
+          <fin-row>
+            @if(saidasPorMetodo){
+              <div class="wrap-container pie-chart">
+                <h3>Saídas por Método</h3>
+                <div class="d-block w-100">
+                  <fin-pie-chart-categoria [chartData]="saidasPorMetodo" />
+                </div>
+              </div>
+              }
+            </fin-row>
+            
+            <fin-row>
+              @if(comparativoAnual){
+              <div class="wrap-container chart">
+                <h3>Comparativo mensal</h3>
+                <div class="d-block w-100">
+                  <fin-bar-chart-anual [chartData]="comparativoAnual" />
+                </div>
+              </div>
+              }
+            </fin-row>
+          </fin-column>
         }
-        </fin-row>
-      }
-      <fin-row>
-        @if(saidasPorMetodo){
-          <div class="wrap-container pie-chart">
-            <h3>Saídas por Método</h3>
-            <div class="d-block w-100">
-              <fin-pie-chart-categoria [chartData]="saidasPorMetodo" />
-            </div>
-          </div>
-          }
-        </fin-row>
-        
-        <fin-row>
-          @if(comparativoAnual){
-          <div class="wrap-container chart">
-            <h3>Comparativo mensal</h3>
-            <div class="d-block w-100">
-              <fin-bar-chart-anual [chartData]="comparativoAnual" />
-            </div>
-          </div>
-          }
-        </fin-row>
-      </fin-column>
-    }
-
-    </p-accordionTab>
+    
+        </p-accordion-content>
+    </p-accordion-panel>
   </p-accordion>
 
   <fin-wrap-container [ngClass]="'w-100'">
