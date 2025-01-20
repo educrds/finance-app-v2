@@ -7,10 +7,10 @@ import { StorageService } from "../../services/storage.service";
 import CoreUtil from "../../utils";
 import { WrapContainerComponent } from "../wrap-container/wrap-container.component";
 import { LogoComponent } from "../../../shared/components/logo/logo.component";
-import { CalendarModule } from "primeng/calendar";
+import { DatePicker } from "primeng/datepicker";
 import { FormsModule } from "@angular/forms";
-import { AvatarModule } from "primeng/avatar";
-import { MenuModule } from "primeng/menu";
+import { Avatar } from "primeng/avatar";
+import { Menu } from "primeng/menu";
 import { AsyncPipe } from "@angular/common";
 @Component({
     selector: "fin-navbar",
@@ -20,10 +20,10 @@ import { AsyncPipe } from "@angular/common";
     imports: [
         WrapContainerComponent,
         LogoComponent,
-        CalendarModule,
+        DatePicker,
         FormsModule,
-        AvatarModule,
-        MenuModule,
+        Avatar,
+        Menu,
         AsyncPipe,
     ],
 })
