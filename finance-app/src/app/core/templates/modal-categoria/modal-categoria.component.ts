@@ -9,7 +9,7 @@ import { NotificationService } from "../../services/notification.service";
 import { finalize } from "rxjs";
 import { ColumnComponent } from "../../../shared/components/column/column.component";
 import { InputFormComponent } from "../../components/input-form/input-form.component";
-import { DropdownModule } from "primeng/dropdown";
+import { Select } from "primeng/select";
 import { RowComponent } from "../../../shared/components/row/row.component";
 import { ColorPickerModule } from "primeng/colorpicker";
 import { Button } from "primeng/button";
@@ -24,7 +24,7 @@ import { Button } from "primeng/button";
         ReactiveFormsModule,
         ColumnComponent,
         InputFormComponent,
-        DropdownModule,
+        Select,
         RowComponent,
         ColorPickerModule,
         Button,

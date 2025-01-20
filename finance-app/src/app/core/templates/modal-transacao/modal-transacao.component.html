@@ -9,7 +9,7 @@
         <label for="input_valor">&nbsp;</label>
         <div class="d-flex g-4 align-items-center">
           <span>{{ tipoTransacao === 1 ? "Recebida" : "Paga" }}</span>
-          <p-inputSwitch formControlName="trs_status"></p-inputSwitch>
+          <p-toggleswitch formControlName="trs_status"></p-toggleswitch>
         </div>
       </div>
     </fin-row>
@@ -18,14 +18,14 @@
       @if(categoriasOptions$ | async; as categorias){
       <div class="d-flex flex-column g-4">
         <label for="input_valor">Categoria:</label>
-        <p-dropdown
+        <p-select
           formControlName="trs_categoria"
           [options]="categorias"
           optionLabel="text"
           optionValue="id"
           appendTo="body"
           placeholder="Selecione uma categoria"
-        ></p-dropdown>
+        ></p-select>
         @if(formAddTransacao.controls['trs_categoria'].touched || formAddTransacao.controls['trs_categoria'].dirty){
         <div class="text-start">
           @if(formAddTransacao.controls['trs_categoria']?.errors?.['required']){
@@ -37,14 +37,14 @@
       } @if(metodosOptions$ | async; as metodos){
       <div class="d-flex flex-column g-4">
         <label for="input_valor">Metódo Pagamento:</label>
-        <p-dropdown
+        <p-select
           formControlName="trs_metodo"
           [options]="metodos"
           optionLabel="text"
           optionValue="id"
           appendTo="body"
           placeholder="Selecione um metódo"
-        ></p-dropdown>
+          />
 
         @if(formAddTransacao.controls['trs_metodo'].touched || formAddTransacao.controls['trs_metodo'].dirty){
         <div class="text-start">
@@ -61,12 +61,12 @@
       <fin-row class="date_picker">
         <div class="d-flex flex-column g-4">
           <label for="input_valor">Data:</label>
-          <p-calendar
+          <p-datepicker
             formControlName="trs_data_ocorrido"
             appendTo="body"
             [showIcon]="true"
             dateFormat="dd/mm/yy"
-          ></p-calendar>
+          ></p-datepicker>
         </div>
 
         @if(!formAddTransacao.get('trs_id')?.value && formAddTransacao.get('trs_parcelado')?.value){
@@ -78,13 +78,13 @@
 
           <div class="d-flex flex-column g-4">
             <label for="input_valor">Data Fim:</label>
-            <p-calendar
+            <p-datepicker
               formControlName="data_fim_repeticao"
               appendTo="body"
               [showIcon]="true"
               dateFormat="mm/yy"
               view="month"
-            ></p-calendar>
+            ></p-datepicker>
 
             @if(formAddTransacao.errors?.['invalidDates'] && (formAddTransacao.dirty || formAddTransacao.touched)){
             <small class="text-danger">Intervalo de datas inválido.</small>
@@ -97,7 +97,7 @@
       @if(!formAddTransacao.get('trs_id')?.value){
       <div class="d-flex g-4 align-items-center">
         <span>Repetir</span>
-        <p-inputSwitch formControlName="trs_parcelado"></p-inputSwitch>
+        <p-toggleswitch formControlName="trs_parcelado"></p-toggleswitch>
       </div>
       }
     </fin-column>

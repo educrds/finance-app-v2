@@ -1,18 +1,18 @@
-<form action="" [formGroup]="formAddCategoria">
+<form [formGroup]="formAddCategoria">
   <fin-column
     >
     <fin-input-form type="text" label="Título" placeholder="Digite um título" formControlName="cat_nome" />
     
     <div class="d-flex flex-column g-4">
       <label>Tipo:</label>
-      <p-dropdown
-      formControlName="cat_tip_id"
-      [options]="tipoOptions"
-      optionLabel="text"
-      optionValue="id"
-      appendTo="body"
-      placeholder="Selecione um tipo"
-    ></p-dropdown>
+      <p-select
+        formControlName="cat_tip_id"
+        [options]="tipoOptions"
+        optionLabel="text"
+        optionValue="id"
+        appendTo="body"
+        placeholder="Selecione um tipo"
+    />
     </div>
     
     <div class="d-flex flex-column g-4">
