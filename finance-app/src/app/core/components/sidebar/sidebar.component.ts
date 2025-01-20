@@ -1,14 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ModalTransacaoComponent } from '../../templates/modal-transacao/modal-transacao.component';
-import { faChartSimple, faLevelDownAlt, faLevelUpAlt, faList } from '@fortawesome/free-solid-svg-icons';
-import { Icon } from '../../models/Icon';
 import { WrapContainerComponent } from '../wrap-container/wrap-container.component';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { MenuModule } from 'primeng/menu';
-import { PrimeTemplate } from 'primeng/api';
-import { RouterLink } from '@angular/router';
-import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { SplitButton } from 'primeng/splitbutton';
+import { Menu } from 'primeng/menu';
+import { MenuItem } from 'primeng/api';
+
 
 @Component({
     selector: 'fin-sidebar',
@@ -17,24 +14,14 @@ import { FaIconComponent } from '@fortawesome/angular-fontawesome';
     standalone: true,
     imports: [
         WrapContainerComponent,
-        SplitButtonModule,
-        MenuModule,
-        PrimeTemplate,
-        RouterLink,
-        FaIconComponent,
+        SplitButton,
+        Menu,
     ],
 })
 export class SidebarComponent implements OnInit {
-  private iconsSidebar: Icon = {
-    dashboard: faChartSimple,
-    entrada: faLevelUpAlt,
-    saida: faLevelDownAlt,
-    categorias: faList,
-  }
-
   // incompatibilidade entre tipos do fontAwesome e tipagem do MenuItem.
-  protected items_menu!: any[];
-  protected items_transacao!: any[];
+  protected items_menu: MenuItem[] = [];
+  protected items_transacao: MenuItem[] = [];
 
   #ref: DynamicDialogRef | undefined;
 
@@ -47,21 +34,15 @@ export class SidebarComponent implements OnInit {
         items: [
           {
             label: 'Dashboard',
-            icon: this.iconsSidebar['dashboard'],
-            route: '/dashboard',
-            routerLinkActiveOptions: { exact: true }
+            routerLink: '/dashboard',
           },
           {
             label: 'Entradas',
-            icon: this.iconsSidebar['entrada'],
-            route: '/entradas',
-            routerLinkActiveOptions: { exact: true }
+            routerLink: '/entradas',
           },
           {
             label: 'Saídas',
-            icon: this.iconsSidebar['saida'],
-            route: '/saidas',
-            routerLinkActiveOptions: { exact: true }
+            routerLink: '/saidas',
           },
         ],
       },
@@ -73,9 +54,7 @@ export class SidebarComponent implements OnInit {
         items: [
           {
             label: 'Ver todas',
-            icon: this.iconsSidebar['categorias'],
-            route: '/categorias',
-            routerLinkActiveOptions: { exact: true }
+            routerLink: '/categorias',
           },
         ],
       },
@@ -99,6 +78,7 @@ export class SidebarComponent implements OnInit {
     this.#ref = this.#dialogService.open(ModalTransacaoComponent, {
       modal: true,
       header: header,
+      closable: true,
       width: '40vw',
       contentStyle: { overflow: 'auto' },
       data: {

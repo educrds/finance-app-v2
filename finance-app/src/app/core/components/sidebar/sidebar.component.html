@@ -6,14 +6,6 @@
   
   <div class="card flex justify-content-center">
     <p-menu [model]="items_menu">
-      <ng-template pTemplate="item" let-item>
-        <ng-container>
-          <a [routerLink]="item.route" class="p-menuitem-link d-flex gap-2">
-            <fa-icon [icon]="item.icon"></fa-icon>
-            <span>{{ item.label }}</span>
-          </a>
-        </ng-container>
-      </ng-template>
     </p-menu>
   </div>
 </fin-wrap-container>
