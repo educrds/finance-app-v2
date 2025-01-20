@@ -55,6 +55,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/primeicons/primeicons.css",
               "src/styles/index.scss"
             ],
             "scripts": [
@@ -125,6 +126,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/primeicons/primeicons.css",
               "src/styles/index.scss"
             ],
             "scripts": [
