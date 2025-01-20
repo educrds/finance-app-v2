@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, inject, OnInit } from "@angular/core";
 import { CategoriasService } from "../../services/categorias.service";
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
@@ -45,22 +45,20 @@ export class ModalCategoriaComponent implements OnInit {
 
   protected isLoading: boolean = false;
 
-  constructor(
-    private _categoriaService: CategoriasService,
-    private _fb: FormBuilder,
-    private _messagesService: MessagesService,
-    private _notificationService: NotificationService,
-    private ref: DynamicDialogRef,
-    private config: DynamicDialogConfig
-  ) {}
+  private _fb = inject(FormBuilder);
+  private ref = inject(DynamicDialogRef);
+  private _categoriaService = inject(CategoriasService);
+  private _messagesService = inject(MessagesService);
+  private _notificationService = inject(NotificationService);
+  private _config = inject(DynamicDialogConfig);  
 
   ngOnInit(): void {
     this.formAddCategoria = this._fb.group({
-      cat_id: [this.config.data.cat_id || null],
-      cat_nome: [this.config.data.cat_nome || null],
-      usr_id: [this.config.data.usr_id || null],
-      cat_cor: [this.config.data.cat_cor || null],
-      cat_tip_id: [this.config.data.cat_tip_id || null],
+      cat_id: [this._config.data.cat_id || null],
+      cat_nome: [this._config.data.cat_nome || null],
+      usr_id: [this._config.data.usr_id || null],
+      cat_cor: [this._config.data.cat_cor || null],
+      cat_tip_id: [this._config.data.cat_tip_id || null],
     });
   }
 
