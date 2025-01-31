@@ -136,9 +136,8 @@ export class ModalTransacaoComponent implements OnInit {
 
       if (form.trs_id) {
         return this.atualizarTransacao(form);
-      }
-      this.inserirTransacao(form, closeModal);
-      return this._initializeForm(this.getDefaultTransactionValues());
+      } 
+      return this.inserirTransacao(form, closeModal);
     }
     this.isLoading = false;
     return this.updateValidationForm(this.formAddTransacao);
@@ -160,6 +159,7 @@ export class ModalTransacaoComponent implements OnInit {
         next: () => {
           this._messagesService.showSuccess("Transação adicionada com successo!");
           this._notificationService.notifyChanges({ refresh: true }, this._ref, closeModal);
+          !closeModal && this._initializeForm(this.getDefaultTransactionValues());
         },
       });
   }
