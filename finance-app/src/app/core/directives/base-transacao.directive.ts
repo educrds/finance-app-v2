@@ -1,4 +1,4 @@
-import { Directive, OnDestroy, OnInit, Signal, WritableSignal, computed, inject, signal } from '@angular/core';
+import { Directive, Inject, OnDestroy, OnInit, WritableSignal, inject, signal } from '@angular/core';
 import { Transacao } from '../models/Transacao';
 import { ParamsTransacao } from '../models/ParamsTransacao';
 import { TransacaoUtilService } from '../services/transacao-util.service';
@@ -7,8 +7,8 @@ import { Observable, Subject, takeUntil } from 'rxjs';
 import { DatePickerService } from '../services/date-picker.service';
 import { TransacoesService } from '../services/transacoes.service';
 import { MessagesService } from '../services/messages.service';
-import { PreferencesService } from '../services/preferences.service';
 import { Preference } from '../models/Preference';
+import { PREFERENCES_TOKEN } from '../../../main';
 
 @Directive({
     selector: '[finBaseTransacao]',
@@ -18,7 +18,6 @@ export class BaseTransacaoDirective implements OnInit, OnDestroy {
   protected transacoes: WritableSignal<Transacao[]> = signal([]);
   protected rowSelected: WritableSignal<Transacao[]> = signal([]);
   protected queryParams: WritableSignal<ParamsTransacao> = signal({});
-  protected chartsPreference$!: Observable<Preference>;
   
   private _isDestroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -27,7 +26,8 @@ export class BaseTransacaoDirective implements OnInit, OnDestroy {
   protected _transacoesService = inject(TransacoesService);
   protected _messagesService = inject(MessagesService);
   protected _datePickerService = inject(DatePickerService);
-  private _preferencesService = inject(PreferencesService);
+
+  constructor(@Inject(PREFERENCES_TOKEN) public chartsPreference$: Observable<Preference>){}
 
   ngOnInit(): void {
     this._datePickerService.datePickerObservable$
@@ -36,7 +36,6 @@ export class BaseTransacaoDirective implements OnInit, OnDestroy {
         if (date) {
           this.queryParams().filterDate = date;
           this._fetchTransacoes(this.queryParams());
-          this.chartsPreference$ = this._preferencesService.getPreferences$();
         }
       });
 
