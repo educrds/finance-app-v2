@@ -12,10 +12,19 @@ import { AuthModule } from "@auth0/auth0-angular";
 import { environment } from "./environments/environment";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { AppComponent } from "./app/app.component";
-import { importProvidersFrom } from "@angular/core";
+import { importProvidersFrom, InjectionToken } from "@angular/core";
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from "primeng/config";
 import Lara from '@primeng/themes/lara';
+import { PreferencesService } from "./app/core/services/preferences.service";
+
+export const PREFERENCES_TOKEN = new InjectionToken('PREFERENCES_TOKEN');
+
+export const preferencesProvider = {
+  provide: PREFERENCES_TOKEN,
+  useFactory: (preferencesService: PreferencesService) => preferencesService.getPreferences$(),
+  deps: [PreferencesService],
+};
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -25,6 +34,7 @@ bootstrapApplication(AppComponent, {
             preset: Lara
         }
     }),
+    preferencesProvider,
     importProvidersFrom(
       BrowserModule,
       RouterModule,
