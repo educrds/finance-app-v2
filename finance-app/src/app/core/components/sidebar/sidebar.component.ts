@@ -6,7 +6,6 @@ import { SplitButton } from 'primeng/splitbutton';
 import { Menu } from 'primeng/menu';
 import { MenuItem } from 'primeng/api';
 
-
 @Component({
     selector: 'fin-sidebar',
     templateUrl: './sidebar.component.html',
@@ -19,7 +18,6 @@ import { MenuItem } from 'primeng/api';
     ],
 })
 export class SidebarComponent implements OnInit {
-  // incompatibilidade entre tipos do fontAwesome e tipagem do MenuItem.
   protected items_menu: MenuItem[] = [];
   protected items_transacao: MenuItem[] = [];
 
@@ -30,33 +28,27 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
     this.items_menu = [
       {
-        label: 'Transações',
-        items: [
-          {
-            label: 'Dashboard',
-            routerLink: '/dashboard',
-          },
-          {
-            label: 'Entradas',
-            routerLink: '/entradas',
-          },
-          {
-            label: 'Saídas',
-            routerLink: '/saidas',
-          },
-        ],
+        label: 'Dashboard',
+        routerLink: '/dashboard',
+        icon: 'pi pi-chart-pie'
+      },
+      {
+        label: 'Entradas',
+        routerLink: '/entradas',
+        icon: 'pi pi-arrow-up-right'
+      },
+      {
+        label: 'Saídas',
+        routerLink: '/saidas',
+        icon: 'pi pi-arrow-down-left'
       },
       {
         separator: true,
       },
       {
         label: 'Categorias',
-        items: [
-          {
-            label: 'Ver todas',
-            routerLink: '/categorias',
-          },
-        ],
+        routerLink: '/categorias',
+        icon: 'pi pi-align-justify'
       },
     ];
 
