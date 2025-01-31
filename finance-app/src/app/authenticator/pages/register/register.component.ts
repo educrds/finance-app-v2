@@ -61,7 +61,7 @@ export class RegisterComponent {
   autenticarUsuario() {
     if (this.formAuthenticator.valid) {
       const form = this.formAuthenticator.getRawValue();
-      this._authService.registerUser$(form).subscribe({
+      this._authService.autenticateUser$(form, 'register').subscribe({
         next: (res) => {
           this._storageService.saveUser(res.token);
           this._router.navigate(['/']);
