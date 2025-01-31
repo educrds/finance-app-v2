@@ -44,7 +44,7 @@ export class SocialButtonsComponent {
         : this._authService.loginUser$(user, true);
 
     serviceToUse.subscribe({
-      next: () => {
+      next: ({ token }) => {
         this._storageService.saveUser(token);
         this._router.navigate(['/']);
       },
