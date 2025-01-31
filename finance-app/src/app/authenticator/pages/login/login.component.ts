@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
@@ -25,14 +25,16 @@ import { SocialButtonsComponent } from '../../components/social-buttons/social-b
     ],
 })
 export class LoginComponent implements OnInit {
-  protected formAuthenticator: FormGroup = this._fb.group({});
+  protected formAuthenticator: FormGroup;
 
-  constructor(
-    private _fb: FormBuilder,
-    private _authService: AuthService,
-    protected _router: Router,
-    private _storageService: StorageService,
-  ) {}
+  private _fb = inject(FormBuilder);
+  protected _router = inject(Router);
+  private _authService = inject(AuthService);
+  private _storageService = inject(StorageService);
+
+  constructor(){
+    this.formAuthenticator = this._fb.group({});
+  }
 
   ngOnInit(): void {
     this.formAuthenticator = this._fb.group({
