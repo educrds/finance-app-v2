@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
-import { AuthService as Auth0Service } from '@auth0/auth0-angular';
+import { Component, inject, input } from '@angular/core';
 import { StorageService } from '../../../core/services/storage.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { DividerModule } from 'primeng/divider';
 import { Button } from 'primeng/button';
+import { AuthService as Auth0Service } from '@auth0/auth0-angular';
 
 @Component({
     selector: 'fin-social-buttons',
@@ -14,14 +14,12 @@ import { Button } from 'primeng/button';
     imports: [DividerModule, Button],
 })
 export class SocialButtonsComponent {
-  @Input() context: string = 'login';
+  public context = input<string>("login");
 
-  constructor(
-    private _auth0: Auth0Service,
-    private _storageService: StorageService,
-    private _authService: AuthService,
-    private _router: Router
-  ) {}
+  private _router = inject(Router);
+  private _auth0 = inject(Auth0Service);
+  private _authService = inject(AuthService);
+  private _storageService = inject(StorageService);
 
   private _getInfoUserAuthenticated(): void {
     this._auth0.isAuthenticated$.subscribe((isAuthenticated) => {
@@ -39,7 +37,7 @@ export class SocialButtonsComponent {
       auth_email: email,
     };
 
-    const serviceToUse = this.context === 'register'
+    const serviceToUse = this.context() === 'register'
         ? this._authService.registerUser$(user, true)
         : this._authService.loginUser$(user, true);
 
