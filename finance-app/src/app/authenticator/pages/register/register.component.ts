@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -24,33 +24,19 @@ import { SocialButtonsComponent } from '../../components/social-buttons/social-b
         SocialButtonsComponent,
     ],
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   formAuthenticator!: FormGroup;
 
-  constructor(
-    private _fb: FormBuilder,
-    private _authService: AuthService,
-    private _router: Router,
-    private _storageService: StorageService
-  ) {}
+  private _router = inject(Router);
+  private _fb = inject(FormBuilder);
+  private _authService = inject(AuthService);
+  private _storageService = inject(StorageService);
 
   ngOnInit(): void {
     this.formAuthenticator = this._fb.group({
-      auth_name: [
-        '',
-        Validators.compose([
-          Validators.required,
-          Validators.pattern('[a-zA-Z]+'),
-        ]),
-      ],
-      auth_email: [
-        '',
-        Validators.compose([Validators.required, Validators.email]),
-      ],
-      auth_password: [
-        '',
-        Validators.compose([Validators.required, Validators.minLength(8)]),
-      ],
+      auth_name: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]+')])],
+      auth_email: ['', Validators.compose([Validators.required, Validators.email])],
+      auth_password: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
     });
   }
 
