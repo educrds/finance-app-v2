@@ -10,8 +10,8 @@
       mode="currency"
       currency="BRL"
       locale="pt-BR"
-      [class.ng-invalid]="control.invalid && control.touched"
-      [class.ng-dirty]="control.invalid && control.touched"
+      [class.ng-invalid]="control.invalid && control.dirty"
+      [class.ng-dirty]="control.invalid && control.dirty"
     ></p-inputNumber>
   } @else{
     <input
@@ -20,11 +20,11 @@
       [placeholder]="placeholder()"
       [formControl]="control"
       class="form-control"
-      [class.ng-invalid]="control.invalid && control.touched"
-      [class.ng-dirty]="control.invalid && control.touched"
+      [class.ng-invalid]="control.invalid && control.dirty"
+      [class.ng-dirty]="control.invalid && control.dirty"
     />
   } 
-  @if(control.touched && control.invalid){
+  @if(control.dirty && control.invalid){
     <div class="text-start">
       @if(control.errors?.['required']){
         <small class="text-danger text-start">Campo obrigatório.</small>
