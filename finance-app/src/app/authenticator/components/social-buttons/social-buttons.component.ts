@@ -15,7 +15,7 @@ import { filter, of, switchMap, tap } from "rxjs";
   imports: [DividerModule, Button],
 })
 export class SocialButtonsComponent {
-  public context = input<string>("login");
+  public context = input<'login' | 'register'>("login");
 
   private _router = inject(Router);
   private _auth0 = inject(Auth0Service);
@@ -32,19 +32,14 @@ export class SocialButtonsComponent {
   }
 
   private checkContext(userInfo: any) {
-    const { name, email, __raw: token } = userInfo;
+    const { name, email } = userInfo;
 
     const user = {
       auth_name: name,
       auth_email: email,
     };
 
-    const serviceToUse =
-      this.context() === "register"
-        ? this._authService.registerUser$(user, true)
-        : this._authService.loginUser$(user, true);
-
-    serviceToUse.subscribe({
+    this._authService.autenticateUser$(user, this.context(), true).subscribe({
       next: ({ token }) => {
         this._storageService.saveUser(token);
         this._router.navigate(["/"]);
@@ -53,11 +48,13 @@ export class SocialButtonsComponent {
   }
 
   protected authWithGoogle(): void {
-    this._auth0.loginWithPopup({
-      authorizationParams: {
-        connection: "google-oauth2",
-        prompt: 'select_account'
-      },
-    }).subscribe(() => this._getInfoUserAuthenticated())
+    this._auth0
+      .loginWithPopup({
+        authorizationParams: {
+          connection: "google-oauth2",
+          prompt: "select_account",
+        },
+      })
+      .subscribe(() => this._getInfoUserAuthenticated());
   }
 }
