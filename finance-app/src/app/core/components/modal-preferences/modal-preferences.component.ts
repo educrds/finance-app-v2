@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from "@angular/core";
+import { Component, Inject, inject, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ButtonModule } from "primeng/button";
 import { InputTextModule } from "primeng/inputtext";
@@ -7,6 +7,9 @@ import { PreferencesService } from "../../services/preferences.service";
 import { DynamicDialogRef } from "primeng/dynamicdialog";
 import { MessagesService } from "../../services/messages.service";
 import { NotificationService } from "../../services/notification.service";
+import { Observable } from "rxjs";
+import { PREFERENCES_TOKEN } from "../../../../main";
+import { Preference } from "../../models/Preference";
 
 @Component({
   selector: "fin-modal-preferences",
@@ -24,7 +27,7 @@ export class ModalPreferencesComponent implements OnInit {
   private _messagesService = inject(MessagesService);
   private _notificationService = inject(NotificationService);
 
-  constructor(){
+  constructor(@Inject(PREFERENCES_TOKEN) public chartsPreference$: Observable<Preference>){
     this.formPreferences = this._fb.group({
       preference_id: [null],
       saidas_por_categoria: [false],
@@ -35,7 +38,7 @@ export class ModalPreferencesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._preferencesService.getPreferences$().subscribe({
+    this.chartsPreference$.subscribe({
       next: (res) => {
         this.formPreferences = this._fb.group({
           prf_id: [res["prf_id"] || null],
