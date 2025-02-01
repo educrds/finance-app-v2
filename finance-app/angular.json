@@ -55,8 +55,8 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/primeicons/primeicons.css",
-              "src/styles/index.scss"
+              "src/styles/index.scss",
+              "node_modules/primeicons/primeicons.css"
             ],
             "scripts": [
               "node_modules/apexcharts/dist/apexcharts.min.js"
@@ -126,8 +126,8 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/primeicons/primeicons.css",
-              "src/styles/index.scss"
+              "src/styles/index.scss",
+              "node_modules/primeicons/primeicons.css"
             ],
             "scripts": [
               "node_modules/apexcharts/dist/apexcharts.min.js"
