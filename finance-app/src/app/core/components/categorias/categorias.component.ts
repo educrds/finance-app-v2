@@ -32,8 +32,8 @@ export class CategoriasComponent implements OnInit {
   protected categorias$: Observable<Categorias[]> | undefined;
   protected configModal = {
     modal: true,
-    header: 'Atualizar Categoria',
-    width: '35vw',
+    header: 'Nova Categoria',
+    width: '30vw',
     closable: true,
     contentStyle: { overflow: 'auto' },
   };
@@ -45,7 +45,7 @@ export class CategoriasComponent implements OnInit {
     );
   }
 
-  deletedCategoria(event: any): void {
+  protected deletedCategoria(event: boolean): void {
     if(event){
       this.ngOnInit();
     }
