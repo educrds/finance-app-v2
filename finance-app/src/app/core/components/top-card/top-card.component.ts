@@ -1,7 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { WrapContainerComponent } from '../wrap-container/wrap-container.component';
-import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { NgClass, CurrencyPipe } from '@angular/common';
 
 @Component({
@@ -10,11 +8,11 @@ import { NgClass, CurrencyPipe } from '@angular/common';
     styleUrl: './top-card.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [WrapContainerComponent, FaIconComponent, NgClass, CurrencyPipe]
+    imports: [WrapContainerComponent, NgClass, CurrencyPipe]
 })
 export class TopCardComponent {
- @Input() title!: string;
- @Input() icon!: IconProp;
- @Input() value!: number;
- @Input() isCurrency!: boolean;
+ public title = input<string>();
+ public icon = input<string>();
+ public value = input<number>(0);
+ public isCurrency = input<boolean>(false);
 }
