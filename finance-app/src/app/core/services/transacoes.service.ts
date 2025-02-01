@@ -1,12 +1,12 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
-import { Observable, retry, shareReplay, take } from "rxjs";
+import { Observable, shareReplay, take } from "rxjs";
 import { environment } from "../../../environments/environment";
 import { Transacao } from "../models/Transacao";
 import { IDropdown } from "../models/Dropdown";
 import { ParamsTransacao } from "../models/ParamsTransacao";
 import { ITransacoesService } from "../interfaces/ITransacoesService";
-import { BarChartResult } from "../models/Chart";
+import { BarChart } from "../models/Chart";
 
 @Injectable({
   providedIn: "root",
@@ -41,9 +41,9 @@ export class TransacoesService implements ITransacoesService {
    * @param params - Os parâmetros de filtro para obter o gráfico comparativo.
    * @returns Um Observable contendo um objeto BarChartResult.
    */
-  public getComparativoChart$(params: ParamsTransacao): Observable<BarChartResult> {
+  public getComparativoChart$(params: ParamsTransacao): Observable<BarChart[]> {
     return this.#_http
-      .post<BarChartResult>(`${this.#_api_url}chart/chart-anual`, {
+      .post<BarChart[]>(`${this.#_api_url}chart/chart-anual`, {
         data: params,
       })
       .pipe(take(1), shareReplay(1));
