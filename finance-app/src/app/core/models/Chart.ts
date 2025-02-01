@@ -1,14 +1,14 @@
 import { ApexNonAxisChartSeries, ApexChart, ApexResponsive, ApexOptions } from "ng-apexcharts";
 
-export interface CategoriaChartItem{
+export interface CategoriaChartItem {
   name: string;
   value: number;
   cor: string;
 }
 
-type BarChartKeys = 'entradas' | 'saidas';
+export type BarChartKeys = keyof Pick<BarChart, "entradas" | "saidas">;
 
-export type CategoriesGroupedByType = {[key: string]: CategoriaChartItem}
+export type CategoriesGroupedByType = { [key: string]: CategoriaChartItem };
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -19,4 +19,9 @@ export type ChartOptions = {
   colors: string[];
 };
 
-export type BarChartResult = Array<Record<BarChartKeys, number>>
+export type BarChartResult = Array<Pick<BarChart, BarChartKeys>>;
+export type BarChart = {
+  entradas: number;
+  saidas: number;
+  trs_mes_ocorrido: number;
+};
