@@ -17,11 +17,19 @@
     
     <div class="d-flex flex-column g-4">
       <label for="input_cor">Cor:</label>
-      <fin-row>
+      <div class="d-flex flex-column">
         <p-colorPicker id="input_cor" appendTo="body" formControlName="cat_cor"></p-colorPicker>
-      </fin-row>
+        
+        @if(formAddCategoria.controls['cat_cor'].touched || formAddCategoria.controls['cat_cor'].dirty){
+          <div class="text-start">
+            @if(formAddCategoria.controls['cat_cor']?.errors?.['required']){
+              <small class="text-danger text-start">Campo obrigatório.</small>
+            }
+          </div>
+        }
+      </div>
     </div>
     
-    <p-button label="Salvar" [loading]="isLoading" (onClick)="inserirOuAtualizarCategoria()"></p-button>
+    <p-button label="Salvar" [loading]="isLoading()" (onClick)="inserirOuAtualizarCategoria()"></p-button>
   </fin-column>
 </form>
