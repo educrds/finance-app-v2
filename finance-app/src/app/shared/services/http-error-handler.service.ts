@@ -15,7 +15,7 @@ export class HttpErrorHandlerService {
 
   handleHttpError(error: HttpErrorResponse) {
     const errorActions: { [key:number]: () => void } = {
-      401: () => this._handleUnauthorized(),
+      401: () => this._handleUnauthorized(error),
       404: () => this._handleNotFound(),
       500: () => this._handleServerError()
     }
@@ -30,7 +30,8 @@ export class HttpErrorHandlerService {
     return throwError(() => new Error("Error ao fazer requisição."));
   }
 
-  private _handleUnauthorized() {
+  private _handleUnauthorized({ error } : HttpErrorResponse) {
+    this.#_messagesService.showError(error.message);
     this.#_storageService.clean();
     this.#_router.navigate(['/auth/login']);
   }
