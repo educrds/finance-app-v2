@@ -39,13 +39,13 @@ export class ModalPreferencesComponent implements OnInit {
 
   ngOnInit(): void {
     this.chartsPreference$.subscribe({
-      next: (res) => {
+      next: ({ saidas_por_categoria, entradas_por_categoria, saidas_por_metodo, comparativo_mensal, prf_id }) => {
         this.formPreferences = this._fb.group({
-          prf_id: [res["prf_id"] || null],
-          saidas_por_categoria: [Boolean(res["saidas_por_categoria"])],
-          entradas_por_categoria: [Boolean(res["entradas_por_categoria"])],
-          saidas_por_metodo: [Boolean(res["saidas_por_metodo"])],
-          comparativo_mensal: [Boolean(res["comparativo_mensal"])],
+          prf_id: [prf_id || null],
+          saidas_por_categoria: [Boolean(saidas_por_categoria)],
+          entradas_por_categoria: [Boolean(entradas_por_categoria)],
+          saidas_por_metodo: [Boolean(saidas_por_metodo)],
+          comparativo_mensal: [Boolean(comparativo_mensal)],
         });
       }
     });
