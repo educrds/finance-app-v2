@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { NgClass } from '@angular/common';
 
 @Component({
@@ -10,5 +10,5 @@ import { NgClass } from '@angular/common';
     imports: [NgClass]
 })
 export class WrapContainerComponent {
-  @Input() className: string | undefined;
+  public className = input<string | undefined>();
 }
