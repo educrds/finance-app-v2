@@ -23,7 +23,6 @@ import { ButtonDirective } from 'primeng/button';
     imports: [TableModule, PrimeTemplate, ButtonDirective]
 })
 export class CategoriaTableComponent {
-  public configModal = input();
   public categorias = input<Categorias[]>([]);
   public isCategoriaDeleted = output<boolean>();
 
@@ -41,8 +40,8 @@ export class CategoriaTableComponent {
       'Confirmação',
       () => {
         this._categoriasService.deletarCategoria$(form).subscribe({
-          next: () => {
-            this._messagesService.showSuccess('Registro deletado com sucesso!');
+          next: (res) => {
+            this._messagesService.showSuccess(res['message']);
             this.isCategoriaDeleted.emit(true);
           },
           error: () => this._messagesService.showError('Ocorreu um erro ao deletar registro, tente novamente!'),
@@ -54,7 +53,11 @@ export class CategoriaTableComponent {
   // Metódo responsavel por editar uma categoria
   protected editarCategoria(categoria: Categoria) {
     this._ref = this._dialogService.open(ModalCategoriaComponent, {
-      ...this.configModal,
+      modal: true,
+      header: 'Atualizar Categoria',
+      width: '30vw',
+      closable: true,
+      contentStyle: { overflow: 'auto' },
       data: categoria,
     });
   }
