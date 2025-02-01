@@ -4,8 +4,9 @@ import { Router } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
 import { DividerModule } from "primeng/divider";
 import { Button } from "primeng/button";
-import { AuthService as Auth0Service } from "@auth0/auth0-angular";
-import { filter, of, switchMap, tap } from "rxjs";
+import { filter, switchMap } from "rxjs";
+import { Usuario } from "../../../core/models/Usuario";
+import { AuthService as Auth0Service, IdToken } from "@auth0/auth0-angular";
 
 @Component({
   selector: "fin-social-buttons",
@@ -31,12 +32,10 @@ export class SocialButtonsComponent {
       .subscribe(userInfos => this.checkContext(userInfos));
   }
 
-  private checkContext(userInfo: any) {
-    const { name, email } = userInfo;
-
-    const user = {
-      auth_name: name,
-      auth_email: email,
+  private checkContext(userInfo: IdToken | null | undefined): void {
+    const user: Usuario = {
+      auth_name: userInfo?.name,
+      auth_email: userInfo?.email,
     };
 
     this._authService.autenticateUser$(user, this.context(), true).subscribe({
