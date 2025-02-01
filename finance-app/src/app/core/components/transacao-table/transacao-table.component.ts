@@ -68,9 +68,9 @@ export class TransacaoTableComponent implements OnChanges {
     table.clear();
   }
 
-  protected applyFilterGlobal($event: any, stringVal: string = "contains"): void {
-    const value = $event.target instanceof HTMLInputElement 
-      ? ($event.target as HTMLInputElement).value 
+  protected applyFilterGlobal($event: Event | string, stringVal: string = "contains"): void {
+    const value = $event instanceof InputEvent && $event.target instanceof HTMLInputElement
+      ? $event.target.value 
       : $event;
     this.dt!.filterGlobal(value, stringVal);
   }
