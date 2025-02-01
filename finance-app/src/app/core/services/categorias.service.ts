@@ -41,8 +41,8 @@ export class CategoriasService implements ICategoriasService {
    * @param form - Um objeto do tipo Categoria contendo os dados da categoria a ser adicionada.
    * @returns Um Observable contendo o objeto Categoria adicionado.
    */
-  addCategoria$(form: Categoria): Observable<Categoria> {
-    return this.#_http.post<Categoria>(`${this.#_api_url}categoria/adicionar-categoria`, { data: form })
+  addCategoria$(form: Categoria): Observable<{ message: string }> {
+    return this.#_http.post<{ message: string }>(`${this.#_api_url}categoria/adicionar-categoria`, { data: form })
   }
 
   /**
@@ -50,8 +50,8 @@ export class CategoriasService implements ICategoriasService {
    * @param form - Um objeto do tipo Categoria contendo os dados da categoria a ser atualizada.
    * @returns Um Observable contendo o objeto Categoria atualizado.
    */
-  atualizarCategoria$(form: Categoria): Observable<Categoria> {
-    return this.#_http.post<Categoria>(`${this.#_api_url}categoria/atualizar-categoria`, { data: form })
+  atualizarCategoria$(form: Categoria): Observable<{ message: string }> {
+    return this.#_http.post<{ message: string }>(`${this.#_api_url}categoria/atualizar-categoria`, { data: form })
   }
 
   /**
@@ -59,7 +59,7 @@ export class CategoriasService implements ICategoriasService {
    * @param form - Um objeto do tipo Categoria contendo os dados da categoria a ser deletada.
    * @returns Um Observable contendo o objeto Categoria deletado.
    */
-  deletarCategoria$(form: Categoria): Observable<Categoria> {
-    return this.#_http.post<Categoria>(`${this.#_api_url}categoria/deletar-categoria`, { data: form })
+  deletarCategoria$(form: Categoria): Observable<{ message: string }> {
+    return this.#_http.post<{ message: string }>(`${this.#_api_url}categoria/deletar-categoria`, { data: form })
   }
 }
