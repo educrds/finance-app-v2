@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from "@angular/core";
-import { CategoriaChartItem, ChartOptions } from "../../models/Chart";
+import { ChangeDetectionStrategy, Component, input, OnChanges, SimpleChanges } from "@angular/core";
+import { CategoriaChartItem, CategoriesGroupedByType, ChartOptions } from "../../models/Chart";
 import SharedUtil from "../../../shared/utils";
 import { ChartComponent } from "ng-apexcharts";
 
@@ -12,7 +12,7 @@ import { ChartComponent } from "ng-apexcharts";
     imports: [ChartComponent]
 })
 export class PieChartCategoriaComponent implements OnChanges {
-  @Input() chartData!: CategoriaChartItem;
+  public chartData = input<CategoriesGroupedByType | CategoriaChartItem>({});
   protected chartOptions!: Partial<ChartOptions> | any;
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -22,8 +22,8 @@ export class PieChartCategoriaComponent implements OnChanges {
   }
 
   // Configurando gráfico de pizza com dados já modelados
-  private configPieCharts() {
-    const categoryItems: CategoriaChartItem[] = Object.values(this.chartData);
+  private configPieCharts(): void {
+    const categoryItems: CategoriaChartItem[] = Object.values(this.chartData());
 
     const colors = categoryItems.map((item: CategoriaChartItem) => item.cor);
     const series = categoryItems.map((item: CategoriaChartItem) => item.value);
@@ -51,9 +51,7 @@ export class PieChartCategoriaComponent implements OnChanges {
         },
         tooltip: {
           y: {
-            formatter: (val: any) => {
-              return SharedUtil.numToCurrency(val);
-            },
+            formatter: (val: number) => SharedUtil.numToCurrency(val),
           },
         },
       },
