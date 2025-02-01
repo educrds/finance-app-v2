@@ -92,11 +92,11 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  private checkRoute(url: string) {
+  private checkRoute(url: string): boolean {
     return !url.includes("/categorias");
   }
 
-  protected onDateChange(date: Date) {
+  protected onDateChange(date: Date): void {
     this.#_datePickerService.notifyDateChanges(date);
   }
 }
