@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, input, OnChanges, SimpleChanges } f
 import SharedUtil from "../../../shared/utils";
 import { ChartOptions } from "chart.js";
 import { ChartComponent } from "ng-apexcharts";
+import { BarChart } from "../../models/Chart";
 
 @Component({
     selector: "fin-bar-chart-anual",
@@ -12,8 +13,8 @@ import { ChartComponent } from "ng-apexcharts";
     imports: [ChartComponent]
 })
 export class BarChartAnualComponent implements OnChanges {
-  public chartData = input();
-  protected chartOptions!: Partial<ChartOptions> | any;
+  public chartData = input<BarChart[]>([]);
+  protected chartOptions: Partial<ChartOptions> | any;
 
   ngOnChanges(changes: SimpleChanges): void {
     if ("chartData" in changes) {
@@ -22,9 +23,9 @@ export class BarChartAnualComponent implements OnChanges {
     }
   }
 
-  private _getChartSeries(chartData: any) {
-    const entradas = chartData.map((data: any) => data.entradas);
-    const saidas = chartData.map((data: any) => data.saidas);
+  private _getChartSeries(chartData: BarChart[]): { saidas: number[], entradas: number[] } {
+    const entradas = chartData.map(({ entradas }) => entradas);
+    const saidas = chartData.map(({ saidas }) => saidas);
     return { saidas, entradas };
   }
 
@@ -103,7 +104,7 @@ export class BarChartAnualComponent implements OnChanges {
       colors: ["#780000", "#386641"],
       yaxis: {
         labels: {
-          formatter: (val: any) => SharedUtil.numToCurrency(val),
+          formatter: (val: number) => SharedUtil.numToCurrency(val),
           style: {
             colors: ["#dedede"],
           },
@@ -114,7 +115,7 @@ export class BarChartAnualComponent implements OnChanges {
       },
       tooltip: {
         y: {
-          formatter: (val: any) => SharedUtil.numToCurrency(val),
+          formatter: (val: number) => SharedUtil.numToCurrency(val),
         },
         theme: "dark",
       },
