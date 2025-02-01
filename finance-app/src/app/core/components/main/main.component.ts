@@ -2,10 +2,8 @@ import { Component, OnInit, WritableSignal, signal } from "@angular/core";
 import { Transacao } from "../../models/Transacao";
 import { TransacoesSoma } from "../../models/TransacoesSoma";
 import { BaseTransacaoDirective } from "../../directives/base-transacao.directive";
-import { BarChartResult, CategoriesGroupedByType } from "../../models/Chart";
-import { faLevelDownAlt, faLevelUpAlt, faWallet } from "@fortawesome/free-solid-svg-icons";
+import { BarChart, CategoriesGroupedByType } from "../../models/Chart";
 import CoreUtil from "../../utils";
-import { Icon } from "../../models/Icon";
 import { ColumnComponent } from "../../../shared/components/column/column.component";
 import { RowComponent } from "../../../shared/components/row/row.component";
 import { TopCardComponent } from "../top-card/top-card.component";
@@ -36,7 +34,6 @@ import { AccordionModule } from 'primeng/accordion';
     ],
 })
 export class MainComponent extends BaseTransacaoDirective implements OnInit {
-  protected iconsCard: Icon = { entrada: faLevelUpAlt, saldo: faWallet, saida: faLevelDownAlt };
   protected somatorio: WritableSignal<TransacoesSoma> = signal({
     soma_receitas: 0,
     soma_despesas: 0,
@@ -45,8 +42,8 @@ export class MainComponent extends BaseTransacaoDirective implements OnInit {
 
   // charts
   protected transacoesPorCategoria!: CategoriesGroupedByType;
-  protected comparativoAnual: BarChartResult | undefined;
-  protected saidasPorMetodo: any;
+  protected comparativoAnual!: BarChart[];
+  protected saidasPorMetodo!: CategoriesGroupedByType;
 
   protected override afterFetchTransacoes(transacoes: Transacao[]): void {
     this._updateSomatorio(transacoes);
@@ -61,12 +58,11 @@ export class MainComponent extends BaseTransacaoDirective implements OnInit {
 
   private _getTransacaoesPorMetodo(transacoes: Transacao[]): void {
     this.saidasPorMetodo = CoreUtil.orderByMetodo(transacoes);
-    console.log(this.saidasPorMetodo);
   }
 
   private _getComparativoChartResult(): void {
     this._transacoesService.getComparativoChart$(this.queryParams()).subscribe({
-      next: (res: BarChartResult) => (this.comparativoAnual = res),
+      next: (chartResult: BarChart[]) => (this.comparativoAnual = chartResult),
       error: err => this._messagesService.showError(err),
     });
   }
@@ -76,7 +72,7 @@ export class MainComponent extends BaseTransacaoDirective implements OnInit {
     const somatorio = this._transacaoUtilService.obterSomatorioTransacoes(transacoes);
     const saldo = somatorio["soma_receitas"] - somatorio["soma_despesas"];
     
-    this.somatorio.set({...somatorio, saldo: saldo});
+    this.somatorio.set({...somatorio, saldo});
   }
 
   // Atualizando os dados dos gráficos

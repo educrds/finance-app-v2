@@ -3,7 +3,7 @@
     <fin-top-card
       [value]="somatorio()['soma_receitas']"
       [isCurrency]="true"
-      [icon]="iconsCard['entrada']"
+      icon="pi pi-arrow-up-right"
       title="Entradas"
       class="flex-1"
     ></fin-top-card>
@@ -11,7 +11,7 @@
     <fin-top-card
       [value]="somatorio()['saldo']"
       [isCurrency]="true"
-      [icon]="iconsCard['saldo']"
+      [icon]=""
       title="Saldo"
       class="flex-1"
     ></fin-top-card>
@@ -19,7 +19,7 @@
     <fin-top-card
       [value]="somatorio()['soma_despesas']"
       [isCurrency]="true"
-      [icon]="iconsCard['saida']"
+      icon="pi pi-arrow-down-left"
       class="flex-1"
       title="Saídas"
     ></fin-top-card>
