@@ -1,9 +1,8 @@
 <form action="" [formGroup]="formAddTransacao">
   <fin-column>
     <fin-input-form type="text" label="Título" placeholder="Digite um título" formControlName="trs_titulo" />
-    
+       
     <!-- <fin-row>
-      <fin-input-form type="currency" label="Valor" formControlName="trs_valor" />
 
       <div class="d-flex flex-column g-4">
         <label for="input_valor">&nbsp;</label>
@@ -13,8 +12,12 @@
         </div>
       </div>
     </fin-row> -->
+    <fin-row>
+      <fin-input-form type="currency" label="Valor" formControlName="trs_valor" />
+    </fin-row>
 
     <fin-row>
+
       @if(categoriasOptions$ | async; as categorias){
       <div class="d-flex flex-column g-4">
         <label for="input_valor">Categoria:</label>

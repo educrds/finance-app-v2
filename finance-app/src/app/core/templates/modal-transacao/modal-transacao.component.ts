@@ -4,7 +4,7 @@ import { TransacoesService } from "../../services/transacoes.service";
 import { CategoriasService } from "../../services/categorias.service";
 import { IDropdown } from "../../models/Dropdown";
 import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
-import { Transacao } from "../../models/Transacao";
+import { Transacao, TransacaoForm } from "../../models/Transacao";
 import { MessagesService } from "../../services/messages.service";
 import { NotificationService } from "../../services/notification.service";
 import { DatePickerService } from "../../services/date-picker.service";
@@ -64,9 +64,9 @@ export class ModalTransacaoComponent implements OnInit {
     this._ref.onClose.subscribe(() => this._notificationService.notifyChanges({ closeModal: true }));
   }
 
-  private getDefaultTransactionValues() {
+  private getDefaultTransactionValues(): TransacaoForm {
     return {
-      trs_valor: "",
+      trs_valor: 0,
       trs_data_ocorrido: new Date(),
       trs_titulo: "",
       trs_categoria: "",
@@ -78,7 +78,7 @@ export class ModalTransacaoComponent implements OnInit {
     };
   }
 
-  private _initializeForm(defaultTransactionValues: any): void {
+  private _initializeForm(defaultTransactionValues: TransacaoForm): void {
     const trs_data = this._config.data.trs_data_ocorrido && new Date(this._config.data.trs_data_ocorrido);
     this.tipoTransacao = this._config.data.id_tipo_transacao;
 
@@ -86,7 +86,7 @@ export class ModalTransacaoComponent implements OnInit {
       {
         trs_valor: [this._config.data.trs_valor || defaultTransactionValues.trs_valor, Validators.required],
         trs_data_ocorrido: [trs_data || defaultTransactionValues.trs_data_ocorrido],
-        trs_titulo: [this._config.data?.trs_titulo || defaultTransactionValues.trs_titulo, Validators.required],
+        trs_titulo: [this._config.data.trs_titulo || defaultTransactionValues.trs_titulo, Validators.required],
         trs_categoria: [
           this._config.data?.id_categoria || defaultTransactionValues.trs_categoria,
           Validators.required,
@@ -117,7 +117,7 @@ export class ModalTransacaoComponent implements OnInit {
     };
   }
 
-  private _initializeDatePickerListener(defaultTransactionValues: any) {
+  private _initializeDatePickerListener(defaultTransactionValues: TransacaoForm) {
     this._datePickerService.datePickerObservable$.subscribe({
       next: date => (defaultTransactionValues.trs_data_ocorrido = date),
     });
