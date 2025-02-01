@@ -44,13 +44,8 @@ export class BaseTransacaoDirective implements OnInit, OnDestroy {
       .subscribe((res) => {
         const { refresh, closeModal } = res;
 
-        if (refresh) {
-          this._fetchTransacoes(this.queryParams());
-        }
-
-        if (closeModal) {
-          this.rowSelected.set([]);
-        }
+        if (refresh) this._fetchTransacoes(this.queryParams());
+        if (closeModal) this.rowSelected.set([]);
       });
   }
 
