@@ -14,19 +14,19 @@ import { CategoriasComponent } from "../../components/categorias/categorias.comp
   imports: [ColumnComponent, NavbarComponent, RowComponent, RouterOutlet, TabsModule, CategoriasComponent],
 })
 export class HomeComponent implements OnInit {
-  protected tabs: { [key: string]: string}[] = [];
+  protected tabs: { [key: string]: string }[] = [];
 
   public activeTab: WritableSignal<string | number> = signal("");
 
   private _router = inject(Router);
 
   ngOnInit(): void {
-    this.activeTab.set(this.tabs[0]['route']);
     this.tabs = [
       { route: "/dashboard", icon: "pi pi-chart-bar", label: "Dashboard" },
       { route: "/entradas", icon: "pi pi-arrow-up-right", label: "Entradas" },
       { route: "/saidas", icon: "pi pi-arrow-down-left", label: "Saídas" },
     ];
+    this.activeTab.set(this.tabs[0]["route"]);
   }
 
   protected onTabChange(route: string | number) {
