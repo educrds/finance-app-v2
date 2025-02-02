@@ -64,3 +64,8 @@ A segurança dos dados dos usuários é uma prioridade na aplicação. Por isso,
 -   As senhas são protegidas com hash criptográfico utilizando **bcrypt**, adicionando uma camada extra de segurança aos dados armazenados no banco.
 
 Com essas soluções, a aplicação oferece uma experiência de login prática e confiável, sem comprometer a privacidade e segurança dos usuários.
+
+----------
+## **Demonstração**
+[![Watch the video](https://raw.githubusercontent.com/educrds/finance-app/blob/feature/preferences/finance-app/src/assets/demo/demo%20coinz.webm)]
+(https://raw.githubusercontent.com/educrds/finance-app/blob/feature/preferences/finance-app/src/assets/demo/demo%20coinz.webm)
