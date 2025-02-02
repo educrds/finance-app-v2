@@ -54,7 +54,7 @@
                 </fin-row>
               }
               <fin-row>
-                @if(saidasPorMetodo && chartsPreference["saidas_por_metodo"]){
+                @if((chartsPreference["saidas_por_metodo"] | keyvalue)?.length && saidasPorMetodo && chartsPreference["saidas_por_metodo"]){
                   <div class="wrap-container pie-chart">
                     <h3>Saídas por Método</h3>
                     <div class="d-block w-100">
