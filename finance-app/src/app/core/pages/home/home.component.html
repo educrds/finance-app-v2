@@ -1,9 +1,21 @@
 <fin-column>
   <fin-navbar />
   <fin-row>
-    <fin-sidebar />
-      <div class="w-100">
+    <div class="d-flex flex-column w-100">
+      <p-tabs [value]="activeTab()" (valueChange)="onTabChange($event)">
+        <p-tablist>
+          @for(tab of tabs; track tab['route']) {
+            <p-tab [value]="tab['route']">
+              <i [class]="tab['icon']"></i>
+              <span>{{ tab['label'] }}</span>
+            </p-tab>
+          }
+        </p-tablist>
+      </p-tabs>
+      <div class="mt-3">
         <router-outlet></router-outlet>
       </div>
+    </div>
+    <fin-categorias />
   </fin-row>
 </fin-column>
