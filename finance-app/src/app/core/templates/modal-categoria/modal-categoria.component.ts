@@ -2,7 +2,7 @@ import { Component, inject, OnInit, signal, WritableSignal } from "@angular/core
 import { CategoriasService } from "../../services/categorias.service";
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
-import { Categoria } from "../../models/Categorias";
+import { Categoria, Categorias } from "../../models/Categorias";
 import { IDropdown } from "../../models/Dropdown";
 import { MessagesService } from "../../services/messages.service";
 import { NotificationService } from "../../services/notification.service";
@@ -88,7 +88,7 @@ export class ModalCategoriaComponent implements OnInit {
     });
   }
 
-  private _atualizarCategoria(form: Categoria): void {
+  private _atualizarCategoria(form: Categorias): void {
     this._categoriaService
       .atualizarCategoria$(form)
       .pipe(finalize(() => (this.isLoading.set(false))))
