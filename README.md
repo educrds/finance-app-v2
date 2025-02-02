@@ -67,4 +67,4 @@ Com essas soluções, a aplicação oferece uma experiência de login prática e
 
 ----------
 ## **Demonstração**
-<video src="https://coinzapp.s3.us-east-2.amazonaws.com/demo2+coinz.mp4" width="100%" />
+<video src="https://coinzapp.s3.us-east-2.amazonaws.com/demo2+coinz.mp4" width="500" />
