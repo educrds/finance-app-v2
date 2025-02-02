@@ -67,4 +67,4 @@ Com essas soluções, a aplicação oferece uma experiência de login prática e
 
 ----------
 ## **Demonstração**
-<video src="https://github.com/rayytsn9/ROBOTT/assets/79029536/62f541aa-aa8c-43f5-9ead-4b7a2e0d7c2a" width="300" />
+<video src="https://github.com/educrds/finance-app/blob/feature/preferences/finance-app/src/assets/demo/demo2%20coinz.mp4" width="300" />
