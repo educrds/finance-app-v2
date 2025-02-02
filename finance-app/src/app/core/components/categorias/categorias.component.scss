@@ -1,0 +1,41 @@
+:host {
+  .card_category_container {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+
+    .card_category {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: space-between;
+      align-items: center;
+
+      .category_infos {
+        border-radius: 0.2rem;
+        border-left-style: solid;
+        border-left-width: 5px;
+        padding: 6px 10px;
+        display: flex;
+        gap: 0.25rem;
+        flex-direction: column;
+  
+        .title {
+          font-weight: 600;
+          font-size: 1rem;  
+          color: var(--bs-gray-300);
+        }
+        
+        .type {
+          color: var(--bs-gray-500);
+          font-weight: 400;
+          font-size: .9rem;
+        }
+      }
+
+      &:hover {
+        border-radius: .5rem;
+        background: var(--bs-gray-800);
+      }
+    }
+  }
+}

@@ -1,20 +1,22 @@
 <fin-wrap-container>
   <div class="d-flex justify-content-between align-items-center">
     <h2>Categorias</h2>
-    <p-button
-      icon="pi pi-plus"
-      [outlined]="true"
-      label="Nova Categoria"
-      (onClick)="abrirModalAddCategoria()"
-    ></p-button>
+    <p-button icon="pi pi-plus" [text]="true" severity="primary" (onClick)="abrirModalAddCategoria()"></p-button>
   </div>
 
-  <hr />
+  <div class="card_category_container">
+    @for (categoria of categorias$ | async; track categoria.cat_id; let index = $index) {
+    <div class="card_category">
+      <div class="category_infos" [style.border-color]="categoria.cat_cor">
+        <span class="title">{{ categoria.cat_nome }}</span>
+        <span class="type">{{ categoria.cat_tip_nome }}</span>
+      </div>
 
-  @if(categorias$ | async; as categorias){
-    <fin-categoria-table
-      [categorias]="categorias"
-      (isCategoriaDeleted)="deletedCategoria($event)"
-    ></fin-categoria-table>
-  }
+      @if(categoria.usr_id !== null){
+        <p-menu #menu [model]="items_categoria" [popup]="true" />
+        <p-button (click)="openMenu($event, categoria, menu)" [text]="true" size="small" [rounded]="true" icon="pi pi-ellipsis-v"/>
+      }
+      </div>
+    }
+  </div>
 </fin-wrap-container>
