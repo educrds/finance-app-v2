@@ -21,6 +21,9 @@ A ideia para esta aplicação surgiu de uma necessidade pessoal de gerenciar mel
 
 Este projeto tem como objetivo auxiliar no controle financeiro pessoal, oferecendo ferramentas para registrar e visualizar receitas, despesas e relatórios financeiros. Com uma interface moderna e visualizações dinâmicas, a aplicação proporciona uma gestão mais prática e detalhada das finanças.
 
+![image](https://github.com/user-attachments/assets/16a740b9-9f04-46b5-aa47-1491554efdd4)
+
+
 ----------
 
 ## **Funcionalidades**
