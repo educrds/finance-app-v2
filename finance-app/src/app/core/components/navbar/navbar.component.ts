@@ -14,6 +14,8 @@ import { Menu } from "primeng/menu";
 import { AsyncPipe } from "@angular/common";
 import { ModalPreferencesComponent } from "../modal-preferences/modal-preferences.component";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
+import { SplitButton } from "primeng/splitbutton";
+import { ModalTransacaoComponent } from "../../templates/modal-transacao/modal-transacao.component";
 @Component({
     selector: "fin-navbar",
     templateUrl: "./navbar.component.html",
@@ -24,25 +26,29 @@ import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
     LogoComponent,
     DatePicker,
     FormsModule,
+    SplitButton,
     Avatar,
     Menu,
     AsyncPipe
 ],
 })
 export class NavbarComponent implements OnInit {
-  protected menuBarItems: MenuItem[] | undefined;
+  protected items_menu: MenuItem[] | undefined;
+  protected items_transacao: MenuItem[] = [];
+
   protected userInitials: string | undefined;
   protected month_selected: WritableSignal<Date> = signal(new Date());
   protected isShowDatePicker$: Observable<boolean> | undefined;
   protected isModalPreferencesVisible: WritableSignal<boolean> = signal(false);
 
   #navigationEvents$: Observable<NavigationEnd> | undefined;
-  #ref: DynamicDialogRef | undefined;
+  private _ref: DynamicDialogRef | undefined;
 
   #_dialogService = inject(DialogService);
   #_datePickerService = inject(DatePickerService);
   #_storageService = inject(StorageService);
   #_router = inject(Router);
+
 
   ngOnInit(): void {
     this.#navigationEvents$ = this.#_router.events.pipe(
@@ -64,7 +70,7 @@ export class NavbarComponent implements OnInit {
       next: data => this.month_selected.set(data),
     });
 
-    this.menuBarItems = [
+    this.items_menu = [
       {
         label: "Preferências",
         icon: "pi pi-cog",
@@ -79,11 +85,25 @@ export class NavbarComponent implements OnInit {
         command: () => this.#_storageService.clearAndRefreshPage(),
       },
     ];
+    this.setupItemsMenuTransacao();
+  }
+
+  private setupItemsMenuTransacao(): void {
+    this.items_transacao = [
+      {
+        label: "Entradas",
+        command: () => this.openModalAdd(1),
+      },
+      {
+        label: "Saídas",
+        command: () => this.openModalAdd(2),
+      },
+    ];
   }
 
   // Metódo responsavel por abrir modal de preferencias
   private _openModalPreferences(): void {
-    this.#ref = this.#_dialogService.open(ModalPreferencesComponent, {
+    this._ref = this.#_dialogService.open(ModalPreferencesComponent, {
       modal: true,
       header: 'Preferências usuário',
       width: '35vw',
@@ -98,5 +118,20 @@ export class NavbarComponent implements OnInit {
 
   protected onDateChange(date: Date): void {
     this.#_datePickerService.notifyDateChanges(date);
+  }
+
+  protected openModalAdd(trs_tipo: number) {
+    const header = trs_tipo === 1 ? "Nova Receita" : "Nova Despesa";
+
+    this._ref = this.#_dialogService.open(ModalTransacaoComponent, {
+      modal: true,
+      header: header,
+      closable: true,
+      width: "40vw",
+      contentStyle: { overflow: "auto" },
+      data: {
+        id_tipo_transacao: trs_tipo,
+      },
+    });
   }
 }

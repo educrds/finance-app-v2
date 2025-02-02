@@ -10,13 +10,15 @@
       (ngModelChange)="onDateChange($event)"
     ></p-datepicker>
   }
-  <div class="d-flex flex-column justify-content-center">
+  <div class="d-flex justify-content-center align-items-center gap-2">
+    <p-splitButton label="Adicionar" size="small" (onClick)="openModalAdd(1)" [model]="items_transacao" />  
+
     <p-avatar
     (click)="menu.toggle($event)"
     [label]="userInitials"
     size="normal"
     shape="circle"
     ></p-avatar>
-    <p-menu #menu [model]="menuBarItems" appendTo="body" [popup]="true"></p-menu>
+    <p-menu #menu [model]="items_menu" appendTo="body" [popup]="true"></p-menu>
   </div>
 </fin-wrap-container>
