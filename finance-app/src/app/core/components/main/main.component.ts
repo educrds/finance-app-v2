@@ -13,6 +13,7 @@ import { WrapContainerComponent } from "../wrap-container/wrap-container.compone
 import { NgClass, KeyValuePipe, AsyncPipe } from "@angular/common";
 import { TransacaoTableComponent } from "../transacao-table/transacao-table.component";
 import { AccordionModule } from 'primeng/accordion';
+import { TabsModule } from 'primeng/tabs';
 
 @Component({
     selector: "fin-main",
@@ -30,6 +31,7 @@ import { AccordionModule } from 'primeng/accordion';
         NgClass,
         TransacaoTableComponent,
         KeyValuePipe,
+        TabsModule,
         AsyncPipe
     ],
 })
