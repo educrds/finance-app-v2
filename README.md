@@ -1,43 +1,4 @@
-<!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coinz - Gerenciamento Financeiro</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-            line-height: 1.6;
-        }
-        h1, h2, h3 {
-            color: #333;
-        }
-        hr {
-            margin: 20px 0;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        ul li::before {
-            content: "\2022";
-            color: #007BFF;
-            font-weight: bold;
-            display: inline-block; 
-            width: 1em;
-            margin-left: -1em;
-        }
-        a {
-            color: #007BFF;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
     <h1><strong>Coinz</strong></h1>
     <p>Uma aplicação completa para o gerenciamento de finanças pessoais, desenvolvida com tecnologias modernas para oferecer uma experiência intuitiva, segura e eficiente.</p>
     <hr>
@@ -99,5 +60,4 @@
     
     <h2><strong>Demonstração</strong></h2>
     <video src="https://github.com/rayytsn9/ROBOTT/assets/79029536/62f541aa-aa8c-43f5-9ead-4b7a2e0d7c2a" width="300" controls></video>
-</body>
 </html>
