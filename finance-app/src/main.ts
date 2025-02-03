@@ -10,7 +10,6 @@ import { ToastModule } from "primeng/toast";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
 import { AuthModule } from "@auth0/auth0-angular";
 import { environment } from "./environments/environment";
-import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { AppComponent } from "./app/app.component";
 import { importProvidersFrom, InjectionToken } from "@angular/core";
 import { provideAnimationsAsync } from "@angular/platform-browser/animations/async";
@@ -60,8 +59,7 @@ bootstrapApplication(AppComponent, {
       AuthModule.forRoot({
         domain: environment.auth0.domain,
         clientId: environment.auth0.clientId,
-      }),
-      FontAwesomeModule
+      })
     ),
     provideRouter(APP_ROUTES),
     MessageService,
