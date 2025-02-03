@@ -71,6 +71,12 @@ Com essas soluções, a aplicação oferece uma experiência de login prática e
 
 ----------
 
+## Modelagem de Dados
+
+A estrutura de dados da aplicação foi projetada para garantir a organização e eficiência no gerenciamento das transações. O diagrama abaixo ilustra os relacionamentos entre as principais entidades do sistema.
+![Diagrama banco de dados](https://github.com/user-attachments/assets/d3b5608e-40bd-40b3-aeb9-26ad6fa0a030)
+
+----------
 
 ## **Demonstração da Aplicação**
 
