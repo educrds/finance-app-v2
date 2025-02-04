@@ -89,7 +89,7 @@
         Valor
         <p-sortIcon field="trs_valor"></p-sortIcon>
       </th>
-      <th>Parcela</th>
+      <!-- <th>Parcela</th> -->
       <!-- <th pSortableColumn="trs_status">
           Status <p-sortIcon field="trs_status"></p-sortIcon>
         </th> -->
@@ -120,14 +120,18 @@
         </span>
       </td>
       <td>{{ transacao.trs_titulo }}</td>
-      <td>{{ transacao.trs_valor | currency : "R$ " }}</td>
       <td>
-        @if(transacao.total_parcelas > 1){
-        {{ transacao.trs_num_parcela }}/{{ transacao.total_parcelas }}
-        } @else {
-        <span>-</span>
-        }
+        <div class="d-flex flex-column gap-1">
+          {{ transacao.trs_valor | currency : "R$ " }}
+          @if(transacao.total_parcelas > 1){
+            <span class="parcela">Parcela {{ transacao.trs_num_parcela }}/{{ transacao.total_parcelas }}</span>
+          } @else {
+            &nbsp;
+          }
+        </div>
       </td>
+      <!-- <td>
+      </td> -->
       <!-- <td>
           <span
             class="ellipsis"

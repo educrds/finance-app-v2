@@ -1,13 +1,29 @@
 :host {
   .tipo_despesa {
+    padding: 4px 8px;
+    border-radius: .5rem;
+    font-size: .8rem;
+
     &.danger {
-      color: red;
       font-weight: 700;
+      color: #c73e3e;
+      background: #fce2e0;
     }
     
     &.success {
-      color: green;
+      color: #5ab541;
+      background: #e5fce0;
       font-weight: 700;
     }
+  }
+
+  .parcela {
+    border-radius: 1rem;
+    padding: 4px 8px;
+    background: var(--bs-body-color);
+    width: fit-content;
+    font-size: .8rem;
+    font-weight: 600;
+    color: var(--bs-gray-400);
   }
 }
