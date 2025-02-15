@@ -32,7 +32,6 @@ export class CategoriasComponent implements OnInit {
   protected configModal = {
     modal: true,
     header: "Nova Categoria",
-    width: "30vw",
     closable: true,
     contentStyle: { overflow: "auto" },
   };
