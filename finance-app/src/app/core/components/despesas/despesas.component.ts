@@ -3,6 +3,7 @@ import { BaseTransacaoDirective } from '../../directives/base-transacao.directiv
 import { WrapContainerComponent } from '../wrap-container/wrap-container.component';
 import { TransacaoTableComponent } from '../transacao-table/transacao-table.component';
 import { AlertContainerComponent } from '../alert-container/alert-container.component';
+import { TableHeaderComponent } from "../../../shared/components/table-header/table-header.component";
 
 @Component({
     selector: 'coinz-despesas',
@@ -10,10 +11,11 @@ import { AlertContainerComponent } from '../alert-container/alert-container.comp
     styleUrl: './despesas.component.scss',
     standalone: true,
     imports: [
-        WrapContainerComponent,
-        TransacaoTableComponent,
-        AlertContainerComponent,
-    ],
+    WrapContainerComponent,
+    TransacaoTableComponent,
+    AlertContainerComponent,
+    TableHeaderComponent
+],
 })
 export class DespesasComponent
   extends BaseTransacaoDirective

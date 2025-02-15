@@ -1,6 +1,5 @@
 <coinz-wrap-container>
-  <h2>Saídas</h2>
-  <hr />
+  <coinz-table-header title="Saídas" />
   @if(transacoes().length){
     <coinz-transacao-table
       [transacoes]="transacoes()"
