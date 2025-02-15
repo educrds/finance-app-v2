@@ -5,6 +5,7 @@ import { RowComponent } from "../../../shared/components/row/row.component";
 import { Router, RouterOutlet } from "@angular/router";
 import { TabsModule } from "primeng/tabs";
 import { CategoriasComponent } from "../../components/categorias/categorias.component";
+import { StorageService } from "../../services/storage.service";
 
 @Component({
   selector: "fin-home",
@@ -19,14 +20,29 @@ export class HomeComponent implements OnInit {
   public activeTab: WritableSignal<string | number> = signal("");
 
   private _router = inject(Router);
+  private _storageService = inject(StorageService);
 
   ngOnInit(): void {
+    this.createTabs();
+    this.verifyUserIsAdmin();
+    this.activeTab.set(this._router.url);
+  }
+
+  protected verifyUserIsAdmin(): void  {
+    const user = this._storageService.getUser();
+    if(user?.admin){
+      this.tabs.push({
+        route: "/users", icon: "pi pi-users", label: "Usuários"
+      })
+    }
+  }
+
+  protected createTabs(): void {
     this.tabs = [
       { route: "/dashboard", icon: "pi pi-chart-bar", label: "Dashboard" },
       { route: "/entradas", icon: "pi pi-arrow-up-right", label: "Entradas" },
       { route: "/saidas", icon: "pi pi-arrow-down-left", label: "Saídas" },
     ];
-    this.activeTab.set(this.tabs[0]["route"]);
   }
 
   protected onTabChange(route: string | number) {

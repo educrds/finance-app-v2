@@ -2,11 +2,6 @@ import { Injectable } from '@angular/core';
 import { User } from '../models/User';
 import { jwtDecode } from 'jwt-decode';
 
-interface JwtPayload {
-  name: string,
-  email: string
-}
-
 @Injectable({
   providedIn: 'root',
 })
@@ -32,12 +27,7 @@ export class StorageService {
   getUser(): User | null {
     const token = this.getToken;
     if (token) {
-      const decodedToken = jwtDecode<JwtPayload>(token);
-      const user: User = {
-        name: decodedToken.name, // Assumindo que o token tenha a propriedade 'name'
-        email: decodedToken.email, // Assumindo que o token tenha a propriedade 'name'
-      };
-      return user;
+      return jwtDecode<User>(token);
     }
     return null;
   }

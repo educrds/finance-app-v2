@@ -1,0 +1,15 @@
+<div class="card_users_container">
+  @for (usuario of usuarioList$ | async; track usuario.usr_id) {
+  <div class="card_users">
+    <div class="user_name">
+      <h4>{{ usuario.usr_nome }}</h4>
+      @if(usuario.admin){
+        <p-chip label="Admin" />
+      }
+    </div>
+    <span>{{ usuario.usr_email }}</span>
+    <span>{{ usuario.usr_last_access | date : "dd/MM/yyyy | HH:mm:ss" }}</span>
+    <span>{{ usuario.usr_created_at | date : "dd/MM/yyyy | HH:mm" }}</span>
+  </div>
+  }
+</div>

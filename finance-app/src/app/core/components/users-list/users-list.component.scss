@@ -1,0 +1,29 @@
+:host {
+  .card_users_container {
+    display: grid;
+    grid-template-columns: minmax(200px, 1fr) 1fr 1fr 1fr;
+    gap: 1rem;
+    
+    .card_users {
+      ::ng-deep {
+        .p-chip {
+          background: var(--bs-green);
+          color: var(--bs-gray-200);
+          padding: 4px 8px;
+        }
+      }
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+      border-radius: .5rem;
+      background: var(--bs-body-color);
+      padding: 12px 16px;
+
+      .user_name {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+  }
+}
