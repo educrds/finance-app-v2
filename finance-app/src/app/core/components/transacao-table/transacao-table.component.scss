@@ -1,15 +1,88 @@
 :host {
+  .filter_container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .filter_container_options {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .filter_container_options_selects {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        width: 100%;
+      }
+
+      ::ng-deep {
+        .p-iconfield {
+          width: 100%;
+          // Ajustes para tablet (768px a 1023px)
+          @media (min-width: 768px) and (max-width: 1023px) {
+            width: 40%;
+          }
+  
+          // Ajustes para tablet (768px a 1023px)
+          @media (min-width: 1024px) {
+            width: 40%;
+          }
+
+          input {
+            width: 100%;
+          }
+        }
+
+        .p-select {
+          width: 50%;
+          // Ajustes para tablet (768px a 1023px)
+          @media (min-width: 768px) and (max-width: 1023px) {
+            width: 30%;
+          }
+
+          // Ajustes para tablet (768px a 1023px)
+          @media (min-width: 1024px) {
+            width: 30%;
+          }
+        }
+      }
+
+      // Ajustes para tablet (768px a 1023px)
+      @media (min-width: 768px) and (max-width: 1023px) {
+        display: flex;
+        flex-direction: row;
+      }
+
+      // Ajustes para desktop (1024px ou mais)
+      @media (min-width: 1024px) {
+        flex-direction: row;
+      }
+    }
+
+    .rows_selected_info {
+      span {
+        font-size: 1rem;
+      }
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
   .tipo_despesa {
     padding: 4px 8px;
-    border-radius: .5rem;
-    font-size: .8rem;
+    border-radius: 0.5rem;
+    font-size: 0.8rem;
 
     &.danger {
       font-weight: 700;
       color: #c73e3e;
       background: #fce2e0;
     }
-    
+
     &.success {
       color: #5ab541;
       background: #e5fce0;
@@ -22,7 +95,7 @@
     padding: 4px 8px;
     background: var(--bs-body-color);
     width: fit-content;
-    font-size: .8rem;
+    font-size: 0.8rem;
     font-weight: 600;
     color: var(--bs-gray-400);
   }

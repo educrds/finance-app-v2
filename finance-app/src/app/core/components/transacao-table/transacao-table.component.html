@@ -27,8 +27,8 @@
   ]"
 >
   <ng-template pTemplate="caption">
-    <div class="d-flex justify-content-between">
-      <div class="d-flex g-16">
+    <div class="filter_container">
+      <div class="filter_container_options">
         <p-iconfield>
           <p-inputicon styleClass="pi pi-search" />
           <input
@@ -42,36 +42,36 @@
         @if(inputSearch.value.length){
           <button pButton class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt)">&nbsp;</button>
         }
-
-        <p-select
-          [options]="categoriasOptions()"
-          [showClear]="true"
-          [(ngModel)]="selectedCategory"
-          (ngModelChange)="clear(dt); applyFilterGlobal($event)"
-          appendTo="body"
-          placeholder="Categoria"
-        />
-
-        <p-select
-          [options]="metodosOptions()"
-          [showClear]="true"
-          [(ngModel)]="selectedMetodo"
-          (ngModelChange)="clear(dt); applyFilterGlobal($event)"
-          appendTo="body"
-          placeholder="Método"
-        />
-
-        @if(rowSelected.length){
-        <div class="d-flex flex-column m-auto">
-          <label for="">Somatório selecionados</label>
-          <div>{{ sumSelected(rowSelected) | currency : "R$" }}</div>
+        
+        <div class="filter_container_options_selects">
+          <p-select
+            [options]="categoriasOptions()"
+            [showClear]="true"
+            [(ngModel)]="selectedCategory"
+            (ngModelChange)="clear(dt); applyFilterGlobal($event)"
+            appendTo="body"
+            placeholder="Categoria"
+          />
+          <p-select
+            [options]="metodosOptions()"
+            [showClear]="true"
+            [(ngModel)]="selectedMetodo"
+            (ngModelChange)="clear(dt); applyFilterGlobal($event)"
+            appendTo="body"
+            placeholder="Método"
+          />
         </div>
-        }
       </div>
 
-      @if(rowSelected.length > 1){
-      <button pButton label="Deletar selecionados" class="p-button-danger" (click)="deletarTransacoes()">&nbsp;</button>
-      }
+      <div class="rows_selected_info">
+        @if(rowSelected.length){
+          <span>Total: <b>{{ sumSelected(rowSelected) | currency : "R$" }}</b></span>
+        }
+        
+        @if(rowSelected.length > 1){
+          <button pButton class="p-button-danger" (click)="deletarTransacoes()">Deletar</button>
+        }
+      </div>
     </div>
   </ng-template>
 
