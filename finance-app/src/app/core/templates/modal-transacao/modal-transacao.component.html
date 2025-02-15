@@ -16,49 +16,48 @@
       <fin-input-form type="currency" label="Valor" formControlName="trs_valor" />
     </fin-row>
 
-    <fin-row>
-
+    <div class="d-flex flex-wrap g-8">
       @if(categoriasOptions$ | async; as categorias){
-      <div class="d-flex flex-column g-4">
-        <label for="input_valor">Categoria:</label>
-        <p-select
-          formControlName="trs_categoria"
-          [options]="categorias"
-          optionLabel="text"
-          optionValue="id"
-          appendTo="body"
-          placeholder="Selecione uma categoria"
-        ></p-select>
-        @if(formAddTransacao.controls['trs_categoria'].touched || formAddTransacao.controls['trs_categoria'].dirty){
-        <div class="text-start">
-          @if(formAddTransacao.controls['trs_categoria']?.errors?.['required']){
-          <small class="text-danger text-start">Campo obrigatório.</small>
+        <div class="d-flex flex-column g-4 flex-1">
+          <label for="input_valor">Categoria:</label>
+          <p-select
+            formControlName="trs_categoria"
+            [options]="categorias"
+            optionLabel="text"
+            optionValue="id"
+            appendTo="body"
+            placeholder="Selecione uma categoria"
+          ></p-select>
+          @if(formAddTransacao.controls['trs_categoria'].touched || formAddTransacao.controls['trs_categoria'].dirty){
+          <div class="text-start">
+            @if(formAddTransacao.controls['trs_categoria']?.errors?.['required']){
+            <small class="text-danger text-start">Campo obrigatório.</small>
+            }
+          </div>
           }
         </div>
-        }
-      </div>
       } @if(metodosOptions$ | async; as metodos){
-      <div class="d-flex flex-column g-4">
-        <label for="input_valor">Metódo Pagamento:</label>
-        <p-select
-          formControlName="trs_metodo"
-          [options]="metodos"
-          optionLabel="text"
-          optionValue="id"
-          appendTo="body"
-          placeholder="Selecione um metódo"
-          />
+        <div class="d-flex flex-column g-4 flex-1">
+          <label for="input_valor">Metódo:</label>
+          <p-select
+            formControlName="trs_metodo"
+            [options]="metodos"
+            optionLabel="text"
+            optionValue="id"
+            appendTo="body"
+            placeholder="Selecione um metódo"
+            />
 
-        @if(formAddTransacao.controls['trs_metodo'].touched || formAddTransacao.controls['trs_metodo'].dirty){
-        <div class="text-start">
-          @if(formAddTransacao.controls['trs_metodo']?.errors?.['required']){
-          <small class="text-danger text-start">Campo obrigatório.</small>
+          @if(formAddTransacao.controls['trs_metodo'].touched || formAddTransacao.controls['trs_metodo'].dirty){
+          <div class="text-start">
+            @if(formAddTransacao.controls['trs_metodo']?.errors?.['required']){
+            <small class="text-danger text-start">Campo obrigatório.</small>
+            }
+          </div>
           }
         </div>
-        }
-      </div>
       }
-    </fin-row>
+    </div>
 
     <fin-column>
       <fin-row class="date_picker">
