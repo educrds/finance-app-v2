@@ -42,6 +42,7 @@ export class HomeComponent implements OnInit {
       { route: "/dashboard", icon: "pi pi-chart-bar", label: "Dashboard" },
       { route: "/entradas", icon: "pi pi-arrow-up-right", label: "Entradas" },
       { route: "/saidas", icon: "pi pi-arrow-down-left", label: "Saídas" },
+      { route: "/categorias", icon: "pi pi-list", label: "Categorias" },
     ];
   }
 
