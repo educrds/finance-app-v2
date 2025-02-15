@@ -1,7 +1,7 @@
 :host {
   .card_users_container {
     display: grid;
-    grid-template-columns: minmax(200px, 1fr) 1fr 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1rem;
     
     .card_users {
