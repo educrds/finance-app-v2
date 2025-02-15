@@ -80,7 +80,7 @@
   </p-accordion>
 
   <fin-wrap-container [ngClass]="'w-100'">
-    <h2>Transações</h2>
+    <coinz-table-header title="Transações" />
     <hr />
     <fin-transacao-table [transacoes]="transacoes()" [rowSelected]="rowSelected()" />
   </fin-wrap-container>

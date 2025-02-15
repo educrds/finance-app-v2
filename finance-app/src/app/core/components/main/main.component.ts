@@ -14,6 +14,7 @@ import { NgClass, KeyValuePipe, AsyncPipe } from "@angular/common";
 import { TransacaoTableComponent } from "../transacao-table/transacao-table.component";
 import { AccordionModule } from 'primeng/accordion';
 import { TabsModule } from 'primeng/tabs';
+import { TableHeaderComponent } from "../../../shared/components/table-header/table-header.component";
 
 @Component({
     selector: "fin-main",
@@ -32,7 +33,8 @@ import { TabsModule } from 'primeng/tabs';
         TransacaoTableComponent,
         KeyValuePipe,
         TabsModule,
-        AsyncPipe
+        AsyncPipe,
+        TableHeaderComponent
     ],
 })
 export class MainComponent extends BaseTransacaoDirective implements OnInit {
