@@ -106,7 +106,6 @@ export class NavbarComponent implements OnInit {
     this._ref = this.#_dialogService.open(ModalPreferencesComponent, {
       modal: true,
       header: 'Preferências usuário',
-      width: '35vw',
       closable: true,
       contentStyle: { overflow: 'auto' },
     });
@@ -127,7 +126,6 @@ export class NavbarComponent implements OnInit {
       modal: true,
       header: header,
       closable: true,
-      width: "40vw",
       contentStyle: { overflow: "auto" },
       data: {
         id_tipo_transacao: trs_tipo,

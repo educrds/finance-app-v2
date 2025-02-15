@@ -140,7 +140,6 @@ export class TransacaoUtilService {
     this.#_ref = this.#_dialogService.open(ModalTransacaoComponent, {
       modal: true,
       header: `Atualizar ${tipoTransacao}`,
-      width: "35vw",
       closable: true,
       contentStyle: { overflow: "auto" },
       data: transacao,

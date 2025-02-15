@@ -86,7 +86,6 @@ export class CategoriasComponent implements OnInit {
     this._ref = this._dialogService.open(ModalCategoriaComponent, {
       modal: true,
       header: "Atualizar Categoria",
-      width: "30vw",
       closable: true,
       contentStyle: { overflow: "auto" },
       data: categoria,
