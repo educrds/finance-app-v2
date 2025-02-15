@@ -1,14 +1,17 @@
 :host {
   #logo {
+    visibility: hidden;
     display: none;
-
+    
     // Ajustes para tablet (768px a 1023px)
     @media (min-width: 768px) and (max-width: 1023px) {
+      visibility: visible;
       display: block;
     }
-
+    
     // Ajustes para desktop (1024px ou mais)
     @media (min-width: 1024px) {
+      visibility: visible;
       display: block;
     }
   }
