@@ -1,18 +1,16 @@
-<fin-wrap-container [className]="'w-100 d-flex justify-between'">
-  <fin-logo />
-  @if (isShowDatePicker$ | async) {
+  <div class="wrap-container">
+    <fin-logo />
+    <div>
     <p-datepicker
-      view="month"
-      class="calendar_filter"
-      dateFormat="MM"
-      [showIcon]="true"
-      [(ngModel)]="month_selected"
-      (ngModelChange)="onDateChange($event)"
+    view="month"
+    class="calendar_filter"
+    dateFormat="MM"
+    [showIcon]="true"
+    [(ngModel)]="month_selected"
+    (ngModelChange)="onDateChange($event)"
     ></p-datepicker>
-  }
-  <div class="d-flex justify-content-center align-items-center gap-2">
-    <p-splitButton label="Adicionar" size="small" (onClick)="openModalAdd(1)" [model]="items_transacao" />  
-
+  </div>
+  <div class="d-flex align-items-center gap-2">
     <p-avatar
     (click)="menu.toggle($event)"
     [label]="userInitials"
@@ -21,4 +19,4 @@
     ></p-avatar>
     <p-menu #menu [model]="items_menu" appendTo="body" [popup]="true"></p-menu>
   </div>
-</fin-wrap-container>
+</div>

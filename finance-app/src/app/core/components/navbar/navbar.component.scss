@@ -1,7 +1,24 @@
-.calendar_filter ::ng-deep.p-calendar {
-  min-width: 9.6rem !important;
-  max-width: 9.6rem !important;
-}
-::ng-deep p-avatar {
-  cursor: pointer;
+:host {
+  .calendar_filter ::ng-deep.p-calendar {
+    min-width: 9.6rem !important;
+    max-width: 9.6rem !important;
+  }
+  ::ng-deep p-avatar {
+    cursor: pointer;
+  }
+
+  .wrap-container {
+    display: flex;
+    align-items: center;
+
+    // Ajustes para tablet (768px a 1023px)
+    @media (min-width: 768px) and (max-width: 1023px) {
+      justify-content: space-between;
+    }
+    
+    // Ajustes para desktop (1024px ou mais)
+    @media (min-width: 1024px) {
+      justify-content: space-between;
+    }
+  }
 }
