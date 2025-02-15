@@ -4,6 +4,7 @@ import { ColumnComponent } from '../../../shared/components/column/column.compon
 import { WrapContainerComponent } from '../wrap-container/wrap-container.component';
 import { TransacaoTableComponent } from '../transacao-table/transacao-table.component';
 import { AlertContainerComponent } from '../alert-container/alert-container.component';
+import { TableHeaderComponent } from "../../../shared/components/table-header/table-header.component";
 
 @Component({
     selector: 'coinz-receitas',
@@ -11,11 +12,12 @@ import { AlertContainerComponent } from '../alert-container/alert-container.comp
     styleUrl: './receitas.component.scss',
     standalone: true,
     imports: [
-        ColumnComponent,
-        WrapContainerComponent,
-        TransacaoTableComponent,
-        AlertContainerComponent,
-    ],
+    ColumnComponent,
+    WrapContainerComponent,
+    TransacaoTableComponent,
+    AlertContainerComponent,
+    TableHeaderComponent
+],
 })
 export class ReceitasComponent
   extends BaseTransacaoDirective
