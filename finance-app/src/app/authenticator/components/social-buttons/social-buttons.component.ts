@@ -9,7 +9,7 @@ import { Usuario } from "../../../core/models/Usuario";
 import { AuthService as Auth0Service, IdToken } from "@auth0/auth0-angular";
 
 @Component({
-  selector: "fin-social-buttons",
+  selector: "coinz-social-buttons",
   templateUrl: "./social-buttons.component.html",
   styleUrl: "./social-buttons.component.scss",
   standalone: true,

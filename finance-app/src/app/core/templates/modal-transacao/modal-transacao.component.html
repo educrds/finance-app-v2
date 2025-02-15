@@ -1,8 +1,8 @@
 <form action="" [formGroup]="formAddTransacao">
-  <fin-column>
-    <fin-input-form type="text" label="Título" placeholder="Digite um título" formControlName="trs_titulo" />
+  <coinz-column>
+    <coinz-input-form type="text" label="Título" placeholder="Digite um título" formControlName="trs_titulo" />
        
-    <!-- <fin-row>
+    <!-- <coinz-row>
 
       <div class="d-flex flex-column g-4">
         <label for="input_valor">&nbsp;</label>
@@ -11,10 +11,10 @@
           <p-toggleswitch formControlName="trs_status"></p-toggleswitch>
         </div>
       </div>
-    </fin-row> -->
-    <fin-row>
-      <fin-input-form type="currency" label="Valor" formControlName="trs_valor" />
-    </fin-row>
+    </coinz-row> -->
+    <coinz-row>
+      <coinz-input-form type="currency" label="Valor" formControlName="trs_valor" />
+    </coinz-row>
 
     <div class="d-flex flex-wrap g-8">
       @if(categoriasOptions$ | async; as categorias){
@@ -59,8 +59,8 @@
       }
     </div>
 
-    <fin-column>
-      <fin-row class="date_picker">
+    <coinz-column>
+      <coinz-row class="date_picker">
         <div class="d-flex flex-column g-4">
           <label for="input_valor">Data:</label>
           <p-datepicker
@@ -72,7 +72,7 @@
         </div>
 
         @if(!formAddTransacao.get('trs_id')?.value && formAddTransacao.get('trs_parcelado')?.value){
-        <fin-row>
+        <coinz-row>
           <div class="d-flex flex-column g-4 justify-content-center">
             <span>&nbsp;</span>
             <span>Até</span>
@@ -92,9 +92,9 @@
             <small class="text-danger">Intervalo de datas inválido.</small>
             }
           </div>
-        </fin-row>
+        </coinz-row>
         }
-      </fin-row>
+      </coinz-row>
 
       @if(!formAddTransacao.get('trs_id')?.value){
       <div class="d-flex g-4 align-items-center">
@@ -102,7 +102,7 @@
         <p-toggleswitch formControlName="trs_parcelado"></p-toggleswitch>
       </div>
       }
-    </fin-column>
+    </coinz-column>
 
     <div class="d-flex align-items-center gap-1 justify-content-end">
       @if(!formAddTransacao.get('trs_id')?.value){
@@ -122,5 +122,5 @@
         (onClick)="inserirOuAtualizarTransacao()"
       ></p-button>
     </div>
-  </fin-column>
+  </coinz-column>
 </form>

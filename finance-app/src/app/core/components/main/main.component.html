@@ -1,28 +1,28 @@
-<fin-column class="w-100">
+<coinz-column class="w-100">
   <div class="cards_container">
-    <fin-top-card
+    <coinz-top-card
       [value]="somatorio()['soma_receitas']"
       [isCurrency]="true"
       icon="pi pi-arrow-up-right"
       title="Entradas"
       class="flex-1"
-    ></fin-top-card>
+    ></coinz-top-card>
   
-    <fin-top-card
+    <coinz-top-card
       [value]="somatorio()['saldo']"
       [isCurrency]="true"
       [icon]=""
       title="Saldo"
       class="flex-1"
-    ></fin-top-card>
+    ></coinz-top-card>
   
-    <fin-top-card
+    <coinz-top-card
       [value]="somatorio()['soma_despesas']"
       [isCurrency]="true"
       icon="pi pi-arrow-down-left"
       class="flex-1"
       title="Saídas"
-    ></fin-top-card>
+    ></coinz-top-card>
   </div>
 
   <p-accordion [value]="['0']">
@@ -30,58 +30,58 @@
       <p-accordion-header>Gráficos por categoria</p-accordion-header>
       <p-accordion-content>
         @if(chartsPreference$ | async; as chartsPreference){ @defer (on interaction(accordionClicked)) {
-        <fin-column>
+        <coinz-column>
           @if((transacoesPorCategoria['entradas'] | keyvalue)?.length || (transacoesPorCategoria['saidas'] |
           keyvalue)?.length){
-          <fin-row>
+          <coinz-row>
             @if((transacoesPorCategoria['entradas'] | keyvalue)?.length && chartsPreference["entradas_por_categoria"]){
             <div class="wrap-container pie-chart">
               <h3>Entradas por categoria</h3>
               <div class="d-block w-100">
-                <fin-pie-chart-categoria [chartData]="transacoesPorCategoria['entradas']" />
+                <coinz-pie-chart-categoria [chartData]="transacoesPorCategoria['entradas']" />
               </div>
             </div>
             } @if((transacoesPorCategoria['saidas'] | keyvalue)?.length && chartsPreference["saidas_por_categoria"]){
             <div class="wrap-container pie-chart">
               <h3>Saídas por categoria</h3>
               <div class="d-block w-100">
-                <fin-pie-chart-categoria [chartData]="transacoesPorCategoria['saidas']" />
+                <coinz-pie-chart-categoria [chartData]="transacoesPorCategoria['saidas']" />
               </div>
             </div>
             }
-          </fin-row>
+          </coinz-row>
           }
-          <fin-row>
+          <coinz-row>
             @if((chartsPreference["saidas_por_metodo"] | keyvalue)?.length && saidasPorMetodo &&
             chartsPreference["saidas_por_metodo"]){
             <div class="wrap-container pie-chart">
               <h3>Saídas por Método</h3>
               <div class="d-block w-100">
-                <fin-pie-chart-categoria [chartData]="saidasPorMetodo" />
+                <coinz-pie-chart-categoria [chartData]="saidasPorMetodo" />
               </div>
             </div>
             }
-          </fin-row>
+          </coinz-row>
 
-          <fin-row>
+          <coinz-row>
             @if(comparativoAnual && chartsPreference["comparativo_mensal"]){
             <div class="wrap-container chart">
               <h3>Comparativo mensal</h3>
               <div class="d-block w-100">
-                <fin-bar-chart-anual [chartData]="comparativoAnual" />
+                <coinz-bar-chart-anual [chartData]="comparativoAnual" />
               </div>
             </div>
             }
-          </fin-row>
-        </fin-column>
+          </coinz-row>
+        </coinz-column>
         } }
       </p-accordion-content>
     </p-accordion-panel>
   </p-accordion>
 
-  <fin-wrap-container [ngClass]="'w-100'">
+  <coinz-wrap-container [ngClass]="'w-100'">
     <coinz-table-header title="Transações" />
     <hr />
-    <fin-transacao-table [transacoes]="transacoes()" [rowSelected]="rowSelected()" />
-  </fin-wrap-container>
-</fin-column>
+    <coinz-transacao-table [transacoes]="transacoes()" [rowSelected]="rowSelected()" />
+  </coinz-wrap-container>
+</coinz-column>

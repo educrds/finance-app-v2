@@ -3,7 +3,7 @@ import { WrapContainerComponent } from '../wrap-container/wrap-container.compone
 import { NgClass, CurrencyPipe } from '@angular/common';
 
 @Component({
-    selector: 'fin-top-card',
+    selector: 'coinz-top-card',
     templateUrl: './top-card.component.html',
     styleUrl: './top-card.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,

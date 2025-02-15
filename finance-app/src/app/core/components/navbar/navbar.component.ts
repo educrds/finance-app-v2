@@ -12,7 +12,7 @@ import { Menu } from "primeng/menu";
 import { ModalPreferencesComponent } from "../modal-preferences/modal-preferences.component";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 @Component({
-  selector: "fin-navbar",
+  selector: "coinz-navbar",
   templateUrl: "./navbar.component.html",
   styleUrl: "./navbar.component.scss",
   standalone: true,

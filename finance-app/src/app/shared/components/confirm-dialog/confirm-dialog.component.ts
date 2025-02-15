@@ -4,7 +4,7 @@ import { ConfirmDialogService } from '../../services/confirm-dialog.service';
 import { Button } from 'primeng/button';
 
 @Component({
-    selector: 'fin-confirm-dialog',
+    selector: 'coinz-confirm-dialog',
     templateUrl: './confirm-dialog.component.html',
     styleUrl: './confirm-dialog.component.scss',
     standalone: true,

@@ -5,7 +5,7 @@ import { ChartComponent } from "ng-apexcharts";
 import { BarChart } from "../../models/Chart";
 
 @Component({
-    selector: "fin-bar-chart-anual",
+    selector: "coinz-bar-chart-anual",
     templateUrl: "./bar-chart-anual.component.html",
     styleUrl: "./bar-chart-anual.component.scss",
     changeDetection: ChangeDetectionStrategy.OnPush,

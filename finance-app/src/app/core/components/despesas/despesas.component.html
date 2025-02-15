@@ -1,12 +1,12 @@
-<fin-wrap-container>
+<coinz-wrap-container>
   <h2>Saídas</h2>
   <hr />
   @if(transacoes().length){
-    <fin-transacao-table
+    <coinz-transacao-table
       [transacoes]="transacoes()"
       [rowSelected]="rowSelected()"
     />
   } @else if(!transacoes().length){
-    <fin-alert-container message="Nenhum registro encontrado." />
+    <coinz-alert-container message="Nenhum registro encontrado." />
   }
-</fin-wrap-container>
+</coinz-wrap-container>

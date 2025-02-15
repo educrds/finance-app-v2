@@ -16,7 +16,7 @@ import { Select } from 'primeng/select';
 import { FormsModule } from "@angular/forms";
 
 @Component({
-  selector: "fin-transacao-table",
+  selector: "coinz-transacao-table",
   templateUrl: "./transacao-table.component.html",
   styleUrl: "./transacao-table.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,

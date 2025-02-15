@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { NgClass } from '@angular/common';
 
 @Component({
-    selector: 'fin-wrap-container',
+    selector: 'coinz-wrap-container',
     templateUrl: './wrap-container.component.html',
     styleUrl: './wrap-container.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,

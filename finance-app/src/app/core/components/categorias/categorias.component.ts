@@ -13,7 +13,7 @@ import { MenuItem } from "primeng/api";
 import { MessagesService } from "../../services/messages.service";
 
 @Component({
-  selector: "fin-categorias",
+  selector: "coinz-categorias",
   templateUrl: "./categorias.component.html",
   styleUrl: "./categorias.component.scss",
   standalone: true,

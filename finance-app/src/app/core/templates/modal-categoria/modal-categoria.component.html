@@ -1,7 +1,7 @@
 <form [formGroup]="formAddCategoria">
-  <fin-column
+  <coinz-column
     >
-    <fin-input-form type="text" label="Título" placeholder="Digite um título" formControlName="cat_nome" />
+    <coinz-input-form type="text" label="Título" placeholder="Digite um título" formControlName="cat_nome" />
     
     <div class="d-flex flex-column g-4">
       <label>Tipo:</label>
@@ -31,5 +31,5 @@
     </div>
     
     <p-button label="Salvar" [loading]="isLoading()" (onClick)="inserirOuAtualizarCategoria()"></p-button>
-  </fin-column>
+  </coinz-column>
 </form>

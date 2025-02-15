@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'fin-column',
+    selector: 'coinz-column',
     templateUrl: './column.component.html',
     standalone: true,
 })

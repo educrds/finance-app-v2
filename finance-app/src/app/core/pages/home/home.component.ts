@@ -8,7 +8,7 @@ import { CategoriasComponent } from "../../components/categorias/categorias.comp
 import { StorageService } from "../../services/storage.service";
 
 @Component({
-  selector: "fin-home",
+  selector: "coinz-home",
   templateUrl: "./home.component.html",
   styleUrl: "./home.component.scss",
   standalone: true,

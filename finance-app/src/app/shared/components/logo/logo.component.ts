@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'fin-logo',
+    selector: 'coinz-logo',
     templateUrl: './logo.component.html',
     styleUrl: './logo.component.scss',
     standalone: true

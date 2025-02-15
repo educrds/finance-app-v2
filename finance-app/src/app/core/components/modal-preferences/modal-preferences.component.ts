@@ -12,7 +12,7 @@ import { PREFERENCES_TOKEN } from "../../../../main";
 import { Preference } from "../../models/Preference";
 
 @Component({
-  selector: "fin-modal-preferences",
+  selector: "coinz-modal-preferences",
   standalone: true,
   imports: [ButtonModule, InputTextModule, ToggleSwitch, FormsModule, ReactiveFormsModule],
   templateUrl: "./modal-preferences.component.html",

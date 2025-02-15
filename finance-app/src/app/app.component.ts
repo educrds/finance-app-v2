@@ -6,7 +6,7 @@ import { PrimeNG } from 'primeng/config';
 import Lara from '@primeng/themes/lara';
 
 @Component({
-    selector: 'fin-root',
+    selector: 'coinz-root',
     templateUrl: './app.component.html',
     standalone: true,
     imports: [

@@ -14,7 +14,7 @@ import { ColorPickerModule } from "primeng/colorpicker";
 import { Button } from "primeng/button";
 
 @Component({
-  selector: "fin-modal-categoria",
+  selector: "coinz-modal-categoria",
   templateUrl: "./modal-categoria.component.html",
   styleUrl: "./modal-categoria.component.scss",
   standalone: true,

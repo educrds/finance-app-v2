@@ -6,7 +6,7 @@ import { TransacaoTableComponent } from '../transacao-table/transacao-table.comp
 import { AlertContainerComponent } from '../alert-container/alert-container.component';
 
 @Component({
-    selector: 'fin-receitas',
+    selector: 'coinz-receitas',
     templateUrl: './receitas.component.html',
     styleUrl: './receitas.component.scss',
     standalone: true,

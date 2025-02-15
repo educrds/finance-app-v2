@@ -4,7 +4,7 @@ import { InputNumber } from "primeng/inputnumber";
 import { InputText } from "primeng/inputtext";
 
 @Component({
-    selector: "fin-input-form",
+    selector: "coinz-input-form",
     templateUrl: "./input-form.component.html",
     styleUrl: "./input-form.component.scss",
     providers: [

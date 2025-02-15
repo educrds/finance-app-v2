@@ -6,7 +6,7 @@ import { UsersService } from '../../services/users.service';
 import { Chip } from 'primeng/chip';
 
 @Component({
-  selector: 'fin-users-list',
+  selector: 'coinz-users-list',
   standalone: true,
   imports: [AsyncPipe, DatePipe, Chip],
   templateUrl: './users-list.component.html',

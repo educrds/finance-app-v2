@@ -8,7 +8,7 @@ import { SocialButtonsComponent } from "../../components/social-buttons/social-b
 import { AuthComponentBase } from "../../components/auth-component/auth-component.base";
 
 @Component({
-  selector: "fin-login",
+  selector: "coinz-login",
   templateUrl: "../../components/auth-component/auth-component.base.html",
   styleUrl: "../../components/auth-component/auth-component.base.scss",
   standalone: true,

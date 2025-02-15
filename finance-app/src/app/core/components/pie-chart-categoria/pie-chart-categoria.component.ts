@@ -4,7 +4,7 @@ import SharedUtil from "../../../shared/utils";
 import { ChartComponent } from "ng-apexcharts";
 
 @Component({
-    selector: "fin-pie-chart-categoria",
+    selector: "coinz-pie-chart-categoria",
     templateUrl: "./pie-chart-categoria.component.html",
     styleUrls: ["./pie-chart-categoria.component.scss"],
     changeDetection: ChangeDetectionStrategy.OnPush,

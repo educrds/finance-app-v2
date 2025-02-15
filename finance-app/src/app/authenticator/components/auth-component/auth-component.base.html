@@ -3,7 +3,7 @@
     <img src="../../../../assets/logo for auth.png" width="250px" alt="" />
 
     <form [formGroup]="formAuthenticator">
-      <fin-column>
+      <coinz-column>
         @if(authType === 'register'){
           <div class="d-flex flex-column g-4">
             <label for="input_valor">Nome:</label>
@@ -89,9 +89,9 @@
           (onClick)="autenticarUsuario()"
         ></p-button>
 
-        <fin-social-buttons [context]="authType" />
+        <coinz-social-buttons [context]="authType" />
 
-      </fin-column>
+      </coinz-column>
     </form>
   </div>
 </div>

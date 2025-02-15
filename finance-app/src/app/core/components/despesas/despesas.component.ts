@@ -5,7 +5,7 @@ import { TransacaoTableComponent } from '../transacao-table/transacao-table.comp
 import { AlertContainerComponent } from '../alert-container/alert-container.component';
 
 @Component({
-    selector: 'fin-despesas',
+    selector: 'coinz-despesas',
     templateUrl: './despesas.component.html',
     styleUrl: './despesas.component.scss',
     standalone: true,

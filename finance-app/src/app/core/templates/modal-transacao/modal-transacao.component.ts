@@ -19,7 +19,7 @@ import { Button } from "primeng/button";
 import { AsyncPipe } from "@angular/common";
 
 @Component({
-    selector: "fin-modal-transacao",
+    selector: "coinz-modal-transacao",
     templateUrl: "./modal-transacao.component.html",
     styleUrl: "./modal-transacao.component.scss",
     standalone: true,

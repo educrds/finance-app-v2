@@ -17,7 +17,7 @@ import { TabsModule } from 'primeng/tabs';
 import { TableHeaderComponent } from "../../../shared/components/table-header/table-header.component";
 
 @Component({
-    selector: "fin-main",
+    selector: "coinz-main",
     templateUrl: "./main.component.html",
     styleUrls: ["./main.component.scss"],
     standalone: true,
