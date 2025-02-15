@@ -7,9 +7,12 @@
     .card_category {
       display: flex;
       padding: 8px 12px;
+      padding: 8px 12px;
       gap: 0.5rem;
       justify-content: space-between;
       align-items: center;
+      background: var(--bs-border-color-translucent);
+      border-radius: .5rem;
       background: var(--bs-border-color-translucent);
       border-radius: .5rem;
 
