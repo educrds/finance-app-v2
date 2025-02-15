@@ -1,12 +1,30 @@
-:host ::ng-deep {
-  .p-accordion {
-    .p-accordion-content {
-      border: none;
-      background: #252b33;
+:host {
+  .cards_container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    // Ajustes para tablet (768px a 1023px)
+    @media (min-width: 768px) and (max-width: 1023px) {
+      flex-direction: row;
     }
-    .p-accordion-header .p-accordion-header-link {
-      background: var(--bs-dark);
-      border: none;
+
+    // Ajustes para desktop (1024px ou mais)
+    @media (min-width: 1024px) {
+      flex-direction: row;
+    }
+  }
+  
+  ::ng-deep {
+    .p-accordion {
+      .p-accordion-content {
+        border: none;
+        background: #252b33;
+      }
+      .p-accordion-header .p-accordion-header-link {
+        background: var(--bs-dark);
+        border: none;
+      }
     }
   }
 }

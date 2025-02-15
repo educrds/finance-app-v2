@@ -1,5 +1,5 @@
 <fin-column class="w-100">
-  <fin-row>
+  <div class="cards_container">
     <fin-top-card
       [value]="somatorio()['soma_receitas']"
       [isCurrency]="true"
@@ -7,7 +7,7 @@
       title="Entradas"
       class="flex-1"
     ></fin-top-card>
-
+  
     <fin-top-card
       [value]="somatorio()['saldo']"
       [isCurrency]="true"
@@ -15,7 +15,7 @@
       title="Saldo"
       class="flex-1"
     ></fin-top-card>
-
+  
     <fin-top-card
       [value]="somatorio()['soma_despesas']"
       [isCurrency]="true"
@@ -23,7 +23,7 @@
       class="flex-1"
       title="Saídas"
     ></fin-top-card>
-  </fin-row>
+  </div>
 
   <p-accordion [value]="['0']">
     <p-accordion-panel value="0" #accordionClicked [disabled]="transacoes.length !== 0">
