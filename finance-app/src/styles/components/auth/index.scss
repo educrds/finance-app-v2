@@ -9,26 +9,38 @@
     display: flex;
     flex-direction: column;
     margin: auto;
-    width: 35vw;
+    width: 75vw;
     align-items: center;
-    height: 90vh;
+    height: 70vh;
     border-radius: 8px;
     justify-content: center;
     background: var(--bs-dark);
 
-      form {
-        input {
-          width: 100%;
-        }
-        label {
-          text-align: start;
-        }
-        .register-link {
-          font-size: 14px;
-          cursor: pointer;
-          color: var(--bs-gray-500);
-          text-align: end;
-        }
+    form {
+      input {
+        width: 100%;
       }
+      label {
+        text-align: start;
+      }
+      .register-link {
+        font-size: 14px;
+        cursor: pointer;
+        color: var(--bs-gray-500);
+        text-align: end;
+      }
+    }
+
+    // Ajustes para tablet (768px a 1023px)
+    @media (min-width: 768px) and (max-width: 1023px) {
+      width: 50vw;
+      height: 70vh;
+    }
+
+    // Ajustes para desktop (1024px ou mais)
+    @media (min-width: 1024px) {
+      width: 35vw;
+      height: 90vh;
+    }
   }
 }
