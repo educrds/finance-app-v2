@@ -66,9 +66,7 @@ export class TransacaoUtilService {
     const configModal = {
       modal: true,
       header: "Confirmar remoção",
-      width: "35vw",
-      height: "15vw",
-      contentStyle: { overflow: "auto" },
+      closable: true
     };
 
     const confirmationMessage = `Este registro trata-se de uma transação que se repete.<br>
