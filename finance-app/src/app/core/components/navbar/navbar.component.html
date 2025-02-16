@@ -6,6 +6,7 @@
     class="calendar_filter"
     dateFormat="MM"
     [showIcon]="true"
+    [readonlyInput]="true"
     [(ngModel)]="month_selected"
     (ngModelChange)="onDateChange($event)"
     ></p-datepicker>
