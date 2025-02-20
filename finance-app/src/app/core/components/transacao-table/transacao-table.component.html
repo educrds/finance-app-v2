@@ -80,7 +80,6 @@
       <th>
         <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
       </th>
-      <th>Tipo</th>
       <th pSortableColumn="trs_titulo">
         Título
         <p-sortIcon field="trs_titulo"></p-sortIcon>
@@ -89,10 +88,6 @@
         Valor
         <p-sortIcon field="trs_valor"></p-sortIcon>
       </th>
-      <!-- <th>Parcela</th> -->
-      <!-- <th pSortableColumn="trs_status">
-          Status <p-sortIcon field="trs_status"></p-sortIcon>
-        </th> -->
       <th pSortableColumn="categoria_nome">
         Categoria
         <p-sortIcon field="categoria_nome"></p-sortIcon>
@@ -110,46 +105,34 @@
   </ng-template>
 
   <ng-template pTemplate="body" let-transacao let-rowData>
-    <tr [pSelectableRowDisabled]="true" [pSelectableRow]="rowData">
-      <td>
+    <tr 
+      [pSelectableRowDisabled]="true" 
+      [pSelectableRow]="rowData" 
+      [ngClass]="transacao.id_tipo_transacao === 2 ? 'despesa' : 'receita'"
+    >
+      <td id="checkbox">
         <p-tableCheckbox [value]="transacao"></p-tableCheckbox>
       </td>
-      <td>
-        <span class="tipo_despesa" [ngClass]="transacao.id_tipo_transacao === 2 ? 'danger' : 'success'">
-          {{ transacao.id_tipo_transacao === 2 ? "D" : "R" }}
-        </span>
-      </td>
-      <td>{{ transacao.trs_titulo }}</td>
-      <td>
-        <div class="d-flex flex-column gap-1">
-          {{ transacao.trs_valor | currency : "R$ " }}
+      <td id="title">{{ transacao.trs_titulo }}</td>
+      <td id="value">
+        <div class="d-flex align-items-center gap-2">
+          {{ (transacao.id_tipo_transacao === 2 ? '- ' : '+ ') + (transacao.trs_valor | currency: 'R$ ') }}
           @if(transacao.total_parcelas > 1){
-            <span class="parcela">Parcela {{ transacao.trs_num_parcela }}/{{ transacao.total_parcelas }}</span>
+            <span id="parcela">{{ transacao.trs_num_parcela }}/{{ transacao.total_parcelas }}</span>
           } @else {
             &nbsp;
           }
         </div>
       </td>
-      <!-- <td>
-      </td> -->
-      <!-- <td>
-          <span
-            class="ellipsis"
-            tooltipPosition="top"
-            [pTooltip]="checkStatus(transacao)"
-            [ngClass]="
-              transacao.trs_status ? 'ellipsis-success' : 'ellipsis-danger'
-            "
-          ></span>
-        </td> -->
-      <td>
-        <div class="chip" [ngStyle]="{ 'background-color': transacao.categoria_cor }">
+      <td id="category">
+        <span class="chip" [ngStyle]="{ 'background-color': transacao.categoria_cor }">
           {{ transacao.categoria_nome }}
-        </div>
+        </span>
       </td>
-      <td>{{ transacao.trs_data_ocorrido | date : "dd/MM" }}</td>
-      <td>{{ transacao.metodo_nome }}</td>
-      <td class="d-flex flex-1">
+      <td id="date">{{ transacao.trs_data_ocorrido | date : "dd/MM/yyyy" }}</td>
+      <td id="method">{{ transacao.metodo_nome }}</td>
+      <!-- exibida em telas desktop -->
+      <td id="action_buttons">
         <button
           pButton
           pRipple
@@ -159,7 +142,6 @@
           (click)="editarTransacao(transacao)"
           class="p-button-rounded p-button-text p-button-primary"
         >
-          &nbsp;
         </button>
 
         <button
@@ -171,8 +153,12 @@
           (click)="deletarTransacao(transacao)"
           class="p-button-rounded p-button-text p-button-danger"
         >
-          &nbsp;
         </button>
+      </td>
+      <!-- exibida em telas mobiles -->
+      <td id="ellipsis">
+        <p-menu #menu [model]="items_actions_transacao" [popup]="true" appendTo="body" />
+        <p-button (click)="openMenu($event, transacao, menu)" className="btn_actions" [text]="true" size="small" [rounded]="true" icon="pi pi-ellipsis-v"/>
       </td>
     </tr>
   </ng-template>

@@ -1,12 +1,12 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild, WritableSignal, inject, signal } from "@angular/core";
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild, WritableSignal, inject, input, signal, viewChild } from "@angular/core";
 import { Transacao } from "../../models/Transacao";
 import { Table, TableModule } from "primeng/table";
 import { TransacaoUtilService } from "../../services/transacao-util.service";
 import SharedUtil from "../../../shared/utils";
 import { SelectionIntervalRowsDirective } from "../../directives/selection-interval-rows.directive";
-import { PrimeTemplate } from "primeng/api";
+import { MenuItem, PrimeTemplate } from "primeng/api";
 import { InputTextModule } from "primeng/inputtext";
-import { ButtonDirective } from "primeng/button";
+import { Button, ButtonDirective } from "primeng/button";
 import { NgClass, NgStyle, CurrencyPipe, DatePipe } from "@angular/common";
 import { AlertContainerComponent } from "../alert-container/alert-container.component";
 import { SplitButtonModule } from "primeng/splitbutton";
@@ -14,6 +14,7 @@ import { IconField } from "primeng/iconfield";
 import { InputIcon } from "primeng/inputicon";
 import { Select } from 'primeng/select';
 import { FormsModule } from "@angular/forms";
+import { Menu } from "primeng/menu";
 
 @Component({
   selector: "coinz-transacao-table",
@@ -36,7 +37,9 @@ import { FormsModule } from "@angular/forms";
     CurrencyPipe,
     DatePipe,
     SplitButtonModule,
-    FormsModule
+    FormsModule,
+    Button, 
+    Menu
   ],
 })
 export class TransacaoTableComponent implements OnChanges {
@@ -47,12 +50,27 @@ export class TransacaoTableComponent implements OnChanges {
   @Input() rowSelected: Transacao[] = [];
 
   protected categoriasOptions: WritableSignal<string[]> = signal([]);
+  protected selectedTransacao: WritableSignal<Transacao | null> = signal(null);
   protected selectedCategory: string | null = null;
+  protected items_actions_transacao: MenuItem[] = [];
 
   protected metodosOptions: WritableSignal<string[]> = signal([]);
   protected selectedMetodo: string | null = null;
 
   private _transacaoUtilService = inject(TransacaoUtilService);
+
+  constructor(){
+    this.items_actions_transacao = [
+      {
+        label: "Editar",
+        command: () => this.editarTransacao(this.selectedTransacao()),
+      },
+      {
+        label: "Excluir",
+        command: () => this.deletarTransacao(this.selectedTransacao()),
+      },
+    ];
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if(changes["transacoes"] && changes["transacoes"].currentValue.length){
@@ -61,12 +79,18 @@ export class TransacaoTableComponent implements OnChanges {
     }
   }
 
+  protected openMenu(event: MouseEvent, transacao: Transacao, menu: Menu) {
+    this.selectedTransacao.set(transacao);
+    menu.toggle(event);
+  }
+
   protected clear(table: Table): void {
     if (this.inputSearch) {
       this.inputSearch.nativeElement.value = null;
     }
     table.clear();
   }
+  
 
   protected applyFilterGlobal($event: Event | string, stringVal: string = "contains"): void {
     const value = $event instanceof InputEvent && $event.target instanceof HTMLInputElement
@@ -84,11 +108,11 @@ export class TransacaoTableComponent implements OnChanges {
     return transactions.reduce((acc: number, transacao: Transacao) => acc + transacao.trs_valor, 0);
   }
 
-  protected editarTransacao(transacao: Transacao): void {
+  protected editarTransacao(transacao: Transacao | null): void {
     this._transacaoUtilService.editarTransacaoUtil(transacao);
   }
 
-  protected deletarTransacao(transacao: Transacao): void {
+  protected deletarTransacao(transacao: Transacao | null): void {
     this._transacaoUtilService.deletarTransacaoUtil(transacao);
   }
 

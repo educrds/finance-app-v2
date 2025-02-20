@@ -24,7 +24,7 @@
           @media (min-width: 768px) and (max-width: 1023px) {
             width: 40%;
           }
-  
+
           // Ajustes para tablet (768px a 1023px)
           @media (min-width: 1024px) {
             width: 40%;
@@ -90,13 +90,161 @@
     }
   }
 
-  .parcela {
+  #parcela {
     border-radius: 1rem;
     padding: 4px 8px;
-    background: var(--bs-body-color);
+    background: var(--bs-gray-700);
     width: fit-content;
     font-size: 0.8rem;
     font-weight: 600;
     color: var(--bs-gray-400);
   }
+
+  .value-parcela {
+    display: flex;
+    flex-direction: column;
+
+  }
+
+  .category {
+    display: flex;
+    align-items: center;
+  }
+
+  ::ng-deep {
+    #ellipsis {
+      .p-button {
+        width: 2px;
+        height: 2px;
+      }
+    }
+
+    .p-datatable-thead > tr > th,
+    .p-datatable-header,
+    .p-paginator {
+      background: none !important;
+      border: none !important;
+    }
+
+    .p-datatable-header {
+      padding: 6px;
+    }
+
+    .p-datatable-tbody {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .p-datatable-thead, .p-datatable-tbody > tr > td#action_buttons {
+      display: none;
+    }
+
+    .p-datatable-tbody, .p-datatable-thead {
+      > tr {
+        display: grid;
+        gap: 4px;
+        padding: 6px;
+
+        grid-template-columns: fit-content(120px) 2fr 2fr fit-content(30px); /* Três colunas, primeira coluna menor */
+        grid-template-areas:
+          "checkbox title value ellipsis"
+          "checkbox category method method"
+          "checkbox date date date";
+        // grid-template-columns: fit-content(120px) 1fr 1fr 1fr 1fr 1fr 120px;
+        align-items: center;
+        border-radius: 6px;
+
+        #checkbox {
+          grid-area: checkbox;
+        }
+        
+        #title {
+          grid-area: title;
+        }
+        
+        #category {
+          grid-area: category;
+        }
+        
+        #parcela {
+          grid-area: parcela;
+        }
+        
+        #date {
+          grid-area: date;
+        }
+
+        #ellipsis {
+          grid-area: ellipsis;
+          color: var(--bs-gray-500);
+        }
+        
+        #method {
+          grid-area: method;
+        }
+        
+        #value {
+          grid-area: value;
+        }
+
+        #action_buttons {
+          grid-area: action_buttons;
+        }
+        
+        > td, th {
+          padding: 6px;
+          border: none;
+        }
+
+        &.despesa {
+          border-left: 8px #862323 solid;
+        }
+  
+        &.receita {
+          border-left: 8px #238635 solid;
+        }
+      }
+    }
+    // Ajustes para tablet (768px a 1023px)
+    @media (min-width: 768px) and (max-width: 1023px) {
+      width: auto;
+    }
+    
+    // Ajustes para desktop (1024px ou mais)
+    @media (min-width: 1024px) {
+      .p-datatable-thead, .p-datatable-tbody > tr > td#action_buttons {
+        display: block;
+      }
+
+      #ellipsis {
+        display: none;
+      }
+
+      .p-datatable-tbody, .p-datatable-thead {
+        > tr {
+          display: grid;
+          gap: 8px;
+          grid-template-columns: fit-content(120px) 1fr 1fr 1fr 1fr 1fr 120px;
+          align-items: center;
+          border-radius: 6px;
+          grid-template-areas: "checkbox title value category date method action_buttons";
+          border-left: 8px solid transparent;
+
+          > td, th {
+            border: none;
+          }
+  
+          &.despesa {
+            border-left-color: #862323;
+          }
+    
+          &.receita {
+            border-left-color: #238635;
+          }
+        }
+      }
+    }
+  }
+
 }
