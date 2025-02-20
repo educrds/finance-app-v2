@@ -155,42 +155,18 @@
         align-items: center;
         border-radius: 6px;
 
-        #checkbox {
-          grid-area: checkbox;
-        }
-        
-        #title {
-          grid-area: title;
-        }
-        
-        #category {
-          grid-area: category;
-        }
-        
-        #parcela {
-          grid-area: parcela;
-        }
-        
-        #date {
-          grid-area: date;
-        }
-
-        #ellipsis {
+        #checkbox { grid-area: checkbox;}
+        #title { grid-area: title; }
+        #category { grid-area: category; }
+        #parcela { grid-area: parcela; }
+        #date { grid-area: date; }
+        #ellipsis { 
           grid-area: ellipsis;
           color: var(--bs-gray-500);
         }
-        
-        #method {
-          grid-area: method;
-        }
-        
-        #value {
-          grid-area: value;
-        }
-
-        #action_buttons {
-          grid-area: action_buttons;
-        }
+        #method { grid-area: method}
+        #value { grid-area: value}
+        #action_buttons { grid-area: action_buttons}
         
         > td, th {
           padding: 6px;
