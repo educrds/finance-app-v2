@@ -66,7 +66,7 @@ export class TransacoesService implements ITransacoesService {
    * @param trs_parcelado - Opcional. Indica se a transação é parcelada.
    * @returns Um Observable indicando o resultado da operação.
    */
-  public deletarTransacao$(id_transacao: number, trs_parcelado?: boolean): Observable<any> {
+  public deletarTransacao$(id_transacao: number | undefined, trs_parcelado?: boolean): Observable<any> {
     return this.#_http.post(`${this.#_api_url}transacao/deletar-transacao`, {
       data: {
         id_transacao: id_transacao,

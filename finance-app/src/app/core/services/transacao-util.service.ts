@@ -38,18 +38,18 @@ export class TransacaoUtilService {
     );
   }
 
-  public deletarTransacaoUtil(transacao: Transacao) {
+  public deletarTransacaoUtil(transacao: Transacao | null) {
     const confirmationMessage = "Deseja realmente excluir o registro? Esta ação é irreversível.";
     const successMessage = "Registro deletado com sucesso!";
     const errorMessage = "Ocorreu um erro ao deletar registro!";
 
-    if (transacao.trs_parcelado) {
+    if (transacao?.trs_parcelado) {
       // lida com a lógica de excluir TODOS ou apenas UM
       this.deletarTransacoesParceladas(transacao);
     } else {
       this.#_messagesService.confirm(confirmationMessage, "Confirmação", () => {
         // transformar em um metódo pq vai ser chamado em mais de um local
-        this.#_transacoesService.deletarTransacao$(transacao.trs_id).subscribe({
+        this.#_transacoesService.deletarTransacao$(transacao?.trs_id).subscribe({
           next: () => {
             this.#_messagesService.showSuccess(successMessage);
             this.#_notificationService.notifyChanges({ refresh: true });
@@ -132,8 +132,8 @@ export class TransacaoUtilService {
     });
   }
 
-  public editarTransacaoUtil(transacao: Transacao) {
-    const tipoTransacao = transacao.id_tipo_transacao === 1 ? "Receita" : "Despesa";
+  public editarTransacaoUtil(transacao: Transacao | null) {
+    const tipoTransacao = transacao?.id_tipo_transacao === 1 ? "Receita" : "Despesa";
 
     this.#_ref = this.#_dialogService.open(ModalTransacaoComponent, {
       modal: true,
