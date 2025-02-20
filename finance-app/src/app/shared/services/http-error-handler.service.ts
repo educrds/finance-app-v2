@@ -16,6 +16,7 @@ export class HttpErrorHandlerService {
   handleHttpError(error: HttpErrorResponse) {
     const errorActions: { [key:number]: () => void } = {
       401: () => this._handleUnauthorized(error),
+      403: () => this._handleUnauthorized(error),
       404: () => this._handleNotFound(),
       500: () => this._handleServerError()
     }

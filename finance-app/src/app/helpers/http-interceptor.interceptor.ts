@@ -41,7 +41,7 @@ export class ApiRequestInterceptor implements HttpInterceptor {
 
       return next
         .handle(req)
-        .pipe(retry(1), catchError((error: HttpErrorResponse) => this.#_httpErrorHandlerService.handleHttpError(error)));
+        .pipe(catchError((error: HttpErrorResponse) => this.#_httpErrorHandlerService.handleHttpError(error)));
     }
 
     

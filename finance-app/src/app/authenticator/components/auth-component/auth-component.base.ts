@@ -52,9 +52,7 @@ export abstract class AuthComponentBase {
           tap(res => this._storageService.saveUser(res.token)),
           tap(() => this.router.navigate(["/"]))
         )
-        .subscribe({
-          error: ({ message }) => this._messagesService.showError(message)
-        });
+        .subscribe();
     }
   }
 }
