@@ -43,7 +43,7 @@ export class ModalTransacaoComponent implements OnInit {
   protected metodosOptions$!: Observable<IDropdown[]>;
 
   protected isLoading: boolean = false;
-  protected tipoTransacao!: number;
+  protected tipoTransacao!: 1 | 2;
 
   private _fb = inject(FormBuilder);
   private _notificationService = inject(NotificationService);

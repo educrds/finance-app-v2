@@ -1,29 +1,27 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
-import { Observable, retry, shareReplay } from 'rxjs';
-import { environment } from '../../../environments/environment';
-import { IDropdown } from '../models/Dropdown';
-import { Categoria, Categorias } from '../models/Categorias';
-import { ICategoriasService } from '../interfaces/ICategoriasService';
+import { HttpClient } from "@angular/common/http";
+import { Injectable, inject } from "@angular/core";
+import { Observable } from "rxjs";
+import { environment } from "../../../environments/environment";
+import { IDropdown } from "../models/Dropdown";
+import { Categoria, Categorias } from "../models/Categorias";
+import { ICategoriasService } from "../interfaces/ICategoriasService";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class CategoriasService implements ICategoriasService {
-  #_api_url = environment.api_url;
-  #_http = inject(HttpClient)
+  private _api_url = environment.api_url;
+  private _http = inject(HttpClient);
 
   /**
    * Obtém uma lista de categorias formatadas para um dropdown baseado no ID do tipo de categoria.
    * @param cat_tip_id - O ID do tipo de categoria para filtrar as categorias.
    * @returns Um Observable contendo uma lista de objetos IDropdown.
    */
-  getCategoriasDropdown$(cat_tip_id: number): Observable<IDropdown[]> {
-    return this.#_http
-      .post<IDropdown[]>(`${this.#_api_url}categoria/listar-select-categorias`, {
-        data: { cat_tip_id },
-      })
-      .pipe(shareReplay(1));
+  getCategoriasDropdown$(cat_tip_id: 1 | 2): Observable<IDropdown[]> {
+    return this._http.post<IDropdown[]>(`${this._api_url}categoria/listar-select-categorias`, {
+      data: { cat_tip_id },
+    });
   }
 
   /**
@@ -31,9 +29,7 @@ export class CategoriasService implements ICategoriasService {
    * @returns Um Observable contendo uma lista de objetos Categorias.
    */
   getCategoriasByUser$(): Observable<Categorias[]> {
-    return this.#_http
-      .post<Categorias[]>(`${this.#_api_url}categoria/listar-categorias`, {})
-      .pipe(shareReplay(1));
+    return this._http.post<Categorias[]>(`${this._api_url}categoria/listar-categorias`, {});
   }
 
   /**
@@ -42,7 +38,7 @@ export class CategoriasService implements ICategoriasService {
    * @returns Um Observable contendo o objeto Categoria adicionado.
    */
   addCategoria$(form: Categoria): Observable<{ message: string }> {
-    return this.#_http.post<{ message: string }>(`${this.#_api_url}categoria/adicionar-categoria`, { data: form })
+    return this._http.post<{ message: string }>(`${this._api_url}categoria/adicionar-categoria`, { data: form });
   }
 
   /**
@@ -51,7 +47,7 @@ export class CategoriasService implements ICategoriasService {
    * @returns Um Observable contendo o objeto Categoria atualizado.
    */
   atualizarCategoria$(form: Categorias): Observable<{ message: string }> {
-    return this.#_http.post<{ message: string }>(`${this.#_api_url}categoria/atualizar-categoria`, { data: form })
+    return this._http.post<{ message: string }>(`${this._api_url}categoria/atualizar-categoria`, { data: form });
   }
 
   /**
@@ -60,6 +56,6 @@ export class CategoriasService implements ICategoriasService {
    * @returns Um Observable contendo o objeto Categoria deletado.
    */
   deletarCategoria$(form: Categorias | null): Observable<{ message: string }> {
-    return this.#_http.post<{ message: string }>(`${this.#_api_url}categoria/deletar-categoria`, { data: form })
+    return this._http.post<{ message: string }>(`${this._api_url}categoria/deletar-categoria`, { data: form });
   }
 }

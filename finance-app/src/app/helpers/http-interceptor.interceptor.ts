@@ -6,7 +6,7 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { catchError, retry, throwError } from 'rxjs';
+import { catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { StorageService } from '../core/services/storage.service';
 import { HttpErrorHandlerService } from '../shared/services/http-error-handler.service';
@@ -41,7 +41,7 @@ export class ApiRequestInterceptor implements HttpInterceptor {
 
       return next
         .handle(req)
-        .pipe(retry(1), catchError((error: HttpErrorResponse) => this.#_httpErrorHandlerService.handleHttpError(error)));
+        .pipe(catchError((error: HttpErrorResponse) => this.#_httpErrorHandlerService.handleHttpError(error)));
     }
 
     
@@ -53,7 +53,7 @@ export class ApiRequestInterceptor implements HttpInterceptor {
   }
 }
 
-export const httpInterceptorProvider = {
+export const HttpInterceptorProvider = {
   provide: HTTP_INTERCEPTORS,
   useClass: ApiRequestInterceptor,
   multi: true,

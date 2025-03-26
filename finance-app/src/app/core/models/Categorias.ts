@@ -8,7 +8,7 @@ export type Categorias = {
   cat_nome: string;
   cat_cor: string;
   usr_id: number | null;
-  cat_tip_nome: string;
+  cat_tip_nome: "Receita" | "Despesa";
 }
 
 export type Categoria = IDropdown & CategoriaCor;
