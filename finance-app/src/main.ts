@@ -1,6 +1,6 @@
 import { MessageService, ConfirmationService } from "primeng/api";
 import { DialogService } from "primeng/dynamicdialog";
-import { httpInterceptorProvider } from "./app/helpers/http-interceptor.interceptor";
+import { HttpInterceptorProvider } from "./app/helpers/http-interceptor.interceptor";
 import { provideHttpClient, withFetch, withInterceptorsFromDi } from "@angular/common/http";
 import { provideAnimations } from "@angular/platform-browser/animations";
 import { BrowserModule, bootstrapApplication } from "@angular/platform-browser";
@@ -65,7 +65,7 @@ bootstrapApplication(AppComponent, {
     MessageService,
     ConfirmationService,
     DialogService,
-    httpInterceptorProvider,
+    HttpInterceptorProvider,
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
     provideAnimations(),
   ],

@@ -29,10 +29,11 @@ describe(HttpErrorHandlerService.name, () => {
   });
 
   it(`${HttpErrorHandlerService.prototype.handleHttpError.name} deve lidar com erro 401 limpando o localStorage e redirecionando para tela de login`, () => {
-    const errorResponse: HttpErrorResponse = new HttpErrorResponse({ status: 401 });
+    const errorResponse: HttpErrorResponse = new HttpErrorResponse({ status: 401, error: { message: 'Erro customizado' }  });
 
     service.handleHttpError(errorResponse).subscribe({
       error: () => {
+        expect(messagesServiceSpy.showError).toHaveBeenCalledWith('Erro customizado');
         expect(storageServiceSpy.clean).toHaveBeenCalled();
         expect(routerSpy.navigate).toHaveBeenCalledWith(['/auth/login'])
       }
