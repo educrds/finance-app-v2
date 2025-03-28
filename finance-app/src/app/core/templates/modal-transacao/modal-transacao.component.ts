@@ -5,7 +5,7 @@ import { CategoriasService } from "../../services/categorias.service";
 import { IDropdown } from "../../models/Dropdown";
 import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
 import { Transacao, TransacaoForm } from "../../models/Transacao";
-import { MessagesService } from "../../services/messages.service";
+import { CustomMessageService } from "../../services/messages.service";
 import { NotificationService } from "../../services/notification.service";
 import { DatePickerService } from "../../services/date-picker.service";
 import { Observable, finalize } from "rxjs";
@@ -48,7 +48,7 @@ export class ModalTransacaoComponent implements OnInit {
   private _fb = inject(FormBuilder);
   private _notificationService = inject(NotificationService);
   private _transacoesService = inject(TransacoesService);
-  private _messagesService = inject(MessagesService);
+  private _messagesService = inject(CustomMessageService);
   private _categoriasService = inject(CategoriasService);
   private _ref = inject(DynamicDialogRef);
   private _config = inject(DynamicDialogConfig);

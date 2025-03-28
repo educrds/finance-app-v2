@@ -2,7 +2,7 @@ import { Injectable, inject } from "@angular/core";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 import { ModalTransacaoComponent } from "../templates/modal-transacao/modal-transacao.component";
 import { TransacoesSoma, TransacoesSomaKey } from "../models/TransacoesSoma";
-import { MessagesService } from "./messages.service";
+import { CustomMessageService } from "./messages.service";
 import { NotificationService } from "./notification.service";
 import { Transacao } from "../models/Transacao";
 import { ConfirmDialogService } from "../../shared/services/confirm-dialog.service";
@@ -21,7 +21,7 @@ export class TransacaoUtilService {
 
   #_transacoesService = inject(TransacoesService);
   #_notificationService = inject(NotificationService);
-  #_messagesService = inject(MessagesService);
+  #_messagesService = inject(CustomMessageService);
   #_dialogService = inject(DialogService);
   #_confirmDialogService = inject(ConfirmDialogService);
 

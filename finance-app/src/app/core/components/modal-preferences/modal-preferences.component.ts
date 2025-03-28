@@ -5,7 +5,7 @@ import { InputTextModule } from "primeng/inputtext";
 import { ToggleSwitch } from "primeng/toggleswitch";
 import { PreferencesService } from "../../services/preferences.service";
 import { DynamicDialogRef } from "primeng/dynamicdialog";
-import { MessagesService } from "../../services/messages.service";
+import { CustomMessageService } from "../../services/messages.service";
 import { NotificationService } from "../../services/notification.service";
 import { Observable } from "rxjs";
 import { PREFERENCES_TOKEN } from "../../../../main";
@@ -24,7 +24,7 @@ export class ModalPreferencesComponent implements OnInit {
   private _ref = inject(DynamicDialogRef);
   private _fb = inject(FormBuilder);
   private _preferencesService = inject(PreferencesService);
-  private _messagesService = inject(MessagesService);
+  private _messagesService = inject(CustomMessageService);
   private _notificationService = inject(NotificationService);
 
   constructor(@Inject(PREFERENCES_TOKEN) public chartsPreference$: Observable<Preference>){

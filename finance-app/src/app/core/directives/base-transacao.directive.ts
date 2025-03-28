@@ -6,7 +6,7 @@ import { NotificationService } from '../services/notification.service';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { DatePickerService } from '../services/date-picker.service';
 import { TransacoesService } from '../services/transacoes.service';
-import { MessagesService } from '../services/messages.service';
+import { CustomMessageService } from '../services/messages.service';
 import { Preference } from '../models/Preference';
 import { PREFERENCES_TOKEN } from '../../../main';
 
@@ -24,7 +24,7 @@ export class BaseTransacaoDirective implements OnInit, OnDestroy {
   protected _notificationService = inject(NotificationService);
   protected _transacaoUtilService = inject(TransacaoUtilService);
   protected _transacoesService = inject(TransacoesService);
-  protected _messagesService = inject(MessagesService);
+  protected _messagesService = inject(CustomMessageService);
   protected _datePickerService = inject(DatePickerService);
 
   constructor(@Inject(PREFERENCES_TOKEN) public chartsPreference$: Observable<Preference>){}

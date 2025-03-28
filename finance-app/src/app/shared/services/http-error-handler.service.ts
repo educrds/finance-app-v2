@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { throwError } from 'rxjs';
-import { MessagesService } from '../../core/services/messages.service';
+import { CustomMessageService } from '../../core/services/messages.service';
 import { StorageService } from '../../core/services/storage.service';
 
 @Injectable({
@@ -10,7 +10,7 @@ import { StorageService } from '../../core/services/storage.service';
 })
 export class HttpErrorHandlerService {
   #_router = inject(Router);
-  #_messagesService= inject(MessagesService);
+  #_messagesService= inject(CustomMessageService);
   #_storageService= inject(StorageService);
 
   handleHttpError(error: HttpErrorResponse) {

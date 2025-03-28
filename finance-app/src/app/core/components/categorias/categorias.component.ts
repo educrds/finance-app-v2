@@ -10,7 +10,7 @@ import { Button } from "primeng/button";
 import { AsyncPipe } from "@angular/common";
 import { Menu } from "primeng/menu";
 import { MenuItem } from "primeng/api";
-import { MessagesService } from "../../services/messages.service";
+import { CustomMessageService } from "../../services/messages.service";
 
 @Component({
   selector: "coinz-categorias",
@@ -36,7 +36,7 @@ export class CategoriasComponent implements OnInit {
     contentStyle: { overflow: "auto" },
   };
 
-  private _messagesService = inject(MessagesService);
+  private _messagesService = inject(CustomMessageService);
   private _dialogService = inject(DialogService);
   private _categoriasService = inject(CategoriasService);
 

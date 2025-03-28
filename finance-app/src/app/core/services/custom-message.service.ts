@@ -4,7 +4,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 @Injectable({
   providedIn: 'root',
 })
-export class MessagesService {
+export class CustomMessageService {
   private _confirmationService = inject(ConfirmationService);
   private _messageService = inject(MessageService);
 
