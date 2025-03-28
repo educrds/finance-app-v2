@@ -18,7 +18,7 @@ export class DatePickerService {
     if (date) this.datePicker.next(date);
   }
   
-  private getCurrentMonthFormatted() {
+  public getCurrentMonthFormatted(): Date {
     const date = new Date();
     return new Date(date.getFullYear(), date.getMonth(), 1);
   }
