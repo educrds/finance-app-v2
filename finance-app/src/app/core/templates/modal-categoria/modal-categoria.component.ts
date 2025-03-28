@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
 import { Categoria, Categorias } from "../../models/Categorias";
 import { IDropdown } from "../../models/Dropdown";
-import { MessagesService } from "../../services/messages.service";
+import { CustomMessageService } from "../../services/custom-message.service";
 import { NotificationService } from "../../services/notification.service";
 import { finalize } from "rxjs";
 import { ColumnComponent } from "../../../shared/components/column/column.component";
@@ -40,7 +40,7 @@ export class ModalCategoriaComponent implements OnInit {
   private _fb = inject(FormBuilder);
   private _ref = inject(DynamicDialogRef);
   private _categoriaService = inject(CategoriasService);
-  private _messagesService = inject(MessagesService);
+  private _messagesService = inject(CustomMessageService);
   private _notificationService = inject(NotificationService);
   private _config = inject(DynamicDialogConfig);
 

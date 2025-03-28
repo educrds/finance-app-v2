@@ -11,7 +11,7 @@ describe(ConfirmDialogService.name, () => {
     service = TestBed.inject(ConfirmDialogService);
   })
 
-  it(`Deve emitir o valor correto quando chamado método 
+  it(`✅Deve emitir o valor correto quando chamado método 
     ${ConfirmDialogService.prototype.accept.name} no Subject configSource`, (done) => {
     const expectedValue = { accept: true };
 
@@ -23,7 +23,7 @@ describe(ConfirmDialogService.name, () => {
     service.accept();
   })
 
-  it(`Deve no emitir o valor correto quando chamado método 
+  it(`✅Deve no emitir o valor correto quando chamado método 
     ${ConfirmDialogService.prototype.reject.name} no Subject configSource`, (done) => {
     const expectedValue = { reject: true };
 

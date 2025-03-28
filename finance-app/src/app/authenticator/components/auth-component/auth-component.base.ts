@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { tap } from "rxjs";
 import { StorageService } from "../../../core/services/storage.service";
 import { AuthService } from "../../services/auth.service";
-import { MessagesService } from "../../../core/services/messages.service";
+import { CustomMessageService } from "../../../core/services/custom-message.service";
 
 @Injectable()
 export abstract class AuthComponentBase {
@@ -14,7 +14,7 @@ export abstract class AuthComponentBase {
   private _fb = inject(FormBuilder);
   private _authService = inject(AuthService);
   private _storageService = inject(StorageService);
-  private _messagesService = inject(MessagesService);
+  private _messagesService = inject(CustomMessageService);
 
   protected abstract get authType(): "register" | "login";
 

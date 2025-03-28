@@ -1,6 +1,6 @@
 import { TestBed } from "@angular/core/testing";
 import { HttpErrorHandlerService } from "./http-error-handler.service";
-import { MessagesService } from "../../core/services/messages.service";
+import { CustomMessageService } from "../../core/services/custom-message.service";
 import { StorageService } from "../../core/services/storage.service";
 import { Router } from "@angular/router";
 import { HttpErrorResponse } from "@angular/common/http";
@@ -9,7 +9,7 @@ describe(HttpErrorHandlerService.name, () => {
   let service: HttpErrorHandlerService;
 
   let routerSpy: jasmine.SpyObj<Router>;
-  let messagesServiceSpy: jasmine.SpyObj<MessagesService>;
+  let messagesServiceSpy: jasmine.SpyObj<CustomMessageService>;
   let storageServiceSpy: jasmine.SpyObj<StorageService>;
 
   beforeEach(() => {
@@ -21,7 +21,7 @@ describe(HttpErrorHandlerService.name, () => {
       providers: [
         HttpErrorHandlerService,
         { provide: Router, useValue: routerSpy },
-        { provide: MessagesService, useValue: messagesServiceSpy },
+        { provide: CustomMessageService, useValue: messagesServiceSpy },
         { provide: StorageService, useValue: storageServiceSpy },
       ],
     });
